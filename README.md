@@ -1,2 +1,2 @@
 # webvirtcloudfrontend
-Backend for WebVirtCloud project
+Frontend of WebVirtCloud on React 18
