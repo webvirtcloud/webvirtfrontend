@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { SignIn, SignUp } from './pages/Auth';
-import { DefaultLayout } from 'components/layouts';
+import { DefaultLayout } from './layouts';
 
 const App = (): JSX.Element => {
   return (

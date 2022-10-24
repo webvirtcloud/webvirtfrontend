@@ -5,7 +5,7 @@ export default () => {
   const isAuthenticated = !!window.localStorage.getItem('token');
 
   if (pathname === '/sign-in' || pathname === '/sign-up') {
-    return (<Outlet />);
+    return (isAuthenticated ? <Navigate to="/" replace /> : <Outlet />);
   }
 
   return (
