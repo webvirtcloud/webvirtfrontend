@@ -1,16 +1,25 @@
-import { forwardRef, ComponentProps } from "react";
+import { forwardRef, ReactNode } from 'react';
+import tw from 'twin.macro';
 
-import styles from "./button.module.css";
+interface Props {
+  type?: 'submit' | 'button';
+  children: ReactNode;
+}
 
-const Button = forwardRef<
-  HTMLButtonElement,
-  Omit<ComponentProps<"button">, "className">
->(({ children, ...rest }, ref) => {
-  return (
-    <button ref={ref} className={styles.button} {...rest}>
-      {children}
-    </button>
-  );
-});
+// eslint-disable-next-line react/display-name
+const Button = forwardRef<HTMLButtonElement, Props>(
+  ({ children, type = 'button', ...rest }, ref): JSX.Element => {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        css={tw`h-12 text-sm font-bold bg-cyan-500 hover:bg-cyan-700 transition-colors rounded-xl px-4`}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  },
+);
 
 export default Button;

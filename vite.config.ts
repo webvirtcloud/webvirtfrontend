@@ -1,24 +1,34 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
-import react from "@vitejs/plugin-react";
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
-export default defineConfig((configEnv) => {
-  const isDevelopment = configEnv.mode === "development";
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === 'development';
 
   return {
-    plugins: [react()],
+    optimizeDeps: {
+      esbuildOptions: {
+        target: 'es2020',
+      },
+    },
+    plugins: [
+      react({
+        babel: { plugins: ['babel-plugin-macros', 'babel-plugin-styled-components'] },
+      }),
+    ],
     resolve: {
       alias: {
-        app: resolve(__dirname, "src", "app"),
-        components: resolve(__dirname, "src", "components"),
-        hooks: resolve(__dirname, "src", "hooks"),
+        app: resolve(__dirname, 'src', 'app'),
+        assets: resolve(__dirname, 'src', 'assets'),
+        components: resolve(__dirname, 'src', 'components'),
+        hooks: resolve(__dirname, 'src', 'hooks'),
       },
     },
     css: {
       modules: {
         generateScopedName: isDevelopment
-          ? "[name]__[local]__[hash:base64:5]"
-          : "[hash:base64:5]",
+          ? '[name]__[local]__[hash:base64:5]'
+          : '[hash:base64:5]',
       },
     },
   };

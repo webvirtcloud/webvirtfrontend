@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg-body: #111;
+    --color-bg-sidebar: #222;
+    --color-bg-control-default: #222;
+
+    --color-text-body: #fff;
+  }
+  html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply text-sm bg-body text-body;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 600;
+
+  }
+}
