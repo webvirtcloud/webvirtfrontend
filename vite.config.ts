@@ -18,10 +18,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        app: resolve(__dirname, 'src', 'app'),
-        assets: resolve(__dirname, 'src', 'assets'),
-        components: resolve(__dirname, 'src', 'components'),
-        hooks: resolve(__dirname, 'src', 'hooks'),
+        '@': resolve(__dirname, 'src'),
       },
     },
     css: {
