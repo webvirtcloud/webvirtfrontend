@@ -1,8 +1,10 @@
-import Button from 'components/Button';
-import Input from 'components/Input';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
+
+import { signUp } from '@/api/account';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
 
 interface IFormInputs {
   email: string;
@@ -17,21 +19,13 @@ const SignUp = (): JSX.Element => {
   } = useForm<IFormInputs>();
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    fetch('http://localhost:8000/account/register/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        window.localStorage.setItem('token', response.token);
+  const onSubmit = async (data: IFormInputs) => {
+    try {
+      const response = await signUp(data);
+      window.localStorage.setItem('token', response);
 
-        navigate('/');
-      });
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
@@ -42,7 +36,7 @@ const SignUp = (): JSX.Element => {
           name="email"
           label="Email"
           type="email"
-          placeholder="Your username"
+          placeholder="account@gmail.com"
           {...register('email', { required: 'Email is required.' })}
         />
         {errors.password && (

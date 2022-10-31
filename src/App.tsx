@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { DefaultLayout } from './layouts';
-import AuthLayout from './layouts/Auth';
-import { ResetPassword, SignIn, SignUp } from './pages/Auth';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
+import { AuthLayout, DefaultLayout } from '@/layouts';
+import { ResetPassword, SignIn, SignUp } from '@/pages/Auth';
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
 
 const App = (): JSX.Element => {
   return (

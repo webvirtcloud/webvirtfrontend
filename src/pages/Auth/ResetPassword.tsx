@@ -1,22 +1,22 @@
-import Button from 'components/Button';
-import Input from 'components/Input';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
+import { resetPassword } from '@/api/account';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
+
 const ResetPassword = (): JSX.Element => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    fetch('http://localhost:8000/account/new-password/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      resetPassword(data);
+    } catch (error) {}
   };
 
   return (
@@ -31,7 +31,9 @@ const ResetPassword = (): JSX.Element => {
           placeholder="Enter new secure password"
           {...register('password')}
         />
-        <Button css={tw`w-full`}>Change password</Button>
+        <Button css={tw`w-full`} loading={isSubmitting}>
+          Change password
+        </Button>
       </form>
       <p css={tw`text-center mt-4`}>
         Or try to{' '}

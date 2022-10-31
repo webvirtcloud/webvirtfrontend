@@ -1,6 +1,7 @@
-import Sidebar from 'components/Sidebar';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import tw from 'twin.macro';
+
+import Sidebar from '@/components/Sidebar';
 
 const DefaultLayout = (): JSX.Element => {
   const { pathname } = useLocation();

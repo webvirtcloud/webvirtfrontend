@@ -1,8 +1,10 @@
-import Button from 'components/Button';
-import Input from 'components/Input';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
+
+import { signIn } from '@/api/account';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
 
 interface IFormInputs {
   email: string;
@@ -13,25 +15,18 @@ const SignIn = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInputs>();
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    fetch('http://localhost:8000/account/login/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        window.localStorage.setItem('token', response.token);
+  const onSubmit = async (data: IFormInputs) => {
+    try {
+      const response = await signIn(data);
 
-        navigate('/');
-      });
+      window.localStorage.setItem('token', response.token);
+
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
@@ -73,7 +68,7 @@ const SignIn = (): JSX.Element => {
             Reset password
           </Link>
         </div>
-        <Button type="submit" css={tw`w-full`}>
+        <Button type="submit" css={tw`w-full`} loading={isSubmitting}>
           Sign In
         </Button>
       </form>
