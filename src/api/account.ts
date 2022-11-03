@@ -5,6 +5,16 @@ type CredentialsPayload = {
   password: string;
 };
 
+export type Profile = {
+  email: string;
+  first_name: string;
+  last_name: string;
+};
+
+export const getProfile = (): Promise<Profile> => {
+  return request.get('account/profile').json();
+};
+
 export const signIn = (payload: CredentialsPayload): Promise<{ token: string }> => {
   return request.post('account/login', { json: payload }).json();
 };

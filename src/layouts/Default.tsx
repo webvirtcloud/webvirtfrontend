@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import tw from 'twin.macro';
 
+import { getProfile } from '@/api/account';
 import Sidebar from '@/components/Sidebar';
 
 const DefaultLayout = (): JSX.Element => {
@@ -14,6 +16,14 @@ const DefaultLayout = (): JSX.Element => {
   ) {
     return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
   }
+
+  useEffect(() => {
+    const fetch = async () => {
+      const profile = await getProfile();
+    };
+
+    fetch().catch(console.error);
+  }, []);
 
   return isAuthenticated ? (
     <main css={tw`min-h-screen flex`}>
