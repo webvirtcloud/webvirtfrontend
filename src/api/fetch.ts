@@ -10,8 +10,6 @@ const request = ky.create({
       (request) => {
         const token = window.localStorage.getItem('token');
 
-        console.log(token);
-
         if (token) {
           request.headers.set('Authorization', `Token ${token}`);
         }
