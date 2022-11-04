@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import tw, { css } from 'twin.macro';
 
 import { ServerList, Settings } from '@/components/Icons';
@@ -21,17 +21,37 @@ const Sidebar = (): JSX.Element => {
         </Link>
 
         <ul css={tw`space-y-4`}>
-          <li css={tw`opacity-50 hover:opacity-100`}>
-            <Link to="/" css={tw`inline-flex items-center space-x-3`}>
-              <ServerList />
-              <span>Servers</span>
-            </Link>
+          <li>
+            <NavLink to="/servers">
+              {({ isActive }) => (
+                <span
+                  css={[
+                    tw`inline-flex items-center space-x-3`,
+                    !isActive && tw`opacity-50 hover:opacity-100`,
+                  ]}
+                >
+                  {isActive}
+                  <ServerList />
+                  <span>Servers</span>
+                </span>
+              )}
+            </NavLink>
           </li>
-          <li css={tw`opacity-50 hover:opacity-100`}>
-            <Link to="/settings" css={tw`inline-flex items-center space-x-3`}>
-              <Settings />
-              <span>Settings</span>
-            </Link>
+          <li>
+            <NavLink to="/settings">
+              {({ isActive }) => (
+                <span
+                  css={[
+                    tw`inline-flex items-center space-x-3`,
+                    !isActive && tw`opacity-50 hover:opacity-100`,
+                  ]}
+                >
+                  {isActive}
+                  <Settings />
+                  <span>Settings</span>
+                </span>
+              )}
+            </NavLink>
           </li>
         </ul>
       </div>

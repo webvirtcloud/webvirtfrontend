@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { getServers, Server } from '@/api/servers';
 import { ServersList } from '@/components/ServersList';
 
-const Home = (): JSX.Element => {
+const Servers = (): JSX.Element => {
   const [servers, setServers] = useState<Server[]>();
 
   const fetchServers = async () => {
@@ -25,4 +25,4 @@ const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default Servers;

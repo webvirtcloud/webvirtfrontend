@@ -14,12 +14,12 @@ const ServersList = ({ servers }: Props): JSX.Element => {
     <section>
       <h2 css={tw`text-xl font-bold mb-8`}>Servers List</h2>
 
-      {servers && (
+      {servers ? (
         <ul css={tw`grid grid-cols-3 gap-4`}>
           {servers.map((server) => (
             <li key={server.uuid}>
               <Link
-                to="/"
+                to={`/servers/${server.uuid}`}
                 css={tw`min-h-[140px] flex flex-col justify-between bg-white/5 rounded-lg hover:ring-1 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all p-4`}
               >
                 <div>
@@ -37,6 +37,8 @@ const ServersList = ({ servers }: Props): JSX.Element => {
             </li>
           ))}
         </ul>
+      ) : (
+        <div>Loading...</div>
       )}
     </section>
   );
