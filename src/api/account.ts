@@ -11,7 +11,7 @@ export type Profile = {
   last_name: string;
 };
 
-export const getProfile = (): Promise<Profile> => {
+export const getProfile = (): Promise<{ profile: Profile }> => {
   return request.get('account/profile').json();
 };
 
