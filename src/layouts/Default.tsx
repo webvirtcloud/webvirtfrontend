@@ -19,7 +19,7 @@ const DefaultLayout = (): JSX.Element => {
 
   useEffect(() => {
     const fetch = async () => {
-      const profile = await getProfile();
+      const response = await getProfile();
     };
 
     fetch().catch(console.error);
