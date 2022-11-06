@@ -28,7 +28,7 @@ const DefaultLayout = (): JSX.Element => {
   return isAuthenticated ? (
     <main css={tw`min-h-screen flex`}>
       <Sidebar />
-      <div css={tw`flex-1 p-8`}>
+      <div css={tw`flex-1 p-8 pl-64`}>
         <Outlet />
       </div>
     </main>

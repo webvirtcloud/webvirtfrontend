@@ -15,14 +15,14 @@ const App = (): JSX.Element => {
         <Route element={<ServerLayout />}>
           <Route path="/servers/:uuid" element={<Server />} />
         </Route>
-        <Route element={<AuthLayout />}>
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-        </Route>
         <Route path="/settings" element={<Settings />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route element={<AuthLayout />}>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

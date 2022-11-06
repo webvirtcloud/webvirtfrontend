@@ -10,7 +10,9 @@ const bg = css`
 
 const Sidebar = (): JSX.Element => {
   return (
-    <aside css={[bg, tw`w-56 flex flex-col justify-between p-4`]}>
+    <aside
+      css={[bg, tw`fixed top-0 left-0 bottom-0 w-56 flex flex-col justify-between p-4`]}
+    >
       <div>
         <Link css={tw`inline-flex items-center justify-center space-x-4`} to="/">
           <img
