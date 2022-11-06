@@ -17,8 +17,12 @@ export type ChangePasswordPayload = {
   new_password_confirm: string;
 };
 
-export const getProfile = (): Promise<Profile> => {
+export const getProfile = (): Promise<{ profile: Profile }> => {
   return request.get('account/profile').json();
+};
+
+export const updateProfile = (payload: Profile): Promise<{ profile: Profile }> => {
+  return request.put('account/profile', { json: payload }).json();
 };
 
 export const signIn = (payload: CredentialsPayload): Promise<{ token: string }> => {

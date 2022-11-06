@@ -1,11 +1,14 @@
+import { Provider, useAtom, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { getProfile } from '@/api/account';
 import Sidebar from '@/components/Sidebar';
+import { store } from '@/store/profile';
 
 const DefaultLayout = (): JSX.Element => {
+  const setProfile = useSetAtom(store);
   const { pathname } = useLocation();
   const isAuthenticated = !!window.localStorage.getItem('token');
 
@@ -20,6 +23,8 @@ const DefaultLayout = (): JSX.Element => {
   useEffect(() => {
     const fetch = async () => {
       const response = await getProfile();
+
+      setProfile(response.profile);
     };
 
     fetch().catch(console.error);

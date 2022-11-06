@@ -1,14 +1,19 @@
+import { useAtom, useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import tw, { css } from 'twin.macro';
 
 import { ServerList, Settings } from '@/components/Icons';
 import Switcher from '@/components/Switcher';
+import { store } from '@/store/profile';
 
 const bg = css`
   background-color: var(--color-bg-sidebar);
 `;
 
 const Sidebar = (): JSX.Element => {
+  const [profile] = useAtom(store);
+
   return (
     <aside
       css={[bg, tw`fixed top-0 left-0 bottom-0 w-56 flex flex-col justify-between p-4`]}
@@ -57,7 +62,7 @@ const Sidebar = (): JSX.Element => {
           </li>
         </ul>
       </div>
-      <Switcher />
+      <Switcher profile={profile} />
     </aside>
   );
 };
