@@ -1,14 +1,14 @@
-import { Provider, useAtom, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { getProfile } from '@/api/account';
 import Sidebar from '@/components/Sidebar';
-import { store } from '@/store/profile';
+import { useProfileStore } from '@/store/profile';
 
 const DefaultLayout = (): JSX.Element => {
-  const setProfile = useSetAtom(store);
+  const setProfile = useSetAtom(useProfileStore);
   const { pathname } = useLocation();
   const isAuthenticated = !!window.localStorage.getItem('token');
 

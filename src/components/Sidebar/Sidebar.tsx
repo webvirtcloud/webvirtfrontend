@@ -1,18 +1,17 @@
-import { useAtom, useAtomValue } from 'jotai';
-import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 import { Link, NavLink } from 'react-router-dom';
 import tw, { css } from 'twin.macro';
 
 import { ServerList, Settings } from '@/components/Icons';
 import Switcher from '@/components/Switcher';
-import { store } from '@/store/profile';
+import { useProfileStore } from '@/store/profile';
 
 const bg = css`
   background-color: var(--color-bg-sidebar);
 `;
 
 const Sidebar = (): JSX.Element => {
-  const [profile] = useAtom(store);
+  const [profile] = useAtom(useProfileStore);
 
   return (
     <aside

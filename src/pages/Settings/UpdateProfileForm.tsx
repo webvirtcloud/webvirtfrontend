@@ -6,10 +6,10 @@ import tw from 'twin.macro';
 import { Profile, updateProfile } from '@/api/account';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import { store } from '@/store/profile';
+import { useProfileStore } from '@/store/profile';
 
 const UpdateProfileForm = (): JSX.Element => {
-  const [profile] = useAtom(store);
+  const [profile] = useAtom(useProfileStore);
 
   const {
     register,
