@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Profile } from '@/api/account';
 import { ArrowDown, Logout, Settings } from '@/components/Icons';
+import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 
 const Switcher = ({ profile }: { profile: Profile }): JSX.Element => {
+  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,8 +24,10 @@ const Switcher = ({ profile }: { profile: Profile }): JSX.Element => {
     }
   }, [location]);
 
+  useOnClickOutside(ref, () => toggle(false));
+
   return (
-    <div css={tw`relative`}>
+    <div css={tw`relative`} ref={ref}>
       <button
         onClick={() => toggle(!isOpen)}
         type="button"
