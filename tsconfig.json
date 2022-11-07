@@ -16,6 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "strictNullChecks": true,
     "paths": {
       "@/*": ["src/*"],
     }
