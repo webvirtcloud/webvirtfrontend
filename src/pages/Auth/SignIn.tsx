@@ -15,8 +15,8 @@ const SignIn = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<IFormInputs>();
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<IFormInputs>({ mode: 'onChange' });
 
   const navigate = useNavigate();
 
@@ -35,19 +35,23 @@ const SignIn = (): JSX.Element => {
       <h1 css={tw`text-center font-bold text-2xl mb-4`}>Sign in to your account</h1>
       <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
         <Input
-          name="email"
           label="Email"
           type="email"
           placeholder="Ex. account@gmail.com"
-          {...register('email', { required: 'Email is required.' })}
+          {...register('email', {
+            required: 'Email is required.',
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          })}
         />
-        {errors.password && (
+        {errors.email && (
           <p css={tw`text-red-500`} role="alert">
             {errors.email?.message}
           </p>
         )}
         <Input
-          name="password"
           label="Password"
           type="password"
           placeholder="Your password"
@@ -69,7 +73,7 @@ const SignIn = (): JSX.Element => {
             Reset password
           </Link>
         </div>
-        <Button type="submit" css={tw`w-full`} loading={isSubmitting}>
+        <Button type="submit" css={tw`w-full`} loading={isSubmitting} disabled={!isValid}>
           Sign In
         </Button>
       </form>

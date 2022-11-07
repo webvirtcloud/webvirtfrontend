@@ -10,8 +10,8 @@ const ResetPassword = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    formState: { isSubmitting, isValid, errors },
+  } = useForm<{ password: string }>({ mode: 'onChange' });
 
   const onSubmit = (data) => {
     try {
@@ -24,14 +24,20 @@ const ResetPassword = (): JSX.Element => {
       <h1 css={tw`text-center font-bold text-2xl mb-4`}>Reset password</h1>
       <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
         <Input
-          name="password"
           label="New Password"
           type="password"
-          required={true}
           placeholder="Enter new secure password"
-          {...register('password')}
+          {...register('password', {
+            minLength: { value: 6, message: 'Password should be at least 6 characters.' },
+            required: 'Password is required.',
+          })}
         />
-        <Button css={tw`w-full`} loading={isSubmitting}>
+        {errors.password && (
+          <p css={tw`text-red-500`} role="alert">
+            {errors.password?.message}
+          </p>
+        )}
+        <Button css={tw`w-full`} loading={isSubmitting} disabled={!isValid}>
           Change password
         </Button>
       </form>
