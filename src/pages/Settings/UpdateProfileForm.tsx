@@ -18,20 +18,22 @@ const UpdateProfileForm = (): JSX.Element => {
     setValue,
   } = useForm<Profile>();
 
+  const setDefaultValues = (profile: Profile) => {
+    setValue('email', profile.email);
+    setValue('first_name', profile.first_name);
+    setValue('last_name', profile.last_name);
+  };
+
   const onSubmit = async (data: Profile) => {
     try {
       const response = await updateProfile(data);
 
-      setValue('email', response.profile.email);
-      setValue('first_name', response.profile.first_name);
-      setValue('last_name', response.profile.last_name);
+      setDefaultValues(response.profile);
     } catch (error) {}
   };
 
   useEffect(() => {
-    profile && setValue('email', profile.email);
-    profile && setValue('first_name', profile.first_name);
-    profile && setValue('last_name', profile.last_name);
+    profile && setDefaultValues(profile);
   }, [profile]);
 
   return (
