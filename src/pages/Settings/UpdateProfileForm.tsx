@@ -15,14 +15,17 @@ const UpdateProfileForm = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isValid },
     setValue,
-  } = useForm<Profile>();
+    trigger,
+    formState: { isSubmitting, isValid },
+  } = useForm<Profile>({ mode: 'onChange' });
 
   const setDefaultValues = (profile: Profile) => {
     setValue('email', profile.email);
     setValue('first_name', profile.first_name);
     setValue('last_name', profile.last_name);
+
+    trigger(['email', 'first_name', 'last_name']);
   };
 
   const onSubmit = async (data: Profile) => {
