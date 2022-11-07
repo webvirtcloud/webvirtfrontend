@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import { Profile, updateProfile } from '@/api/account';
+import type { Profile } from '@/api/account';
+import { updateProfile } from '@/api/account';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { useProfileStore } from '@/store/profile';
@@ -14,7 +15,7 @@ const UpdateProfileForm = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
     setValue,
   } = useForm<Profile>();
 
@@ -40,10 +41,18 @@ const UpdateProfileForm = (): JSX.Element => {
     <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
       <Input {...register('email')} readonly placeholder="Your email" label="Email" />
       <div css={tw`grid grid-cols-2 gap-4`}>
-        <Input {...register('first_name')} placeholder="John" label="First name" />
-        <Input {...register('last_name')} placeholder="Doe" label="Last name" />
+        <Input
+          {...register('first_name', { required: true })}
+          placeholder="John"
+          label="First name"
+        />
+        <Input
+          {...register('last_name', { required: true })}
+          placeholder="Doe"
+          label="Last name"
+        />
       </div>
-      <Button loading={isSubmitting} css={tw`w-full`} type="submit">
+      <Button loading={isSubmitting} disabled={!isValid} css={tw`w-full`} type="submit">
         Update profile
       </Button>
     </form>
