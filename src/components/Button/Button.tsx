@@ -16,9 +16,15 @@ const Button = forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         type={type}
         disabled={disabled || loading}
-        css={tw`h-12 text-sm font-bold bg-cyan-500 hover:bg-cyan-700 transition-colors rounded-xl px-4`}
+        css={[
+          tw`h-12 text-sm font-bold transition-colors rounded-xl px-4`,
+          disabled || loading
+            ? tw`cursor-not-allowed bg-white/10`
+            : tw`bg-cyan-500 hover:bg-cyan-700`,
+        ]}
         {...rest}
       >
+        {disabled}
         {loading ? <span>Loading...</span> : children}
       </button>
     );
