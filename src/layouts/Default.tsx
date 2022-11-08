@@ -1,4 +1,4 @@
-import { useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
@@ -6,6 +6,7 @@ import tw from 'twin.macro';
 import { getProfile } from '@/api/account';
 import { getProjects } from '@/api/projects';
 import Sidebar from '@/components/Sidebar';
+import { PROJECT_UUID_LOCALSTORAGE_KEY } from '@/constants';
 import { useProfileStore } from '@/store/profile';
 import { useProjectStore } from '@/store/project';
 import { useProjectsStore } from '@/store/projects';
@@ -13,7 +14,7 @@ import { useProjectsStore } from '@/store/projects';
 const DefaultLayout = (): JSX.Element => {
   const setProfile = useSetAtom(useProfileStore);
   const setProjects = useSetAtom(useProjectsStore);
-  const setProject = useSetAtom(useProjectStore);
+  const [project, setProject] = useAtom(useProjectStore);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isAuthenticated = !!window.localStorage.getItem('token');
@@ -35,7 +36,13 @@ const DefaultLayout = (): JSX.Element => {
 
     const { projects } = await getProjects();
 
-    const project = projects.find((item) => item.is_default);
+    const projectUuidFromLocalStorage = window.localStorage.getItem(
+      PROJECT_UUID_LOCALSTORAGE_KEY,
+    );
+
+    const project = projectUuidFromLocalStorage
+      ? projects.find((item) => item.uuid === projectUuidFromLocalStorage)
+      : projects.find((item) => item.is_default);
 
     setProjects(projects);
     setProject(project);
@@ -53,6 +60,12 @@ const DefaultLayout = (): JSX.Element => {
       fetch().catch(console.error);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (project) {
+      window.localStorage.setItem(PROJECT_UUID_LOCALSTORAGE_KEY, project.uuid);
+    }
+  }, [project]);
 
   return isAuthenticated ? (
     <main css={tw`min-h-screen flex`}>
