@@ -2,6 +2,7 @@ import request from './fetch';
 
 export type Project = {
   uuid: string;
+  color_hex: string;
   name: string;
   is_default: boolean;
   members: string[];
@@ -9,19 +10,22 @@ export type Project = {
 
 const projects: Project[] = [
   {
-    uuid: '98dfg0284ut90udgf89dfg',
+    uuid: '111-aaa-222-bbb',
+    color_hex: '#89f',
     name: 'Basic',
     is_default: true,
     members: [],
   },
   {
-    uuid: '9dfg9dg9d90fg0fdg9d0fg',
+    uuid: '333-ccc-444-ddd',
+    color_hex: '#738',
     name: 'Frontend',
     is_default: false,
     members: [],
   },
   {
-    uuid: 'fdg8d9fg89d8fg9dfgdfg9',
+    uuid: '555-eee-666-fff',
+    color_hex: '#45d',
     name: 'Backend',
     is_default: false,
     members: [],

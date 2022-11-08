@@ -15,11 +15,12 @@ export type Server = {
   status: 'active' | 'inactive';
   created_at: string;
   tags: string[];
+  project_uuid: string;
 };
 
 const servers: Server[] = [
   {
-    uuid: '98dfg0284ut90udgf',
+    uuid: '111111111',
     name: 'ubuntu-18.04',
     size: {
       name: '1gb-1vpcu-32gb',
@@ -31,9 +32,10 @@ const servers: Server[] = [
     status: 'active',
     created_at: '2022-10-06T05:44:51.334101Z',
     tags: [],
+    project_uuid: '111-aaa-222-bbb',
   },
   {
-    uuid: '89078924y79ghf',
+    uuid: '222222222',
     name: 'ubuntu-18.04',
     size: {
       name: '1gb-1vpcu-32gb',
@@ -45,10 +47,11 @@ const servers: Server[] = [
     status: 'inactive',
     created_at: '2022-10-06T05:44:51.334101Z',
     tags: ['ubuntu'],
+    project_uuid: '111-aaa-222-bbb',
   },
   {
-    uuid: '9dfyg6df79gy9dfgd',
-    name: 'ubuntu-18.04',
+    uuid: '3333333333',
+    name: 'Fedora-32.02',
     size: {
       name: '1gb-1vpcu-32gb',
       memory: 1,
@@ -59,10 +62,11 @@ const servers: Server[] = [
     status: 'active',
     created_at: '2022-10-06T05:44:51.334101Z',
     tags: [],
+    project_uuid: '333-ccc-444-ddd',
   },
   {
-    uuid: '98dfyg9dfg8dfug9dfg',
-    name: 'ubuntu-18.04',
+    uuid: '4444444444',
+    name: 'Fedora-32.02',
     size: {
       name: '1gb-1vpcu-32gb',
       memory: 1,
@@ -73,26 +77,36 @@ const servers: Server[] = [
     status: 'active',
     created_at: '2022-10-06T05:44:51.334101Z',
     tags: ['ubuntu'],
+    project_uuid: '333-ccc-444-ddd',
   },
   {
-    uuid: '0d8fugdf809gudf0g8',
-    name: 'ubuntu-18.04',
+    uuid: '555555555',
+    name: 'Fedora-32.02',
     size: {
       name: '1gb-1vpcu-32gb',
       memory: 1,
       storage: 32,
       vcpu: 1,
     },
-    distribution: { name: 'Ubuntu' },
+    distribution: { name: 'Fedora' },
     status: 'inactive',
     created_at: '2022-10-06T05:44:51.334101Z',
     tags: [],
+    project_uuid: '333-ccc-444-ddd',
   },
 ];
 
-export const getServers = (): Promise<{ servers: Server[] }> => {
+export const getServers = ({
+  meta: { project_uuid },
+}): Promise<{ servers: Server[] }> => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve({ servers }), 500);
+    setTimeout(
+      () =>
+        resolve({
+          servers: servers.filter((server) => server.project_uuid === project_uuid),
+        }),
+      500,
+    );
   });
   // return request.get('/servers').json();
 };

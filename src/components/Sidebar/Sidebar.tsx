@@ -1,10 +1,11 @@
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { Link, NavLink } from 'react-router-dom';
 import tw, { css } from 'twin.macro';
 
 import { ServerList, Settings } from '@/components/Icons';
-import Switcher from '@/components/Switcher';
+import UserMenu from '@/components/UserMenu';
 import { useProfileStore } from '@/store/profile';
+import { useProjectStore } from '@/store/project';
 
 const bg = css`
   background-color: var(--color-bg-sidebar);
@@ -12,6 +13,7 @@ const bg = css`
 
 const Sidebar = (): JSX.Element => {
   const [profile] = useAtom(useProfileStore);
+  const project = useAtomValue(useProjectStore);
 
   return (
     <aside
@@ -26,19 +28,18 @@ const Sidebar = (): JSX.Element => {
           />
         </Link>
 
-        <ul css={tw`space-y-4`}>
+        <ul css={tw`space-y-1`}>
           <li>
-            <NavLink to="/servers">
+            <NavLink to={`/projects/${project?.uuid}/servers`}>
               {({ isActive }) => (
                 <span
                   css={[
-                    tw`inline-flex items-center space-x-3`,
-                    !isActive && tw`opacity-50 hover:opacity-100`,
+                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
+                    isActive ? tw`bg-white/5` : tw`opacity-50 hover:opacity-100`,
                   ]}
                 >
-                  {isActive}
                   <ServerList />
-                  <span>Servers</span>
+                  <span>Virtances</span>
                 </span>
               )}
             </NavLink>
@@ -48,11 +49,10 @@ const Sidebar = (): JSX.Element => {
               {({ isActive }) => (
                 <span
                   css={[
-                    tw`inline-flex items-center space-x-3`,
-                    !isActive && tw`opacity-50 hover:opacity-100`,
+                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
+                    isActive ? tw`bg-white/5` : tw`opacity-50 hover:opacity-100`,
                   ]}
                 >
-                  {isActive}
                   <Settings />
                   <span>Settings</span>
                 </span>
@@ -61,7 +61,7 @@ const Sidebar = (): JSX.Element => {
           </li>
         </ul>
       </div>
-      <Switcher profile={profile} />
+      <UserMenu profile={profile} />
     </aside>
   );
 };

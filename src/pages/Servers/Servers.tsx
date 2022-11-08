@@ -1,6 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
@@ -13,6 +13,8 @@ interface Props {
 
 const ServersList = ({ servers }: Props): JSX.Element => {
   const isActive = (server: Server) => server.status === 'active';
+  const { puuid } = useParams();
+
   return (
     <section>
       <div css={tw`flex items-center justify-between mb-8`}>
@@ -29,7 +31,7 @@ const ServersList = ({ servers }: Props): JSX.Element => {
           {servers.map((server) => (
             <li key={server.uuid}>
               <Link
-                to={`/servers/${server.uuid}`}
+                to={`/projects/${puuid}/servers/${server.uuid}`}
                 css={tw`min-h-[160px] flex flex-col justify-between bg-white/5 hover:bg-transparent rounded-lg hover:ring-1 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-500 p-4`}
               >
                 <div css={tw`flex items-start justify-between`}>
@@ -107,15 +109,17 @@ const ServersList = ({ servers }: Props): JSX.Element => {
       ) : (
         <div>Loading...</div>
       )}
+      {servers && servers.length === 0 && <div>No created servers.</div>}
     </section>
   );
 };
 
 const Servers = (): JSX.Element => {
   const [servers, setServers] = useState<Server[]>();
+  const { puuid } = useParams();
 
   const fetchServers = async () => {
-    const response = await getServers();
+    const response = await getServers({ meta: { project_uuid: puuid } });
 
     setServers(response.servers);
   };
@@ -126,7 +130,7 @@ const Servers = (): JSX.Element => {
 
   return (
     <main>
-      <ServersList servers={servers}></ServersList>
+      <ServersList servers={servers} />
     </main>
   );
 };

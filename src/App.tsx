@@ -11,11 +11,12 @@ const App = (): JSX.Element => {
   return (
     <JotaiProvider>
       <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route path="/" element={<Navigate to="/servers" />} />
-          <Route path="/servers" element={<Servers />} />
+        <Route path="/" element={<DefaultLayout />}>
+          {/* <Route path="/" element={<Navigate to="/servers" />} /> */}
+          <Route path="/projects/:puuid/" element={<Navigate to="servers" />} />
+          <Route path="/projects/:puuid/servers" element={<Servers />} />
           <Route element={<ServerLayout />}>
-            <Route path="/servers/:uuid" element={<Server />} />
+            <Route path="/projects/:puuid/servers/:suuid" element={<Server />} />
           </Route>
           <Route path="/settings" element={<Settings />} />
         </Route>
