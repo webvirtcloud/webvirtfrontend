@@ -7,10 +7,13 @@ import type { Profile } from '@/api/account';
 import { updateProfile } from '@/api/account';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import { useToastContext } from '@/components/Toast';
 import { useProfileStore } from '@/store/profile';
 
 const UpdateProfileForm = (): JSX.Element => {
   const [profile] = useAtom(useProfileStore);
+
+  const createToast = useToastContext();
 
   const {
     register,
@@ -33,6 +36,8 @@ const UpdateProfileForm = (): JSX.Element => {
       const response = await updateProfile(data);
 
       setDefaultValues(response.profile);
+
+      createToast({ type: 'success', message: 'Your profile was updated.' });
     } catch (error) {}
   };
 
