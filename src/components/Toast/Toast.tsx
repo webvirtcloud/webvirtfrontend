@@ -10,7 +10,10 @@ interface Props {
 
 export const Toast = ({ toast: { message, type } }: Props): JSX.Element => {
   return (
-    <div role="alert" css={tw`flex items-center bg-white/5 rounded-md space-x-3 p-4`}>
+    <div
+      role="alert"
+      css={tw`flex items-center bg-base shadow-xl rounded-md space-x-3 p-4`}
+    >
       <span css={tw`block text-green-500 h-5 w-5`}>
         <CheckCircle />
       </span>

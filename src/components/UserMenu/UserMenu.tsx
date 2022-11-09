@@ -42,7 +42,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
       <button
         onClick={() => toggle(!isOpen)}
         type="button"
-        css={tw`w-full flex items-center justify-between text-left bg-white/5 hover:bg-white/10 transition-colors rounded-md p-2`}
+        css={tw`w-full flex items-center justify-between text-left bg-alt hover:bg-interactive-hover transition-colors rounded-md p-2`}
       >
         <div css={tw`flex items-center space-x-2`}>
           <figure
@@ -55,7 +55,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
           </figure>
           <div css={tw`min-w-0 overflow-hidden`}>
             <h4 css={tw`font-bold`}>{project?.name}</h4>
-            <p css={tw`truncate text-white/50 text-xs`}>Workspace</p>
+            <p css={tw`truncate text-alt2 text-xs`}>Workspace</p>
           </div>
         </div>
 
@@ -63,7 +63,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
       </button>
       {isOpen && (
         <div
-          css={tw`bg-white/10 absolute bottom-[calc(100% + 8px)] left-0 right-0 rounded-md p-2`}
+          css={tw`bg-alt absolute bottom-[calc(100% + 8px)] left-0 right-0 rounded-md p-2`}
         >
           <ul>
             {projects &&
@@ -71,7 +71,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
                 <li key={item.uuid}>
                   <button
                     onClick={() => handleProjectSelect(item)}
-                    css={tw`flex items-center justify-between w-full text-left p-2 hover:bg-black/20 rounded space-x-2`}
+                    css={tw`flex items-center justify-between w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
                   >
                     <span css={tw`flex flex-1 space-x-2`}>
                       <span
@@ -95,7 +95,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
             <li css={tw`border-b border-black/30 my-1`}></li>
             <li>
               <Link
-                css={tw`flex items-center w-full text-left p-2 hover:bg-black/20 rounded space-x-2`}
+                css={tw`flex items-center w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
                 to="/settings"
               >
                 <Settings />
@@ -104,7 +104,7 @@ const UserMenu = ({ profile }: { profile: Profile }): JSX.Element => {
             </li>
             <li>
               <button
-                css={tw`flex items-center w-full text-left p-2 hover:bg-black/20 rounded space-x-2`}
+                css={tw`flex items-center w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
                 type="button"
                 onClick={() => handleLogout()}
               >

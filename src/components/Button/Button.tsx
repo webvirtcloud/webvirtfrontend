@@ -17,7 +17,7 @@ const Button = forwardRef<HTMLButtonElement, Props>(
         type={type}
         disabled={disabled || loading}
         css={[
-          tw`h-12 text-sm font-bold transition-colors rounded-xl px-4`,
+          tw`h-12 text-sm font-bold transition-colors rounded-md px-4`,
           disabled || loading
             ? tw`cursor-not-allowed bg-white/10`
             : tw`bg-cyan-500 hover:bg-cyan-700`,

@@ -7,17 +7,13 @@ import UserMenu from '@/components/UserMenu';
 import { useProfileStore } from '@/store/profile';
 import { useProjectStore } from '@/store/project';
 
-const bg = css`
-  background-color: var(--color-bg-sidebar);
-`;
-
 const Sidebar = (): JSX.Element => {
   const [profile] = useAtom(useProfileStore);
   const project = useAtomValue(useProjectStore);
 
   return (
     <aside
-      css={[bg, tw`fixed top-0 left-0 bottom-0 w-56 flex flex-col justify-between p-4`]}
+      css={tw`bg-base fixed top-0 left-0 bottom-0 w-56 flex flex-col justify-between p-4`}
     >
       <div>
         <Link css={tw`inline-flex items-center justify-center space-x-4`} to="/">
@@ -35,7 +31,9 @@ const Sidebar = (): JSX.Element => {
                 <span
                   css={[
                     tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
-                    isActive ? tw`bg-white/5` : tw`opacity-50 hover:opacity-100`,
+                    isActive
+                      ? tw`bg-interactive-hover`
+                      : tw`opacity-50 hover:opacity-100`,
                   ]}
                 >
                   <ServerList />
@@ -49,8 +47,8 @@ const Sidebar = (): JSX.Element => {
               {({ isActive }) => (
                 <span
                   css={[
-                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
-                    isActive ? tw`bg-white/5` : tw`opacity-50 hover:opacity-100`,
+                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-colors p-2`,
+                    isActive ? tw`bg-interactive-hover` : tw`text-alt2 hover:text-body`,
                   ]}
                 >
                   <Settings />

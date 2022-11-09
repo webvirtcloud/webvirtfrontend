@@ -30,7 +30,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           type={type}
           required={required}
           readOnly={readonly}
-          css={tw`h-12 text-sm w-full border-2 border-transparent focus:border-cyan-500 focus:ring-0 transition-colors bg-control-default focus:bg-transparent rounded-xl px-4`}
+          css={tw`h-12 text-sm w-full border-2 border-transparent focus:border-cyan-500 focus:ring-0 transition-colors bg-input focus:bg-transparent rounded-md px-4`}
           {...rest}
         />
       </div>
