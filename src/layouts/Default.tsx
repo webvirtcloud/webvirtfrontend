@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import { getProfile } from '@/api/account';
 import { getProjects } from '@/api/projects';
-import Sidebar from '@/components/Sidebar';
+import Navbar from '@/components/Navbar';
 import { PROJECT_UUID_LOCALSTORAGE_KEY } from '@/constants';
 import { useProfileStore } from '@/store/profile';
 import { useProjectStore } from '@/store/project';
@@ -68,9 +68,9 @@ const DefaultLayout = (): JSX.Element => {
   }, [project]);
 
   return isAuthenticated ? (
-    <main css={tw`min-h-screen flex`}>
-      <Sidebar />
-      <div css={tw`flex-1 p-8 pl-64`}>
+    <main css={tw`min-h-screen flex flex-col`}>
+      <Navbar />
+      <div css={tw`flex-1 container mx-auto px-4 py-8`}>
         <Outlet />
       </div>
     </main>

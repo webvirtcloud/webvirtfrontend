@@ -36,7 +36,7 @@ export const getProjects = (): Promise<{ projects: Project[] }> => {
   return new Promise((resolve) => {
     setTimeout(() => resolve({ projects }), 500);
   });
-  // return request.get('/servers').json();
+  // return request.get('projects').json();
 };
 
 export const getProject = (uuid: string): Promise<{ project: Project }> => {
