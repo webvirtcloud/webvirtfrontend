@@ -32,7 +32,7 @@ const ServersList = ({ servers }: Props): JSX.Element => {
             <li key={server.uuid}>
               <Link
                 to={`/projects/${puuid}/servers/${server.uuid}`}
-                css={tw`min-h-[160px] flex flex-col justify-between bg-white/5 hover:bg-transparent rounded-lg hover:ring-1 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-500 p-4`}
+                css={tw`min-h-[160px] flex flex-col justify-between bg-base hover:bg-transparent rounded-lg hover:ring-1 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-500 p-4`}
               >
                 <div css={tw`flex items-start justify-between`}>
                   <div>
