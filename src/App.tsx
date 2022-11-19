@@ -5,7 +5,8 @@ import { ToastContextProvider } from '@/components/Toast/Provider';
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/layouts';
 import { ResetPassword, SignIn, SignUp } from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
-import { Server, Servers } from '@/pages/Servers';
+import { Server } from '@/pages/Server';
+import { Servers } from '@/pages/Servers';
 import Settings from '@/pages/Settings';
 import SSHList from '@/pages/SSHList';
 

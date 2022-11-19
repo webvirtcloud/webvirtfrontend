@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { Key, ServerList, Settings } from '@/components/Icons';
+import { Console, ServerList, Settings } from '@/components/Icons';
 import ProjectSelector from '@/components/ProjectSelector';
 import UserMenu from '@/components/UserMenu';
 import { useProfileStore } from '@/store/profile';
@@ -52,15 +52,15 @@ const Navbar = (): JSX.Element => {
                 {({ isActive }) => (
                   <span
                     css={[
-                      tw`w-full inline-flex items-center space-x-2 rounded-md transition-opacity p-2`,
+                      tw`w-full inline-flex items-center space-x-2 rounded-md transition-opacity px-2 py-1.5`,
                       isActive
                         ? tw`bg-interactive-hover`
                         : tw`opacity-50 hover:opacity-100`,
                     ]}
                   >
-                    {link.name === 'Virtances' && <ServerList />}
-                    {link.name === 'SSH' && <Key />}
-                    {link.name === 'Settings' && <Settings />}
+                    {link.name === 'Virtances' && <ServerList width={18} height={18} />}
+                    {link.name === 'SSH' && <Console width={18} height={18} />}
+                    {link.name === 'Settings' && <Settings width={18} height={18} />}
                     <span css={tw`font-semibold`}>{link.name}</span>
                   </span>
                 )}
