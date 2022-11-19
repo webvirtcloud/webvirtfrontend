@@ -33,6 +33,7 @@ const SignUp = (): JSX.Element => {
       <h1 css={tw`text-center font-bold text-2xl mb-4`}>Create an account</h1>
       <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
         <Input
+          id="email"
           label="Email"
           type="email"
           placeholder="account@gmail.com"
@@ -50,6 +51,7 @@ const SignUp = (): JSX.Element => {
           </p>
         )}
         <Input
+          id="password"
           label="Password"
           type="password"
           placeholder="Secure password"
