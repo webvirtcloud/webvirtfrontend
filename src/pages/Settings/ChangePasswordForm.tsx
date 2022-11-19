@@ -33,6 +33,8 @@ const ChangePasswordForm = (): JSX.Element => {
         placeholder="Your current password"
         label="Current password"
         type="password"
+        id="current_password"
+        name="current_password"
       />
       {errors.old_password && (
         <p css={tw`text-red-500`} role="alert">
@@ -47,6 +49,8 @@ const ChangePasswordForm = (): JSX.Element => {
         placeholder="New secure password"
         label="New password"
         type="password"
+        id="new_password"
+        name="new_password"
       />
       {errors.new_password && (
         <p css={tw`text-red-500`} role="alert">
@@ -61,6 +65,8 @@ const ChangePasswordForm = (): JSX.Element => {
         placeholder="New secure password again"
         label="New password confirm"
         type="password"
+        id="new_password_confirm"
+        name="new_password_confirm"
       />
       {errors.new_password_confirm && (
         <p css={tw`text-red-500`} role="alert">

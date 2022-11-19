@@ -47,17 +47,28 @@ const UpdateProfileForm = (): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
-      <Input {...register('email')} readonly placeholder="Your email" label="Email" />
+      <Input
+        {...register('email')}
+        readonly
+        placeholder="Your email"
+        label="Email"
+        id="email"
+        name="email"
+      />
       <div css={tw`grid grid-cols-2 gap-4`}>
         <Input
           {...register('first_name', { required: true })}
           placeholder="John"
           label="First name"
+          id="first_name"
+          name="first_name"
         />
         <Input
           {...register('last_name', { required: true })}
           placeholder="Doe"
           label="Last name"
+          id="last_name"
+          name="last_name"
         />
       </div>
       <Button loading={isSubmitting} disabled={!isValid} css={tw`w-full`} type="submit">
