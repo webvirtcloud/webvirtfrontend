@@ -22,6 +22,10 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
     e.preventDefault();
   };
 
+  const toggleStatus = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Link
       to={to}
@@ -54,6 +58,7 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
         <div css={tw`flex items-center space-x-2`}>
           <button
             type="button"
+            onClick={toggleStatus}
             css={[
               isActive(server) ? tw`text-green-500` : tw`text-red-500`,
               tw`bg-alt hover:bg-alt2 h-8 w-8 flex items-center justify-center transition-colors duration-300 rounded-md`,
