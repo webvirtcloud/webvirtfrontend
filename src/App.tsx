@@ -7,6 +7,7 @@ import { ResetPassword, SignIn, SignUp } from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
 import { Server, Servers } from '@/pages/Servers';
 import Settings from '@/pages/Settings';
+import SSHList from '@/pages/SSHList';
 
 const App = (): JSX.Element => {
   return (
@@ -17,6 +18,7 @@ const App = (): JSX.Element => {
             {/* <Route path="/" element={<Navigate to="/servers" />} /> */}
             <Route path="/projects/:puuid/" element={<Navigate to="servers" />} />
             <Route path="/projects/:puuid/servers" element={<Servers />} />
+            <Route path="/projects/:puuid/ssh" element={<SSHList />} />
             <Route element={<ServerLayout />}>
               <Route path="/projects/:puuid/servers/:suuid" element={<Server />} />
             </Route>
