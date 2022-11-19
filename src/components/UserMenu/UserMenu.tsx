@@ -47,7 +47,7 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
       </button>
       {isOpen && (
         <div
-          css={tw`bg-base absolute z-30 top-[calc(100% + 8px)] left-0 right-0 shadow-md rounded-md p-2`}
+          css={tw`bg-base absolute z-30 top-[calc(100% + 8px)] left-0 right-0 shadow-md ring-1 ring-black/5 rounded-md p-2`}
         >
           <ul>
             <li>
