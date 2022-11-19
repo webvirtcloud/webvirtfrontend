@@ -1,4 +1,5 @@
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
@@ -9,8 +10,19 @@ import { useProfileStore } from '@/store/profile';
 import { useProjectStore } from '@/store/project';
 
 const Navbar = (): JSX.Element => {
-  const [profile] = useAtom(useProfileStore);
+  const profile = useAtomValue(useProfileStore);
   const project = useAtomValue(useProjectStore);
+
+  const [links, setLinks] = useState<{ to: string; name: string }[]>([]);
+
+  useEffect(() => {
+    if (project) {
+      setLinks([
+        { to: `/projects/${project?.uuid}/servers`, name: 'Virtances' },
+        { to: `/settings`, name: 'Settings' },
+      ]);
+    }
+  }, [project]);
 
   return (
     <nav
@@ -33,38 +45,26 @@ const Navbar = (): JSX.Element => {
         </div>
 
         <ul css={tw`flex items-center space-x-2`}>
-          <li>
-            <NavLink to={`/projects/${project?.uuid}/servers`}>
-              {({ isActive }) => (
-                <span
-                  css={[
-                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
-                    isActive
-                      ? tw`bg-interactive-hover`
-                      : tw`opacity-50 hover:opacity-100`,
-                  ]}
-                >
-                  <ServerList />
-                  <span>Virtances</span>
-                </span>
-              )}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/settings">
-              {({ isActive }) => (
-                <span
-                  css={[
-                    tw`w-full inline-flex items-center space-x-3 rounded-md transition-colors p-2`,
-                    isActive ? tw`bg-interactive-hover` : tw`text-alt2 hover:text-body`,
-                  ]}
-                >
-                  <Settings />
-                  <span>Settings</span>
-                </span>
-              )}
-            </NavLink>
-          </li>
+          {links.map((link) => (
+            <li key={link.name}>
+              <NavLink to={link.to}>
+                {({ isActive }) => (
+                  <span
+                    css={[
+                      tw`w-full inline-flex items-center space-x-3 rounded-md transition-opacity p-2`,
+                      isActive
+                        ? tw`bg-interactive-hover`
+                        : tw`opacity-50 hover:opacity-100`,
+                    ]}
+                  >
+                    {link.name === 'Virtances' && <ServerList />}
+                    {link.name === 'Settings' && <Settings />}
+                    <span css={tw`font-semibold`}>{link.name}</span>
+                  </span>
+                )}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
