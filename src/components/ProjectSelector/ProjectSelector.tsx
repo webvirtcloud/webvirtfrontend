@@ -55,7 +55,7 @@ const ProjectSelector = (): JSX.Element => {
       </div>
       {isOpen && (
         <div
-          css={tw`bg-alt absolute top-[calc(100% + 8px)] left-0 right-0 rounded-md p-2`}
+          css={tw`bg-base absolute z-30 top-[calc(100% + 8px)] left-0 right-0 shadow-md rounded-md p-2`}
         >
           <ul>
             {projects &&
@@ -75,7 +75,7 @@ const ProjectSelector = (): JSX.Element => {
                       <span>{item.name}</span>
                     </span>
                     {project?.uuid === item.uuid && (
-                      <span css={tw`w-5 h-5 text-green-500`}>
+                      <span css={tw`flex-shrink-0 w-5 h-5 text-green-500`}>
                         <CheckCircle />
                       </span>
                     )}
