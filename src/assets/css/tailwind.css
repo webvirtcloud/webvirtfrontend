@@ -12,10 +12,10 @@
     --color-bg-interactive-hover: hsla(0,0%,0%,.06);
 
     --color-bg-control-default: #222;
-    --color-bg-input: rgba(0,0,0,.1);
+    --color-bg-input: rgba(0,0,0,.06);
 
     --color-text-body: #000;
-    --color-text-alt: #1f1f23;
+    --color-text-alt: #696969;
     --color-text-alt2: #53535f;
   }
   [data-theme="dark"] {
