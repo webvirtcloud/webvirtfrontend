@@ -27,7 +27,7 @@ const Navbar = (): JSX.Element => {
 
   return (
     <nav
-      css={tw`bg-base sticky top-0 left-0 right-0 flex flex-col justify-between shadow-sm border-b`}
+      css={tw`bg-base sticky top-0 left-0 right-0 flex flex-col justify-between shadow-sm border-b border-black/10`}
     >
       <div css={tw`container mx-auto p-4`}>
         <div css={tw`flex items-center justify-between`}>
