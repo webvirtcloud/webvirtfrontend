@@ -8,7 +8,7 @@ import { getServers } from '@/api/servers';
 import { Elipsis, Pause, Play } from '@/components/Icons';
 
 interface Props {
-  servers: Server[];
+  servers: Server[] | undefined;
 }
 
 const ServersList = ({ servers }: Props): JSX.Element => {
@@ -22,7 +22,7 @@ const ServersList = ({ servers }: Props): JSX.Element => {
         <input
           type="text"
           placeholder="Search..."
-          css={tw`bg-white/5 rounded-full border-transparent focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500  px-4`}
+          css={tw`bg-alt rounded-full border-transparent focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500  px-4`}
         />
       </div>
 
@@ -32,13 +32,13 @@ const ServersList = ({ servers }: Props): JSX.Element => {
             <li key={server.uuid}>
               <Link
                 to={`/projects/${puuid}/servers/${server.uuid}`}
-                css={tw`min-h-[160px] flex flex-col justify-between bg-base hover:bg-transparent rounded-lg hover:ring-1 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-500 p-4`}
+                css={tw`min-h-[160px] flex flex-col justify-between bg-base rounded-lg ring-1 ring-black/5 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-300 p-4`}
               >
                 <div css={tw`flex items-start justify-between`}>
                   <div>
                     <div css={tw`flex items-center space-x-2`}>
                       <div
-                        css={tw`bg-white/5 h-12 w-12 flex items-center justify-center rounded`}
+                        css={tw`bg-alt h-12 w-12 flex items-center justify-center rounded`}
                       >
                         <img
                           css={tw`w-8 h-8`}
@@ -53,7 +53,7 @@ const ServersList = ({ servers }: Props): JSX.Element => {
                       </div>
                       <div css={tw`space-y-0.5`}>
                         <h3 css={tw`font-bold`}>{server.name}</h3>
-                        <p css={tw`text-xs text-white/50`}>
+                        <p css={tw`text-xs text-alt`}>
                           {server.size.memory}GB DDR4 / {server.size.storage}GB SSD
                         </p>
                       </div>
@@ -65,14 +65,14 @@ const ServersList = ({ servers }: Props): JSX.Element => {
                       type="button"
                       css={[
                         isActive(server) ? tw`text-green-500` : tw`text-red-500`,
-                        tw`bg-white/5 hover:bg-white/10 h-8 w-8 flex items-center justify-center transition-colors duration-500 rounded`,
+                        tw`bg-alt hover:bg-alt2 h-8 w-8 flex items-center justify-center transition-colors duration-300 rounded`,
                       ]}
                     >
                       {isActive(server) ? <Play /> : <Pause />}
                     </button>
                     <button
                       type="button"
-                      css={tw`bg-white/5 hover:bg-white/10 h-8 w-8 flex items-center justify-center transition-colors duration-500 rounded`}
+                      css={tw`bg-alt hover:bg-alt2 h-8 w-8 flex items-center justify-center transition-colors duration-300 rounded`}
                     >
                       <Elipsis />
                     </button>
@@ -88,14 +88,14 @@ const ServersList = ({ servers }: Props): JSX.Element => {
                       server.tags.map((tag) => (
                         <li
                           key={tag}
-                          css={tw`inline-block bg-pink-900/30 text-pink-500 text-xs rounded-full px-2 py-1`}
+                          css={tw`inline-block bg-pink-200/30 text-pink-500 text-xs rounded-full px-2 py-1`}
                         >
                           {tag}
                         </li>
                       ))
                     ) : (
                       <li
-                        css={tw`inline-block bg-white/5 text-white text-xs rounded-full px-2 py-1 mb-2`}
+                        css={tw`inline-block bg-alt text-body text-xs rounded-full px-2 py-1 mb-2`}
                       >
                         No tags
                       </li>
