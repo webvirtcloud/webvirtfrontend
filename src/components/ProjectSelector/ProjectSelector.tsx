@@ -84,7 +84,12 @@ const ProjectSelector = (): JSX.Element => {
               ))}
             </ul>
           )}
-          <Button css={tw`w-full`} type="button" size="lg">
+          <Button
+            onClick={() => navigate('/projects/create')}
+            css={tw`w-full`}
+            type="button"
+            size="lg"
+          >
             Create project
           </Button>
         </div>

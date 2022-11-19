@@ -5,6 +5,7 @@ import { ToastContextProvider } from '@/components/Toast/Provider';
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/layouts';
 import { ResetPassword, SignIn, SignUp } from '@/pages/Auth';
 import NotFound from '@/pages/NotFound';
+import { CreateProject } from '@/pages/Projects';
 import { Server } from '@/pages/Server';
 import { Servers } from '@/pages/Servers';
 import Settings from '@/pages/Settings';
@@ -17,7 +18,8 @@ const App = (): JSX.Element => {
         <Routes>
           <Route path="/" element={<DefaultLayout />}>
             {/* <Route path="/" element={<Navigate to="/servers" />} /> */}
-            <Route path="/projects/:puuid/" element={<Navigate to="servers" />} />
+            <Route path="/projects/create" element={<CreateProject />} />
+            <Route path="/projects/:puuid" element={<Navigate to="servers" />} />
             <Route path="/projects/:puuid/servers" element={<Servers />} />
             <Route path="/projects/:puuid/ssh" element={<SSHList />} />
             <Route element={<ServerLayout />}>
