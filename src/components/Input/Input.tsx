@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import tw from 'twin.macro';
 
 interface Props {
+  id: string;
   name: string;
   type?: 'text' | 'number' | 'email' | 'password';
   placeholder: string;
@@ -15,16 +16,17 @@ interface Props {
 // eslint-disable-next-line react/display-name
 const Input = forwardRef<HTMLInputElement, Props>(
   (
-    { name, label, type = 'text', required, readonly = false, ...rest },
+    { id, name, label, type = 'text', required, readonly = false, ...rest },
     ref,
   ): JSX.Element => {
     return (
       <div>
-        <label htmlFor={name} css={tw`inline-block text-sm font-bold mb-2`}>
+        <label htmlFor={id} css={tw`inline-block text-sm font-bold mb-2`}>
           {label}
         </label>
 
         <input
+          id={id}
           name={name}
           ref={ref}
           type={type}
