@@ -22,7 +22,8 @@ const SignUp = (): JSX.Element => {
   const onSubmit = async (data: IFormInputs) => {
     try {
       const response = await signUp(data);
-      window.localStorage.setItem('token', response);
+
+      window.localStorage.setItem('token', response.token);
 
       navigate('/');
     } catch (error) {}
