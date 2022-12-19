@@ -11,7 +11,7 @@ const request = ky.create({
         const token = window.localStorage.getItem('token');
 
         if (token) {
-          request.headers.set('Authorization', `Token ${token}`);
+          request.headers.set('Authorization', `Bearer ${token}`);
         }
 
         return request;
