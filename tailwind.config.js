@@ -25,6 +25,9 @@ module.exports = {
 
         'control-default': 'var(--color-bg-control-default)',
       },
+      borderColor: {
+        DEFAULT: 'var(--color-bg-alt2)',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
