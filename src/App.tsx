@@ -4,12 +4,12 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContextProvider } from '@/components/Toast/Provider';
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/layouts';
 import { ResetPassword, SignIn, SignUp } from '@/pages/Auth';
+import Keypairs from '@/pages/Keypairs';
 import NotFound from '@/pages/NotFound';
 import { CreateProject } from '@/pages/Projects';
 import { Server } from '@/pages/Server';
 import { Servers } from '@/pages/Servers';
 import Settings from '@/pages/Settings';
-import SSHList from '@/pages/SSHList';
 
 const App = (): JSX.Element => {
   return (
@@ -21,7 +21,7 @@ const App = (): JSX.Element => {
             <Route path="/projects/create" element={<CreateProject />} />
             <Route path="/projects/:puuid" element={<Navigate to="servers" />} />
             <Route path="/projects/:puuid/servers" element={<Servers />} />
-            <Route path="/projects/:puuid/ssh" element={<SSHList />} />
+            <Route path="/projects/:puuid/keypairs" element={<Keypairs />} />
             <Route element={<ServerLayout />}>
               <Route path="/projects/:puuid/servers/:suuid" element={<Server />} />
             </Route>
