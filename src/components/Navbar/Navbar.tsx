@@ -19,7 +19,7 @@ const Navbar = (): JSX.Element => {
     if (project) {
       setLinks([
         { to: `/projects/${project?.uuid}/servers`, name: 'Virtances' },
-        { to: `/projects/${project?.uuid}/ssh`, name: 'SSH' },
+        { to: `/projects/${project?.uuid}/keypairs`, name: 'Keypairs' },
         { to: `/settings`, name: 'Settings' },
       ]);
     }
@@ -27,11 +27,11 @@ const Navbar = (): JSX.Element => {
 
   return (
     <nav
-      css={tw`bg-base sticky top-0 left-0 right-0 flex flex-col justify-between shadow-sm border-b border-black/10`}
+      css={tw`sticky top-0 left-0 right-0 flex flex-col justify-between border-b shadow-sm bg-base border-black/10`}
     >
-      <div css={tw`container mx-auto p-4`}>
+      <div css={tw`container p-4 mx-auto`}>
         <div css={tw`flex items-center justify-between`}>
-          <div css={tw`flex items-center space-x-4 mb-4`}>
+          <div css={tw`flex items-center mb-4 space-x-4`}>
             <Link css={tw`inline-flex items-center justify-center space-x-4`} to="/">
               <img
                 css={tw`w-8`}
@@ -59,7 +59,7 @@ const Navbar = (): JSX.Element => {
                     ]}
                   >
                     {link.name === 'Virtances' && <ServerList width={18} height={18} />}
-                    {link.name === 'SSH' && <Console width={18} height={18} />}
+                    {link.name === 'Keypairs' && <Console width={18} height={18} />}
                     {link.name === 'Settings' && <Settings width={18} height={18} />}
                     <span css={tw`font-semibold`}>{link.name}</span>
                   </span>
