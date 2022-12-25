@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 import type { Profile } from '@/api/account';
 import { updateProfile } from '@/api/account';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 import { useToastContext } from '@/components/Toast';
 import { useProfileStore } from '@/store/profile';

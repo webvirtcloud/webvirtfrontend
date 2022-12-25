@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 
 import type { ChangePasswordPayload } from '@/api/account';
 import { changePassword } from '@/api/account';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
 const ChangePasswordForm = (): JSX.Element => {

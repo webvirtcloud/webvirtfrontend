@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { resetPassword } from '@/api/account';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
 const ResetPassword = (): JSX.Element => {
@@ -21,7 +21,7 @@ const ResetPassword = (): JSX.Element => {
 
   return (
     <>
-      <h1 css={tw`text-center font-bold text-2xl mb-4`}>Reset password</h1>
+      <h1 css={tw`mb-4 text-2xl font-bold text-center`}>Reset password</h1>
       <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
         <Input
           label="New Password"
@@ -41,9 +41,9 @@ const ResetPassword = (): JSX.Element => {
           Change password
         </Button>
       </form>
-      <p css={tw`text-center mt-4`}>
+      <p css={tw`mt-4 text-center`}>
         Or try to{' '}
-        <Link css={tw`text-cyan-500 hover:text-cyan-700 transition-colors`} to="/sign-in">
+        <Link css={tw`transition-colors text-cyan-500 hover:text-cyan-700`} to="/sign-in">
           Sign in
         </Link>{' '}
         again

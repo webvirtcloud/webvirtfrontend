@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { signUp } from '@/api/account';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
 interface IFormInputs {
@@ -31,7 +31,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <>
-      <h1 css={tw`text-center font-bold text-2xl mb-4`}>Create an account</h1>
+      <h1 css={tw`mb-4 text-2xl font-bold text-center`}>Create an account</h1>
       <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
         <Input
           id="email"
@@ -70,9 +70,9 @@ const SignUp = (): JSX.Element => {
           Create an account
         </Button>
       </form>
-      <p css={tw`text-center mt-4`}>
+      <p css={tw`mt-4 text-center`}>
         Already have an account?{' '}
-        <Link css={tw`text-cyan-500 hover:text-cyan-700 transition-colors`} to="/sign-in">
+        <Link css={tw`transition-colors text-cyan-500 hover:text-cyan-700`} to="/sign-in">
           Sign In
         </Link>
       </p>
