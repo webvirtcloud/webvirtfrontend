@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import tw, { css } from 'twin.macro';
 
 import type { Project } from '@/api/projects';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import { CheckCircle, ChevronUpDown } from '@/components/Icons';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { useProjectStore } from '@/store/project';
@@ -33,10 +33,10 @@ const ProjectSelector = (): JSX.Element => {
 
   return (
     <div css={tw`relative min-w-[132px]`} ref={ref}>
-      <div css={tw`w-full flex items-center justify-between text-left`}>
+      <div css={tw`flex items-center justify-between w-full text-left`}>
         <Link
           to={`/projects/${project?.uuid}/servers`}
-          css={tw`h-6 flex items-center hover:bg-interactive-hover transition-colors rounded-md px-2`}
+          css={tw`flex items-center h-6 px-2 transition-colors rounded-md hover:bg-interactive-hover`}
         >
           <div css={tw`min-w-0 overflow-hidden`}>
             <h4 css={tw`font-bold`}>{project?.name}</h4>
@@ -46,7 +46,7 @@ const ProjectSelector = (): JSX.Element => {
         <button
           onClick={() => toggle(!isOpen)}
           type="button"
-          css={tw`h-6 px-1 hover:bg-interactive-hover transition-colors rounded-md`}
+          css={tw`h-6 px-1 transition-colors rounded-md hover:bg-interactive-hover`}
         >
           <ChevronUpDown width={16} height={16} />
         </button>
@@ -61,7 +61,7 @@ const ProjectSelector = (): JSX.Element => {
                 <li key={item.uuid}>
                   <button
                     onClick={() => handleProjectSelect(item)}
-                    css={tw`flex items-center justify-between w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
+                    css={tw`flex items-center justify-between w-full p-2 space-x-2 text-left rounded hover:bg-interactive-hover`}
                   >
                     <span css={tw`flex flex-1 space-x-2`}>
                       {/* <span
