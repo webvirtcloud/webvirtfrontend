@@ -22,3 +22,7 @@ export const createKeypair = (
 ): Promise<{ keypair: Keypair }> => {
   return request.post('keypairs', { json: payload }).json();
 };
+
+export const deleteKeypair = (id: number) => {
+  return request.delete(`keypairs/${id}`).json();
+};

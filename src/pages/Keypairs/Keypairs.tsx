@@ -17,6 +17,11 @@ export default function Keypairs() {
     mutate({ keypairs: data ? [keypair, ...data.keypairs] : [] });
   };
 
+  const onDelete = (id: number) => {
+    return deleteKeypair(id).then(() => {
+      mutate({ keypairs: data ? data.keypairs.filter((key) => key.id !== id) : [] });
+    });
+  };
 
   return (
     <div>
@@ -32,7 +37,7 @@ export default function Keypairs() {
         />
       </div>
 
-      <KeypairsTable data={data} error={error} />
+      <KeypairsTable data={data} error={error} onDelete={onDelete} />
     </div>
   );
 }
