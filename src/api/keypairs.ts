@@ -17,6 +17,8 @@ export const getKeypairs = (): Promise<{ keypairs: Keypair[] }> => {
   return request.get('keypairs').json();
 };
 
-export const createKeypair = (payload: CreateKeypairPayload) => {
+export const createKeypair = (
+  payload: CreateKeypairPayload,
+): Promise<{ keypair: Keypair }> => {
   return request.post('keypairs', { json: payload }).json();
 };

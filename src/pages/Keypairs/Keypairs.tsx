@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import tw from 'twin.macro';
 
-import { getKeypairs } from '@/api/keypairs';
+import { type Keypair, deleteKeypair, getKeypairs } from '@/api/keypairs';
 import { Button } from '@/components/Button';
 import { CreateKeypairDialog } from '@/components/Dialogs/CreateKeypair';
 
@@ -11,7 +11,12 @@ import { KeypairsTable } from './KeypairsTable';
 export default function Keypairs() {
   const [shownCreateDialog, setShownCreateDialog] = useState(false);
 
-  const { data, error } = useSWR('/keypairs/', getKeypairs);
+  const { data, mutate, error } = useSWR('/keypairs/', getKeypairs);
+
+  const onCreateKeypair = (keypair: Keypair) => {
+    mutate({ keypairs: data ? [keypair, ...data.keypairs] : [] });
+  };
+
 
   return (
     <div>
@@ -20,7 +25,11 @@ export default function Keypairs() {
         <Button variant="primary" size="lg" onClick={() => setShownCreateDialog(true)}>
           Create Keypair
         </Button>
-        <CreateKeypairDialog isOpen={shownCreateDialog} onToggle={setShownCreateDialog} />
+        <CreateKeypairDialog
+          isOpen={shownCreateDialog}
+          onToggle={setShownCreateDialog}
+          onCreate={onCreateKeypair}
+        />
       </div>
 
       <KeypairsTable data={data} error={error} />

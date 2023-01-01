@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import type { CreateKeypairPayload } from '@/api/keypairs';
+import type { CreateKeypairPayload, Keypair } from '@/api/keypairs';
 import { createKeypair } from '@/api/keypairs';
 import { Button } from '@/components/Button';
 import { Dialog } from '@/components/Dialog';
@@ -11,18 +11,20 @@ import Textarea from '@/components/Textarea';
 type Props = {
   isOpen: boolean;
   onToggle: (state: boolean) => void;
+  onCreate: (keypair: Keypair) => void;
 };
 
-export const CreateKeypairDialog = ({ isOpen, onToggle }: Props) => {
+export const CreateKeypairDialog = ({ isOpen, onToggle, onCreate }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<CreateKeypairPayload>();
 
-  const onSubmit = (data: CreateKeypairPayload) => {
+  const onSubmit = async (data: CreateKeypairPayload) => {
     try {
-      createKeypair(data);
+      const keypair = await createKeypair(data).then((response) => response.keypair);
+      onCreate(keypair);
       onToggle(false);
     } catch (error) {}
   };
