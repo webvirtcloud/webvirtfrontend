@@ -61,7 +61,7 @@
     --color-bg-button-secondary-hover: var(--color-bg-interactive-hover);
     --color-text-button-secondary: white;
     --color-border-button-secondary: var(--color-bg-alt2);
-    --color-border-button-secondary-active: theme(colors.blue.700);
+    --color-border-button-secondary-active: theme(colors.neutral.500);
     
     /* danger button */
     --color-bg-button-danger: transparent;
