@@ -5,21 +5,29 @@ import tw from 'twin.macro';
 import { Keypair } from '@/api/keypairs';
 import { Button } from '@/components/Button';
 import ConfirmDialog from '@/components/Dialogs/ConfirmDialog';
+import EditKeypairDialog from '@/components/Dialogs/EditKeypair';
 
 type Props = {
   data: { keypairs: Keypair[] } | undefined;
   error: any;
+  onUpdate: (keypair: Keypair) => Promise<void>;
   onDelete: (id: number) => Promise<void>;
 };
 
-export const KeypairsTable = ({ data, error, onDelete }: Props) => {
+export const KeypairsTable = ({ data, error, onUpdate, onDelete }: Props) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedKeypair, setSelectedKeypair] = useState<Keypair>();
 
   const onConfirmDelete = (id: number) => {
     setIsDeleting(true);
     return onDelete(id).then(() => setIsDeleteDialogOpen(false));
+  };
+
+  const handleClickOnEditAction = (key: Keypair) => {
+    setSelectedKeypair(key);
+    setIsEditDialogOpen(true);
   };
 
   const handleClickOnDeleteAction = (key: Keypair) => {
@@ -37,7 +45,9 @@ export const KeypairsTable = ({ data, error, onDelete }: Props) => {
               <div>{key.fingerprint}</div>
               <div>Added on {format(new Date(key.created_at), 'MMM dd, yyyy')}</div>
               <div css={tw`ml-auto space-x-2`}>
-                <Button size="md">Edit</Button>
+                <Button size="md" onClick={() => handleClickOnEditAction(key)}>
+                  Edit
+                </Button>
                 <Button
                   variant="danger"
                   size="md"
@@ -63,6 +73,12 @@ export const KeypairsTable = ({ data, error, onDelete }: Props) => {
         isConfirmButtonLoading={isDeleting}
         onToggle={setIsDeleteDialogOpen}
         onConfirm={() => selectedKeypair && onConfirmDelete(selectedKeypair.id)}
+      />
+      <EditKeypairDialog
+        isOpen={isEditDialogOpen}
+        keypair={selectedKeypair}
+        onToggle={setIsEditDialogOpen}
+        onUpdate={onUpdate}
       />
     </div>
   );
