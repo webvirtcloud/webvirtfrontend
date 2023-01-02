@@ -21,8 +21,11 @@ export const createKeypair = (payload: KeypairPayload): Promise<{ keypair: Keypa
   return request.post('keypairs', { json: payload }).json();
 };
 
-export const updateKeypair = (payload: KeypairPayload): Promise<{ keypair: Keypair }> => {
-  return request.put('keypairs', { json: payload }).json();
+export const updateKeypair = (
+  id: number,
+  payload: Partial<KeypairPayload>,
+): Promise<{ keypair: Keypair }> => {
+  return request.put(`keypairs/${id}`, { json: payload }).json();
 };
 
 export const deleteKeypair = (id: number) => {

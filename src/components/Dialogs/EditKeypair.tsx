@@ -32,8 +32,12 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
 
   const onSubmit = async (data: KeypairPayload) => {
     try {
-      const keypair = await updateKeypair(data).then((response) => response.keypair);
-      onUpdate(keypair);
+      if (keypair === undefined) return;
+
+      const updatedKeypair = await updateKeypair(keypair.id, { name: data.name }).then(
+        (response) => response.keypair,
+      );
+      onUpdate(updatedKeypair);
       onToggle(false);
     } catch (error) {}
   };
@@ -58,6 +62,7 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
           <Textarea
             id="public_key"
             rows={10}
+            readOnly
             spellCheck={false}
             {...register('public_key', { required: 'Public key is required.' })}
             label="Public key"
@@ -69,13 +74,7 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
             </p>
           )}
         </div>
-        <Button
-          variant="primary"
-          type="submit"
-          fullWidth
-          size="lg"
-          loading={isSubmitting}
-        >
+        <Button type="submit" fullWidth size="lg" loading={isSubmitting}>
           Submit
         </Button>
       </form>
