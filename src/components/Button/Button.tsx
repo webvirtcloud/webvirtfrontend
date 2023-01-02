@@ -11,10 +11,11 @@ interface Props {
   fullWidth?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  onlyIcon?: boolean;
 }
 
 const getBaseStyle = () =>
-  tw`inline-flex items-center justify-center gap-1 px-4 font-bold transition-colors rounded-md text-body`;
+  tw`inline-flex items-center justify-center gap-1 font-bold transition-colors rounded-md text-body`;
 
 const getVarianStyle = ({ variant }: { variant: Props['variant'] }) => {
   switch (variant) {
@@ -30,19 +31,25 @@ const getVarianStyle = ({ variant }: { variant: Props['variant'] }) => {
   }
 };
 
-const getSizeStyle = ({ size }: { size: Props['size'] }) => {
+const getSizeStyle = ({
+  size,
+  onlyIcon,
+}: {
+  size: Props['size'];
+  onlyIcon: Props['onlyIcon'];
+}) => {
   switch (size) {
     case 'sm': {
-      return tw`h-8 text-xs`;
+      return onlyIcon ? tw`w-8 h-8` : tw`h-8 text-xs`;
     }
     case 'md': {
-      return tw`text-sm h-9`;
+      return onlyIcon ? tw`w-9 h-9` : tw`text-sm h-9`;
     }
     case 'lg': {
-      return tw`h-10 text-sm`;
+      return onlyIcon ? tw`w-10 h-10` : tw`h-10 text-sm`;
     }
     default: {
-      return tw`h-8 text-sm`;
+      return onlyIcon ? tw`w-8 h-8` : tw`h-8 text-sm`;
     }
   }
 };
@@ -62,6 +69,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
       disabled,
       startIcon,
       endIcon,
+      onlyIcon,
       ...rest
     },
     ref,
@@ -73,7 +81,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         disabled={disabled || loading}
         css={[
           getBaseStyle(),
-          getSizeStyle({ size }),
+          !onlyIcon && tw`px-4`,
+          getSizeStyle({ size, onlyIcon }),
           disabled || loading ? getDisabledStyle() : getVarianStyle({ variant }),
           fullWidth ? tw`w-full` : ``,
         ]}
