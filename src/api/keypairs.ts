@@ -1,6 +1,6 @@
 import request from './fetch';
 
-export type CreateKeypairPayload = {
+export type KeypairPayload = {
   name: string;
   public_key: string;
 };
@@ -17,10 +17,12 @@ export const getKeypairs = (): Promise<{ keypairs: Keypair[] }> => {
   return request.get('keypairs').json();
 };
 
-export const createKeypair = (
-  payload: CreateKeypairPayload,
-): Promise<{ keypair: Keypair }> => {
+export const createKeypair = (payload: KeypairPayload): Promise<{ keypair: Keypair }> => {
   return request.post('keypairs', { json: payload }).json();
+};
+
+export const updateKeypair = (payload: KeypairPayload): Promise<{ keypair: Keypair }> => {
+  return request.put('keypairs', { json: payload }).json();
 };
 
 export const deleteKeypair = (id: number) => {
