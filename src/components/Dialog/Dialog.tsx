@@ -26,6 +26,10 @@ const DialogContainer = tw.div`
   max-w-lg
   p-4
   rounded-md
+  focus:outline
+  focus:outline-2
+  focus:outline-offset-2
+  focus:outline-blue-700
 `;
 
 export default function Dialog({ isOpen, title, onClose, children }: Props) {
@@ -36,7 +40,7 @@ export default function Dialog({ isOpen, title, onClose, children }: Props) {
   return (
     <Portal>
       <DialogMask>
-        <DialogContainer>
+        <DialogContainer tabIndex={0}>
           <DialogHeader onClose={onClose} title={title} />
           <div>{children}</div>
         </DialogContainer>
