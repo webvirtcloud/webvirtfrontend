@@ -6,12 +6,12 @@ import UpdateProfileForm from './UpdateProfileForm';
 const Settings = (): JSX.Element => {
   return (
     <>
-      <h1 css={tw`text-xl font-bold mb-8`}>Settings</h1>
+      <h1 css={tw`mb-8 text-xl font-bold`}>Settings</h1>
 
       <section css={tw`space-y-8`}>
-        <div css={tw`bg-base grid grid-cols-5 gap-8 rounded-xl p-8`}>
+        <div css={tw`grid grid-cols-5 gap-8 p-8 bg-base rounded-xl`}>
           <div css={tw`col-span-2`}>
-            <h2 css={tw`text-lg font-bold mb-2`}>Profile</h2>
+            <h2 css={tw`mb-2 text-lg font-bold`}>Profile</h2>
             <p css={tw`text-alt2`}>Update information about your profile.</p>
           </div>
           <div css={tw`col-span-3`}>
@@ -19,9 +19,9 @@ const Settings = (): JSX.Element => {
           </div>
         </div>
 
-        <div css={tw`bg-base grid grid-cols-5 gap-8 rounded-xl p-8`}>
+        <div css={tw`grid grid-cols-5 gap-8 p-8 bg-base rounded-xl`}>
           <div css={tw`col-span-2`}>
-            <h2 css={tw`text-lg font-bold mb-2`}>Password</h2>
+            <h2 css={tw`mb-2 text-lg font-bold`}>Password</h2>
             <p css={tw`text-alt2`}>
               You can change your current password to new one. After submitting the form
               you will be redirected to the Sign In page.

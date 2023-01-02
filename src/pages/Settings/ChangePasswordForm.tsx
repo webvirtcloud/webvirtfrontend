@@ -73,7 +73,13 @@ const ChangePasswordForm = (): JSX.Element => {
           {errors.new_password_confirm?.message}
         </p>
       )}
-      <Button css={tw`w-full`} type="submit" loading={isSubmitting} disabled={!isValid}>
+      <Button
+        css={tw`w-full`}
+        size="xl"
+        type="submit"
+        loading={isSubmitting}
+        disabled={!isValid}
+      >
         Change password
       </Button>
     </form>

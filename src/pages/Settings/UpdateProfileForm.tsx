@@ -71,7 +71,13 @@ const UpdateProfileForm = (): JSX.Element => {
           name="last_name"
         />
       </div>
-      <Button loading={isSubmitting} disabled={!isValid} css={tw`w-full`} type="submit">
+      <Button
+        size="xl"
+        loading={isSubmitting}
+        disabled={!isValid}
+        css={tw`w-full`}
+        type="submit"
+      >
         Update profile
       </Button>
     </form>

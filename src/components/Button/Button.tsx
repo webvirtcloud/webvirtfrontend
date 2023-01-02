@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         type={type}
         disabled={disabled || loading}
         css={[
-          tw`text-sm text-body font-bold transition-colors rounded`,
+          tw`text-sm text-body font-bold transition-colors rounded-md`,
           size === 'sm'
             ? tw`h-6 px-1.5`
             : size === 'md'
