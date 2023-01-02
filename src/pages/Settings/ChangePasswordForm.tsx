@@ -75,7 +75,7 @@ const ChangePasswordForm = (): JSX.Element => {
       )}
       <Button
         css={tw`w-full`}
-        size="xl"
+        size="lg"
         type="submit"
         loading={isSubmitting}
         disabled={!isValid}

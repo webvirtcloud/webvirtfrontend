@@ -8,13 +8,11 @@
       }
 
       if (localStorage.getItem('theme') === 'system') {
-        document.documentElement.setAttribute(
-          'data-theme',
+        document.documentElement.classList.add(
           window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         )
       } else {
-        document.documentElement.setAttribute(
-          'data-theme',
+        document.documentElement.classList.add(
           localStorage.getItem('theme')
         )
       }
@@ -22,7 +20,8 @@
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(event) {
         const newColorScheme = event.matches ? 'dark' : 'light'
         localStorage.setItem('theme', newColorScheme)
-        document.documentElement.setAttribute('data-theme', newColorScheme)
+        document.documentElement.className = ''
+        document.documentElement.classList.add(newColorScheme)
       });
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

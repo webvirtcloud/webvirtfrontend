@@ -60,13 +60,7 @@ export const CreateKeypairDialog = ({ isOpen, onToggle, onCreate }: Props) => {
             </p>
           )}
         </div>
-        <Button
-          variant="primary"
-          type="submit"
-          fullWidth
-          size="lg"
-          loading={isSubmitting}
-        >
+        <Button type="submit" fullWidth size="lg" loading={isSubmitting}>
           Submit
         </Button>
       </form>

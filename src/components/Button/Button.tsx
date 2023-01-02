@@ -3,38 +3,65 @@ import tw from 'twin.macro';
 
 interface Props {
   type?: 'submit' | 'button';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  variant?: 'primary' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'secondary' | 'danger';
   loading?: boolean;
   disabled?: boolean;
   children: ReactNode;
   fullWidth?: boolean;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
+
+const getBaseStyle = () =>
+  tw`inline-flex items-center justify-center gap-1 px-4 font-bold transition-colors rounded-md text-body`;
 
 const getVarianStyle = ({ variant }: { variant: Props['variant'] }) => {
   switch (variant) {
-    case 'primary': {
-      return tw`bg-cyan-500 hover:bg-cyan-700`;
+    case 'secondary': {
+      return tw`border border-button-secondary bg-button-secondary hover:bg-button-secondary-hover active:border-button-secondary-active`;
     }
     case 'danger': {
-      return tw`border bg-red-50 border-red-300 text-red-600`;
+      return tw`border text-button-danger border-button-danger bg-button-danger hover:bg-button-danger-hover active:border-button-danger-active`;
     }
     default: {
-      return tw`border hover:bg-neutral-100`;
+      return tw`text-button-default bg-button-default active:bg-button-default-active hover:bg-button-default-hover`;
     }
   }
 };
 
+const getSizeStyle = ({ size }: { size: Props['size'] }) => {
+  switch (size) {
+    case 'sm': {
+      return tw`h-8 text-xs`;
+    }
+    case 'md': {
+      return tw`text-sm h-9`;
+    }
+    case 'lg': {
+      return tw`h-10 text-sm`;
+    }
+    default: {
+      return tw`h-8 text-sm`;
+    }
+  }
+};
+
+const getDisabledStyle = () =>
+  tw`cursor-not-allowed text-button-disabled bg-button-disabled`;
+
 export const Button = forwardRef<HTMLButtonElement, Props>(
   (
     {
-      variant,
+      variant = 'default',
       children,
       type = 'button',
-      size = 'md',
+      size = 'sm',
       loading,
       fullWidth,
       disabled,
+      startIcon,
+      endIcon,
       ...rest
     },
     ref,
@@ -45,23 +72,16 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         type={type}
         disabled={disabled || loading}
         css={[
-          tw`text-sm text-body font-bold transition-colors rounded-md`,
-          size === 'sm'
-            ? tw`h-6 px-1.5`
-            : size === 'md'
-            ? tw`h-8 px-4`
-            : size === 'lg'
-            ? tw`h-10 px-3`
-            : size === 'xl'
-            ? tw`h-12 px-4`
-            : tw``,
-          disabled || loading ? tw`cursor-not-allowed bg-white/10` : tw``,
-          getVarianStyle({ variant }),
+          getBaseStyle(),
+          getSizeStyle({ size }),
+          disabled || loading ? getDisabledStyle() : getVarianStyle({ variant }),
           fullWidth ? tw`w-full` : ``,
         ]}
         {...rest}
       >
+        {startIcon}
         {loading ? <span>Loading...</span> : children}
+        {endIcon}
       </button>
     );
   },

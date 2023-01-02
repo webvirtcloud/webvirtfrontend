@@ -72,7 +72,7 @@ const UpdateProfileForm = (): JSX.Element => {
         />
       </div>
       <Button
-        size="xl"
+        size="lg"
         loading={isSubmitting}
         disabled={!isValid}
         css={tw`w-full`}

@@ -45,14 +45,10 @@ export const KeypairsTable = ({ data, error, onUpdate, onDelete }: Props) => {
               <div>{key.fingerprint}</div>
               <div>Added on {format(new Date(key.created_at), 'MMM dd, yyyy')}</div>
               <div css={tw`ml-auto space-x-2`}>
-                <Button size="md" onClick={() => handleClickOnEditAction(key)}>
+                <Button variant="secondary" onClick={() => handleClickOnEditAction(key)}>
                   Edit
                 </Button>
-                <Button
-                  variant="danger"
-                  size="md"
-                  onClick={() => handleClickOnDeleteAction(key)}
-                >
+                <Button variant="danger" onClick={() => handleClickOnDeleteAction(key)}>
                   Delete
                 </Button>
               </div>

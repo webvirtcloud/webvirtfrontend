@@ -9,7 +9,7 @@ const Settings = (): JSX.Element => {
       <h1 css={tw`mb-8 text-xl font-bold`}>Settings</h1>
 
       <section css={tw`space-y-8`}>
-        <div css={tw`grid grid-cols-5 gap-8 p-8 bg-base rounded-xl`}>
+        <div css={tw`grid grid-cols-5 gap-8 p-8 border bg-base rounded-xl`}>
           <div css={tw`col-span-2`}>
             <h2 css={tw`mb-2 text-lg font-bold`}>Profile</h2>
             <p css={tw`text-alt2`}>Update information about your profile.</p>
@@ -19,7 +19,7 @@ const Settings = (): JSX.Element => {
           </div>
         </div>
 
-        <div css={tw`grid grid-cols-5 gap-8 p-8 bg-base rounded-xl`}>
+        <div css={tw`grid grid-cols-5 gap-8 p-8 border bg-base rounded-xl`}>
           <div css={tw`col-span-2`}>
             <h2 css={tw`mb-2 text-lg font-bold`}>Password</h2>
             <p css={tw`text-alt2`}>

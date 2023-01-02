@@ -2,7 +2,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  content: ['./*.html', './src/**/*.css', './src/**/*.{ts,tsx}'],
+  content: ['./*.html', './src/**/*.css', './src/**/*.{ts,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
@@ -12,6 +12,9 @@ module.exports = {
         body: 'var(--color-text-body)',
         alt: 'var(--color-text-alt)',
         alt2: 'var(--color-text-alt2)',
+        'button-default': 'var(--color-text-button-default)',
+        'button-disabled': 'var(--color-text-button-disabled)',
+        'button-danger': 'var(--color-text-button-danger)',
       },
       backgroundColor: {
         body: 'var(--color-bg-body)',
@@ -21,12 +24,28 @@ module.exports = {
 
         input: 'var(--color-bg-input)',
 
+        'button-disabled': 'var(--color-bg-button-disabled)',
+
+        'button-default': 'var(--color-bg-button-default)',
+        'button-default-hover': 'var(--color-bg-button-default-hover)',
+        'button-default-active': 'var(--color-bg-button-default-active)',
+
+        'button-secondary': 'var(--color-bg-button-secondary)',
+        'button-secondary-hover': 'var(--color-bg-button-secondary-hover)',
+
+        'button-danger': 'var(--color-bg-button-danger)',
+        'button-danger-hover': 'var(--color-bg-button-danger-hover)',
+
         'interactive-hover': 'var(--color-bg-interactive-hover)',
 
         'control-default': 'var(--color-bg-control-default)',
       },
       borderColor: {
         DEFAULT: 'var(--color-bg-alt2)',
+        'button-secondary': 'var(--color-border-button-secondary)',
+        'button-secondary-active': 'var(--color-border-button-secondary-active)',
+        'button-danger': 'var(--color-border-button-danger)',
+        'button-danger-active': 'var(--color-border-button-danger-active)',
       },
     },
   },

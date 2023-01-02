@@ -22,16 +22,15 @@ const ConfirmDialog = ({
   return (
     <Dialog title={title} isOpen={isOpen} onClose={() => onToggle(false)}>
       <ExclamationTriangleIcon css={tw`mx-auto text-red-500`} width={32} height={32} />
-      <p css={tw`py-4 text-center text-gray-400`}>
+      <p css={tw`mb-4 text-center text-gray-400`}>
         This action will permanently remove this item.
       </p>
       <div css={tw`grid grid-cols-2 gap-4 pt-4`}>
-        <Button size="lg" onClick={() => onToggle(false)}>
+        <Button variant="secondary" onClick={() => onToggle(false)}>
           Close
         </Button>
         <Button
           loading={isConfirmButtonLoading}
-          size="lg"
           variant="danger"
           onClick={() => onConfirm()}
         >
