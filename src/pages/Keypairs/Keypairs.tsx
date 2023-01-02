@@ -9,11 +9,11 @@ import { CreateKeypairDialog } from '@/components/Dialogs/CreateKeypair';
 import { KeypairsTable } from './KeypairsTable';
 
 export default function Keypairs() {
-  const [shownCreateDialog, setShownCreateDialog] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const { data, mutate, error } = useSWR('/keypairs/', getKeypairs);
 
-  const onCreateKeypair = (keypair: Keypair) => {
+  const onCreate = (keypair: Keypair) => {
     mutate({ keypairs: data ? [keypair, ...data.keypairs] : [] });
   };
 
@@ -27,13 +27,13 @@ export default function Keypairs() {
     <div>
       <div css={tw`flex items-center justify-between mb-8`}>
         <h2 css={tw`text-xl font-bold`}>Keypairs</h2>
-        <Button variant="primary" size="lg" onClick={() => setShownCreateDialog(true)}>
+        <Button variant="primary" size="lg" onClick={() => setIsCreateDialogOpen(true)}>
           Create Keypair
         </Button>
         <CreateKeypairDialog
-          isOpen={shownCreateDialog}
-          onToggle={setShownCreateDialog}
-          onCreate={onCreateKeypair}
+          isOpen={isCreateDialogOpen}
+          onToggle={setIsCreateDialogOpen}
+          onCreate={onCreate}
         />
       </div>
 
