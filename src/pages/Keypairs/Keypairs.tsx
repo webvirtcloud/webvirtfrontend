@@ -35,9 +35,7 @@ export default function Keypairs() {
     <div>
       <div css={tw`flex items-center justify-between mb-8`}>
         <h2 css={tw`text-xl font-bold`}>Keypairs</h2>
-        <Button size="lg" onClick={() => setIsCreateDialogOpen(true)}>
-          Create Keypair
-        </Button>
+        <Button onClick={() => setIsCreateDialogOpen(true)}>Create Keypair</Button>
         <CreateKeypairDialog
           isOpen={isCreateDialogOpen}
           onToggle={setIsCreateDialogOpen}
