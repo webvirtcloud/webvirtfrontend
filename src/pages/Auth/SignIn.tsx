@@ -32,8 +32,11 @@ const SignIn = (): JSX.Element => {
 
   return (
     <>
-      <h1 css={tw`mb-4 text-2xl font-bold text-center`}>Sign in to your account</h1>
-      <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
+      <h1 css={tw`mb-8 text-2xl font-bold text-center`}>Sign in to your account</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        css={tw`p-8 space-y-4 rounded-md shadow bg-base`}
+      >
         <Input
           id="email"
           label="Email"
@@ -46,12 +49,10 @@ const SignIn = (): JSX.Element => {
               message: 'Entered value does not match email format',
             },
           })}
+          size="lg"
+          required
+          error={errors.email?.message}
         />
-        {errors.email && (
-          <p css={tw`text-red-500`} role="alert">
-            {errors.email?.message}
-          </p>
-        )}
         <Input
           id="password"
           label="Password"
@@ -61,27 +62,31 @@ const SignIn = (): JSX.Element => {
             minLength: { value: 6, message: 'Password should be at least 6 characters.' },
             required: 'Password is required.',
           })}
+          size="lg"
+          required
+          error={errors.password?.message}
         />
-        {errors.password && (
-          <p css={tw`text-red-500`} role="alert">
-            {errors.password?.message}
-          </p>
-        )}
         <div css={tw`text-right`}>
           <Link
-            css={tw`transition-colors text-cyan-500 hover:text-cyan-700`}
+            css={tw`text-blue-700 transition-colors hover:text-blue-600`}
             to="/reset-password"
           >
             Reset password
           </Link>
         </div>
-        <Button type="submit" css={tw`w-full`} loading={isSubmitting} disabled={!isValid}>
+        <Button
+          size="lg"
+          type="submit"
+          fullWidth
+          loading={isSubmitting}
+          disabled={!isValid}
+        >
           Sign In
         </Button>
       </form>
       <p css={tw`mt-4 text-center`}>
         Don&apos;t have an account?{' '}
-        <Link css={tw`transition-colors text-cyan-500 hover:text-cyan-700`} to="/sign-up">
+        <Link css={tw`text-blue-700 transition-colors hover:text-blue-600`} to="/sign-up">
           Sign Up
         </Link>
       </p>

@@ -21,9 +21,13 @@ const ResetPassword = (): JSX.Element => {
 
   return (
     <>
-      <h1 css={tw`mb-4 text-2xl font-bold text-center`}>Reset password</h1>
-      <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
+      <h1 css={tw`mb-8 text-2xl font-bold text-center`}>Reset password</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        css={tw`p-8 space-y-4 rounded-md shadow bg-base`}
+      >
         <Input
+          id="new_password"
           label="New Password"
           type="password"
           placeholder="Enter new secure password"
@@ -31,19 +35,17 @@ const ResetPassword = (): JSX.Element => {
             minLength: { value: 6, message: 'Password should be at least 6 characters.' },
             required: 'Password is required.',
           })}
+          size="lg"
+          required
+          error={errors.password?.message}
         />
-        {errors.password && (
-          <p css={tw`text-red-500`} role="alert">
-            {errors.password?.message}
-          </p>
-        )}
-        <Button css={tw`w-full`} loading={isSubmitting} disabled={!isValid}>
+        <Button fullWidth size="lg" loading={isSubmitting} disabled={!isValid}>
           Change password
         </Button>
       </form>
       <p css={tw`mt-4 text-center`}>
         Or try to{' '}
-        <Link css={tw`transition-colors text-cyan-500 hover:text-cyan-700`} to="/sign-in">
+        <Link css={tw`text-blue-700 transition-colors hover:text-blue-600`} to="/sign-in">
           Sign in
         </Link>{' '}
         again
