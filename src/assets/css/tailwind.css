@@ -57,7 +57,7 @@
     
     /* input */
     --color-bg-input-default: transparent;
-    --color-bg-input-disabled: red;
+    --color-bg-input-disabled: theme(colors.neutral.700);
     --color-border-input-default: theme(colors.neutral.600);
 
     /* disabled button */
