@@ -33,7 +33,7 @@ export const ToastContextProvider = ({ children }): JSX.Element => {
   );
   return (
     <ToastContext.Provider value={createToast}>
-      <div css={tw`fixed top-0 right-0 space-y-2 p-4`}>
+      <div css={tw`fixed top-0 right-0 z-20 p-4 space-y-2`}>
         {toasts.map((toast) => (
           <ToastComponent toast={toast} key={toast.id} />
         ))}
