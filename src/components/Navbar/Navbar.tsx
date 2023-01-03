@@ -11,7 +11,7 @@ const Navbar = (): JSX.Element => {
   const profile = useAtomValue(useProfileStore);
 
   const links: { to: string; name: string }[] = [
-    { to: `/servers`, name: 'Virtances' },
+    { to: `/`, name: 'Virtances' },
     { to: `/keypairs`, name: 'Keypairs' },
     { to: `/settings`, name: 'Settings' },
   ];
