@@ -22,7 +22,8 @@ module.exports = {
         alt: 'var(--color-bg-alt)',
         alt2: 'var(--color-bg-alt2)',
 
-        input: 'var(--color-bg-input)',
+        'input-default': 'var(--color-bg-input-default)',
+        'input-disabled': 'var(--color-bg-input-disabled)',
 
         'button-disabled': 'var(--color-bg-button-disabled)',
 
@@ -42,6 +43,7 @@ module.exports = {
       },
       borderColor: {
         DEFAULT: 'var(--color-bg-alt2)',
+        'input-default': 'var(--color-border-input-default)',
         'button-secondary': 'var(--color-border-button-secondary)',
         'button-secondary-active': 'var(--color-border-button-secondary-active)',
         'button-danger': 'var(--color-border-button-danger)',

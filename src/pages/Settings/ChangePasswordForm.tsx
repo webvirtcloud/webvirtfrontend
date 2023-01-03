@@ -35,12 +35,15 @@ const ChangePasswordForm = (): JSX.Element => {
         type="password"
         id="current_password"
         name="current_password"
+        size="lg"
+        error={errors.old_password?.message}
+        required
       />
-      {errors.old_password && (
+      {/* {errors.old_password && (
         <p css={tw`text-red-500`} role="alert">
           {errors.old_password?.message}
         </p>
-      )}
+      )} */}
       <Input
         {...register('new_password', {
           required: 'New password is required.',
@@ -51,12 +54,15 @@ const ChangePasswordForm = (): JSX.Element => {
         type="password"
         id="new_password"
         name="new_password"
+        size="lg"
+        required
+        error={errors.new_password?.message}
       />
-      {errors.new_password && (
+      {/* {errors.new_password && (
         <p css={tw`text-red-500`} role="alert">
           {errors.new_password?.message}
         </p>
-      )}
+      )} */}
       <Input
         {...register('new_password_confirm', {
           required: 'New password is required.',
@@ -67,6 +73,8 @@ const ChangePasswordForm = (): JSX.Element => {
         type="password"
         id="new_password_confirm"
         name="new_password_confirm"
+        size="lg"
+        required
       />
       {errors.new_password_confirm && (
         <p css={tw`text-red-500`} role="alert">

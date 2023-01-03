@@ -19,7 +19,7 @@ export const CreateKeypairDialog = ({ isOpen, onToggle, onCreate }: Props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<KeypairPayload>();
+  } = useForm<KeypairPayload>({ mode: 'onChange' });
 
   const onSubmit = async (data: KeypairPayload) => {
     try {
@@ -38,12 +38,10 @@ export const CreateKeypairDialog = ({ isOpen, onToggle, onCreate }: Props) => {
             {...register('name', { required: 'Name of Keypair is required.' })}
             label="Name"
             placeholder="My access key"
+            required
+            size="lg"
+            error={errors.name?.message}
           />
-          {errors.name && (
-            <p css={tw`text-red-500`} role="alert">
-              {errors.name?.message}
-            </p>
-          )}
         </div>
         <div>
           <Textarea
@@ -53,12 +51,9 @@ export const CreateKeypairDialog = ({ isOpen, onToggle, onCreate }: Props) => {
             {...register('public_key', { required: 'Public key is required.' })}
             label="Public key"
             placeholder="Your public key"
+            required
+            error={errors.public_key?.message}
           ></Textarea>
-          {errors.public_key && (
-            <p css={tw`text-red-500`} role="alert">
-              {errors.public_key?.message}
-            </p>
-          )}
         </div>
         <Button type="submit" fullWidth size="lg" loading={isSubmitting}>
           Submit

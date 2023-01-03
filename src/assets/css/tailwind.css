@@ -12,7 +12,11 @@
     --color-bg-interactive-hover: hsla(0,0%,0%,.06);
 
     --color-bg-control-default: #222;
-    --color-bg-input: rgba(0,0,0,.06);
+
+    /* input */
+    --color-bg-input-default: white;
+    --color-bg-input-disabled: theme(colors.neutral.100);
+    --color-border-input-default: theme(colors.neutral.300);
 
     /* disabled button */
     --color-bg-button-disabled: theme(colors.neutral.100);
@@ -50,7 +54,11 @@
     --color-bg-interactive-hover: hsla(0,0%,100%,.08);
 
     --color-bg-control-default: #222;
-    --color-bg-input: hsla(0,0%,100%,.2);
+    
+    /* input */
+    --color-bg-input-default: transparent;
+    --color-bg-input-disabled: red;
+    --color-border-input-default: theme(colors.neutral.600);
 
     /* disabled button */
     --color-bg-button-disabled: theme(colors.neutral.800);

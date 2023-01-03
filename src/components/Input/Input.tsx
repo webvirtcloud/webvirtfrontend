@@ -7,22 +7,66 @@ interface Props {
   type?: 'text' | 'number' | 'email' | 'password';
   placeholder: string;
   label: string;
+  hint?: string;
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
   required?: boolean;
   readonly?: boolean;
+  error?: boolean | string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// eslint-disable-next-line react/display-name
+const getBaseStyle = () =>
+  tw`w-full px-4 text-sm transition-colors border rounded-md bg-input-default`;
+
+const getDisabledStyle = () => tw`bg-input-disabled`;
+
+const getBaseFocusStyle = () =>
+  tw`border-input-default focus:border-blue-700 focus:ring-1 focus:ring-blue-700`;
+
+const getErrorFocusStyle = () =>
+  tw`border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
+
+const getSizeStyle = ({ size }: { size: Props['size'] }) => {
+  switch (size) {
+    case 'sm': {
+      return tw`h-8 text-xs`;
+    }
+    case 'md': {
+      return tw`text-sm h-9`;
+    }
+    case 'lg': {
+      return tw`h-10 text-sm`;
+    }
+    default: {
+      return tw`h-8 text-sm`;
+    }
+  }
+};
+
 const Input = forwardRef<HTMLInputElement, Props>(
   (
-    { id, name, label, type = 'text', required, readonly = false, ...rest },
+    {
+      id,
+      name,
+      label,
+      hint,
+      type = 'text',
+      size = 'md',
+      required,
+      readonly = false,
+      disabled,
+      error,
+      ...rest
+    },
     ref,
   ): JSX.Element => {
     return (
       <div>
-        <label htmlFor={id} css={tw`inline-block text-sm font-bold mb-2`}>
+        <label htmlFor={id} css={tw`inline-block mb-1 text-xs font-bold`}>
           {label}
+          {required && <span css={tw`text-red-500`}>*</span>}
         </label>
 
         <input
@@ -30,14 +74,27 @@ const Input = forwardRef<HTMLInputElement, Props>(
           name={name}
           ref={ref}
           type={type}
-          required={required}
+          disabled={disabled}
           readOnly={readonly}
-          css={tw`h-12 text-sm w-full border-2 border-transparent focus:border-cyan-500 focus:ring-0 transition-colors bg-input focus:bg-transparent rounded-md px-4`}
+          css={[
+            getBaseStyle(),
+            (disabled || readonly) && getDisabledStyle(),
+            getSizeStyle({ size }),
+            error ? getErrorFocusStyle() : getBaseFocusStyle(),
+          ]}
           {...rest}
         />
+
+        {hint || error ? (
+          <p css={[tw`mt-1 text-xs`, error ? tw`text-red-500` : tw`text-alt2`]}>
+            {typeof error === 'string' && error !== '' ? error : hint}
+          </p>
+        ) : null}
       </div>
     );
   },
 );
+
+Input.displayName = 'Input';
 
 export default Input;

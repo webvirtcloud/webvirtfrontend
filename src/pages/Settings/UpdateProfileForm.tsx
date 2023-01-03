@@ -20,7 +20,7 @@ const UpdateProfileForm = (): JSX.Element => {
     handleSubmit,
     setValue,
     trigger,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting, isValid, errors },
   } = useForm<Profile>({ mode: 'onChange' });
 
   const setDefaultValues = (profile: Profile) => {
@@ -54,21 +54,29 @@ const UpdateProfileForm = (): JSX.Element => {
         label="Email"
         id="email"
         name="email"
+        size="lg"
+        hint="Cannot be changed."
       />
       <div css={tw`grid grid-cols-2 gap-4`}>
         <Input
-          {...register('first_name', { required: true })}
+          {...register('first_name', { required: 'First name is required.' })}
           placeholder="John"
           label="First name"
           id="first_name"
           name="first_name"
+          size="lg"
+          required
+          error={errors.first_name?.message}
         />
         <Input
-          {...register('last_name', { required: true })}
+          {...register('last_name', { required: 'Last name is required.' })}
           placeholder="Doe"
           label="Last name"
           id="last_name"
           name="last_name"
+          size="lg"
+          required
+          error={errors.last_name?.message}
         />
       </div>
       <Button

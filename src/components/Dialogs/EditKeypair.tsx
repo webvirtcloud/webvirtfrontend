@@ -22,7 +22,7 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<KeypairPayload>();
+  } = useForm<KeypairPayload>({ mode: 'onChange' });
 
   useEffect(() => {
     if (keypair) {
@@ -51,12 +51,9 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
             {...register('name', { required: 'Name of Keypair is required.' })}
             label="Name"
             placeholder="My access key"
+            required
+            error={errors.name?.message}
           />
-          {errors.name && (
-            <p css={tw`text-red-500`} role="alert">
-              {errors.name?.message}
-            </p>
-          )}
         </div>
         <div>
           <Textarea
@@ -67,12 +64,9 @@ const EditKeypairDialog = ({ isOpen, keypair, onToggle, onUpdate }: Props) => {
             {...register('public_key', { required: 'Public key is required.' })}
             label="Public key"
             placeholder="Your public key"
+            required
+            error={errors.public_key?.message}
           ></Textarea>
-          {errors.public_key && (
-            <p css={tw`text-red-500`} role="alert">
-              {errors.public_key?.message}
-            </p>
-          )}
         </div>
         <Button type="submit" fullWidth size="lg" loading={isSubmitting}>
           Submit

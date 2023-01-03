@@ -7,22 +7,63 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   placeholder: string;
   label: string;
   rows?: number;
+  hint?: string;
+  size?: 'sm' | 'md';
+  error?: boolean | string;
+  disabled?: boolean;
   required?: boolean;
   readonly?: boolean;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onBlur: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-// eslint-disable-next-line react/display-name
+const getBaseStyle = () =>
+  tw`w-full px-4 text-sm transition-colors border rounded-md bg-input-default`;
+
+const getDisabledStyle = () => tw`bg-input-disabled`;
+
+const getBaseFocusStyle = () =>
+  tw`border-input-default focus:border-blue-700 focus:ring-1 focus:ring-blue-700`;
+
+const getErrorFocusStyle = () =>
+  tw`border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
+
+const getSizeStyle = ({ size }: { size: Props['size'] }) => {
+  switch (size) {
+    case 'sm': {
+      return tw`text-xs`;
+    }
+    case 'md': {
+      return tw`text-sm`;
+    }
+    default: {
+      return tw`text-sm`;
+    }
+  }
+};
+
 const Textarea = forwardRef<HTMLTextAreaElement, Props>(
   (
-    { id, name, label, required, readonly = false, rows = 5, ...rest },
+    {
+      id,
+      name,
+      label,
+      disabled,
+      error,
+      readonly = false,
+      size = 'md',
+      required,
+      rows = 5,
+      hint,
+      ...rest
+    },
     ref,
   ): JSX.Element => {
     return (
-      <div>
-        <label htmlFor={id} css={tw`inline-block mb-2 text-sm font-bold`}>
+      <div css={tw`flex flex-col`}>
+        <label htmlFor={id} css={tw`inline-block mb-1 text-xs font-bold`}>
           {label}
+          {required && <span css={tw`text-red-500`}>*</span>}
         </label>
 
         <textarea
@@ -30,14 +71,27 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
           name={name}
           ref={ref}
           rows={rows}
-          required={required}
           readOnly={readonly}
-          css={tw`w-full px-4 text-sm transition-colors border-2 border-transparent rounded-md focus:border-cyan-500 focus:ring-0 bg-input focus:bg-transparent`}
+          disabled={disabled}
+          css={[
+            getBaseStyle(),
+            (disabled || readonly) && getDisabledStyle(),
+            getSizeStyle({ size }),
+            error ? getErrorFocusStyle() : getBaseFocusStyle(),
+          ]}
           {...rest}
         />
+
+        {hint || error ? (
+          <p css={[tw`mt-1 text-xs`, error ? tw`text-red-500` : tw`text-alt2`]}>
+            {typeof error === 'string' && error !== '' ? error : hint}
+          </p>
+        ) : null}
       </div>
     );
   },
 );
+
+Textarea.displayName = 'Textarea';
 
 export default Textarea;
