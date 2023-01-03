@@ -1,11 +1,10 @@
-import 'twin.macro';
-
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
+import { Button } from '@/components/Button';
 import { Clipboard, Elipsis, Location, Pause, Play, World } from '@/components/Icons';
 
 type Props = {
@@ -29,12 +28,12 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
   return (
     <Link
       to={to}
-      css={tw`min-h-[160px] flex flex-col justify-between bg-base rounded-lg ring-1 ring-black/5 hover:ring-cyan-500 border border-transparent hover:border-cyan-500 transition-all duration-300 p-4`}
+      css={tw`min-h-[160px] flex flex-col justify-between bg-base rounded-lg hover:ring-1 hover:ring-blue-700 border hover:border-blue-700 transition-all duration-300 p-4`}
     >
       <div css={tw`flex items-start justify-between`}>
         <div>
           <div css={tw`flex items-center space-x-2`}>
-            <div css={tw`bg-alt h-12 w-12 flex items-center justify-center rounded`}>
+            <div css={tw`flex items-center justify-center w-12 h-12 rounded bg-alt`}>
               <img
                 css={tw`w-8 h-8`}
                 src={
@@ -56,27 +55,24 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
         </div>
 
         <div css={tw`flex items-center space-x-2`}>
-          <button
-            type="button"
+          <Button
+            variant={isActive(server) ? 'default' : 'danger'}
+            onlyIcon
             onClick={toggleStatus}
-            css={[
-              isActive(server) ? tw`text-green-500` : tw`text-red-500`,
-              tw`bg-alt hover:bg-alt2 h-8 w-8 flex items-center justify-center transition-colors duration-300 rounded-md`,
-            ]}
           >
-            {isActive(server) ? <Play /> : <Pause />}
-          </button>
-          <button
-            type="button"
-            onClick={toggleOptions}
-            css={tw`bg-alt hover:bg-alt2 h-8 w-8 flex items-center justify-center transition-colors duration-300 rounded-md`}
-          >
+            {isActive(server) ? (
+              <Play css={tw`text-green-500`} />
+            ) : (
+              <Pause css={tw`text-red-500`} />
+            )}
+          </Button>
+          <Button onlyIcon variant="secondary" onClick={toggleOptions}>
             <Elipsis />
-          </button>
+          </Button>
         </div>
       </div>
 
-      <div css={tw`text-sm flex items-center space-x-3`}>
+      <div css={tw`flex items-center space-x-3 text-sm`}>
         <div css={tw`flex items-center space-x-1`}>
           <span css={tw`opacity-30`}>
             <Location width={16} height={16} />
@@ -103,13 +99,13 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
             server.tags.map((tag) => (
               <li
                 key={tag}
-                css={tw`inline-block bg-alt text-body text-xs rounded-full px-2 py-1`}
+                css={tw`inline-block px-2 py-1 text-xs rounded-full bg-alt text-body`}
               >
                 {tag}
               </li>
             ))
           ) : (
-            <li css={tw`inline-block bg-alt text-body text-xs rounded-full px-2 py-1`}>
+            <li css={tw`inline-block px-2 py-1 text-xs rounded-full bg-alt text-body`}>
               No tags
             </li>
           )}
