@@ -1,29 +1,20 @@
 import { useAtomValue } from 'jotai';
-import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { Console, ServerList, Settings } from '@/components/Icons';
-import ProjectSelector from '@/components/ProjectSelector';
+// import ProjectSelector from '@/components/ProjectSelector';
 import UserMenu from '@/components/UserMenu';
 import { useProfileStore } from '@/store/profile';
-import { useProjectStore } from '@/store/project';
 
 const Navbar = (): JSX.Element => {
   const profile = useAtomValue(useProfileStore);
-  const project = useAtomValue(useProjectStore);
 
-  const [links, setLinks] = useState<{ to: string; name: string }[]>([]);
-
-  useEffect(() => {
-    if (project) {
-      setLinks([
-        { to: `/projects/${project?.uuid}/servers`, name: 'Virtances' },
-        { to: `/projects/${project?.uuid}/keypairs`, name: 'Keypairs' },
-        { to: `/settings`, name: 'Settings' },
-      ]);
-    }
-  }, [project]);
+  const links: { to: string; name: string }[] = [
+    { to: `/servers`, name: 'Virtances' },
+    { to: `/keypairs`, name: 'Keypairs' },
+    { to: `/settings`, name: 'Settings' },
+  ];
 
   return (
     <nav
@@ -40,7 +31,7 @@ const Navbar = (): JSX.Element => {
               />
             </Link>
             <div css={tw`w-px h-6 bg-alt2`}></div>
-            <ProjectSelector />
+            {/* <ProjectSelector /> */}
           </div>
           <UserMenu profile={profile} />
         </div>

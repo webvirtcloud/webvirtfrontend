@@ -160,14 +160,12 @@ const servers: Server[] = [
   },
 ];
 
-export const getServers = ({
-  meta: { project_uuid },
-}): Promise<{ servers: Server[] }> => {
+export const getServers = (): Promise<{ servers: Server[] }> => {
   return new Promise((resolve) => {
     setTimeout(
       () =>
         resolve({
-          servers: servers.filter((server) => server.project_uuid === project_uuid),
+          servers: servers,
         }),
       500,
     );

@@ -17,13 +17,12 @@ const App = (): JSX.Element => {
       <ToastContextProvider>
         <Routes>
           <Route path="/" element={<DefaultLayout />}>
-            {/* <Route path="/" element={<Navigate to="/servers" />} /> */}
+            <Route path="/" element={<Navigate to="/servers" />} />
             <Route path="/projects/create" element={<CreateProject />} />
-            <Route path="/projects/:puuid" element={<Navigate to="servers" />} />
-            <Route path="/projects/:puuid/servers" element={<Servers />} />
-            <Route path="/projects/:puuid/keypairs" element={<Keypairs />} />
+            <Route path="/servers" element={<Servers />} />
+            <Route path="/keypairs" element={<Keypairs />} />
             <Route element={<ServerLayout />}>
-              <Route path="/projects/:puuid/servers/:suuid" element={<Server />} />
+              <Route path="/servers/:suuid" element={<Server />} />
             </Route>
             <Route path="/settings" element={<Settings />} />
           </Route>

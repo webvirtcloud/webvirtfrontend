@@ -6,15 +6,15 @@ interface Props {
   name: string;
   type?: 'text' | 'number' | 'email' | 'password';
   placeholder: string;
-  label: string;
+  label?: string;
   hint?: string;
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   required?: boolean;
   readonly?: boolean;
   error?: boolean | string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const getBaseStyle = () =>
@@ -65,7 +65,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
     return (
       <div>
         <label htmlFor={id} css={tw`inline-block mb-1 text-xs font-bold`}>
-          {label}
+          {label && <span>{label}</span>}
           {required && <span css={tw`text-red-500`}>*</span>}
         </label>
 
