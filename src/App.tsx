@@ -1,5 +1,5 @@
 import { Provider as JotaiProvider } from 'jotai';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { ToastContextProvider } from '@/components/Toast/Provider';
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/layouts';
