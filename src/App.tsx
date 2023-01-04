@@ -1,5 +1,5 @@
 import { Provider as JotaiProvider } from 'jotai';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { ToastContextProvider } from '@/components/Toast/Provider';
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/layouts';
@@ -8,7 +8,7 @@ import Keypairs from '@/pages/Keypairs';
 import NotFound from '@/pages/NotFound';
 import { CreateProject } from '@/pages/Projects';
 import { Server } from '@/pages/Server';
-import { Servers } from '@/pages/Servers';
+import { CreateServer, Servers } from '@/pages/Servers';
 import Settings from '@/pages/Settings';
 
 const App = (): JSX.Element => {
@@ -17,9 +17,10 @@ const App = (): JSX.Element => {
       <ToastContextProvider>
         <Routes>
           <Route path="/" element={<DefaultLayout />}>
-            <Route path="/" element={<Servers />} />
+            <Route path="/" element={<Navigate to="/servers" />} />
             <Route path="/projects/create" element={<CreateProject />} />
             <Route path="/servers" element={<Servers />} />
+            <Route path="/servers/create" element={<CreateServer />} />
             <Route path="/keypairs" element={<Keypairs />} />
             <Route element={<ServerLayout />}>
               <Route path="/servers/:suuid" element={<Server />} />
