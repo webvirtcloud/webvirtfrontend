@@ -61,7 +61,7 @@
     --color-border-input-default: theme(colors.neutral.600);
 
     /* disabled button */
-    --color-bg-button-disabled: theme(colors.neutral.800);
+    --color-bg-button-disabled: theme(colors.neutral.700);
     --color-text-button-disabled: theme(colors.neutral.400);
 
     /* secondary button */
