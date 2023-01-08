@@ -14,6 +14,7 @@ type Props = {
 
 const DialogMask = motion(tw.div`
   fixed
+  z-40
   inset-0
   bg-black/50
   flex
