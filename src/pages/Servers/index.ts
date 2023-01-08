@@ -1,3 +1,4 @@
+import CreateServer from './CreateServer';
 import Servers from './Servers';
 
-export { Servers };
+export { CreateServer, Servers };

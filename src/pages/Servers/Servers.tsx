@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import useSWR from 'swr';
 import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
 import { getServers } from '@/api/servers';
+import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
 import ServerItem from './ServerItem';
@@ -12,11 +14,18 @@ interface Props {
 }
 
 const ServersList = ({ servers }: Props): JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <section>
       <div css={tw`flex items-center justify-between mb-8`}>
         <h2 css={tw`text-xl font-bold`}>Servers List</h2>
-        <Input id="server-search" name="server-search" placeholder="Search..." />
+        <div css={tw`flex items-center space-x-2`}>
+          <Button onClick={() => navigate('/servers/create')} size="md">
+            Create server
+          </Button>
+          <Input id="server-search" name="server-search" placeholder="Search..." />
+        </div>
       </div>
 
       {servers ? (
