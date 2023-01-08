@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import ArrowLeftOnRectangleIcon from '@heroicons/react/20/solid/ArrowLeftOnRectangleIcon';
+import ChevronUpDownIcon from '@heroicons/react/20/solid/ChevronUpDownIcon';
+import Cog6ToothIcon from '@heroicons/react/20/solid/Cog6ToothIcon';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Profile } from '@/api/account';
-import { ArrowDown, Logout, Settings } from '@/components/Icons';
-import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+
+import { Button } from '../Button';
+import { Menu, MenuItem } from '../Menu';
 
 type Props = {
   profile: Profile | undefined;
@@ -12,9 +16,9 @@ type Props = {
 
 const UserMenu = ({ profile }: Props): JSX.Element => {
   const ref = useRef<HTMLDivElement>(null);
+  const reference = useRef<HTMLButtonElement>();
   const [isOpen, toggle] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     window.localStorage.removeItem('token');
@@ -22,56 +26,43 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
     navigate('/sign-in');
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      toggle(false);
-    }
-  }, [location]);
+  const goToSettings = () => {
+    navigate('/settings/');
 
-  useOnClickOutside(ref, () => toggle(false));
+    toggle(false);
+  };
 
   return (
-    <div css={tw`relative min-w-[132px]`} ref={ref}>
-      <button
+    <div ref={ref}>
+      <Button
+        ref={reference}
+        variant="secondary"
+        endIcon={<ChevronUpDownIcon width={16} height={16} />}
         onClick={() => toggle(!isOpen)}
-        type="button"
-        css={tw`w-full flex items-center justify-between text-left hover:bg-interactive-hover transition-colors duration-300 rounded-md space-x-2 p-2`}
       >
-        <div css={tw`flex items-center space-x-2`}>
-          <div css={tw`min-w-0 overflow-hidden`}>
-            <h4 css={tw`font-bold`}>{profile?.email}</h4>
-          </div>
+        <div css={tw`min-w-0 overflow-hidden max-w-[168px]`}>
+          <h4 css={tw`font-bold truncate`}>{profile?.email}</h4>
         </div>
-
-        <ArrowDown />
-      </button>
-      {isOpen && (
-        <div
-          css={tw`bg-base absolute z-30 top-[calc(100% + 8px)] left-0 right-0 shadow-md ring-1 ring-black/5 rounded-md p-2`}
+      </Button>
+      <Menu
+        isOpen={isOpen}
+        source={reference}
+        placement="bottom-end"
+        onClose={() => toggle(false)}
+      >
+        <MenuItem
+          startIcon={<Cog6ToothIcon width={16} height={16} />}
+          onClick={() => goToSettings()}
         >
-          <ul>
-            <li>
-              <Link
-                css={tw`flex items-center w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
-                to="/settings"
-              >
-                <Settings />
-                <span css={tw`font-bold`}>Settings</span>
-              </Link>
-            </li>
-            <li>
-              <button
-                css={tw`flex items-center w-full text-left p-2 hover:bg-interactive-hover rounded space-x-2`}
-                type="button"
-                onClick={() => handleLogout()}
-              >
-                <Logout />
-                <span css={tw`font-bold`}>Logout</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
+          Settings
+        </MenuItem>
+        <MenuItem
+          startIcon={<ArrowLeftOnRectangleIcon width={16} height={16} />}
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </MenuItem>
+      </Menu>
     </div>
   );
 };
