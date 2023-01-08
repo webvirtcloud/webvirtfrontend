@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { ReactNode } from 'react';
 import tw from 'twin.macro';
 
@@ -11,16 +12,17 @@ type Props = {
   children: ReactNode;
 };
 
-const DialogMask = tw.div`
+const DialogMask = motion(tw.div`
   fixed
   inset-0
   bg-black/50
   flex
   items-center
   justify-center
-`;
+  backdrop-blur-sm
+`);
 
-const DialogContainer = tw.div`
+const DialogContainer = motion(tw.div`
   bg-base
   w-full
   max-w-lg
@@ -30,21 +32,32 @@ const DialogContainer = tw.div`
   focus:outline-2
   focus:outline-offset-2
   focus:outline-blue-700
-`;
+`);
 
 export default function Dialog({ isOpen, title, onClose, children }: Props) {
-  if (!isOpen) {
-    return null;
-  }
-
   return (
     <Portal>
-      <DialogMask>
-        <DialogContainer tabIndex={0}>
-          <DialogHeader onClose={onClose} title={title} />
-          <div>{children}</div>
-        </DialogContainer>
-      </DialogMask>
+      <AnimatePresence>
+        {isOpen && (
+          <DialogMask
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <DialogContainer
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              transition={{ type: 'spring' }}
+              tabIndex={0}
+            >
+              <DialogHeader onClose={onClose} title={title} />
+              <div>{children}</div>
+            </DialogContainer>
+          </DialogMask>
+        )}
+      </AnimatePresence>
     </Portal>
   );
 }
