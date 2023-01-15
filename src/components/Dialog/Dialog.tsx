@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ReactNode } from 'react';
 import tw from 'twin.macro';
 
+import DismissibleLayer from '../DismissibleLayer/DismissibleLayer';
 import { Portal } from '../Portal';
 import { DialogHeader } from './DialogHeader';
 
@@ -40,23 +41,25 @@ export default function Dialog({ isOpen, title, onClose, children }: Props) {
     <Portal>
       <AnimatePresence>
         {isOpen && (
-          <DialogMask
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <DialogContainer
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.1 }}
-              transition={{ type: 'spring' }}
-              tabIndex={0}
+          <DismissibleLayer onEscapeKeyDown={onClose}>
+            <DialogMask
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              <DialogHeader onClose={onClose} title={title} />
-              <div>{children}</div>
-            </DialogContainer>
-          </DialogMask>
+              <DialogContainer
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.1 }}
+                transition={{ type: 'spring' }}
+                tabIndex={0}
+              >
+                <DialogHeader onClose={onClose} title={title} />
+                <div>{children}</div>
+              </DialogContainer>
+            </DialogMask>
+          </DismissibleLayer>
         )}
       </AnimatePresence>
     </Portal>
