@@ -8,6 +8,7 @@
     --color-bg-base: #fff;
     --color-bg-alt: #efeff1;
     --color-bg-alt2: #d5d5d5;
+    --color-bg-stripe: #dedede;
 
     --color-bg-interactive-hover: hsla(0,0%,0%,.06);
 
@@ -50,6 +51,7 @@
     --color-bg-base: #222;
     --color-bg-alt: #333;
     --color-bg-alt2: #444;
+    --color-bg-stripe: #1f1f1f;
 
     --color-bg-interactive-hover: hsla(0,0%,100%,.08);
 

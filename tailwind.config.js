@@ -21,6 +21,7 @@ module.exports = {
         base: 'var(--color-bg-base)',
         alt: 'var(--color-bg-alt)',
         alt2: 'var(--color-bg-alt2)',
+        stripe: 'var(--color-bg-stripe)',
 
         'input-default': 'var(--color-bg-input-default)',
         'input-disabled': 'var(--color-bg-input-disabled)',

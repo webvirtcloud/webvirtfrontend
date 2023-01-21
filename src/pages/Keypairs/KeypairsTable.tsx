@@ -6,6 +6,7 @@ import { Keypair } from '@/api/keypairs';
 import { Button } from '@/components/Button';
 import ConfirmDialog from '@/components/Dialogs/ConfirmDialog';
 import EditKeypairDialog from '@/components/Dialogs/EditKeypair';
+import Table from '@/components/Table';
 
 type Props = {
   data: { keypairs: Keypair[] } | undefined;
@@ -35,34 +36,43 @@ export const KeypairsTable = ({ data, error, onUpdate, onDelete }: Props) => {
     setIsDeleteDialogOpen(true);
   };
 
-  return (
-    <div>
-      <div css={tw`border divide-y rounded-md bg-base`}>
-        {data && data.keypairs.length > 0 ? (
-          data.keypairs.map((key) => (
-            <div key={key.id} css={tw`flex flex-wrap items-center gap-24 p-4 text-alt2`}>
-              <div css={tw`font-bold text-body`}>{key.name}</div>
-              <div>{key.fingerprint}</div>
-              <div>Added on {format(new Date(key.created_at), 'MMM dd, yyyy')}</div>
-              <div css={tw`ml-auto space-x-2`}>
-                <Button variant="secondary" onClick={() => handleClickOnEditAction(key)}>
-                  Edit
-                </Button>
-                <Button variant="danger" onClick={() => handleClickOnDeleteAction(key)}>
-                  Delete
-                </Button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p css={tw`p-8 text-center`}>No keypairs found!</p>
-        )}
-        {error && (
-          <p css={tw`p-4 font-bold text-center`}>
-            Something goes wrong...Try again later.
-          </p>
-        )}
+  const Actions = ({ value: key }) => (
+    <div css={tw`space-x-2`}>
+      <div css={tw`flex justify-end space-x-2`}>
+        <Button variant="secondary" onClick={() => handleClickOnEditAction(key)}>
+          Edit
+        </Button>
+        <Button variant="danger" onClick={() => handleClickOnDeleteAction(key)}>
+          Delete
+        </Button>
       </div>
+    </div>
+  );
+
+  const columns = [
+    {
+      field: 'name',
+      name: 'Name',
+    },
+    {
+      field: 'fingerprint',
+      name: 'Fingerprint',
+    },
+    {
+      field: 'created_at',
+      name: 'Added on',
+      formatter: (item) => format(new Date(item.created_at), 'MMM dd, yyyy'),
+    },
+    {
+      field: 'actions',
+      name: '',
+      component: Actions,
+    },
+  ];
+
+  return (
+    <div css={tw`space-y-4`}>
+      {data ? <Table data={data.keypairs} columns={columns} /> : null}
       <ConfirmDialog
         title="Delete key pair?"
         isOpen={isDeleteDialogOpen}
