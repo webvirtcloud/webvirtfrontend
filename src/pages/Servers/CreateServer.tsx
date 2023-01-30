@@ -1,43 +1,84 @@
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import useSWR from 'swr';
 import tw from 'twin.macro';
 
-import { getImages } from '@/api/images';
+import { getImages, Image } from '@/api/images';
 import { getRegions } from '@/api/regions';
 import { getSizes } from '@/api/sizes';
 import { Button } from '@/components/Button';
+import DistributionCard from '@/components/Cards/Distribution';
 import Input from '@/components/Input';
 
 const Grid = tw.ul`grid md:grid-cols-2 lg:grid-cols-4 gap-4`;
 
 const CreateServer = () => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, control } = useForm();
 
-  const { data: regions } = useSWR('/regions/', () =>
-    getRegions().then((response) => response.regions),
-  );
-  const { data: sizes } = useSWR('/sizes/', () =>
-    getSizes().then((response) => response.sizes),
-  );
-  const { data: distributions } = useSWR('/images?type=distribution', () =>
-    getImages('distribution').then((response) => response.images),
-  );
+  const [distributions, setDistributions] = useState<
+    { name: string; slug: string; images: Image[] }[]
+  >([]);
 
-  if (regions) {
-    setValue('region', regions[0].slug);
-  }
-  if (sizes) {
-    setValue('size', sizes[0].slug);
-  }
-  if (distributions) {
-    setValue('image', distributions[0].slug);
-  }
+  const { data: regions } = useSWR(
+    '/regions/',
+    () => getRegions().then((response) => response.regions),
+    {
+      onSuccess(data) {
+        setValue('region', data[0].slug);
+      },
+    },
+  );
+  const { data: sizes } = useSWR(
+    '/sizes/',
+    () => getSizes().then((response) => response.sizes),
+    {
+      onSuccess(data) {
+        setValue('size', data[0].slug);
+      },
+    },
+  );
+  useSWR(
+    '/images?type=distribution',
+    () => getImages('distribution').then((response) => response.images),
+    {
+      onSuccess(data) {
+        const dstrs = data.reduce((p, c) => {
+          if (p.some((v) => v.name === c.distribution)) return p;
+
+          p.push({
+            name: c.distribution,
+            slug: c.distribution.toLowerCase(),
+            images: data.filter((i) => i.distribution === c.distribution),
+          });
+
+          return p;
+        }, [] as { name: string; slug: string; images: Image[] }[]);
+
+        setValue('distribution', dstrs[0].slug);
+        setValue('image', dstrs[0].images[0]);
+
+        setDistributions(dstrs);
+      },
+    },
+  );
 
   const onSubmit = (data) => {
     console.log(data);
   };
 
   const labelCardStyles = tw`block w-full p-2 space-x-2 border rounded-md bg-base`;
+
+  const currentImageSlug: string = useWatch({
+    control,
+    name: 'image',
+  });
+
+  const currentDistributionSlug: string = useWatch({
+    control,
+    name: 'distribution',
+  });
+
+  console.log(currentDistributionSlug);
 
   return (
     <form
@@ -102,18 +143,17 @@ const CreateServer = () => {
           <section css={tw`mb-12`}>
             <h2 css={tw`mb-4 text-lg font-bold`}>Images</h2>
             <Grid>
-              {distributions.map((image) => (
-                <li key={image.slug}>
-                  <label css={labelCardStyles}>
-                    <input
-                      {...register('image', { required: true })}
-                      type="radio"
-                      value={image.slug}
-                      id={`image-${image.slug}`}
-                    />
-                    <span>{image.slug}</span>
-                  </label>
-                </li>
+              {distributions.map((distribution) => (
+                <DistributionCard
+                  key={distribution.slug}
+                  distribution={distribution}
+                  isActive={
+                    currentDistributionSlug
+                      ? currentDistributionSlug === distribution.slug
+                      : false
+                  }
+                  {...register('distribution', { required: true })}
+                />
               ))}
             </Grid>
           </section>

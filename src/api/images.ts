@@ -1,6 +1,6 @@
 import request from './fetch';
 
-type Image = {
+export type Image = {
   created_at: string;
   description: string;
   distribution: string;
