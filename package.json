@@ -41,6 +41,7 @@
   "dependencies": {
     "@floating-ui/react-dom": "^1.1.2",
     "@heroicons/react": "^2.0.13",
+    "@tanstack/react-query": "^4.24.4",
     "date-fns": "^2.29.3",
     "framer-motion": "^8.2.4",
     "jotai": "^1.9.1",
