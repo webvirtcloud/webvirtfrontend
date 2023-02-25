@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { signIn } from '@/api/account';
 import { Button } from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 
@@ -11,24 +10,19 @@ interface IFormInputs {
   password: string;
 }
 
-export default function SignIn() {
+interface Props {
+  onSubmit: (data: IFormInputs) => void;
+}
+
+export function LoginForm({ onSubmit }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormInputs>({ mode: 'onChange' });
 
-  const onSubmit = async (data: IFormInputs) => {
-    const response = await signIn(data);
-
-    window.localStorage.setItem('token', response.token);
-
-    window.location.href = '/';
-  };
-
   return (
     <>
-      <h1 css={tw`mb-8 text-2xl font-bold text-center`}>Sign in to your account</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         css={tw`p-8 space-y-4 rounded-md shadow bg-base`}

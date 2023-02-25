@@ -3,9 +3,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import type { Profile } from '@/api/account';
-import { updateProfile } from '@/api/account';
-import { useUserStore } from '@/entities/user';
+import { type User, updateUser, useUserStore } from '@/entities/user';
 import { Button } from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 import { useToastContext } from '@/shared/ui/Toast';
@@ -21,9 +19,9 @@ export function UpdateUserForm() {
     setValue,
     trigger,
     formState: { isSubmitting, isValid, errors },
-  } = useForm<Profile>({ mode: 'onChange' });
+  } = useForm<User>({ mode: 'onChange' });
 
-  const setDefaultValues = (profile: Profile) => {
+  const setDefaultValues = (profile: User) => {
     setValue('email', profile.email);
     setValue('first_name', profile.first_name);
     setValue('last_name', profile.last_name);
@@ -31,9 +29,9 @@ export function UpdateUserForm() {
     trigger(['email', 'first_name', 'last_name']);
   };
 
-  const onSubmit = async (data: Profile) => {
+  const onSubmit = async (data: User) => {
     try {
-      const response = await updateProfile(data);
+      const response = await updateUser(data);
 
       setDefaultValues(response.profile);
 

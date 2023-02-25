@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import type { ChangePasswordPayload } from '@/api/account';
-import { changePassword } from '@/api/account';
+import { type UpdatePasswordPayload, updatePassword } from '@/entities/user';
 import { Button } from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 
@@ -11,11 +10,11 @@ export function UpdatePasswordForm() {
     register,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
-  } = useForm<ChangePasswordPayload>({ mode: 'onChange' });
+  } = useForm<UpdatePasswordPayload>({ mode: 'onChange' });
 
-  const onSubmit = async (data: ChangePasswordPayload) => {
+  const onSubmit = async (data: UpdatePasswordPayload) => {
     try {
-      await changePassword(data);
+      await updatePassword(data);
 
       window.localStorage.removeItem('token');
 

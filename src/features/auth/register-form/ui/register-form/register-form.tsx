@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { signUp } from '@/api/account';
 import { Button } from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
 
@@ -11,23 +10,16 @@ interface IFormInputs {
   password: string;
 }
 
-export default function SignUp() {
+interface Props {
+  onSubmit: (data: IFormInputs) => void;
+}
+
+export function RegisterForm({ onSubmit }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormInputs>({ mode: 'onChange' });
-  const navigate = useNavigate();
-
-  const onSubmit = async (data: IFormInputs) => {
-    try {
-      const response = await signUp(data);
-
-      window.localStorage.setItem('token', response.token);
-
-      navigate('/');
-    } catch (error) {}
-  };
 
   return (
     <>
