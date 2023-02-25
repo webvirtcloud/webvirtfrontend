@@ -3,11 +3,11 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/shared/layouts';
 
-const SignIn = loadable(() => import('@/pages/auth/sign-in'));
-const SignUp = loadable(() => import('@/pages/auth/sign-up'));
-const ResetPassword = loadable(() => import('@/pages/auth/reset-password'));
-const CreateServer = loadable(() => import('@/pages/Servers/Create/CreateServer'));
-const Servers = loadable(() => import('@/pages/Servers/Servers'));
+const SignIn = loadable(() => import('@/pages/login'));
+const SignUp = loadable(() => import('@/pages/register'));
+const ResetPassword = loadable(() => import('@/pages/reset-password'));
+const CreateServer = loadable(() => import('@/pages/servers/create/create-server'));
+const Servers = loadable(() => import('@/pages/servers/servers'));
 const Server = loadable(() => import('@/pages/Server/Server'));
 const Keypairs = loadable(() => import('@/pages/Keypairs'));
 const Settings = loadable(() => import('@/pages/settings'));
