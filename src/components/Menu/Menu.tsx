@@ -7,7 +7,7 @@ import {
   useFloating,
 } from '@floating-ui/react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ReactNode, Ref, useLayoutEffect, useRef } from 'react';
+import { MutableRefObject, ReactNode, useLayoutEffect, useRef } from 'react';
 import tw from 'twin.macro';
 
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
@@ -15,7 +15,7 @@ import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
 import { Portal } from '../Portal';
 
 type MenuProps = {
-  source: Ref<HTMLButtonElement>;
+  source: MutableRefObject<HTMLButtonElement | null>;
   children: ReactNode;
   placement?: Placement;
   spacing?: number;
@@ -24,7 +24,7 @@ type MenuProps = {
 };
 
 type MenuFloatingProps = {
-  source: Ref<HTMLButtonElement>;
+  source: MutableRefObject<HTMLButtonElement | null>;
   children: ReactNode;
   placement?: Placement;
   spacing?: number;
@@ -40,7 +40,7 @@ const MenuFloating = ({
   isOpen,
   onClose,
 }: MenuFloatingProps) => {
-  const menuRef = useRef();
+  const menuRef = useRef<HTMLUListElement>();
   const { x, y, strategy, reference, floating } = useFloating({
     open: isOpen,
     placement,
@@ -49,7 +49,9 @@ const MenuFloating = ({
   });
 
   useLayoutEffect(() => {
-    reference(source.current);
+    if (source.current) {
+      reference(source.current);
+    }
   }, [reference, source]);
 
   useOnClickOutside(menuRef, () => onClose());
@@ -70,7 +72,7 @@ const MenuFloating = ({
           }}
           transition={{ type: 'spring', duration: 0.35 }}
           ref={(node) => {
-            menuRef.current = node;
+            menuRef.current = node as HTMLUListElement;
             floating(node);
           }}
           style={{
