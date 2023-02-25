@@ -1,8 +1,8 @@
 import ExclamationTriangleIcon from '@heroicons/react/20/solid/ExclamationTriangleIcon';
 import tw from 'twin.macro';
 
-import { Button } from '@/components/Button';
-import { Dialog } from '@/components/Dialog';
+import { Button } from '@/shared/ui/Button';
+import { Dialog } from '@/shared/ui/Dialog';
 
 type Props = {
   title: string;

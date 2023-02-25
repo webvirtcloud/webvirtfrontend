@@ -3,10 +3,10 @@ import tw from 'twin.macro';
 
 import type { Keypair, KeypairPayload } from '@/api/keypairs';
 import { createKeypair } from '@/api/keypairs';
-import { Button } from '@/components/Button';
-import { Dialog } from '@/components/Dialog';
-import Input from '@/components/Input';
-import Textarea from '@/components/Textarea';
+import { Button } from '@/shared/ui/Button';
+import { Dialog } from '@/shared/ui/Dialog';
+import Input from '@/shared/ui/Input';
+import Textarea from '@/shared/ui/Textarea';
 
 type Props = {
   isOpen: boolean;

@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import DistributionCard from '@/components/Cards/Distribution';
+import DistributionCard from '@/shared/ui/Cards/Distribution';
 
 import { Grid } from './styles';
 

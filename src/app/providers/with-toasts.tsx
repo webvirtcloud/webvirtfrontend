@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 
-import { ToastContextProvider } from '@/components/Toast/Provider';
+import { ToastContextProvider } from '@/shared/ui/Toast/Provider';
 
 export const withToasts = (Component: ComponentType) => () =>
   (

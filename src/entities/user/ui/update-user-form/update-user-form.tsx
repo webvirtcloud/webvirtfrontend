@@ -5,10 +5,10 @@ import tw from 'twin.macro';
 
 import type { Profile } from '@/api/account';
 import { updateProfile } from '@/api/account';
-import { Button } from '@/components/Button';
-import Input from '@/components/Input';
-import { useToastContext } from '@/components/Toast';
 import { useUserStore } from '@/entities/user';
+import { Button } from '@/shared/ui/Button';
+import Input from '@/shared/ui/Input';
+import { useToastContext } from '@/shared/ui/Toast';
 
 export function UpdateUserForm() {
   const [profile] = useAtom(useUserStore);

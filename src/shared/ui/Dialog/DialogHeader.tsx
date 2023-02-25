@@ -1,7 +1,7 @@
 import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
 import tw from 'twin.macro';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/shared/ui/Button';
 
 export const DialogHeader = ({ title, onClose }) => {
   return (

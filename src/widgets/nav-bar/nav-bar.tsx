@@ -1,8 +1,10 @@
+import SettingsIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
+import KeypairsIcon from '@heroicons/react/20/solid/CommandLineIcon';
+import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
 import { useAtomValue } from 'jotai';
 import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { Console, ServerList, Settings } from '@/components/Icons';
 import { UserMenu } from '@/entities/user';
 import { useUserStore } from '@/entities/user';
 
@@ -44,9 +46,9 @@ export function Navbar() {
                         : tw`opacity-50 hover:opacity-100`,
                     ]}
                   >
-                    {link.name === 'Virtances' && <ServerList width={18} height={18} />}
-                    {link.name === 'Keypairs' && <Console width={18} height={18} />}
-                    {link.name === 'Settings' && <Settings width={18} height={18} />}
+                    {link.name === 'Virtances' && <ListIcon width={18} height={18} />}
+                    {link.name === 'Keypairs' && <KeypairsIcon width={18} height={18} />}
+                    {link.name === 'Settings' && <SettingsIcon width={18} height={18} />}
                     <span css={tw`font-semibold`}>{link.name}</span>
                   </span>
                 )}

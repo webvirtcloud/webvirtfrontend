@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import Input from '@/components/Input';
+import Input from '@/shared/ui/Input';
 
 export default function Settings() {
   const { register } = useFormContext();

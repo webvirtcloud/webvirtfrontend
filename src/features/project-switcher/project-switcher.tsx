@@ -1,16 +1,17 @@
+import CheckCircleIcon from '@heroicons/react/20/solid/CheckCircleIcon';
+import ChevronUpDownIcon from '@heroicons/react/20/solid/ChevronUpDownIcon';
 import { useAtom, useAtomValue } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import tw, { css } from 'twin.macro';
+import tw from 'twin.macro';
 
 import type { Project } from '@/api/projects';
-import { Button } from '@/components/Button';
-import { CheckCircle, ChevronUpDown } from '@/components/Icons';
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
+import { Button } from '@/shared/ui/Button';
 import { useProjectStore } from '@/store/project';
 import { useProjectsStore } from '@/store/projects';
 
-const ProjectSelector = (): JSX.Element => {
+export function ProjectSwitcher() {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const ProjectSelector = (): JSX.Element => {
           type="button"
           css={tw`h-6 px-1 transition-colors rounded-md hover:bg-interactive-hover`}
         >
-          <ChevronUpDown width={16} height={16} />
+          <ChevronUpDownIcon width={16} height={16} />
         </button>
       </div>
       {isOpen && (
@@ -76,7 +77,7 @@ const ProjectSelector = (): JSX.Element => {
                     </span>
                     {project?.uuid === item.uuid && (
                       <span css={tw`flex-shrink-0 w-5 h-5 text-green-500`}>
-                        <CheckCircle />
+                        <CheckCircleIcon />
                       </span>
                     )}
                   </button>
@@ -96,6 +97,4 @@ const ProjectSelector = (): JSX.Element => {
       )}
     </div>
   );
-};
-
-export default ProjectSelector;
+}

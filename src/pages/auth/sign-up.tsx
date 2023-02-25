@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { signUp } from '@/api/account';
-import { Button } from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/shared/ui/Button';
+import Input from '@/shared/ui/Input';
 
 interface IFormInputs {
   email: string;

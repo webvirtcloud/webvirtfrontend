@@ -3,9 +3,9 @@ import useSWR from 'swr';
 import tw from 'twin.macro';
 
 import { type Keypair, deleteKeypair, getKeypairs } from '@/api/keypairs';
-import { Button } from '@/components/Button';
-import { CreateKeypairDialog } from '@/components/Dialogs/CreateKeypair';
-import { useToastContext } from '@/components/Toast';
+import { Button } from '@/shared/ui/Button';
+import { CreateKeypairDialog } from '@/shared/ui/Dialogs/CreateKeypair';
+import { useToastContext } from '@/shared/ui/Toast';
 
 import { KeypairsTable } from './KeypairsTable';
 

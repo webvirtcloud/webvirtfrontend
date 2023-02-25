@@ -1,18 +1,23 @@
+import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
+import EllipsisVerticalIcon from '@heroicons/react/20/solid/EllipsisVerticalIcon';
+import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
+import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
+import PauseIcon from '@heroicons/react/20/solid/PauseIcon';
+import PlayIcon from '@heroicons/react/20/solid/PlayIcon';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
-import { Button } from '@/components/Button';
-import { Clipboard, Elipsis, Location, Pause, Play, World } from '@/components/Icons';
+import { Button } from '@/shared/ui/Button';
 
 type Props = {
   to: string;
   server: Server;
 };
 
-const ServerItem = ({ server, to }: Props): JSX.Element => {
+export default function ServerItem({ server, to }: Props) {
   const isActive = (server: Server) => server.status === 'active';
   const getIpAddress = () =>
     server.network.ipv4.find((ip) => ip.type === 'public')?.address;
@@ -61,13 +66,13 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
             onClick={toggleStatus}
           >
             {isActive(server) ? (
-              <Play css={tw`text-green-500`} />
+              <PlayIcon css={tw`w-5 h-5 text-green-500`} />
             ) : (
-              <Pause css={tw`text-red-500`} />
+              <PauseIcon css={tw`w-5 h-5 text-red-500`} />
             )}
           </Button>
           <Button onlyIcon variant="secondary" onClick={toggleOptions}>
-            <Elipsis />
+            <EllipsisVerticalIcon css={tw`w-5 h-5`} />
           </Button>
         </div>
       </div>
@@ -75,20 +80,20 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
       <div css={tw`flex items-center space-x-3 text-sm`}>
         <div css={tw`flex items-center space-x-1`}>
           <span css={tw`opacity-30`}>
-            <Location width={16} height={16} />
+            <MapPinIcon css={tw`w-4 h-4`} />
           </span>
           <span css={tw`text-alt`}>{server.region.name}</span>
         </div>
         <div css={tw`flex items-center space-x-1`}>
           <span css={tw`opacity-30`}>
-            <World width={16} height={16} />
+            <GlobeIcon css={tw`w-4 h-4`} />
           </span>
           <span css={tw`text-alt`}>{getIpAddress()}</span>
           <button
             type="button"
             css={tw`h-5 w-5 flex items-center justify-center bg-alt hover:bg-alt2 rounded-md transition-colors duration-300 p-0.5`}
           >
-            <Clipboard width={12} height={12} />
+            <ClipboardIcon css={tw`w-3 h-3`} />
           </button>
         </div>
       </div>
@@ -119,6 +124,4 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
       </div>
     </Link>
   );
-};
-
-export default ServerItem;
+}

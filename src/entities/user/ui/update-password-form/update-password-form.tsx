@@ -3,8 +3,8 @@ import tw from 'twin.macro';
 
 import type { ChangePasswordPayload } from '@/api/account';
 import { changePassword } from '@/api/account';
-import { Button } from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/shared/ui/Button';
+import Input from '@/shared/ui/Input';
 
 export function UpdatePasswordForm() {
   const {

@@ -1,7 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import RegionCard from '@/components/Cards/Region';
+import RegionCard from '@/shared/ui/Cards/Region';
 
 import { Grid } from './styles';
 

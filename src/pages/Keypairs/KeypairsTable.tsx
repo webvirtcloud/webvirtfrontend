@@ -3,10 +3,10 @@ import { useState } from 'react';
 import tw from 'twin.macro';
 
 import { Keypair } from '@/api/keypairs';
-import { Button } from '@/components/Button';
-import ConfirmDialog from '@/components/Dialogs/ConfirmDialog';
-import EditKeypairDialog from '@/components/Dialogs/EditKeypair';
-import Table from '@/components/Table';
+import { Button } from '@/shared/ui/Button';
+import ConfirmDialog from '@/shared/ui/Dialogs/ConfirmDialog';
+import EditKeypairDialog from '@/shared/ui/Dialogs/EditKeypair';
+import Table from '@/shared/ui/Table';
 
 type Props = {
   data: { keypairs: Keypair[] } | undefined;

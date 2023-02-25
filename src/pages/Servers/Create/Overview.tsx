@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/shared/ui/Button';
 
 export default function Overview() {
   const { watch } = useFormContext();

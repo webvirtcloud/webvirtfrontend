@@ -5,9 +5,9 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import { Button } from '@/components/Button';
-import { Menu, MenuItem } from '@/components/Menu';
 import { User } from '@/entities/user';
+import { Button } from '@/shared/ui/Button';
+import { Menu, MenuItem } from '@/shared/ui/Menu';
 
 type Props = {
   user: User | undefined;

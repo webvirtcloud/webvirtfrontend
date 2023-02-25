@@ -4,8 +4,8 @@ import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
 import { getServers } from '@/api/servers';
-import { Button } from '@/components/Button';
-import Input from '@/components/Input';
+import { Button } from '@/shared/ui/Button';
+import Input from '@/shared/ui/Input';
 
 import ServerItem from './ServerItem';
 
