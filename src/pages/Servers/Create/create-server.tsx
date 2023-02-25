@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 import { getImages, Image } from '@/api/images';
 import { getRegions } from '@/api/regions';
 import { getSizes } from '@/api/sizes';
-import CreateForm from '@/pages/Servers/Create/CreateForm';
+import CreateForm from '@/pages/servers/create/create-form';
 
 export default function CreateServer() {
   const { data: sizes } = useSWR(['create_server', 'sizes'], () =>

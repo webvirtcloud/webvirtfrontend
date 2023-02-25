@@ -3,14 +3,13 @@ import { Outlet } from 'react-router-dom';
 import useSWR from 'swr';
 import tw from 'twin.macro';
 
-import { getProfile } from '@/api/account';
-import { useUserStore } from '@/entities/user';
+import { getUser, useUserStore } from '@/entities/user';
 import { Navbar } from '@/widgets/nav-bar';
 
 export function DefaultLayout() {
   const setProfile = useSetAtom(useUserStore);
 
-  useSWR('/profile/', getProfile, {
+  useSWR('/profile/', getUser, {
     onSuccess(data) {
       setProfile(data.profile);
     },

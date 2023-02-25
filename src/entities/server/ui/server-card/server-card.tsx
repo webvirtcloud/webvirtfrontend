@@ -17,7 +17,7 @@ type Props = {
   server: Server;
 };
 
-export default function ServerItem({ server, to }: Props) {
+export function ServerCard({ server, to }: Props) {
   const isActive = (server: Server) => server.status === 'active';
   const getIpAddress = () =>
     server.network.ipv4.find((ip) => ip.type === 'public')?.address;
@@ -52,7 +52,7 @@ export default function ServerItem({ server, to }: Props) {
             </div>
             <div css={tw`space-y-0.5`}>
               <h3 css={tw`font-bold`}>{server.name}</h3>
-              <p css={tw`text-xs text-alt`}>
+              <p css={tw`text-xs text-alt2`}>
                 {server.size.memory}GB DDR4 / {server.size.storage}GB SSD
               </p>
             </div>

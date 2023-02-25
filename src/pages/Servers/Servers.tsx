@@ -4,16 +4,15 @@ import tw from 'twin.macro';
 
 import type { Server } from '@/api/servers';
 import { getServers } from '@/api/servers';
+import { ServerCard } from '@/entities/server';
 import { Button } from '@/shared/ui/Button';
 import Input from '@/shared/ui/Input';
-
-import ServerItem from './ServerItem';
 
 interface Props {
   servers: Server[] | undefined;
 }
 
-const ServersList = ({ servers }: Props): JSX.Element => {
+function ServersList({ servers }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -32,7 +31,7 @@ const ServersList = ({ servers }: Props): JSX.Element => {
         <ul css={tw`grid gap-4 md:grid-cols-2 xl:grid-cols-3`}>
           {servers.map((server) => (
             <li key={server.uuid}>
-              {<ServerItem to={`/servers/${server.uuid}`} server={server} />}
+              {<ServerCard to={`/servers/${server.uuid}`} server={server} />}
             </li>
           ))}
         </ul>
@@ -42,9 +41,9 @@ const ServersList = ({ servers }: Props): JSX.Element => {
       {servers && servers.length === 0 && <div>No created servers.</div>}
     </section>
   );
-};
+}
 
-const Servers = (): JSX.Element => {
+function Servers() {
   const { data } = useSWR('/servers/', getServers);
 
   return (
@@ -52,6 +51,6 @@ const Servers = (): JSX.Element => {
       <ServersList servers={data ? data.servers : undefined} />
     </main>
   );
-};
+}
 
 export default Servers;

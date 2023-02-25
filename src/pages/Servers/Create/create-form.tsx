@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import tw from 'twin.macro';
 
-import Overview from './Overview';
+import Overview from './overview';
 import DistributionsSection from './sections/Distributions';
 import RegionsSection from './sections/Regions';
 import SettingsSection from './sections/Settings';
