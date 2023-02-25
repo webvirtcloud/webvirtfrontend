@@ -1,17 +1,18 @@
+import loadable from '@loadable/component';
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AuthLayout, DefaultLayout, ServerLayout } from '@/shared/layouts';
 
-const SignIn = lazy(() => import('@/pages/auth/sign-in'));
-const SignUp = lazy(() => import('@/pages/auth/sign-up'));
-const ResetPassword = lazy(() => import('@/pages/auth/reset-password'));
-const CreateServer = lazy(() => import('./Servers/Create/CreateServer'));
-const Servers = lazy(() => import('./Servers/Servers'));
-const Server = lazy(() => import('./Server/Server'));
-const Keypairs = lazy(() => import('@/pages/Keypairs/Keypairs'));
-const Settings = lazy(() => import('./Settings/Settings'));
-const NotFound = lazy(() => import('@/pages/NotFound/NotFound'));
+const SignIn = loadable(() => import('@/pages/auth/sign-in'));
+const SignUp = loadable(() => import('@/pages/auth/sign-up'));
+const ResetPassword = loadable(() => import('@/pages/auth/reset-password'));
+const CreateServer = loadable(() => import('./Servers/Create/CreateServer'));
+const Servers = loadable(() => import('./Servers/Servers'));
+const Server = loadable(() => import('./Server/Server'));
+const Keypairs = loadable(() => import('@/pages/Keypairs/Keypairs'));
+const Settings = loadable(() => import('./Settings/Settings'));
+const NotFound = loadable(() => import('@/pages/NotFound/NotFound'));
 
 export function Routing() {
   const isAuthenticated = !!window.localStorage.getItem('token');
