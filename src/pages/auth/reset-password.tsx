@@ -6,7 +6,7 @@ import { resetPassword } from '@/api/account';
 import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
-const ResetPassword = (): JSX.Element => {
+export default function ResetPassword() {
   const {
     register,
     handleSubmit,
@@ -52,6 +52,4 @@ const ResetPassword = (): JSX.Element => {
       </p>
     </>
   );
-};
-
-export default ResetPassword;
+}

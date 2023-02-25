@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ReactNode, Ref, useLayoutEffect, useRef } from 'react';
 import tw from 'twin.macro';
 
-import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
 
 import { Portal } from '../Portal';
 

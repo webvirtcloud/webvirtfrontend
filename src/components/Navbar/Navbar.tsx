@@ -26,7 +26,7 @@ const Navbar = (): JSX.Element => {
             <Link css={tw`inline-flex items-center justify-center space-x-4`} to="/">
               <img
                 css={tw`w-8`}
-                src={new URL('/src/assets/images/logo.svg', import.meta.url).href}
+                src={new URL('/src/shared/assets/images/logo.svg', import.meta.url).href}
                 alt="Logotype"
               />
             </Link>

@@ -23,7 +23,7 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
   const handleLogout = () => {
     window.localStorage.removeItem('token');
 
-    navigate('/sign-in');
+    window.location.href = '/sign-in';
   };
 
   const goToSettings = () => {

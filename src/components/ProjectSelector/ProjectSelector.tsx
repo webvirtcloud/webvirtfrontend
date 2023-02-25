@@ -6,7 +6,7 @@ import tw, { css } from 'twin.macro';
 import type { Project } from '@/api/projects';
 import { Button } from '@/components/Button';
 import { CheckCircle, ChevronUpDown } from '@/components/Icons';
-import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
 import { useProjectStore } from '@/store/project';
 import { useProjectsStore } from '@/store/projects';
 

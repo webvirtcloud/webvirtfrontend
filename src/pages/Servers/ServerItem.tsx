@@ -38,7 +38,7 @@ const ServerItem = ({ server, to }: Props): JSX.Element => {
                 css={tw`w-8 h-8`}
                 src={
                   new URL(
-                    `/src/assets/images/os/${server.distribution.name.toLowerCase()}.svg`,
+                    `/src/shared/assets/images/os/${server.distribution.name.toLowerCase()}.svg`,
                     import.meta.url,
                   ).href
                 }

@@ -28,7 +28,7 @@ export default function Table({ data, columns }) {
         </thead>
         <tbody css={tw`divide-y`}>
           {data.map((item, i) => (
-            <tr key={i} css={tw`hover:bg-stripe transition-colors`}>
+            <tr key={i} css={tw`bg-white hover:bg-stripe transition-colors`}>
               {columns.map((column) => (
                 <td css={tw`px-4 py-2 whitespace-nowrap`} key={column.field}>
                   {CellRenderer(item, column)}

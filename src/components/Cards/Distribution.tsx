@@ -26,7 +26,7 @@ export default function DistributionCard({
                 css={tw`w-8 h-8`}
                 src={
                   new URL(
-                    `/src/assets/images/os/${distribution.slug}.svg`,
+                    `/src/shared/assets/images/os/${distribution.slug}.svg`,
                     import.meta.url,
                   ).href
                 }

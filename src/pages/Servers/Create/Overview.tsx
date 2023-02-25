@@ -21,8 +21,10 @@ export default function Overview() {
             <img
               css={tw`w-8 h-8`}
               src={
-                new URL(`/src/assets/images/os/${distribution.slug}.svg`, import.meta.url)
-                  .href
+                new URL(
+                  `/src/shared/assets/images/os/${distribution.slug}.svg`,
+                  import.meta.url,
+                ).href
               }
               alt={`Logo of Ubuntu`}
             />

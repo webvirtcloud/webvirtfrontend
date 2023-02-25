@@ -1,7 +1,6 @@
 import ky from 'ky';
-import { redirect } from 'react-router-dom';
 
-import { API_HOST } from '@/constants';
+import { API_HOST } from '@/shared/constants';
 
 const request = ky.create({
   prefixUrl: API_HOST,
@@ -25,7 +24,7 @@ const request = ky.create({
         if (response.status === 401) {
           window.localStorage.removeItem('token');
 
-          redirect('/sign-in');
+          window.location.href = '/sign-in';
         }
       },
     ],
