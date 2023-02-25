@@ -9,9 +9,9 @@ const ResetPassword = loadable(() => import('@/pages/auth/reset-password'));
 const CreateServer = loadable(() => import('@/pages/Servers/Create/CreateServer'));
 const Servers = loadable(() => import('@/pages/Servers/Servers'));
 const Server = loadable(() => import('@/pages/Server/Server'));
-const Keypairs = loadable(() => import('@/pages/Keypairs/Keypairs'));
-const Settings = loadable(() => import('@/pages/Settings/Settings'));
-const NotFound = loadable(() => import('@/pages/NotFound/NotFound'));
+const Keypairs = loadable(() => import('@/pages/Keypairs'));
+const Settings = loadable(() => import('@/pages/settings'));
+const NotFound = loadable(() => import('@/pages/not-found'));
 
 export function Routing() {
   const isAuthenticated = !!window.localStorage.getItem('token');
