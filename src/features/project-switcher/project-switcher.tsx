@@ -5,22 +5,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Project } from '@/api/projects';
+// import type { Project } from '@/api/projects';
 import { useOnClickOutside } from '@/shared/hooks/useOnClickOutside';
 import { Button } from '@/shared/ui/Button';
-import { useProjectStore } from '@/store/project';
-import { useProjectsStore } from '@/store/projects';
+// import { useProjectStore } from '@/store/project';
+// import { useProjectsStore } from '@/store/projects';
 
 export function ProjectSwitcher() {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const projects = useAtomValue(useProjectsStore);
-  const [project, setProject] = useAtom(useProjectStore);
+  // const projects = useAtomValue(useProjectsStore);
+  // const [project, setProject] = useAtom(useProjectStore);
 
   const handleProjectSelect = (project: Project) => {
-    setProject(project);
+    // setProject(project);
     navigate(`/projects/${project.uuid}`);
   };
 
