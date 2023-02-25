@@ -3,18 +3,13 @@ import { Link, NavLink } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import { Console, ServerList, Settings } from '@/components/Icons';
-// import ProjectSelector from '@/components/ProjectSelector';
-import UserMenu from '@/components/UserMenu';
-import { useProfileStore } from '@/store/profile';
+import { UserMenu } from '@/entities/user';
+import { useUserStore } from '@/entities/user';
 
-const Navbar = (): JSX.Element => {
-  const profile = useAtomValue(useProfileStore);
+import { links } from './config';
 
-  const links: { to: string; name: string }[] = [
-    { to: `/servers`, name: 'Virtances' },
-    { to: `/keypairs`, name: 'Keypairs' },
-    { to: `/settings`, name: 'Settings' },
-  ];
+export function Navbar() {
+  const user = useAtomValue(useUserStore);
 
   return (
     <nav
@@ -33,7 +28,7 @@ const Navbar = (): JSX.Element => {
             <div css={tw`w-px h-6 bg-alt2`}></div>
             {/* <ProjectSelector /> */}
           </div>
-          <UserMenu profile={profile} />
+          <UserMenu user={user} />
         </div>
 
         <ul css={tw`flex items-center space-x-2`}>
@@ -62,6 +57,6 @@ const Navbar = (): JSX.Element => {
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;
