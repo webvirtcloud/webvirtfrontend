@@ -1,5 +1,6 @@
 import { useSetAtom } from 'jotai';
 import { Outlet } from 'react-router-dom';
+import useSWR from 'swr';
 import tw from 'twin.macro';
 
 import { getProfile } from '@/api/account';
@@ -9,12 +10,11 @@ import { useProfileStore } from '@/store/profile';
 export function DefaultLayout() {
   const setProfile = useSetAtom(useProfileStore);
 
-  const fetch = async () => {
-    const response = await getProfile();
-    setProfile(response.profile);
-  };
-
-  fetch();
+  useSWR('/profile/', getProfile, {
+    onSuccess(data) {
+      setProfile(data.profile);
+    },
+  });
 
   return (
     <main css={tw`flex flex-col min-h-screen`}>
