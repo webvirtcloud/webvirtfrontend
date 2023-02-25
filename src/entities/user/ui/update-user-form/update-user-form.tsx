@@ -8,10 +8,10 @@ import { updateProfile } from '@/api/account';
 import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 import { useToastContext } from '@/components/Toast';
-import { useProfileStore } from '@/store/profile';
+import { useUserStore } from '@/entities/user';
 
-const UpdateProfileForm = (): JSX.Element => {
-  const [profile] = useAtom(useProfileStore);
+export function UpdateUserForm() {
+  const [profile] = useAtom(useUserStore);
 
   const createToast = useToastContext();
 
@@ -90,6 +90,4 @@ const UpdateProfileForm = (): JSX.Element => {
       </Button>
     </form>
   );
-};
-
-export default UpdateProfileForm;
+}

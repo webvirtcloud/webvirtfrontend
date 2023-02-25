@@ -5,18 +5,17 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
-import type { Profile } from '@/api/account';
-
-import { Button } from '../Button';
-import { Menu, MenuItem } from '../Menu';
+import { Button } from '@/components/Button';
+import { Menu, MenuItem } from '@/components/Menu';
+import { User } from '@/entities/user';
 
 type Props = {
-  profile: Profile | undefined;
+  user: User | undefined;
 };
 
-const UserMenu = ({ profile }: Props): JSX.Element => {
+export function UserMenu({ user }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const reference = useRef<HTMLButtonElement>();
+  const reference = useRef<HTMLButtonElement>(null);
   const [isOpen, toggle] = useState(false);
   const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
     toggle(false);
   };
 
-  return (
+  return user ? (
     <div ref={ref}>
       <Button
         ref={reference}
@@ -41,7 +40,7 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
         onClick={() => toggle(!isOpen)}
       >
         <div css={tw`min-w-0 overflow-hidden max-w-[168px]`}>
-          <h4 css={tw`font-bold truncate`}>{profile?.email}</h4>
+          <h4 css={tw`font-bold truncate`}>{user?.email}</h4>
         </div>
       </Button>
       <Menu
@@ -64,7 +63,7 @@ const UserMenu = ({ profile }: Props): JSX.Element => {
         </MenuItem>
       </Menu>
     </div>
+  ) : (
+    <div css={tw`bg-alt h-8 w-32 rounded animate-pulse`}></div>
   );
-};
-
-export default UserMenu;
+}

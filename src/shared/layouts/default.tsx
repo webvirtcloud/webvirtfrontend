@@ -4,11 +4,11 @@ import useSWR from 'swr';
 import tw from 'twin.macro';
 
 import { getProfile } from '@/api/account';
-import Navbar from '@/components/Navbar';
-import { useProfileStore } from '@/store/profile';
+import { useUserStore } from '@/entities/user';
+import { Navbar } from '@/widgets/nav-bar';
 
 export function DefaultLayout() {
-  const setProfile = useSetAtom(useProfileStore);
+  const setProfile = useSetAtom(useUserStore);
 
   useSWR('/profile/', getProfile, {
     onSuccess(data) {

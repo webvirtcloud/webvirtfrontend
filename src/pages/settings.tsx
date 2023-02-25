@@ -1,9 +1,8 @@
 import tw from 'twin.macro';
 
-import ChangePasswordForm from './ChangePasswordForm';
-import UpdateProfileForm from './UpdateProfileForm';
+import { UpdatePasswordForm, UpdateUserForm } from '@/entities/user';
 
-const Settings = (): JSX.Element => {
+export default function Settings() {
   return (
     <>
       <h1 css={tw`mb-8 text-xl font-bold`}>Settings</h1>
@@ -15,7 +14,7 @@ const Settings = (): JSX.Element => {
             <p css={tw`text-alt2`}>Update information about your profile.</p>
           </div>
           <div css={tw`col-span-3`}>
-            <UpdateProfileForm />
+            <UpdateUserForm />
           </div>
         </div>
 
@@ -28,12 +27,10 @@ const Settings = (): JSX.Element => {
             </p>
           </div>
           <div css={tw`col-span-3`}>
-            <ChangePasswordForm />
+            <UpdatePasswordForm />
           </div>
         </div>
       </section>
     </>
   );
-};
-
-export default Settings;
+}

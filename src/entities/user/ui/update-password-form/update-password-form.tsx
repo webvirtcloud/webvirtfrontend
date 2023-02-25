@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import tw from 'twin.macro';
 
 import type { ChangePasswordPayload } from '@/api/account';
@@ -7,14 +6,12 @@ import { changePassword } from '@/api/account';
 import { Button } from '@/components/Button';
 import Input from '@/components/Input';
 
-const ChangePasswordForm = (): JSX.Element => {
+export function UpdatePasswordForm() {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm<ChangePasswordPayload>({ mode: 'onChange' });
-
-  const navigate = useNavigate();
 
   const onSubmit = async (data: ChangePasswordPayload) => {
     try {
@@ -22,7 +19,7 @@ const ChangePasswordForm = (): JSX.Element => {
 
       window.localStorage.removeItem('token');
 
-      navigate('/sign-in');
+      window.location.href = '/sign-in';
     } catch (error) {}
   };
 
@@ -92,6 +89,4 @@ const ChangePasswordForm = (): JSX.Element => {
       </Button>
     </form>
   );
-};
-
-export default ChangePasswordForm;
+}
