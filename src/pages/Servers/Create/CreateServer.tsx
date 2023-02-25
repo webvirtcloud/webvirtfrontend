@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import useSWR from 'swr';
 import tw from 'twin.macro';
 
 import { getImages, Image } from '@/api/images';
@@ -7,19 +7,17 @@ import { getSizes } from '@/api/sizes';
 import CreateForm from '@/pages/Servers/Create/CreateForm';
 
 export default function CreateServer() {
-  const { data: sizes } = useQuery({
-    queryKey: ['create_server', 'sizes'],
-    queryFn: () => getSizes().then((response) => response.sizes),
-  });
+  const { data: sizes } = useSWR(['create_server', 'sizes'], () =>
+    getSizes().then((response) => response.sizes),
+  );
 
-  const { data: regions } = useQuery({
-    queryKey: ['create_server', 'regions'],
-    queryFn: () => getRegions().then((response) => response.regions),
-  });
+  const { data: regions } = useSWR(['create_server', 'regions'], () =>
+    getRegions().then((response) => response.regions),
+  );
 
-  const { data: distributions } = useQuery({
-    queryKey: ['create_server', 'images', { type: 'distribution' }],
-    queryFn: () =>
+  const { data: distributions } = useSWR(
+    ['create_server', 'images', { type: 'distribution' }],
+    () =>
       getImages('distribution').then((response) => {
         return response.images.reduce((p, c) => {
           if (p.some((v) => v.name === c.distribution)) return p;
@@ -33,7 +31,7 @@ export default function CreateServer() {
           return p;
         }, [] as { name: string; slug: string; images: Image[] }[]);
       }),
-  });
+  );
 
   const onSubmit = (data) => {
     console.log(data);
