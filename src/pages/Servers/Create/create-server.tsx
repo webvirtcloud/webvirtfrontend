@@ -3,7 +3,7 @@ import tw from 'twin.macro';
 
 import { getImages, Image } from '@/api/images';
 import { getRegions } from '@/api/regions';
-import { getSizes } from '@/api/sizes';
+import { getSizes } from '@/entities/size';
 import CreateForm from '@/pages/servers/create/create-form';
 
 export default function CreateServer() {
