@@ -3,8 +3,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GithubButton } from '@/components/github-button';
 import Link from 'next/link';
-import InboxArrowDownIcon from '@heroicons/react/24/solid/InboxArrowDownIcon';
-import GlobeAltIcon from '@heroicons/react/24/solid/GlobeAltIcon';
 import CommandLineIcon from '@heroicons/react/24/solid/CommandLineIcon';
 import CircleStackIcon from '@heroicons/react/24/solid/CircleStackIcon';
 import ShieldCheckIcon from '@heroicons/react/24/solid/ShieldCheckIcon';
@@ -96,11 +94,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>WebVirtCloud - Web interface to manage virtual machines</title>
-        <meta
-          name="description"
-          content="WebVirtCloud - Take managing virtual machines to the next level"
-        />
+        <title>WebVirtCloud - Take cloud providers to the next level</title>
+        <meta name="description" content="Self-hosted cloud platform solution" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
@@ -163,10 +158,10 @@ export default function Home() {
           initial={{ opacity: 0, translateY: -20 }}
           animate={{ opacity: 100, translateY: 0 }}
           transition={{ duration: 1 }}
-          className="mx-auto mb-6 max-w-7xl text-6xl font-medium leading-snug text-neutral-500"
+          className="mx-auto mb-6 text-6xl font-medium leading-snug text-neutral-500"
         >
-          Take <span className="font-medium text-white">cloud providers</span> to the{' '}
-          <span className="font-medium text-white">next level</span>.
+          Take <span className="font-medium text-white">cloud providers</span> to <br />{' '}
+          the <span className="font-medium text-white">next level</span>.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, translateY: 14 }}
@@ -429,11 +424,11 @@ export default function Home() {
         <div className="container mx-auto space-y-4">
           <div className="flex items-center justify-between">
             <Logotype />
+            <p className="text-center text-neutral-500">
+              WebVirtCloud {new Date().getFullYear()}
+            </p>
             <GithubButton />
           </div>
-          <p className="text-center text-neutral-500">
-            WebVirtCloud {new Date().getFullYear()}
-          </p>
         </div>
       </footer>
     </>
