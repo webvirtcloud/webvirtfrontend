@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import { motion } from 'framer-motion';
 import { GithubButton } from '@/components/github-button';
 import Link from 'next/link';
@@ -8,12 +7,18 @@ import InboxArrowDownIcon from '@heroicons/react/24/solid/InboxArrowDownIcon';
 import GlobeAltIcon from '@heroicons/react/24/solid/GlobeAltIcon';
 import CommandLineIcon from '@heroicons/react/24/solid/CommandLineIcon';
 import CircleStackIcon from '@heroicons/react/24/solid/CircleStackIcon';
-import AdjustmentsHorizontalIcon from '@heroicons/react/24/solid/AdjustmentsHorizontalIcon';
-import BoltIcon from '@heroicons/react/24/solid/BoltIcon';
+import ShieldCheckIcon from '@heroicons/react/24/solid/ShieldCheckIcon';
+import CubeTransparentIcon from '@heroicons/react/24/solid/CubeTransparentIcon';
 import PlusCircleIcon from '@heroicons/react/24/solid/PlusCircleIcon';
+import EyeSlashIcon from '@heroicons/react/24/solid/EyeSlashIcon';
+import MapPinIcon from '@heroicons/react/24/solid/MapPinIcon';
+import CursorArrowRaysIcon from '@heroicons/react/24/solid/CursorArrowRaysIcon';
+import CubeIcon from '@heroicons/react/24/solid/CubeIcon';
+import Cog6ToothIcon from '@heroicons/react/24/solid/Cog6ToothIcon';
+import Square2StackIcon from '@heroicons/react/24/solid/Square2StackIcon';
+import Square3Stack3DIcon from '@heroicons/react/24/solid/Square3Stack3DIcon';
 import GithubIcon from '@/icons/github';
-
-const inter = Inter({ subsets: ['latin'] });
+import cx from 'clsx';
 
 function Logotype() {
   return (
@@ -33,32 +38,58 @@ function Logotype() {
 export default function Home() {
   const features = [
     {
-      name: '1. Creation & deletion',
+      name: '1. Management VMs',
       icon: PlusCircleIcon,
     },
     {
-      name: '2. Configuration management',
-      icon: AdjustmentsHorizontalIcon,
+      name: '2. VMs resizing',
+      icon: CubeTransparentIcon,
     },
     {
-      name: '3. Live migration',
-      icon: BoltIcon,
-    },
-    {
-      name: '4. Snapshots',
-      icon: CircleStackIcon,
-    },
-    {
-      name: '5. Console access',
+      name: '3. Console access',
       icon: CommandLineIcon,
     },
     {
-      name: '6. Network management',
-      icon: GlobeAltIcon,
+      name: '4. Private networking',
+      icon: EyeSlashIcon,
     },
     {
-      name: '7. Storage management',
-      icon: InboxArrowDownIcon,
+      name: '5. Backups & Snapshots',
+      icon: CircleStackIcon,
+    },
+    {
+      name: '6. Metadata',
+      icon: CubeIcon,
+    },
+    {
+      name: '7. Firewalls',
+      icon: ShieldCheckIcon,
+      coming: true,
+    },
+    {
+      name: '8. Floating IPs',
+      icon: MapPinIcon,
+      coming: true,
+    },
+    {
+      name: '9. One click apps',
+      icon: CursorArrowRaysIcon,
+      coming: true,
+    },
+    {
+      name: '10. Kubernetes',
+      icon: Cog6ToothIcon,
+      coming: true,
+    },
+    {
+      name: '11. Load balancer',
+      icon: Square2StackIcon,
+      coming: true,
+    },
+    {
+      name: '12. Ansible',
+      icon: Square3Stack3DIcon,
+      coming: true,
     },
   ];
 
@@ -134,8 +165,8 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="mx-auto mb-6 max-w-7xl text-6xl font-medium leading-snug text-neutral-500"
         >
-          Take managing <span className="font-medium text-white">virtual machines</span>{' '}
-          <br /> to the <span className="font-medium text-white">next level</span>.
+          Take <span className="font-medium text-white">cloud providers</span> to the{' '}
+          <span className="font-medium text-white">next level</span>.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, translateY: 14 }}
@@ -143,7 +174,7 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 1 }}
           className="mb-12 text-xl text-neutral-100"
         >
-          Web interface for managing virtual machines.
+          Self-hosted cloud platform solution
         </motion.p>
         <motion.div
           initial={{ opacity: 0, translateY: 10 }}
@@ -235,12 +266,28 @@ export default function Home() {
             {features.map((feature) => (
               <div
                 key={feature.name}
-                className="rounded-xl bg-neutral-900 px-6 py-12 text-center transition-transform duration-500 hover:scale-105"
+                className={cx([
+                  'rounded-xl bg-neutral-900 px-6 py-12 text-center',
+                  feature.coming
+                    ? ''
+                    : 'transition-transform duration-500 hover:scale-105',
+                ])}
               >
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-800">
                   <feature.icon className=" h-6 w-6 text-neutral-400" />
                 </div>
-                <h3 className="text-xl">{feature.name}</h3>
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <h3
+                    className={cx(['text-xl', feature.coming ? 'text-neutral-500' : ''])}
+                  >
+                    {feature.name}
+                  </h3>
+                  {feature.coming && (
+                    <span className="rounded-3xl bg-yellow-500/20 py-1.5 px-2 text-xs font-medium text-yellow-500">
+                      coming soon
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -285,7 +332,8 @@ export default function Home() {
               <h3 className="relative z-10 mb-4 text-3xl font-semibold">Cost-saving</h3>
               <p className="relative z-10 text-2xl font-normal text-white/80">
                 By managing your virtual machines more efficiently, you can save on
-                resources and reduce your overall costs.
+                resources and reduce your overall costs, because you use self-hosted
+                solution
               </p>
             </div>
           </div>
@@ -293,11 +341,13 @@ export default function Home() {
         <section id="how-it-works" className="relative mx-auto max-w-6xl py-32">
           <h2 className="mb-8 text-5xl font-semibold">How it works</h2>
           <p className="mb-16 max-w-5xl text-3xl leading-relaxed text-neutral-500">
-            Our libvirt-based web interface is built on top of libvirt, which is a widely
-            used open-source API for managing virtualization technologies. Our interface
-            communicates with libvirt to perform virtual machine management tasks. The
-            interface is accessed through a web browser, making it easy to use from
-            anywhere with an internet connection.
+            To deploy and manage VMs on this cloud platform, you need to install a
+            frontend, backend, and application on the hypervisor. The frontend is
+            responsible for handling user requests, providing a user interface for
+            managing VMs, and communicating with the backend. The backend manages the
+            hypervisors and their associated VMs, and provides a REST API that can be used
+            to interact with the platform programmatically. The application layer provides
+            additional functionality such as billing, monitoring, and automation.
           </p>
           <div className="h-2 w-16 bg-neutral-700"></div>
         </section>
