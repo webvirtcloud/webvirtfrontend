@@ -167,7 +167,7 @@ export default function Home() {
           </li>
         </ul>
       </motion.nav>
-      <header className="container mx-auto p-4 py-32 text-center md:p-8">
+      <header className="overflow-hidden p-4 py-32 text-center md:p-8">
         <motion.span
           initial={{ opacity: 0, translateY: -8 }}
           animate={{ opacity: 100, translateY: 0 }}
@@ -229,7 +229,7 @@ export default function Home() {
                 },
               }}
               animate="pulse"
-              className="absolute left-1/3 -top-12 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px]"
+              className="absolute left-1/3 -top-12 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px] lg:h-96 lg:w-96"
             ></motion.div>
             <motion.div
               variants={{
@@ -243,7 +243,7 @@ export default function Home() {
                 },
               }}
               animate="pulse"
-              className="absolute left-1/4 top-4 -z-10 h-96 w-96 -translate-x-1/3 rounded-full bg-yellow-500 blur-[100px]"
+              className="absolute left-1/4 top-4 -z-10 h-24 w-24 -translate-x-1/3 rounded-full bg-yellow-500 blur-[100px] md:h-48 md:w-48 lg:h-96 lg:w-96"
             ></motion.div>
           </motion.div>
           <motion.div
