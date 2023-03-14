@@ -436,7 +436,7 @@ export default function Home() {
         </section>
       </main>
       <footer className="border-t border-neutral-200 py-8 dark:border-neutral-800">
-        <div className="container mx-auto space-y-4">
+        <div className="container mx-auto space-y-4 px-4 md:px-8">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-0">
             <Logotype />
             <p className="text-center text-neutral-500">
