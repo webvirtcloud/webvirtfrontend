@@ -167,7 +167,7 @@ export default function Home() {
           </li>
         </ul>
       </motion.nav>
-      <header className="overflow-hidden p-4 py-32 text-center md:p-8">
+      <header className="relative overflow-hidden p-4 py-32 text-center md:px-8">
         <motion.span
           initial={{ opacity: 0, translateY: -8 }}
           animate={{ opacity: 100, translateY: 0 }}
@@ -229,7 +229,7 @@ export default function Home() {
                 },
               }}
               animate="pulse"
-              className="absolute left-1/3 -top-12 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px] lg:h-96 lg:w-96"
+              className="absolute left-1/2 -top-12 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px] lg:h-96 lg:w-96"
             ></motion.div>
             <motion.div
               variants={{
@@ -243,7 +243,7 @@ export default function Home() {
                 },
               }}
               animate="pulse"
-              className="absolute left-1/4 top-4 -z-10 h-24 w-24 -translate-x-1/3 rounded-full bg-yellow-500 blur-[100px] md:h-48 md:w-48 lg:h-96 lg:w-96"
+              className="absolute left-1/2 top-4 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-yellow-500 blur-[100px] md:h-48 md:w-48 lg:h-96 lg:w-96"
             ></motion.div>
           </motion.div>
           <motion.div
@@ -256,7 +256,7 @@ export default function Home() {
             <motion.div
               initial={{ rotateX: '30deg', scale: 1.1 }}
               whileInView={{ rotateX: 0 }}
-              viewport={{ margin: '0px 0px -40% 0px' }}
+              viewport={{ margin: '0px 0px -50% 0px' }}
               transition={{
                 type: 'spring',
                 stiffness: 50,
@@ -264,8 +264,29 @@ export default function Home() {
               }}
             >
               <Image
-                className="rounded-xl border border-neutral-700"
-                src="/main.png"
+                className="hidden rounded-xl border border-neutral-700 md:dark:block"
+                src="/screen_dark.png"
+                width={1300}
+                height={900}
+                alt="main screen"
+              ></Image>
+              <Image
+                className="hidden rounded-xl border border-neutral-300 md:block md:dark:hidden"
+                src="/screen_white.png"
+                width={1300}
+                height={900}
+                alt="main screen"
+              ></Image>
+              <Image
+                className="hidden rounded-xl border border-neutral-700 dark:block md:hidden"
+                src="/screen_mobile_dark.png"
+                width={1300}
+                height={900}
+                alt="main screen"
+              ></Image>
+              <Image
+                className="rounded-xl border border-neutral-300 dark:hidden md:hidden"
+                src="/screen_mobile_white.png"
                 width={1300}
                 height={900}
                 alt="main screen"
@@ -427,8 +448,15 @@ export default function Home() {
             </Link>
           </div>
           <Image
-            className="rounded-xl border border-neutral-700"
-            src="/main.png"
+            className="hidden rounded-xl border border-neutral-700 dark:block"
+            src="/screen_dark.png"
+            width={1300}
+            height={900}
+            alt="main screen"
+          ></Image>
+          <Image
+            className="rounded-xl border border-neutral-300 dark:hidden"
+            src="/screen_white.png"
             width={1300}
             height={900}
             alt="main screen"
