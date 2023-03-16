@@ -9,7 +9,13 @@ import '@fontsource/outfit/700.css';
 import '@fontsource/outfit/800.css';
 import '@fontsource/outfit/900.css';
 import type { AppProps } from 'next/app';
+import { GoogleAnalytics } from 'nextjs-google-analytics';
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+      <Component {...pageProps} />
+    </>
+  );
 }
