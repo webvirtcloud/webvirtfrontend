@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white;
+  @apply bg-neutral-50 dark:bg-neutral-900 dark:text-neutral-50;
   font-family: 'Outfit', sans-serif;
 }

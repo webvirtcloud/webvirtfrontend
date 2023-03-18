@@ -11,8 +11,10 @@
   "dependencies": {
     "@fontsource/outfit": "^4.5.11",
     "@heroicons/react": "^2.0.16",
+    "clsx": "^1.2.1",
     "framer-motion": "^10.2.4",
     "next": "latest",
+    "nextjs-google-analytics": "^2.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "*"
