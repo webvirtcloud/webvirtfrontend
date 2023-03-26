@@ -1,4 +1,3 @@
-import { Toast } from './Toast';
-import useToastContext from './useToastContext';
-
-export { Toast, useToastContext };
+export * from './toster';
+export * from './use-toast';
+export * from './toast';
