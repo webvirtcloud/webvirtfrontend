@@ -1,100 +1,30 @@
-import React, { forwardRef } from 'react';
-import tw from 'twin.macro';
+import { forwardRef, InputHTMLAttributes } from 'react';
+import { VariantProps, cva } from 'class-variance-authority';
+import { cx } from '../../lib';
 
-interface Props {
-  id: string;
-  name: string;
-  type?: 'text' | 'number' | 'email' | 'password';
-  placeholder: string;
-  label?: string;
-  hint?: string;
-  size?: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
-  required?: boolean;
-  readonly?: boolean;
-  error?: boolean | string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+const inputVariants = cva(
+  'w-full text-sm px-2 transition-all border border-neutral-300 rounded-lg bg-neutral-50 dark:bg-neutral-800 dark:border-neutral-600 focus:bg-transparent placeholder:text-neutral-500 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 h-8',
+  {
+    variants: {
+      error: {
+        true: 'border-red-600 focus:ring-1 focus:border-red-600 focus:ring-red-600 bg-red-50 placeholder:text-red-700 dark:bg-red-300/5 dark:border-red-500  dark:focus:ring-red-500 dark:placeholder:text-red-500',
+      },
+    },
+  },
+);
+
+export interface InputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof inputVariants> {
+  error?: boolean;
 }
 
-const getBaseStyle = () =>
-  tw`w-full px-4 text-sm transition-colors border rounded-md bg-input-default`;
-
-const getDisabledStyle = () => tw`bg-input-disabled`;
-
-const getBaseFocusStyle = () =>
-  tw`border-input-default focus:border-blue-700 focus:ring-1 focus:ring-blue-700`;
-
-const getErrorFocusStyle = () =>
-  tw`border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
-
-const getSizeStyle = ({ size }: { size: Props['size'] }) => {
-  switch (size) {
-    case 'sm': {
-      return tw`h-8 text-xs`;
-    }
-    case 'md': {
-      return tw`text-sm h-9`;
-    }
-    case 'lg': {
-      return tw`h-10 text-sm`;
-    }
-    default: {
-      return tw`h-8 text-sm`;
-    }
-  }
-};
-
-const Input = forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      id,
-      name,
-      label,
-      hint,
-      type = 'text',
-      size = 'md',
-      required,
-      readonly = false,
-      disabled,
-      error,
-      ...rest
-    },
-    ref,
-  ): JSX.Element => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, error, ...props }, ref) => {
     return (
-      <div>
-        <label htmlFor={id} css={tw`inline-block mb-1 text-xs font-bold`}>
-          {label && <span>{label}</span>}
-          {required && <span css={tw`text-red-500`}>*</span>}
-        </label>
-
-        <input
-          id={id}
-          name={name}
-          ref={ref}
-          type={type}
-          disabled={disabled}
-          readOnly={readonly}
-          css={[
-            getBaseStyle(),
-            (disabled || readonly) && getDisabledStyle(),
-            getSizeStyle({ size }),
-            error ? getErrorFocusStyle() : getBaseFocusStyle(),
-          ]}
-          {...rest}
-        />
-
-        {hint || error ? (
-          <p css={[tw`mt-1 text-xs`, error ? tw`text-red-500` : tw`text-alt2`]}>
-            {typeof error === 'string' && error !== '' ? error : hint}
-          </p>
-        ) : null}
-      </div>
+      <input className={cx(inputVariants({ error, className }))} ref={ref} {...props} />
     );
   },
 );
 
 Input.displayName = 'Input';
-
-export default Input;
