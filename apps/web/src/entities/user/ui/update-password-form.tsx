@@ -1,16 +1,14 @@
 import { useForm } from 'react-hook-form';
-import tw from 'twin.macro';
-
 import { type UpdatePasswordPayload, updatePassword } from '@/entities/user';
-import { Button } from '@/shared/ui/Button';
-import Input from '@/shared/ui/Input';
+import { Button } from 'ui/components/button';
+import { Input } from 'ui/components/input';
 
 export function UpdatePasswordForm() {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
-  } = useForm<UpdatePasswordPayload>({ mode: 'onChange' });
+  } = useForm<UpdatePasswordPayload>();
 
   const onSubmit = async (data: UpdatePasswordPayload) => {
     try {
@@ -23,17 +21,14 @@ export function UpdatePasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input
         {...register('old_password', { required: 'Current password is required.' })}
         placeholder="Your current password"
-        label="Current password"
         type="password"
         id="current_password"
         name="current_password"
-        size="lg"
-        error={errors.old_password?.message}
-        required
+        error={!!errors.old_password}
       />
       {/* {errors.old_password && (
         <p css={tw`text-red-500`} role="alert">
@@ -46,13 +41,10 @@ export function UpdatePasswordForm() {
           minLength: { message: 'Password should be at least 6 characters.', value: 6 },
         })}
         placeholder="New secure password"
-        label="New password"
         type="password"
         id="new_password"
         name="new_password"
-        size="lg"
-        required
-        error={errors.new_password?.message}
+        error={!!errors.new_password}
       />
       {/* {errors.new_password && (
         <p css={tw`text-red-500`} role="alert">
@@ -65,25 +57,17 @@ export function UpdatePasswordForm() {
           minLength: { message: 'Password should be at least 6 characters.', value: 6 },
         })}
         placeholder="New secure password again"
-        label="New password confirm"
         type="password"
         id="new_password_confirm"
         name="new_password_confirm"
-        size="lg"
-        required
+        error={!!errors.new_password_confirm}
       />
       {errors.new_password_confirm && (
-        <p css={tw`text-red-500`} role="alert">
+        <p className="text-red-500" role="alert">
           {errors.new_password_confirm?.message}
         </p>
       )}
-      <Button
-        css={tw`w-full`}
-        size="lg"
-        type="submit"
-        loading={isSubmitting}
-        disabled={!isValid}
-      >
+      <Button className="w-full" type="submit" disabled={!isValid}>
         Change password
       </Button>
     </form>

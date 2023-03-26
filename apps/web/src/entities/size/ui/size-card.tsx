@@ -1,7 +1,4 @@
-import tw from 'twin.macro';
-
-import { Card } from '@/shared/ui/card';
-
+import { cx } from 'ui/lib';
 import { Size } from '../types';
 
 interface Props {
@@ -12,27 +9,33 @@ interface Props {
 
 export function SizeCard({ size, isActive, onClick }: Props) {
   return (
-    <Card isActive={isActive} onClick={onClick}>
-      <div css={tw`flex gap-8`}>
-        <div css={tw`flex flex-col w-24 items-center justify-center border-r`}>
-          <div css={tw`text-xl font-bold`}>{size.price_monthly}$</div>
-          <div css={tw`text-alt text-xs`}>{size.description}</div>
+    <div
+      onClick={onClick}
+      className={cx([
+        'flex w-full cursor-pointer justify-between gap-4 rounded-md border p-4 dark:border-neutral-700',
+        isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
+      ])}
+    >
+      <div className="flex flex-1 justify-between gap-8">
+        <div className="flex w-24 flex-col items-center justify-center border-r dark:border-neutral-700">
+          <div className="text-xl font-medium">{size.price_monthly}$</div>
+          <div className="text-xs text-neutral-500">{size.description}</div>
         </div>
-        <ul css={tw`space-y-2`}>
+        <ul className="space-y-2 text-end">
           <li>
-            <span css={tw`font-bold`}>{size.vcpu}</span>{' '}
-            <span css={tw`text-alt`}>vCPU</span>
+            <span className="font-medium">{size.vcpu}</span>{' '}
+            <span className="text-neutral-500">vCPU</span>
           </li>
           <li>
-            <span css={tw`font-bold`}>{size.memory}</span>{' '}
-            <span css={tw`text-alt`}>Memory</span>
+            <span className="font-medium">{size.memory}</span>{' '}
+            <span className="text-neutral-500">Memory</span>
           </li>
           <li>
-            <span css={tw`font-bold`}>{size.disk}</span>{' '}
-            <span css={tw`text-alt`}>Disk</span>
+            <span className="font-medium">{size.disk}</span>{' '}
+            <span className="text-neutral-500">Disk</span>
           </li>
         </ul>
       </div>
-    </Card>
+    </div>
   );
 }

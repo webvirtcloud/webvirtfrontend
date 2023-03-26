@@ -1,17 +1,15 @@
-import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import tw from 'twin.macro';
-
-import { type User, updateUser, useUserStore } from '@/entities/user';
-import { Button } from '@/shared/ui/Button';
-import Input from '@/shared/ui/Input';
-import { useToastContext } from '@/shared/ui/Toast';
+import { useUser } from '@/entities/user';
+import { type User, updateUser } from '@/entities/user';
+import { Button } from 'ui/components/button';
+import { Input } from 'ui/components/input';
+// import { useToastContext } from '@/shared/ui/Toast';
 
 export function UpdateUserForm() {
-  const [profile] = useAtom(useUserStore);
+  const { data: profile } = useUser();
 
-  const createToast = useToastContext();
+  // const createToast = useToastContext();
 
   const {
     register,
@@ -35,7 +33,7 @@ export function UpdateUserForm() {
 
       setDefaultValues(response.profile);
 
-      createToast({ type: 'success', message: 'Your profile was updated.' });
+      // createToast({ type: 'success', message: 'Your profile was updated.' });
     } catch (error) {}
   };
 
@@ -44,46 +42,34 @@ export function UpdateUserForm() {
   }, [profile]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} css={tw`space-y-4`}>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input
         {...register('email')}
-        readonly
+        readOnly
         placeholder="Your email"
-        label="Email"
         id="email"
         name="email"
-        size="lg"
-        hint="Cannot be changed."
+        error={!!errors.email}
       />
-      <div css={tw`grid grid-cols-2 gap-4`}>
+      <div className="grid grid-cols-2 gap-4">
         <Input
           {...register('first_name', { required: 'First name is required.' })}
           placeholder="John"
-          label="First name"
           id="first_name"
           name="first_name"
-          size="lg"
           required
-          error={errors.first_name?.message}
+          error={!!errors.first_name}
         />
         <Input
           {...register('last_name', { required: 'Last name is required.' })}
           placeholder="Doe"
-          label="Last name"
           id="last_name"
           name="last_name"
-          size="lg"
           required
-          error={errors.last_name?.message}
+          error={!!errors.last_name}
         />
       </div>
-      <Button
-        size="lg"
-        loading={isSubmitting}
-        disabled={!isValid}
-        css={tw`w-full`}
-        type="submit"
-      >
+      <Button disabled={!isValid} className="w-full" type="submit">
         Update profile
       </Button>
     </form>

@@ -3,11 +3,10 @@ import ChevronUpDownIcon from '@heroicons/react/20/solid/ChevronUpDownIcon';
 import Cog6ToothIcon from '@heroicons/react/20/solid/Cog6ToothIcon';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import tw from 'twin.macro';
 
 import { User } from '@/entities/user';
-import { Button } from '@/shared/ui/Button';
-import { Menu, MenuItem } from '@/shared/ui/Menu';
+import { Button } from 'ui/components/button';
+// import { Menu, MenuItem } from 'ui/components/menu';
 
 type Props = {
   user: User | undefined;
@@ -40,10 +39,10 @@ export function UserMenu({ user }: Props) {
         onClick={() => toggle(!isOpen)}
       >
         <div css={tw`min-w-0 overflow-hidden max-w-[168px]`}>
-          <h4 css={tw`font-bold truncate`}>{user?.email}</h4>
+          <h4 css={tw`font-medium truncate`}>{user?.email}</h4>
         </div>
       </Button>
-      <Menu
+      {/* <Menu
         isOpen={isOpen}
         source={reference}
         placement="bottom-end"
@@ -61,9 +60,11 @@ export function UserMenu({ user }: Props) {
         >
           Logout
         </MenuItem>
-      </Menu>
+      </Menu> */}
     </div>
   ) : (
-    <div css={tw`bg-alt h-8 w-32 rounded animate-pulse`}></div>
+    <div
+      css={tw`bg-neutral-100 dark:bg-neutral-800 h-8 w-32 rounded animate-pulse`}
+    ></div>
   );
 }

@@ -1,4 +1,4 @@
-import request from '@/api/fetch';
+import request from '@/shared/api/request';
 
 import { Size } from '../types';
 
