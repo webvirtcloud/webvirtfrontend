@@ -1,6 +1,4 @@
-import tw from 'twin.macro';
-
-export default function Table({ data, columns }) {
+export function Table({ data, columns }) {
   function CellRenderer(item, column) {
     if (column.component) {
       return <column.component value={item} />;
@@ -12,13 +10,13 @@ export default function Table({ data, columns }) {
     return item[column.field];
   }
   return (
-    <div css={tw`overflow-x-auto border rounded-md`}>
-      <table css={tw`w-full text-left`}>
-        <thead css={tw`border-b bg-alt text-xs`}>
+    <div className="overflow-x-auto">
+      <table className="w-full text-left">
+        <thead className="text-xs text-neutral-500">
           <tr>
             {columns.map((column) => (
               <th
-                css={tw`select-none whitespace-nowrap bg-alt px-4 py-3`}
+                className="select-none whitespace-nowrap bg-neutral-100 px-4 py-3 text-neutral-500 first:rounded-l-lg last:rounded-r-lg dark:bg-neutral-800 dark:text-neutral-500"
                 key={column.field}
               >
                 {column.name}
@@ -26,11 +24,11 @@ export default function Table({ data, columns }) {
             ))}
           </tr>
         </thead>
-        <tbody css={tw`divide-y`}>
+        <tbody className="divide-y dark:divide-neutral-700">
           {data.map((item, i) => (
-            <tr key={i} css={tw`bg-white hover:bg-stripe transition-colors`}>
+            <tr key={i} className="">
               {columns.map((column) => (
-                <td css={tw`px-4 py-2 whitespace-nowrap`} key={column.field}>
+                <td className="whitespace-nowrap px-4 py-2" key={column.field}>
                   {CellRenderer(item, column)}
                 </td>
               ))}

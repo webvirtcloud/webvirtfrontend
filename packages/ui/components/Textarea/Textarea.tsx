@@ -1,97 +1,34 @@
-import React, { forwardRef, TextareaHTMLAttributes } from 'react';
-import tw from 'twin.macro';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { forwardRef, type TextareaHTMLAttributes } from 'react';
+import { cx } from '../../lib';
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  id: string;
-  name: string;
-  placeholder: string;
-  label: string;
-  rows?: number;
-  hint?: string;
-  size?: 'sm' | 'md';
-  error?: boolean | string;
-  disabled?: boolean;
-  required?: boolean;
-  readonly?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onBlur: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+const inputVariants = cva(
+  'w-full text-sm px-2 transition-all border border-neutral-300 rounded-lg bg-neutral-50 dark:bg-neutral-800 dark:border-neutral-600 focus:bg-transparent placeholder:text-neutral-500 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500',
+  {
+    variants: {
+      error: {
+        true: 'border-red-600 focus:ring-1 focus:border-red-600 focus:ring-red-600 bg-red-50 placeholder:text-red-700 dark:bg-red-300/5 dark:border-red-500  dark:focus:ring-red-500 dark:placeholder:text-red-500',
+      },
+    },
+  },
+);
+
+export interface TextareaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof inputVariants> {
+  error?: boolean;
 }
 
-const getBaseStyle = () =>
-  tw`w-full px-4 text-sm transition-colors border rounded-md bg-input-default`;
-
-const getDisabledStyle = () => tw`bg-input-disabled`;
-
-const getBaseFocusStyle = () =>
-  tw`border-input-default focus:border-blue-700 focus:ring-1 focus:ring-blue-700`;
-
-const getErrorFocusStyle = () =>
-  tw`border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500`;
-
-const getSizeStyle = ({ size }: { size: Props['size'] }) => {
-  switch (size) {
-    case 'sm': {
-      return tw`text-xs`;
-    }
-    case 'md': {
-      return tw`text-sm`;
-    }
-    default: {
-      return tw`text-sm`;
-    }
-  }
-};
-
-const Textarea = forwardRef<HTMLTextAreaElement, Props>(
-  (
-    {
-      id,
-      name,
-      label,
-      disabled,
-      error,
-      readonly = false,
-      size = 'md',
-      required,
-      rows = 5,
-      hint,
-      ...rest
-    },
-    ref,
-  ): JSX.Element => {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, error, ...props }, ref) => {
     return (
-      <div css={tw`flex flex-col`}>
-        <label htmlFor={id} css={tw`inline-block mb-1 text-xs font-bold`}>
-          {label}
-          {required && <span css={tw`text-red-500`}>*</span>}
-        </label>
-
-        <textarea
-          id={id}
-          name={name}
-          ref={ref}
-          rows={rows}
-          readOnly={readonly}
-          disabled={disabled}
-          css={[
-            getBaseStyle(),
-            (disabled || readonly) && getDisabledStyle(),
-            getSizeStyle({ size }),
-            error ? getErrorFocusStyle() : getBaseFocusStyle(),
-          ]}
-          {...rest}
-        />
-
-        {hint || error ? (
-          <p css={[tw`mt-1 text-xs`, error ? tw`text-red-500` : tw`text-alt2`]}>
-            {typeof error === 'string' && error !== '' ? error : hint}
-          </p>
-        ) : null}
-      </div>
+      <textarea
+        className={cx(inputVariants({ error, className }))}
+        ref={ref}
+        {...props}
+      />
     );
   },
 );
 
 Textarea.displayName = 'Textarea';
-
-export default Textarea;
