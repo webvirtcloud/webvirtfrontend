@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
-import { Input } from 'ui/components/Input';
+import { Input } from 'ui/components/input';
 
 export function VirtanceCreateSettings() {
   const { register } = useFormContext();
