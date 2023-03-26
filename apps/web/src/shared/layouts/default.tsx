@@ -1,24 +1,11 @@
-import { useSetAtom } from 'jotai';
 import { Outlet } from 'react-router-dom';
-import useSWR from 'swr';
-import tw from 'twin.macro';
-
-import { getUser, useUserStore } from '@/entities/user';
 import { Navbar } from '@/widgets/nav-bar';
 
 export function DefaultLayout() {
-  const setProfile = useSetAtom(useUserStore);
-
-  useSWR('/profile/', getUser, {
-    onSuccess(data) {
-      setProfile(data.profile);
-    },
-  });
-
   return (
-    <main css={tw`flex flex-col min-h-screen`}>
+    <main className="flex min-h-screen flex-col">
       <Navbar />
-      <div css={tw`container flex-1 px-4 py-8 mx-auto`}>
+      <div className="container mx-auto flex-1 px-4 py-8">
         <Outlet />
       </div>
     </main>

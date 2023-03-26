@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import tw from 'twin.macro';
 
 export function NotFound() {
   return (
-    <div css={tw`min-h-screen flex items-center justify-center`}>
-      <div css={tw`text-center`}>
-        <h1 css={tw`font-bold text-2xl space-y-4`}>Page is not found</h1>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <h1 className="mb-8 text-4xl font-medium">Whoops, that page is gone.</h1>
         <Link to="/">Go Home</Link>
       </div>
     </div>

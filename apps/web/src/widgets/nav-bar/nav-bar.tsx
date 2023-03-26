@@ -1,57 +1,56 @@
 import SettingsIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
 import KeypairsIcon from '@heroicons/react/20/solid/CommandLineIcon';
 import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
-import { useAtomValue } from 'jotai';
 import { Link, NavLink } from 'react-router-dom';
-import tw from 'twin.macro';
+import { cx } from 'ui/lib';
 
-import { UserMenu } from '@/entities/user';
-import { useUserStore } from '@/entities/user';
+// import { UserMenu } from '@/entities/user';
+// import { useUserStore } from '@/entities/user';
 
 import { links } from './config';
 
 export function Navbar() {
-  const user = useAtomValue(useUserStore);
+  // const user = useAtomValue(useUserStore);
 
   return (
-    <nav
-      css={tw`sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b shadow-sm bg-base border-black/10`}
-    >
-      <div css={tw`container p-4 mx-auto`}>
-        <div css={tw`flex items-center justify-between`}>
-          <div css={tw`flex items-center mb-4 space-x-4`}>
-            <Link css={tw`inline-flex items-center justify-center space-x-4`} to="/">
+    <nav className="sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-700 dark:bg-neutral-900">
+      <div className="container mx-auto p-4">
+        <div className="flex items-center justify-between">
+          <div className="mb-4 flex items-center space-x-4">
+            <Link
+              className="inline-flex items-center justify-center space-x-4"
+              to="/virtances"
+            >
               <img
-                css={tw`w-8`}
+                className="w-8"
                 src={new URL('/src/shared/assets/images/logo.svg', import.meta.url).href}
                 alt="Logotype"
               />
             </Link>
-            <div css={tw`w-px h-6 bg-alt2`}></div>
+            <div className="dark:bg-neutral-8002 h-6 w-px bg-neutral-100"></div>
             {/* <ProjectSelector /> */}
           </div>
-          <UserMenu user={user} />
+          {/* <UserMenu user={user} /> */}
         </div>
 
-        <ul css={tw`flex items-center space-x-2`}>
+        <ul className="flex items-center space-x-2">
           {links.map((link) => (
             <li key={link.name}>
-              <NavLink to={link.to}>
-                {({ isActive }) => (
-                  <span
-                    css={[
-                      tw`w-full inline-flex items-center space-x-2 rounded-md transition-opacity px-2 py-1.5`,
-                      isActive
-                        ? tw`bg-interactive-hover`
-                        : tw`opacity-50 hover:opacity-100`,
-                    ]}
-                  >
-                    {link.name === 'Virtances' && <ListIcon width={18} height={18} />}
-                    {link.name === 'Keypairs' && <KeypairsIcon width={18} height={18} />}
-                    {link.name === 'Settings' && <SettingsIcon width={18} height={18} />}
-                    <span css={tw`font-semibold`}>{link.name}</span>
-                  </span>
-                )}
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  cx([
+                    'inline-flex w-full items-center space-x-2 rounded-md px-2 py-1.5 font-medium transition-opacity',
+                    isActive
+                      ? ' bg-neutral-100 dark:bg-neutral-800'
+                      : 'opacity-50 hover:opacity-100',
+                  ])
+                }
+              >
+                {link.name === 'Virtances' && <ListIcon width={18} height={18} />}
+                {link.name === 'Keypairs' && <KeypairsIcon width={18} height={18} />}
+                {link.name === 'Settings' && <SettingsIcon width={18} height={18} />}
+                <span>{link.name}</span>
               </NavLink>
             </li>
           ))}
