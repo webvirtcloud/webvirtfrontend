@@ -1,17 +1,18 @@
-import loadable from '@loadable/component';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { AuthLayout } from '@/shared/layouts/auth';
+import { DefaultLayout } from '@/shared/layouts/default';
+import { ServerLayout } from '@/shared/layouts/server';
+import { lazy, Suspense } from 'react';
 
-import { AuthLayout, DefaultLayout, ServerLayout } from '@/shared/layouts';
-
-const SignIn = loadable(() => import('@/pages/login'));
-const SignUp = loadable(() => import('@/pages/register'));
-const ResetPassword = loadable(() => import('@/pages/reset-password'));
-const CreateServer = loadable(() => import('@/pages/servers/create/create-server'));
-const Servers = loadable(() => import('@/pages/servers/servers'));
-const Server = loadable(() => import('@/pages/Server/Server'));
-const Keypairs = loadable(() => import('@/pages/Keypairs'));
-const Settings = loadable(() => import('@/pages/settings'));
-const NotFound = loadable(() => import('@/pages/not-found'));
+const SignIn = lazy(() => import('@/pages/sign-in'));
+const SignUp = lazy(() => import('@/pages/sign-up'));
+const ResetPassword = lazy(() => import('@/pages/reset-password'));
+const CreateVirtance = lazy(() => import('@/pages/virtances/create/create'));
+const Virtances = lazy(() => import('@/pages/virtances/virtances'));
+const VirtanceOverview = lazy(() => import('@/pages/virtances/virtance/overview'));
+const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
+const Settings = lazy(() => import('@/pages/settings'));
+const NotFound = lazy(() => import('@/pages/not-found'));
 
 export function Routing() {
   const isAuthenticated = !!window.localStorage.getItem('token');
@@ -20,16 +21,52 @@ export function Routing() {
     return (
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
-          <Route index element={<Navigate to="/servers" />} />
-          <Route path="/servers" element={<Servers />} />
-          <Route path="/servers/create" element={<CreateServer />} />
-          <Route path="/keypairs" element={<Keypairs />} />
+          <Route index element={<Navigate to="/virtances" />} />
+          <Route
+            path="/virtances"
+            element={
+              <Suspense>
+                <Virtances />
+              </Suspense>
+            }
+          />
+          <Route path="/virtances/create" element={<CreateVirtance />} />
+          <Route
+            path="/keypairs"
+            element={
+              <Suspense>
+                <Keypairs />
+              </Suspense>
+            }
+          />
           <Route element={<ServerLayout />}>
-            <Route path="/servers/:suuid" element={<Server />} />
+            <Route
+              path="/virtances/:suuid"
+              element={
+                <Suspense>
+                  <VirtanceOverview />
+                </Suspense>
+              }
+            />
           </Route>
-          <Route path="/settings" element={<Settings />} />
+
+          <Route
+            path="/settings"
+            element={
+              <Suspense>
+                <Settings />
+              </Suspense>
+            }
+          />
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <Suspense>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     );
   }
@@ -37,9 +74,30 @@ export function Routing() {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/sign-in"
+          element={
+            <Suspense>
+              <SignIn />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
+            <Suspense>
+              <SignUp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <Suspense>
+              <ResetPassword />
+            </Suspense>
+          }
+        />
       </Route>
       <Route path="*" element={<Navigate to="/sign-in" />} />
     </Routes>
