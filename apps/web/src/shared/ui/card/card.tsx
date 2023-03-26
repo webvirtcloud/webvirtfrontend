@@ -1,10 +1,5 @@
-import { ReactNode } from 'react';
-import tw, { styled } from 'twin.macro';
-
-const Wrapper = styled.div(({ isActive }: { isActive: boolean }) => [
-  tw`p-4 cursor-pointer border rounded-md bg-base`,
-  isActive ? tw`border-blue-500 ring-1 ring-blue-500` : tw``,
-]);
+import { type ReactNode } from 'react';
+import { cx } from 'ui/lib';
 
 interface Props {
   isActive: boolean;
@@ -14,8 +9,14 @@ interface Props {
 
 export function Card({ isActive, children, onClick }: Props) {
   return (
-    <Wrapper onClick={onClick} isActive={isActive}>
+    <div
+      className={cx([
+        'bg-base cursor-pointer rounded-md border p-4',
+        isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
+      ])}
+      onClick={onClick}
+    >
       {children}
-    </Wrapper>
+    </div>
   );
 }
