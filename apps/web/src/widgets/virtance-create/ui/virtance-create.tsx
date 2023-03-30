@@ -28,7 +28,7 @@ export function VirtanceCreate() {
     regions && {
       distribution: distributions[1],
       image: distributions[1].images[1],
-      size: sizes[0],
+      size: sizes.find((size) => size.available),
       region: regions.find((region) => region.available),
     };
   return sizes && distributions && regions ? (

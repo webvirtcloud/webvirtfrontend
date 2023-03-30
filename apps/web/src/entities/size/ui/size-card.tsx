@@ -9,10 +9,12 @@ interface Props {
 
 export function SizeCard({ size, isActive, onClick }: Props) {
   return (
-    <div
+    <button
+      type="button"
+      disabled={!size.available}
       onClick={onClick}
       className={cx([
-        'flex w-full cursor-pointer justify-between gap-4 rounded-md border p-4 dark:border-neutral-700',
+        'flex w-full cursor-pointer justify-between gap-4 rounded-md border p-4 disabled:cursor-not-allowed disabled:text-neutral-500 dark:border-neutral-700',
         isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
       ])}
     >
@@ -36,6 +38,6 @@ export function SizeCard({ size, isActive, onClick }: Props) {
           </li>
         </ul>
       </div>
-    </div>
+    </button>
   );
 }
