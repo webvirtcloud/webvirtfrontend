@@ -5,7 +5,7 @@ export type Virtance = {
   memory: number;
   disk: number;
   locked: boolean;
-  status: 'active' | 'pending';
+  status: 'active' | 'pending' | 'inactive';
   created_at: string;
   features: [];
   backup_ids: [];
