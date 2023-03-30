@@ -1,5 +1,6 @@
 import { createVirtance } from '@/entities/virtance';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from 'ui/components/toast';
 import { VirtanceCreateDistributions } from './virtance-create-distributions';
 import { VirtanceCreateOverview } from './virtance-create-overview';
@@ -13,6 +14,7 @@ export default function VirtanceCreateForm({
   sizes,
   regions,
 }) {
+  const navigate = useNavigate();
   const methods = useForm({ defaultValues });
   const { toast } = useToast();
 
@@ -24,6 +26,8 @@ export default function VirtanceCreateForm({
         name: data.name,
         region: data.region.slug,
       });
+
+      navigate('/virtances');
     } catch (e) {
       const { errors } = await e.response.json();
 
