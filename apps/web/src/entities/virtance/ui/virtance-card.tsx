@@ -31,7 +31,7 @@ export function VirtanceCard({ virtance, to }: Props) {
   return (
     <Link
       to={to}
-      className="flex min-h-[160px] flex-col justify-between rounded-lg border p-4 transition-all duration-300 hover:border-sky-500 hover:ring-1 hover:ring-sky-500 dark:border-neutral-700"
+      className="flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:border-sky-500 hover:ring-1 hover:ring-sky-500 dark:border-neutral-700"
     >
       <div className="flex items-start justify-between">
         <div>
@@ -49,33 +49,23 @@ export function VirtanceCard({ virtance, to }: Props) {
               />
             </div>
             <div className="space-y-0.5">
-              <h3 className="font-medium">{virtance.name}</h3>
-              <p className="text-neutral-5002 text-xs">
-                {virtance.size.memory}GB DDR4 / {virtance.size.storage}GB SSD
+              <h3 className="text-base font-medium">{virtance.name}</h3>
+              <p className="text-sm text-neutral-500">
+                {virtance.size.memory}GB DDR4 / {virtance.size.disk}GB SSD
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex items-center space-x-2">
-          <Button
-            variant={isActive(virtance) ? 'secondary' : 'destructive'}
-            size="sm"
-            className="w-8 p-0"
-            onClick={toggleStatus}
-          >
+          <Button variant="secondary" className="w-8 p-0" onClick={toggleStatus}>
             {isActive(virtance) ? (
-              <PlayIcon className="mx-auto h-4 w-4 text-green-500" />
-            ) : (
               <PauseIcon className="mx-auto h-4 w-4 text-red-500" />
+            ) : (
+              <PlayIcon className="mx-auto h-4 w-4 text-green-500" />
             )}
           </Button>
-          <Button
-            size="sm"
-            className="w-8 p-0"
-            variant="secondary"
-            onClick={toggleOptions}
-          >
+          <Button className="w-8 p-0" variant="secondary" onClick={toggleOptions}>
             <EllipsisVerticalIcon className="mx-auto h-4 w-4" />
           </Button>
         </div>
