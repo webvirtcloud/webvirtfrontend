@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
-import { ServerLayout } from '@/shared/layouts/server';
+import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
 import { lazy, Suspense } from 'react';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
@@ -39,9 +39,9 @@ export function Routing() {
               </Suspense>
             }
           />
-          <Route element={<ServerLayout />}>
+          <Route element={<VirtanceLayout />}>
             <Route
-              path="/virtances/:suuid"
+              path="/virtances/:id"
               element={
                 <Suspense>
                   <VirtanceOverview />

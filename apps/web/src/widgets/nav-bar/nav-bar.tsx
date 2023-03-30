@@ -13,7 +13,7 @@ export function Navbar() {
   // const user = useAtomValue(useUserStore);
 
   return (
-    <nav className="sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-700 dark:bg-neutral-900">
+    <nav className="sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-800 dark:bg-neutral-900">
       <div className="container mx-auto p-4">
         <div className="flex items-center justify-between">
           <div className="mb-4 flex items-center space-x-4">
