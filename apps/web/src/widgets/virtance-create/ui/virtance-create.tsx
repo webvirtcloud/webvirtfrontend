@@ -23,22 +23,28 @@ export function VirtanceCreate() {
     }, [] as { name: string; slug: string; images: Image[] }[]);
   }, [images]);
 
-  const defaultValues = distributions &&
-    sizes &&
-    regions && {
-      distribution: distributions[1],
-      image: distributions[1].images[1],
+  function generateDefaultValues(distributions, sizes, regions, images) {
+    const image = images.find((image) => image.status === 'available');
+    const distribution = distributions.find((dist) => dist.name === image.distribution);
+
+    return {
+      distribution,
+      image,
       size: sizes.find((size) => size.available),
       region: regions.find((region) => region.available),
     };
-  return sizes && distributions && regions ? (
+  }
+
+  if (!sizes || !distributions || !regions || !images) {
+    return <div className="py-8 text-center">Loading...</div>;
+  }
+
+  return (
     <VirtanceCreateForm
-      defaultValues={defaultValues}
+      defaultValues={generateDefaultValues(distributions, sizes, regions, images)}
       distributions={distributions}
       sizes={sizes}
       regions={regions}
     />
-  ) : (
-    <div className="py-8 text-center">Loading...</div>
   );
 }
