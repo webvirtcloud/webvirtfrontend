@@ -5,7 +5,9 @@ export function NotFound() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
         <h1 className="mb-8 text-4xl font-medium">Whoops, that page is gone.</h1>
-        <Link to="/">Go Home</Link>
+        <Link className="font-medium text-sky-500" to="/">
+          Go Home
+        </Link>
       </div>
     </div>
   );
