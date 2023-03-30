@@ -2,7 +2,10 @@ import { useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 
 export function VirtanceCreateOverview() {
-  const { watch } = useFormContext();
+  const {
+    watch,
+    formState: { isSubmitting },
+  } = useFormContext();
 
   const image = watch('image');
   const distribution = watch('distribution');
@@ -40,7 +43,9 @@ export function VirtanceCreateOverview() {
           <span className="text-xl font-medium">${size.price_monthly}</span>
           <span className="text-neutral-500">/mo</span>
         </div>
-        <Button type="submit">Deploy server</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Deploying...' : 'Deploy server'}
+        </Button>
       </div>
     </div>
   );
