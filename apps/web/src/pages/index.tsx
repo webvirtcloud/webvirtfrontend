@@ -30,7 +30,14 @@ export function Routing() {
               </Suspense>
             }
           />
-          <Route path="/virtances/create" element={<CreateVirtance />} />
+          <Route
+            path="/virtances/create"
+            element={
+              <Suspense>
+                <CreateVirtance />
+              </Suspense>
+            }
+          />
           <Route
             path="/keypairs"
             element={
