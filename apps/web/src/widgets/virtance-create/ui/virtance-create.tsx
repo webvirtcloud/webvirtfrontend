@@ -29,7 +29,7 @@ export function VirtanceCreate() {
       distribution: distributions[1],
       image: distributions[1].images[1],
       size: sizes[0],
-      region: regions[0],
+      region: regions.find((region) => region.available),
     };
   return sizes && distributions && regions ? (
     <VirtanceCreateForm
