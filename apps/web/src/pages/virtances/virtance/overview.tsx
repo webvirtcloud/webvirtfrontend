@@ -1,31 +1,81 @@
-import { Link, useParams } from 'react-router-dom';
+import { useVirtance } from '@/entities/virtance';
+import { useParams } from 'react-router-dom';
 
-import { getVirtance } from '@/entities/virtance';
-import useSWR from 'swr';
-
-const ServerPage = (): JSX.Element => {
-  const { suuid } = useParams();
-  const { data: virtance } = useSWR(`/virtances/${suuid}`, () =>
-    getVirtance(suuid as string).then((response) => response.virtance),
-  );
+export default function VirtanceOverview() {
+  const { id } = useParams();
+  const { virtance } = useVirtance(Number(id));
 
   return (
-    <>
-      {virtance ? (
-        <>
-          <header>
-            <Link className="mb-4 inline-block" to={`/virtances`}>
-              Back to list
-            </Link>
-            <h1 className="mb-8 text-2xl font-medium">{virtance.name}</h1>
-          </header>
-          <div>content</div>
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </>
-  );
-};
+    <div className="space-y-8">
+      <div>
+        <h2 className="mb-4 text-lg font-medium">Overview</h2>
+        {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
+        {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Unique identifier</h4>
+            <p className="font-medium">{virtance?.id}</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Name</h4>
+            <p className="font-medium">{virtance?.name}</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Image</h4>
+            <p className="font-medium">
+              {virtance?.image.distribution} {virtance?.image.name}
+            </p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Status</h4>
+            <p className="font-medium text-orange-300">{virtance?.status}</p>
+          </div>
+        </div>
+      </div>
 
-export default ServerPage;
+      <div>
+        <h2 className="mb-4 text-lg font-medium">Hardware</h2>
+        {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
+        {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">vCPU</h4>
+            <p className="font-medium">{virtance?.vcpu} core</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Memory</h4>
+            <p className="font-medium">{virtance?.memory}</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Disk</h4>
+            <p className="font-medium">{virtance?.disk} GB</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Size</h4>
+            <p className="font-medium">{virtance?.size.slug}</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="mb-4 text-lg font-medium">Network</h2>
+        {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
+        {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Private IP</h4>
+            <p className="font-medium">{virtance?.networks.v4[0].address}</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Public IP</h4>
+            <p className="font-medium">{virtance?.networks.v4[1].address}</p>
+          </div>
+          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
+            <h4 className="font-medium dark:text-neutral-400">Compute IP</h4>
+            <p className="font-medium">{virtance?.networks.v4[2].address}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
