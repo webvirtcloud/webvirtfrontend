@@ -1,5 +1,6 @@
 import { createVirtance } from '@/entities/virtance';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useToast } from 'ui/components/toast';
 import { VirtanceCreateDistributions } from './virtance-create-distributions';
 import { VirtanceCreateOverview } from './virtance-create-overview';
 import { VirtanceCreateRegions } from './virtance-create-regions';
@@ -13,17 +14,28 @@ export default function VirtanceCreateForm({
   regions,
 }) {
   const methods = useForm({ defaultValues });
+  const { toast } = useToast();
 
-  const onSubmit = (data) => {
+  async function onSubmit(data) {
     try {
-      createVirtance({
+      await createVirtance({
         size: data.size.slug,
         image: data.image.slug,
         name: data.name,
         region: data.region.slug,
       });
-    } catch (error) {}
-  };
+    } catch (e) {
+      const { errors } = await e.response.json();
+
+      errors.forEach((error) => {
+        const keys = Object.keys(error);
+
+        keys.forEach((key) => {
+          toast({ title: 'Form error', description: error[key] });
+        });
+      });
+    }
+  }
 
   return (
     <>
