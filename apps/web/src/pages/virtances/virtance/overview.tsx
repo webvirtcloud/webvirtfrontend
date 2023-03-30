@@ -1,9 +1,16 @@
 import { useVirtance } from '@/entities/virtance';
 import { useParams } from 'react-router-dom';
+import { cx } from 'ui/lib';
 
 export default function VirtanceOverview() {
   const { id } = useParams();
   const { virtance } = useVirtance(Number(id));
+
+  enum VirtanceStatusStyle {
+    'active' = 'text-green-400',
+    'pending' = 'text-orange-300',
+    'inactive' = 'text-red-400',
+  }
 
   return (
     <div className="space-y-8">
@@ -28,7 +35,11 @@ export default function VirtanceOverview() {
           </div>
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium dark:text-neutral-400">Status</h4>
-            <p className="font-medium text-orange-300">{virtance?.status}</p>
+            {virtance ? (
+              <p className={cx(['font-medium', VirtanceStatusStyle[virtance.status]])}>
+                {virtance.status}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>
