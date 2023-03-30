@@ -52,7 +52,11 @@ export function DistributionCard({
                     className="h-8 rounded-lg border border-neutral-300 bg-neutral-100 py-1 text-sm dark:border-neutral-700 dark:bg-neutral-800"
                   >
                     {distribution.images.map((image) => (
-                      <option key={image.slug} value={image.slug}>
+                      <option
+                        key={image.slug}
+                        value={image.slug}
+                        disabled={image.status !== 'available'}
+                      >
                         {image.name}
                       </option>
                     ))}
