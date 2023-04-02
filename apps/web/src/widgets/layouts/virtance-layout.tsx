@@ -1,8 +1,12 @@
-import { type ActionType, useVirtance } from '@/entities/virtance';
+import {
+  type VirtanceAction,
+  useVirtance,
+  VirtanceRebootButton,
+  VirtanceToggleStateButton,
+} from '@/entities/virtance';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
-import { VirtanceToggleStateButton } from '@/entities/virtance/';
 
 export function VirtanceLayout() {
   const { id } = useParams();
@@ -17,10 +21,7 @@ export function VirtanceLayout() {
     { label: 'Resize', to: `/virtances/${id}/resize` },
   ] as const;
 
-  async function onToggleState(payload: {
-    id: number;
-    action: 'power_off' | 'power_on';
-  }) {
+  async function onRunAction(payload: { id: number; action: VirtanceAction }) {
     runAction(payload);
   }
 
@@ -56,9 +57,14 @@ export function VirtanceLayout() {
                 </p>
               </div>
             </div>
-            <div>
+            <div className="flex gap-2">
               <VirtanceToggleStateButton
-                onToggle={onToggleState}
+                onToggle={onRunAction}
+                id={virtance.id}
+                status={virtance.status}
+              />
+              <VirtanceRebootButton
+                onToggle={onRunAction}
                 id={virtance.id}
                 status={virtance.status}
               />

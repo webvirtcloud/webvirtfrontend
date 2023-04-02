@@ -1,4 +1,4 @@
-import { useVirtances, VirtanceCard } from '@/entities/virtance';
+import { useVirtances, VirtanceCard, VirtanceRebootButton } from '@/entities/virtance';
 import { State } from '@/shared/ui/state';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'ui/components/button';
@@ -9,8 +9,8 @@ export function VirtancesList() {
   const navigate = useNavigate();
   const { virtances, runAction, error } = useVirtances();
 
-  async function onToggleState({ id, action }) {
-    runAction({ id, action });
+  async function onRunAction(payload) {
+    runAction(payload);
   }
 
   if (error) {
@@ -39,11 +39,18 @@ export function VirtancesList() {
                   to={`/virtances/${virtance.id}`}
                   virtance={virtance}
                   actions={
-                    <VirtanceToggleStateButton
-                      onToggle={onToggleState}
-                      id={virtance.id}
-                      status={virtance.status}
-                    />
+                    <>
+                      <VirtanceToggleStateButton
+                        onToggle={onRunAction}
+                        id={virtance.id}
+                        status={virtance.status}
+                      />
+                      <VirtanceRebootButton
+                        onToggle={onRunAction}
+                        id={virtance.id}
+                        status={virtance.status}
+                      />
+                    </>
                   }
                 />
               }
