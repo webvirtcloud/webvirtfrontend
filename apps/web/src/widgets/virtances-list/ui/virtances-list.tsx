@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { VirtanceToggleStateButton } from '@/entities/virtance';
+import { Skeleton } from 'ui/components/skeleton';
 
 export function VirtancesList() {
   const navigate = useNavigate();
@@ -57,7 +58,15 @@ export function VirtancesList() {
             </li>
           ))}
         </ul>
-      ) : null}
+      ) : (
+        <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {[...Array(6).keys()].map((i) => (
+            <li key={i}>
+              <Skeleton className="h-40 w-full" />
+            </li>
+          ))}
+        </ul>
+      )}
 
       {virtances && virtances.length === 0 && <div>No created servers.</div>}
     </section>

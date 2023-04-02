@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { links } from './config';
 import { useUser } from '@/entities/user';
+import { Skeleton } from 'ui/components/skeleton';
 
 export function Navbar() {
   const { data: user } = useUser();
@@ -25,7 +26,11 @@ export function Navbar() {
               />
             </Link>
             <div className="dark:bg-neutral-8002 h-6 w-px bg-neutral-100"></div>
-            <div className="font-medium">{user?.email}</div>
+            {user ? (
+              <div className="font-medium">{user.email}</div>
+            ) : (
+              <Skeleton className="h-5 w-32" />
+            )}
           </div>
           {/* <UserMenu user={user} /> */}
         </div>

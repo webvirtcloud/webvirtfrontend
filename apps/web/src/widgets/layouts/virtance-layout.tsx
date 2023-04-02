@@ -8,6 +8,7 @@ import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
 import { ChangeEvent } from 'react';
+import { Skeleton } from 'ui/components/skeleton';
 
 export function VirtanceLayout() {
   const { id } = useParams();
@@ -76,7 +77,23 @@ export function VirtanceLayout() {
               />
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Skeleton className="h-14 w-14 shrink-0" />
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-3 w-32 shrink-0" />
+                </div>
+                <Skeleton className="h-2 w-64 shrink-0" />
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-8 w-8 shrink-0" />
+              <Skeleton className="h-8 w-8 shrink-0" />
+            </div>
+          </div>
+        )}
       </header>
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-0">
         <div className="lg:col-span-2">
