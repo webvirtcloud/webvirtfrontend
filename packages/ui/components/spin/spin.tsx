@@ -1,9 +1,35 @@
-export function Spin() {
+import { cx } from '../../lib';
+import { cva, VariantProps } from 'class-variance-authority';
+import { SVGAttributes } from 'react';
+
+const spinVariants = cva('animate-spin text-gray-200 dark:text-gray-600', {
+  variants: {
+    variant: {
+      default: 'fill-sky-600',
+      warning: 'fill-yellow-600',
+    },
+    size: {
+      default: 'h-8 w-8',
+      sm: 'h-4 w-4',
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
+
+export interface SpinProps
+  extends SVGAttributes<SVGAElement>,
+    VariantProps<typeof spinVariants> {}
+
+export function Spin({ size, variant, className }: SpinProps) {
   return (
     <div role="status">
       <svg
+        role="status"
         aria-hidden="true"
-        className="mr-2 h-8 w-8 animate-spin fill-sky-600 text-gray-200 dark:text-gray-600"
+        className={cx(spinVariants({ size, variant }), className)}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
