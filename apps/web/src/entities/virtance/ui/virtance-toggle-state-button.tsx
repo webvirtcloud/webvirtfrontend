@@ -1,4 +1,4 @@
-import PauseIcon from '@heroicons/react/20/solid/PauseIcon';
+import StopIcon from '@heroicons/react/20/solid/StopIcon';
 import PlayIcon from '@heroicons/react/20/solid/PlayIcon';
 import { Button } from 'ui/components/button';
 import { cx } from 'ui/lib';
@@ -25,7 +25,7 @@ export function VirtanceToggleStateButton({ id, status, onToggle }: Props) {
       onClick={handleClick}
     >
       {status === 'active' ? (
-        <PauseIcon className={cx('mx-auto h-4 w-4 text-red-500')} />
+        <StopIcon className="mx-auto h-4 w-4 text-red-500" />
       ) : (
         <PlayIcon
           className={cx(
