@@ -1,32 +1,25 @@
 import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
-import EllipsisVerticalIcon from '@heroicons/react/20/solid/EllipsisVerticalIcon';
 import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
 import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
-import PauseIcon from '@heroicons/react/20/solid/PauseIcon';
-import PlayIcon from '@heroicons/react/20/solid/PlayIcon';
 import type { Virtance } from '@/entities/virtance';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
-import { MouseEvent } from 'react';
+import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'ui/components/button';
+import { cx } from 'ui/lib';
+import { StatusDot } from 'ui/components/status-dot';
 
 type Props = {
   to: string;
   virtance: Virtance;
+  actions?: ReactNode;
 };
 
-export function VirtanceCard({ virtance, to }: Props) {
-  const isActive = (virtance: Virtance) => virtance.status === 'active';
+export function VirtanceCard({ virtance, to, actions }: Props) {
+  const isActive = () => virtance.status === 'active';
+  const isPending = () => virtance.status === 'pending';
+
   const getIpAddress = () =>
     virtance.networks.v4.find((ip) => ip.type === 'public')?.address;
-
-  const toggleOptions = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
-
-  const toggleStatus = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <Link
@@ -49,7 +42,10 @@ export function VirtanceCard({ virtance, to }: Props) {
               />
             </div>
             <div className="space-y-0.5">
-              <h3 className="text-base font-medium">{virtance.name}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-base font-medium">{virtance.name}</h3>
+                <StatusDot status={virtance.status} />
+              </div>
               <p className="text-sm text-neutral-500">
                 {virtance.size.memory}GB DDR4 / {virtance.size.disk}GB SSD
               </p>
@@ -57,18 +53,7 @@ export function VirtanceCard({ virtance, to }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">
-          <Button variant="secondary" className="w-8 p-0" onClick={toggleStatus}>
-            {isActive(virtance) ? (
-              <PauseIcon className="mx-auto h-4 w-4 text-red-500" />
-            ) : (
-              <PlayIcon className="mx-auto h-4 w-4 text-green-500" />
-            )}
-          </Button>
-          <Button className="w-8 p-0" variant="secondary" onClick={toggleOptions}>
-            <EllipsisVerticalIcon className="mx-auto h-4 w-4" />
-          </Button>
-        </div>
+        <div className="flex items-center space-x-2">{actions}</div>
       </div>
 
       <div className="flex items-center space-x-3 text-sm">
@@ -76,13 +61,13 @@ export function VirtanceCard({ virtance, to }: Props) {
           <span className="opacity-30">
             <MapPinIcon className="h-4 w-4" />
           </span>
-          <span className="text-neutral-500">{virtance.region.name}</span>
+          <span className="">{virtance.region.name}</span>
         </div>
         <div className="flex items-center space-x-1">
           <span className="opacity-30">
             <GlobeIcon className="h-4 w-4" />
           </span>
-          <span className="text-neutral-500">{getIpAddress()}</span>
+          <span className="">{getIpAddress()}</span>
           <button
             type="button"
             className="dark:bg-neutral-8002 flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 p-0.5 transition-colors duration-300 hover:bg-neutral-100 dark:bg-neutral-800"
@@ -94,7 +79,7 @@ export function VirtanceCard({ virtance, to }: Props) {
 
       <div className="flex items-center justify-between">
         <span
-          className="`text-neutral-5002"
+          className="text-neutral-500"
           title={format(parseISO(virtance.created_at), "E, MMMM d 'at' h:m a")}
         >
           Created{' '}
