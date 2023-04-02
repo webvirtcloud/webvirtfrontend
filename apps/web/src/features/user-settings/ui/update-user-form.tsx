@@ -4,20 +4,19 @@ import { useUser } from '@/entities/user';
 import { type User, updateUser } from '@/entities/user';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
-// import { useToastContext } from '@/shared/ui/Toast';
+import { useToast } from 'ui/components/toast';
 
 export function UpdateUserForm() {
-  const { data: profile } = useUser();
-
-  // const createToast = useToastContext();
+  const { data: profile, mutate } = useUser();
+  const { toast } = useToast();
 
   const {
     register,
     handleSubmit,
     setValue,
     trigger,
-    formState: { isSubmitting, isValid, errors },
-  } = useForm<User>({ mode: 'onChange' });
+    formState: { isSubmitting, errors },
+  } = useForm<User>();
 
   const setDefaultValues = (profile: User) => {
     setValue('email', profile.email);
@@ -31,9 +30,9 @@ export function UpdateUserForm() {
     try {
       const response = await updateUser(data);
 
-      setDefaultValues(response.profile);
+      mutate(response.profile);
 
-      // createToast({ type: 'success', message: 'Your profile was updated.' });
+      toast({ title: 'Profile', description: 'Your profile was updated.' });
     } catch (error) {}
   };
 
@@ -49,7 +48,6 @@ export function UpdateUserForm() {
         placeholder="Your email"
         id="email"
         name="email"
-        error={!!errors.email}
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
@@ -69,8 +67,8 @@ export function UpdateUserForm() {
           error={!!errors.last_name}
         />
       </div>
-      <Button disabled={!isValid} className="w-full" type="submit">
-        Update profile
+      <Button className="w-full" type="submit">
+        {isSubmitting ? 'Updating...' : 'Update profile'}
       </Button>
     </form>
   );
