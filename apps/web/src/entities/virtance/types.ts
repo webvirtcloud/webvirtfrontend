@@ -65,3 +65,15 @@ export type Virtance = {
     sizes: string[];
   };
 };
+
+export type ActionType =
+  | {
+      id: number;
+      action: 'power_on';
+    }
+  | {
+      id: number;
+      action: 'power_off';
+    }
+  | { action: 'rename'; id: number; name: string }
+  | { action: 'rebuild'; id: number; slug: string };
