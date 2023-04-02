@@ -3,14 +3,11 @@ import KeypairsIcon from '@heroicons/react/20/solid/CommandLineIcon';
 import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
 import { Link, NavLink } from 'react-router-dom';
 import { cx } from 'ui/lib';
-
-// import { UserMenu } from '@/entities/user';
-// import { useUserStore } from '@/entities/user';
-
 import { links } from './config';
+import { useUser } from '@/entities/user';
 
 export function Navbar() {
-  // const user = useAtomValue(useUserStore);
+  const { data: user } = useUser();
 
   return (
     <nav className="sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-800 dark:bg-neutral-900">
@@ -28,7 +25,7 @@ export function Navbar() {
               />
             </Link>
             <div className="dark:bg-neutral-8002 h-6 w-px bg-neutral-100"></div>
-            {/* <ProjectSelector /> */}
+            <div className="font-medium">{user?.email}</div>
           </div>
           {/* <UserMenu user={user} /> */}
         </div>
