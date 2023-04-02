@@ -4,13 +4,15 @@ import {
   VirtanceRebootButton,
   VirtanceToggleStateButton,
 } from '@/entities/virtance';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
+import { ChangeEvent } from 'react';
 
 export function VirtanceLayout() {
   const { id } = useParams();
   const { virtance, runAction } = useVirtance(Number(id));
+  const navigate = useNavigate();
 
   const links = [
     { label: 'Overview', to: `/virtances/${id}` },
@@ -23,6 +25,10 @@ export function VirtanceLayout() {
 
   async function onRunAction(payload: { id: number; action: VirtanceAction }) {
     runAction(payload);
+  }
+
+  function onMenuValueChange(e: ChangeEvent<HTMLSelectElement>) {
+    navigate(e.target.value);
   }
 
   return (
@@ -72,9 +78,20 @@ export function VirtanceLayout() {
           </div>
         ) : null}
       </header>
-      <div className="grid grid-cols-12">
-        <div className="col-span-2">
-          <ul className="flex flex-col items-start gap-3">
+      <div className="grid gap-4 lg:grid-cols-12 lg:gap-0">
+        <div className="lg:col-span-2">
+          <select
+            name="virtance-menu"
+            onChange={onMenuValueChange}
+            className="w-full rounded-md border-neutral-300 lg:hidden"
+          >
+            {links.map((link) => (
+              <option value={link.to} key={link.label}>
+                {link.label}
+              </option>
+            ))}
+          </select>
+          <ul className="hidden flex-col items-start gap-3 lg:flex">
             {links.map((link) => (
               <li key={link.label}>
                 <NavLink
@@ -94,7 +111,7 @@ export function VirtanceLayout() {
             ))}
           </ul>
         </div>
-        <div className="col-span-10">
+        <div className="lg:col-span-10">
           <Outlet />
         </div>
       </div>

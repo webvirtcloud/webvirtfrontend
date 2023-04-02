@@ -18,7 +18,7 @@ export default function VirtanceOverview() {
         <h2 className="mb-4 text-lg font-medium">Overview</h2>
         {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
         {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium text-neutral-500 dark:text-neutral-400">
               Unique identifier
@@ -50,7 +50,7 @@ export default function VirtanceOverview() {
         <h2 className="mb-4 text-lg font-medium">Hardware</h2>
         {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
         {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium text-neutral-500 dark:text-neutral-400">vCPU</h4>
             <p className="font-medium">{virtance?.vcpu} core</p>
@@ -74,7 +74,7 @@ export default function VirtanceOverview() {
         <h2 className="mb-4 text-lg font-medium">Network</h2>
         {/* <p className="mb-8 dark:text-neutral-400">Quick summary of this virtance.</p> */}
         {/* <div className="rounded-xl border p-6 dark:border-neutral-700">overview</div> */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium text-neutral-500 dark:text-neutral-400">
               Private IP
