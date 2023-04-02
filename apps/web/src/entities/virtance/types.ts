@@ -5,7 +5,7 @@ export type Virtance = {
   memory: number;
   disk: number;
   locked: boolean;
-  status: 'active' | 'pending' | 'inactive';
+  status: VirtanceStatus;
   created_at: string;
   features: [];
   backup_ids: [];
@@ -65,6 +65,8 @@ export type Virtance = {
     sizes: string[];
   };
 };
+
+export type VirtanceStatus = 'active' | 'pending' | 'inactive';
 
 export type ActionType =
   | {
