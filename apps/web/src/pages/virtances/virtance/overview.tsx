@@ -1,4 +1,5 @@
 import { useVirtance } from '@/entities/virtance';
+import { formatFileSize } from '@/shared/lib';
 import { useParams } from 'react-router-dom';
 import { cx } from 'ui/lib';
 
@@ -57,7 +58,9 @@ export default function VirtanceOverview() {
           </div>
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium text-neutral-500 dark:text-neutral-400">Memory</h4>
-            <p className="font-medium">{virtance?.memory}</p>
+            {virtance ? (
+              <p className="font-medium">{formatFileSize(virtance.memory)}</p>
+            ) : null}
           </div>
           <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
             <h4 className="font-medium text-neutral-500 dark:text-neutral-400">Disk</h4>
