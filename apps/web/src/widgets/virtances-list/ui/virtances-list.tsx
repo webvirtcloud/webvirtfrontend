@@ -3,10 +3,15 @@ import { State } from '@/shared/ui/state';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
+import { VirtanceToggleStateButton } from '@/entities/virtance';
 
 export function VirtancesList() {
   const navigate = useNavigate();
-  const { virtances, error } = useVirtances();
+  const { virtances, runAction, error } = useVirtances();
+
+  async function onToggleState({ id, action }) {
+    runAction({ id, action });
+  }
 
   if (error) {
     return (
@@ -19,7 +24,6 @@ export function VirtancesList() {
   return (
     <section>
       <div className="mb-8 flex items-center justify-between">
-        {/* <h2 className="text-xl font-medium">Servers List</h2> */}
         <div className="flex items-center space-x-2">
           <Input id="server-search" name="server-search" placeholder="Search..." />
         </div>
@@ -28,9 +32,21 @@ export function VirtancesList() {
 
       {virtances ? (
         <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {virtances.map((server) => (
-            <li key={server.id}>
-              {<VirtanceCard to={`/virtances/${server.id}`} virtance={server} />}
+          {virtances.map((virtance) => (
+            <li key={virtance.id}>
+              {
+                <VirtanceCard
+                  to={`/virtances/${virtance.id}`}
+                  virtance={virtance}
+                  actions={
+                    <VirtanceToggleStateButton
+                      onToggle={onToggleState}
+                      id={virtance.id}
+                      status={virtance.status}
+                    />
+                  }
+                />
+              }
             </li>
           ))}
         </ul>
