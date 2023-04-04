@@ -10,6 +10,7 @@ const ResetPassword = lazy(() => import('@/pages/reset-password'));
 const CreateVirtance = lazy(() => import('@/pages/virtances/create/create'));
 const Virtances = lazy(() => import('@/pages/virtances/virtances'));
 const VirtanceOverview = lazy(() => import('@/pages/virtances/virtance/overview'));
+const VirtanceSettings = lazy(() => import('@/pages/virtances/virtance/settings'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
 const Settings = lazy(() => import('@/pages/settings'));
 const NotFound = lazy(() => import('@/pages/not-found'));
@@ -46,12 +47,20 @@ export function Routing() {
               </Suspense>
             }
           />
-          <Route element={<VirtanceLayout />}>
+          <Route path="/virtances/:id" element={<VirtanceLayout />}>
             <Route
-              path="/virtances/:id"
+              index
               element={
                 <Suspense>
                   <VirtanceOverview />
+                </Suspense>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <Suspense>
+                  <VirtanceSettings />
                 </Suspense>
               }
             />

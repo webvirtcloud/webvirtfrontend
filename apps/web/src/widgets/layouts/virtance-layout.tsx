@@ -16,12 +16,13 @@ export function VirtanceLayout() {
   const navigate = useNavigate();
 
   const links = [
-    { label: 'Overview', to: `/virtances/${id}` },
-    { label: 'Graphs', to: `/virtances/${id}/graphs` },
-    { label: 'Network', to: `/virtances/${id}/network` },
-    { label: 'Snapshots', to: `/virtances/${id}/snapshots` },
-    { label: 'Backups', to: `/virtances/${id}/backups` },
-    { label: 'Resize', to: `/virtances/${id}/resize` },
+    { label: 'Overview', to: `/virtances/${id}`, end: true },
+    { label: 'Graphs', to: `/virtances/${id}/graphs`, end: false },
+    { label: 'Network', to: `/virtances/${id}/network`, end: false },
+    { label: 'Snapshots', to: `/virtances/${id}/snapshots`, end: false },
+    { label: 'Backups', to: `/virtances/${id}/backups`, end: false },
+    { label: 'Resize', to: `/virtances/${id}/resize`, end: false },
+    { label: 'Settings', to: `/virtances/${id}/settings`, end: false },
   ] as const;
 
   async function onRunAction(payload: { id: number; action: VirtanceAction }) {
@@ -113,6 +114,7 @@ export function VirtanceLayout() {
               <li key={link.label}>
                 <NavLink
                   to={link.to}
+                  end={link.end}
                   className={({ isActive }) =>
                     cx(
                       'rounded-md px-2 py-1.5 font-medium',
