@@ -14,7 +14,7 @@ import {
 } from 'ui/components/alert-dialog';
 import { Button } from 'ui/components/button';
 
-export function VirtanceDeletion({ id }: { id: number }) {
+export function Deletion({ id }: { id: number }) {
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
