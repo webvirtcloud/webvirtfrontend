@@ -4,7 +4,7 @@ import {
   VirtanceRebootButton,
   VirtanceToggleStateButton,
 } from '@/entities/virtance';
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
 import { ChangeEvent } from 'react';
@@ -12,6 +12,7 @@ import { Skeleton } from 'ui/components/skeleton';
 
 export function VirtanceLayout() {
   const { id } = useParams();
+  const { pathname } = useLocation();
   const { virtance, runAction } = useVirtance(Number(id));
   const navigate = useNavigate();
 
@@ -100,8 +101,9 @@ export function VirtanceLayout() {
         <div className="lg:col-span-2">
           <select
             name="virtance-menu"
+            value={pathname}
             onChange={onMenuValueChange}
-            className="w-full rounded-md border-neutral-300 lg:hidden"
+            className="w-full rounded-md border-neutral-300 bg-transparent dark:border-neutral-600 lg:hidden"
           >
             {links.map((link) => (
               <option value={link.to} key={link.label}>
