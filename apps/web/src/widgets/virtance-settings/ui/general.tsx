@@ -23,7 +23,7 @@ export function General({ id }: { id: number }) {
 
   return virtance ? (
     <div>
-      <h2 className="text-lg font-semibold">General</h2>
+      <h2 className="text-lg font-medium">General</h2>
       <p className="mb-8 text-neutral-500">
         Settings and options for the{' '}
         <span className="font-semibold">{virtance.name}</span> virtance.
