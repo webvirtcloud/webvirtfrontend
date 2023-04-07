@@ -14,7 +14,7 @@ interface Props {
 export function VirtanceToggleStateButton({ id, status, onToggle }: Props) {
   function handleClick(e: MouseEvent) {
     e.preventDefault();
-    onToggle({ id, action: status === 'active' ? 'power_off' : 'power_on' });
+    onToggle({ id, action: status === 'active' ? 'shutdown' : 'power_on' });
   }
 
   return (

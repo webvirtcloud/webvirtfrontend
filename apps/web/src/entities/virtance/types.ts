@@ -68,7 +68,13 @@ export type Virtance = {
 
 export type VirtanceStatus = 'active' | 'pending' | 'inactive';
 
-export type VirtanceAction = 'power_on' | 'power_off' | 'rename' | 'rebuild' | 'reboot';
+export type VirtanceAction =
+  | 'power_on'
+  | 'power_off'
+  | 'rename'
+  | 'shutdown'
+  | 'rebuild'
+  | 'reboot';
 
 export type ActionType =
   | {
@@ -78,6 +84,10 @@ export type ActionType =
   | {
       id: number;
       action: 'power_off';
+    }
+  | {
+      id: number;
+      action: 'shutdown';
     }
   | { action: 'rename'; id: number; name: string }
   | { action: 'rebuild'; id: number; slug: string }
