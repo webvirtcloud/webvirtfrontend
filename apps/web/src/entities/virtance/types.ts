@@ -90,5 +90,5 @@ export type ActionType =
       action: 'shutdown';
     }
   | { action: 'rename'; id: number; name: string }
-  | { action: 'rebuild'; id: number; slug: string }
+  | { action: 'rebuild'; id: number; image: string }
   | { action: 'reboot'; id: number };
