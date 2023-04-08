@@ -18,7 +18,7 @@ export function VirtanceRebootButton({ id, status, onToggle }: Props) {
 
   return (
     <Button
-      disabled={status === 'pending'}
+      disabled={status === 'pending' || status === 'inactive'}
       variant="secondary"
       className="w-8 p-0"
       onClick={handleClick}
