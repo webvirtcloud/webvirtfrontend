@@ -9,11 +9,12 @@ import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
 import { ChangeEvent } from 'react';
 import { Skeleton } from 'ui/components/skeleton';
+import { State } from '@/shared/ui/state';
 
 export function VirtanceLayout() {
   const { id } = useParams();
   const { pathname } = useLocation();
-  const { virtance, runAction } = useVirtance(Number(id));
+  const { virtance, runAction, error } = useVirtance(Number(id));
   const navigate = useNavigate();
 
   const links = [
@@ -34,6 +35,14 @@ export function VirtanceLayout() {
     navigate(e.target.value);
   }
 
+  if (error) {
+    return (
+      <State
+        title="Oh no..."
+        description="We cannot display virtance at this time for some reason."
+      />
+    );
+  }
   return (
     <div className="mx-auto max-w-6xl">
       <header className="mb-6 border-b pb-6 dark:border-neutral-800">
