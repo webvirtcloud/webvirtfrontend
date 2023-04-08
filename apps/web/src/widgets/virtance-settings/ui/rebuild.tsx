@@ -40,17 +40,21 @@ export function Rebuild({ id }: { id: number }) {
   }
 
   return virtance ? (
-    <div>
-      <h2 className="text-lg font-medium">Rebuild</h2>
-      <p className="mb-8 text-neutral-500">
-        Be careful. It's erase all of your data and install new image.
-      </p>
+    <div className="flex items-end justify-between p-6">
+      <div>
+        <h2 className="text-lg font-medium">Rebuild</h2>
+        <p className=" text-neutral-500">
+          Be careful. It's erase all of your data and install new image.
+        </p>
+      </div>
       {images ? (
         <div className="flex max-w-sm items-end gap-2">
           <div className="flex flex-1 flex-col gap-2">
-            <Label htmlFor="image">Image</Label>
+            <Label htmlFor="image" hidden>
+              Image
+            </Label>
             <Select value={image} onValueChange={setImage} key={image}>
-              <SelectTrigger id="image">
+              <SelectTrigger id="image" className="w-56">
                 <SelectValue placeholder="Select new image" />
               </SelectTrigger>
               <SelectContent>

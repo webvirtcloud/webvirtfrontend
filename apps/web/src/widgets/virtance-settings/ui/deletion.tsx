@@ -30,10 +30,10 @@ export function Deletion({ id }: { id: number }) {
   }
 
   return (
-    <div className="relative flex items-end justify-between space-y-2 overflow-hidden rounded-xl border p-4 dark:border-neutral-700">
+    <div className="relative flex items-end justify-between overflow-hidden p-6 dark:border-neutral-700">
       <div className="absolute inset-0 -z-10 [background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#f9f9f9_20px,#f9f9f9_40px)] dark:[background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#1c1c1c_20px,#1c1c1c_40px)]"></div>
-      <div className="space-y-2">
-        <h2 className="text-lg font-medium text-red-500">Delete virtance</h2>
+      <div className="">
+        <h2 className="text-lg font-medium">Delete virtance</h2>
         <p className="text-neutral-500">
           Note that deleting is irreversible action. You cannot restore any data.
         </p>

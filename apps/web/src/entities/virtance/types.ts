@@ -74,12 +74,13 @@ export type VirtanceAction =
   | 'rename'
   | 'shutdown'
   | 'rebuild'
-  | 'reboot';
+  | 'reboot'
+  | 'password_reset';
 
 export type ActionType =
   | {
       id: number;
-      action: VirtanceAction;
+      action: 'power_on';
     }
   | {
       id: number;
@@ -91,4 +92,5 @@ export type ActionType =
     }
   | { action: 'rename'; id: number; name: string }
   | { action: 'rebuild'; id: number; image: string }
-  | { action: 'reboot'; id: number };
+  | { action: 'reboot'; id: number }
+  | { action: 'password_reset'; id: number; password: string };

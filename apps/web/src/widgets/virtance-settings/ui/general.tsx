@@ -22,28 +22,32 @@ export function General({ id }: { id: number }) {
   }
 
   return virtance ? (
-    <div>
-      <h2 className="text-lg font-medium">General</h2>
-      <p className="mb-8 text-neutral-500">
-        Settings and options for the{' '}
-        <span className="font-semibold">{virtance.name}</span> virtance.
-      </p>
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-lg font-medium">General</h2>
+        <p className="text-neutral-500">
+          Settings and options for the{' '}
+          <span className="font-semibold">{virtance.name}</span> virtance.
+        </p>
+      </div>
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="virtance-name">Name</Label>
-          <Input
-            {...register('name', { required: 'Name is required.' })}
-            defaultValue={virtance.name}
-            id="virtance-name"
-            placeholder="Enter virtance name"
-            className="max-w-sm"
-            error={!!errors.name}
-          />
+          <Label htmlFor="virtance-name">Virtance name</Label>
+          <div className="flex items-center gap-2">
+            <Input
+              {...register('name', { required: 'Name is required.' })}
+              defaultValue={virtance.name}
+              id="virtance-name"
+              placeholder="Enter virtance name"
+              className="max-w-sm"
+              error={!!errors.name}
+            />
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Renaming...' : 'Rename'}
+            </Button>
+          </div>
           {errors.name && <Error>{errors.name?.message}</Error>}
         </div>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Updating...' : 'Update settings'}
-        </Button>
       </form>
     </div>
   ) : null;
