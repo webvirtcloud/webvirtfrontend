@@ -46,8 +46,15 @@ export default function VirtanceResize() {
             />
           ))}
       </div>
-
-      <Button disabled={!currentSize} onClick={onResize}>
+      {virtance?.status === 'active' || virtance?.status === 'pending' ? (
+        <p className="text-neutral-500">WARNING: Turn off virtance before resizing.</p>
+      ) : null}
+      <Button
+        disabled={
+          !currentSize || virtance?.status === 'active' || virtance?.status === 'pending'
+        }
+        onClick={onResize}
+      >
         Resize virtance
       </Button>
     </div>
