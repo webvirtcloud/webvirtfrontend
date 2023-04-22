@@ -90,6 +90,11 @@ export type ActionType =
       id: number;
       action: 'shutdown';
     }
+  | {
+      id: number;
+      action: 'resize';
+      size: string;
+    }
   | { action: 'rename'; id: number; name: string }
   | { action: 'rebuild'; id: number; image: string }
   | { action: 'reboot'; id: number }
