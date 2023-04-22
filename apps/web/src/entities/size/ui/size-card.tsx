@@ -3,19 +3,20 @@ import { Size } from '../types';
 
 interface Props {
   isActive: boolean;
+  isDisabled?: boolean;
   onClick: () => void;
   size: Size;
 }
 
-export function SizeCard({ size, isActive, onClick }: Props) {
+export function SizeCard({ size, isActive, isDisabled, onClick }: Props) {
   return (
     <button
       type="button"
-      disabled={!size.available}
+      disabled={!size.available || isDisabled}
       onClick={onClick}
       className={cx([
-        'flex w-full cursor-pointer justify-between gap-4 rounded-md border p-4 disabled:cursor-not-allowed disabled:text-neutral-500 dark:border-neutral-700',
-        isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
+        'flex w-full cursor-pointer justify-between gap-4 rounded-md border p-4 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-500 dark:border-neutral-700 dark:disabled:bg-neutral-800',
+        isActive ? 'border-sky-500 ring-1 ring-sky-500 dark:border-sky-500' : '',
       ])}
     >
       <div className="flex flex-1 justify-between gap-8">
