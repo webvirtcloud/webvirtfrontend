@@ -1,12 +1,11 @@
-import useSWR from 'swr';
+import useSWR, { SWRConfiguration } from 'swr';
 import { getSizes } from '../api';
+import { Size } from '../types';
 
-export function useSizes() {
-  const {
-    data: sizes,
-    mutate,
-    error,
-  } = useSWR(['sizes'], () => getSizes().then((response) => response.sizes));
-
-  return { sizes, mutate, error };
+export function useSizes(options?: SWRConfiguration<Size[]>) {
+  return useSWR<Size[]>(
+    ['sizes'],
+    () => getSizes().then((response) => response.sizes),
+    options,
+  );
 }

@@ -5,7 +5,7 @@ import { useSizes } from '@/entities/size';
 import { useMemo } from 'react';
 
 export function VirtanceCreate() {
-  const { sizes } = useSizes();
+  const { data: sizes } = useSizes();
   const { regions } = useRegions();
   const { images } = useImages('distribution');
 
