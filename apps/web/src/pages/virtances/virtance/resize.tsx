@@ -1,6 +1,6 @@
 import { useSizes, SizeCard, type Size } from '@/entities/size';
 import { useVirtance } from '@/entities/virtance';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 
@@ -8,13 +8,24 @@ export default function VirtanceResize() {
   const { id } = useParams();
   const { virtance, runAction } = useVirtance(Number(id));
   const [currentSize, setCurrentSize] = useState<Size>();
-  const { data: sizes } = useSizes({
-    onSuccess: (data) => {
-      setCurrentSize(data[1]);
-    },
-  });
+  const { data: sizes } = useSizes();
+
+  useEffect(() => {
+    if (virtance && sizes) {
+      setCurrentSize(sizes.find((item) => !isSizeDisabled(item)));
+    }
+  }, [virtance, sizes]);
 
   function isSizeDisabled(size: Size) {
+    if (
+      virtance &&
+      (size.memory < virtance.size.memory ||
+        size.vcpu < virtance.size.vcpu ||
+        size.disk < virtance.size.disk)
+    ) {
+      return true;
+    }
+
     if (size.slug === virtance?.size.slug) {
       return true;
     }
@@ -36,10 +47,11 @@ export default function VirtanceResize() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {sizes &&
           virtance &&
+          currentSize &&
           sizes.map((size) => (
             <SizeCard
               key={size.slug}
-              isActive={size.slug === currentSize?.slug}
+              isActive={size.slug === currentSize.slug}
               isDisabled={isSizeDisabled(size)}
               size={size}
               onClick={() => setCurrentSize(size)}
