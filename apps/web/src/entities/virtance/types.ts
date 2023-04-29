@@ -99,3 +99,9 @@ export type ActionType =
   | { action: 'rebuild'; id: number; image: string }
   | { action: 'reboot'; id: number }
   | { action: 'password_reset'; id: number; password: string };
+
+export type VirtanceMetrics = {
+  name: string;
+  unit: string;
+  data: { sys: [number, string][]; user: [number, string][] };
+};
