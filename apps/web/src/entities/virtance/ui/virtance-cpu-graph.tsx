@@ -1,9 +1,9 @@
 import * as d3 from 'd3';
 import useMeasure from 'react-use-measure';
-import type { VirtanceMetrics } from '../types';
+import type { VirtanceCPUMetrics } from '../types';
 import { format } from 'date-fns';
 
-export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceMetrics }) {
+export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
   const [ref, bounds] = useMeasure();
 
   const sys: [Date, number][] = metrics.data.sys.map((d) => [

@@ -100,7 +100,7 @@ export type ActionType =
   | { action: 'reboot'; id: number }
   | { action: 'password_reset'; id: number; password: string };
 
-export type VirtanceMetrics = {
+export type VirtanceCPUMetrics = {
   name: string;
   unit: string;
   data: { sys: [number, string][]; user: [number, string][] };
