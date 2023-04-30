@@ -21,14 +21,13 @@ export default function VirtanceResize() {
       virtance &&
       (size.memory < virtance.size.memory ||
         size.vcpu < virtance.size.vcpu ||
-        size.disk < virtance.size.disk)
+        size.disk < virtance.size.disk ||
+        size.slug === virtance.size.slug)
     ) {
       return true;
     }
 
-    if (size.slug === virtance?.size.slug) {
-      return true;
-    }
+    return false;
   }
 
   function onResize() {
