@@ -105,3 +105,9 @@ export type VirtanceMetrics = {
   unit: string;
   data: { sys: [number, string][]; user: [number, string][] };
 };
+
+export type VirtanceNetMetrics = {
+  name: string;
+  unit: string;
+  data: { inbound: [number, string][]; outbound: [number, string][] };
+};

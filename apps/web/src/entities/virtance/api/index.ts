@@ -4,3 +4,4 @@ export * from './get-virtances';
 export * from './run-virtance-action';
 export * from './delete-virtance';
 export * from './get-virtance-cpu-data';
+export * from './get-virtance-net-metrics';
