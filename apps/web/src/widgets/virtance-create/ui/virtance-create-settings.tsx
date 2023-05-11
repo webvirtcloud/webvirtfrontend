@@ -5,7 +5,8 @@ import {
   FieldValues,
   useFormContext,
 } from 'react-hook-form';
-
+import { Link } from 'react-router-dom';
+import { buttonVariants } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
 import { cx } from 'ui/lib';
@@ -34,9 +35,9 @@ export function VirtanceCreateSettings() {
 
       <div className="flex flex-col gap-2">
         <Label>Keypairs</Label>
-        <ul className="grid grid-cols-4 gap-4">
-          {keypairs &&
-            keypairs.map((keypair) => (
+        {keypairs?.length ? (
+          <ul className="grid grid-cols-4 gap-4">
+            {keypairs.map((keypair) => (
               <Controller
                 key={keypair.id}
                 name="keypairs"
@@ -62,7 +63,15 @@ export function VirtanceCreateSettings() {
                 )}
               />
             ))}
-        </ul>
+          </ul>
+        ) : (
+          <div className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8 dark:border-neutral-700">
+            You don't have any keypairs
+            <Link to="/keypairs" className={buttonVariants({ size: 'sm' })}>
+              Manage keypairs
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-2">
