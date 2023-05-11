@@ -36,7 +36,7 @@ export function VirtanceCreateSettings() {
       <div className="flex flex-col gap-2">
         <Label>Keypairs</Label>
         {keypairs?.length ? (
-          <ul className="grid grid-cols-4 gap-4">
+          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {keypairs.map((keypair) => (
               <Controller
                 key={keypair.id}
