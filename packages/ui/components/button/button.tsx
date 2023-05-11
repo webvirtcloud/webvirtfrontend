@@ -2,8 +2,8 @@ import { forwardRef, type ButtonHTMLAttributes } from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import { cx } from '../../lib';
 
-const buttonVariants = cva(
-  'whitespace-nowrap rounded-lg disabled:bg-neutral-100 dark:disabled:bg-neutral-800 bg:text-neutral-300 font-semibold transition-colors focus:ring-2 focus:ring-sky-500/30 disabled:text-neutral-500 focus:border-sky-500 outline-none',
+export const buttonVariants = cva(
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg disabled:bg-neutral-100 dark:disabled:bg-neutral-800 bg:text-neutral-300 font-semibold transition-colors focus:ring-2 focus:ring-sky-500/30 disabled:text-neutral-500 focus:border-sky-500 outline-none',
   {
     variants: {
       variant: {
