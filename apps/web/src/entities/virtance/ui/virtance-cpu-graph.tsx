@@ -40,7 +40,7 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
 
   const xScale = d3
     .scaleTime()
-    .domain([sys.at(0)?.at(0), sys.at(-1)?.at(0)])
+    .domain(d3.extent([...sys], (d) => d[0]))
     .range([margins.left, bounds.width - 24]);
 
   const yScale = d3
