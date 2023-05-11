@@ -25,6 +25,7 @@ export default function VirtanceCreateForm({
         image: data.image.slug,
         name: data.name,
         region: data.region.slug,
+        keypairs: [...data.keypairs],
       });
 
       navigate('/virtances');

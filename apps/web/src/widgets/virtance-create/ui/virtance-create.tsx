@@ -32,6 +32,7 @@ export function VirtanceCreate() {
       image,
       size: sizes.find((size) => size.available),
       region: regions.find((region) => region.available),
+      keypairs: new Set(),
     };
   }
 
