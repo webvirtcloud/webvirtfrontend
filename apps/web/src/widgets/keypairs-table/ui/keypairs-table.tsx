@@ -115,7 +115,7 @@ export const KeypairsTable = () => {
     return (
       <State
         title="Oh no..."
-        description="We cannot display any virtance at this time for some reason."
+        description="We cannot display any keypairs at this time for some reason."
       />
     );
   }
@@ -126,11 +126,16 @@ export const KeypairsTable = () => {
         <h2 className="text-lg font-medium">Keypairs</h2>
 
         <KeypairCreateDialog onCreate={onCreate}>
-          <Button>Create Keypair</Button>
+          <Button>Add Keypair</Button>
         </KeypairCreateDialog>
       </div>
 
-      {keypairs ? <Table data={keypairs} columns={columns} /> : null}
+      {keypairs ? (
+        <>
+          <Table data={keypairs} columns={columns} />
+          <State title="No keypairs" description="Add new keypairs to start use them." />
+        </>
+      ) : null}
 
       {selectedKeypair ? (
         <>
