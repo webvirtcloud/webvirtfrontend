@@ -111,3 +111,9 @@ export type VirtanceNetMetrics = {
   unit: string;
   data: { inbound: [number, string][]; outbound: [number, string][] };
 };
+
+export type VirtanceDiskMetrics = {
+  name: string;
+  unit: string;
+  data: { read: [number, string][]; write: [number, string][] };
+};

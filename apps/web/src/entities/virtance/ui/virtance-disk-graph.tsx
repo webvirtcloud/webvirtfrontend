@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import type { VirtanceCPUMetrics } from '../types';
+import type { VirtanceDiskMetrics } from '../types';
 import { IChartApi, ISeriesApi, createChart } from 'lightweight-charts';
 import { UTCTimestamp } from 'lightweight-charts';
 import { CrosshairMode } from 'lightweight-charts';
 
-export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
+export function VirtanceDiskGraph({ metrics }: { metrics: VirtanceDiskMetrics }) {
   const container = useRef<HTMLDivElement>(null);
   const chart = useRef<IChartApi>();
   const sysSeries = useRef<ISeriesApi<'Area'>>();
@@ -58,14 +58,14 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
 
     if (sysSeries.current && userSeries.current) {
       sysSeries.current.setData(
-        metrics.data.sys.map((d) => ({
+        metrics.data.read.map((d) => ({
           time: d[0] as UTCTimestamp,
           value: parseFloat(d[1]),
         })),
       );
 
       userSeries.current.setData(
-        metrics.data.user.map((d) => ({
+        metrics.data.write.map((d) => ({
           time: d[0] as UTCTimestamp,
           value: parseFloat(d[1]),
         })),
