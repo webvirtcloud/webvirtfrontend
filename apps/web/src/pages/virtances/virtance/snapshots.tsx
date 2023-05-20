@@ -6,18 +6,36 @@ import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
+import { useToast } from 'ui/components/toast';
 
 export default function VirtanceSnapshots() {
   const {
     register,
+    setError,
     handleSubmit,
+    reset,
     formState: { isSubmitting, errors },
   } = useForm<{ name: string }>();
+  const { toast } = useToast();
   const { id } = useParams();
   const { virtance, runAction } = useVirtance(Number(id));
 
-  function onSubmit(data: { name: string }) {
-    runAction({ action: 'snapshot', id: Number(id), name: data.name });
+  async function onSubmit(data: { name: string }) {
+    try {
+      await runAction({ action: 'snapshot', id: Number(id), name: data.name });
+      reset();
+    } catch (e) {
+      setError('root', { message: 'Internal server error' });
+      const { errors } = await e.response.json();
+
+      errors.forEach((error) => {
+        const keys = Object.keys(error);
+
+        keys.forEach((key) => {
+          toast({ title: 'Form error', description: error[key] });
+        });
+      });
+    }
   }
 
   return (
