@@ -75,7 +75,8 @@ export type VirtanceAction =
   | 'shutdown'
   | 'rebuild'
   | 'reboot'
-  | 'password_reset';
+  | 'password_reset'
+  | 'snapshot';
 
 export type ActionType =
   | {
@@ -98,7 +99,8 @@ export type ActionType =
   | { action: 'rename'; id: number; name: string }
   | { action: 'rebuild'; id: number; image: string }
   | { action: 'reboot'; id: number }
-  | { action: 'password_reset'; id: number; password: string };
+  | { action: 'password_reset'; id: number; password: string }
+  | { action: 'snapshot'; id: number; name: string };
 
 export type VirtanceCPUMetrics = {
   name: string;
