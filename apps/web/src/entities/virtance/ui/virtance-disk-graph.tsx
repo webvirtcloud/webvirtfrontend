@@ -22,7 +22,7 @@ export function VirtanceDiskGraph({ metrics }: { metrics: VirtanceDiskMetrics })
         chart.current.applyOptions(theme.light);
       }
     }
-  }, [preferredColorSchema, chart]);
+  }, [preferredColorSchema, chart.current]);
 
   useEffect(() => {
     if (!chart.current && container.current) {
