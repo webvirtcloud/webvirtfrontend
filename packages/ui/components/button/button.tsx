@@ -36,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cx(buttonVariants({ variant, size, className }))}
+        type={type}
         {...rest}
       >
         {children}
