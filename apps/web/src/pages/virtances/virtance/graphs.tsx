@@ -14,7 +14,7 @@ export default function VirtanceGraphs() {
   const { id } = useParams();
 
   const { data: cpu } = useSWR(
-    'virtance-cpu-metrics',
+    ['virtance-cpu-metrics', id],
     () => getVirtanceCPUMetrics(Number(id)),
     {
       refreshInterval: 5000,
@@ -22,7 +22,7 @@ export default function VirtanceGraphs() {
   );
 
   const { data: net } = useSWR(
-    'virtance-net-metrics',
+    ['virtance-net-metrics', id],
     () => getVirtanceNetMetrics(Number(id)),
     {
       refreshInterval: 5000,
@@ -30,7 +30,7 @@ export default function VirtanceGraphs() {
   );
 
   const { data: disk } = useSWR(
-    'virtance-disk-metrics',
+    ['virtance-disk-metrics', id],
     () => getVirtanceDiskMetrics(Number(id)),
     {
       refreshInterval: 5000,
