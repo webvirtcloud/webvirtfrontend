@@ -12,10 +12,12 @@ export function VirtanceSnapshotsTable({ id }: { id: number }) {
 
   if (error) {
     return (
-      <State
-        title="Oh no..."
-        description="We cannot display any snapshots at this time for some reason."
-      />
+      <div className="rounded-md border dark:border-neutral-700">
+        <State
+          title="Oh no..."
+          description="We cannot display any snapshots at this time for some reason."
+        />
+      </div>
     );
   }
 
