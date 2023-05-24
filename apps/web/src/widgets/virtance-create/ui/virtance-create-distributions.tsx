@@ -7,7 +7,10 @@ export function VirtanceCreateDistributions({ distributions }) {
   const currentImage = watch('image');
 
   function onDistributionChange(distribution) {
-    if (currentDistribution.slug === distribution.slug) {
+    if (
+      currentDistribution.slug === distribution.slug ||
+      distribution.images.every((image) => image.status !== 'available')
+    ) {
       return;
     }
     setValue('distribution', distribution);
@@ -32,6 +35,9 @@ export function VirtanceCreateDistributions({ distributions }) {
             onDistributionChange={onDistributionChange}
             onImageChange={onImageChange}
             isActive={distribution.slug === currentDistribution.slug}
+            isDisabled={distribution.images.every(
+              (image) => image.status !== 'available',
+            )}
           />
         ))}
       </div>
