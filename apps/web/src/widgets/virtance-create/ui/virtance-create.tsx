@@ -15,7 +15,7 @@ export function VirtanceCreate() {
 
       p.push({
         name: c.distribution,
-        slug: c.distribution.toLowerCase(),
+        slug: c.distribution.toLowerCase().replaceAll(' ', '-'),
         images: images.filter((i) => i.distribution === c.distribution),
       });
 
