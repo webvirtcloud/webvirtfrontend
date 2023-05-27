@@ -29,6 +29,7 @@ export default function VirtanceCreateForm({
           ? { keypairs: [...data.keypairs] }
           : {}),
         ...(data.password ? { password: data.password } : {}),
+        ...(data.userdata ? { userdata: data.userdata } : {}),
       });
 
       navigate('/virtances');
