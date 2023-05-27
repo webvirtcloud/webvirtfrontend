@@ -41,6 +41,7 @@ export function VirtanceCreateSecurity() {
 
   return (
     <div className="">
+      <h3 className="mb-2 font-medium">Authorization</h3>
       <div className="mb-4 flex gap-2">
         <Button
           onClick={() => onTypeChange('keypairs')}
