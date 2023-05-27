@@ -133,7 +133,12 @@ export const KeypairsTable = () => {
       {keypairs ? (
         <>
           <Table data={keypairs} columns={columns} />
-          <State title="No keypairs" description="Add new keypairs to start use them." />
+          {keypairs.length === 0 ? (
+            <State
+              title="No keypairs"
+              description="Add new keypairs to start use them."
+            />
+          ) : null}
         </>
       ) : null}
 
