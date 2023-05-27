@@ -37,6 +37,9 @@ export function VirtanceCreateSecurity() {
     if (value === 'password') {
       resetField('keypairs');
     }
+    if (value === 'keypairs') {
+      resetField('password');
+    }
   }
 
   return (
