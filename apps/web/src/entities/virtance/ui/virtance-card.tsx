@@ -34,7 +34,9 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
                 className="h-8 w-8"
                 src={
                   new URL(
-                    `/src/shared/assets/images/os/${virtance.image.distribution.toLowerCase()}.svg`,
+                    `/src/shared/assets/images/os/${virtance.image.distribution
+                      .toLowerCase()
+                      .replaceAll(' ', '-')}.svg`,
                     import.meta.url,
                   ).href
                 }
