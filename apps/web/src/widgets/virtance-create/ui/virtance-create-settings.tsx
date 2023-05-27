@@ -13,7 +13,7 @@ export function VirtanceCreateSettings() {
       <VirtanceCreateSecurity />
 
       <div className="flex flex-col gap-2">
-        <Label>Name</Label>
+        <Label htmlFor="name">Name</Label>
         <Input
           id="name"
           className="max-w-sm"
