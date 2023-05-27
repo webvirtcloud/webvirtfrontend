@@ -11,7 +11,7 @@ export function Navbar() {
   const { data: user } = useUser();
 
   return (
-    <nav className="sticky top-0 left-0 right-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-800 dark:bg-neutral-900">
+    <nav className="sticky left-0 right-0 top-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-800 dark:bg-neutral-900">
       <div className="container mx-auto p-4">
         <div className="flex items-center justify-between">
           <div className="mb-4 flex items-center space-x-4">
@@ -25,7 +25,7 @@ export function Navbar() {
                 alt="Logotype"
               />
             </Link>
-            <div className="dark:bg-neutral-8002 h-6 w-px bg-neutral-100"></div>
+            <div className="dark:bg-neutral-8002 h-6 w-px bg-neutral-100 dark:bg-neutral-700"></div>
             {user ? (
               <div className="font-medium">{user.email}</div>
             ) : (
