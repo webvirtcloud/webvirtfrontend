@@ -3,6 +3,7 @@ import {
   useVirtance,
   VirtanceRebootButton,
   VirtanceToggleStateButton,
+  VirtanceOpenConsoleButton,
 } from '@/entities/virtance';
 import { NavLink, Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { cx } from 'ui/lib';
@@ -76,6 +77,7 @@ export function VirtanceLayout() {
               </div>
             </div>
             <div className="flex gap-2">
+              <VirtanceOpenConsoleButton id={virtance.id} />
               <VirtanceToggleStateButton
                 onToggle={onRunAction}
                 id={virtance.id}
@@ -100,6 +102,7 @@ export function VirtanceLayout() {
               </div>
             </div>
             <div className="flex gap-2">
+              <Skeleton className="h-8 w-8 shrink-0" />
               <Skeleton className="h-8 w-8 shrink-0" />
               <Skeleton className="h-8 w-8 shrink-0" />
             </div>

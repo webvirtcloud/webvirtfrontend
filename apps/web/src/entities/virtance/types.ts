@@ -119,3 +119,13 @@ export type VirtanceDiskMetrics = {
   unit: string;
   data: { read: [number, string][]; write: [number, string][] };
 };
+
+export type Console = {
+  id: number;
+  name: string;
+  websocket: {
+    host: string;
+    port: number;
+    hash: string;
+  };
+};

@@ -15,6 +15,7 @@ const VirtanceNetwork = lazy(() => import('@/pages/virtances/virtance/network'))
 const VirtanceResize = lazy(() => import('@/pages/virtances/virtance/resize'));
 const VirtanceSettings = lazy(() => import('@/pages/virtances/virtance/settings'));
 const VirtanceSnapshots = lazy(() => import('@/pages/virtances/virtance/snapshots'));
+const VirtanceConsole = lazy(() => import('@/pages/virtances/virtance/console'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
 const Settings = lazy(() => import('@/pages/settings'));
 const NotFound = lazy(() => import('@/pages/not-found'));
@@ -111,6 +112,14 @@ export function Routing() {
             }
           />
         </Route>
+        <Route
+          path="/virtances/:id/console"
+          element={
+            <Suspense>
+              <VirtanceConsole />
+            </Suspense>
+          }
+        />
         <Route
           path="*"
           element={
