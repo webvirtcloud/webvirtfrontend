@@ -17,6 +17,11 @@ export function VirtanceConsole({ id }) {
         credentials: { password: generatePassword(console.websocket.hash) },
       });
 
+      window.console.log({
+        password: generatePassword(console.websocket.hash),
+        url: generateURL(console),
+      });
+
       if (connection.current) {
         connection.current.scaleViewport = readQueryVariable('scale', false);
         connection.current.background = 'rgb(0,0,0)';
