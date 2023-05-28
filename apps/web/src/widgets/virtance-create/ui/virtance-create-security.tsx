@@ -14,7 +14,7 @@ import { cx } from 'ui/lib';
 type Type = 'password' | 'keypairs';
 
 export function VirtanceCreateSecurity() {
-  const { resetField, control, register } = useFormContext();
+  const { resetField, control, register, setValue, getValues } = useFormContext();
   const [type, setType] = useState<Type>('keypairs');
 
   const { keypairs } = useKeypairs();
@@ -23,11 +23,11 @@ export function VirtanceCreateSecurity() {
     field: ControllerRenderProps<FieldValues, 'keypairs'>,
     id: number,
   ) {
-    if (field.value.has(id)) {
-      const value = field.value;
-      value.delete(id);
-      return field.onChange(value);
-    }
+    // if (field.value.has(id)) {
+    //   const value = field.value;
+    //   value.delete(id);
+    //   return field.onChange(value);
+    // }
 
     field.onChange(field.value.add(id));
   }
@@ -39,7 +39,14 @@ export function VirtanceCreateSecurity() {
     }
     if (value === 'keypairs') {
       resetField('password');
+      keypairs && setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
     }
+  }
+
+  // set first keypair on mount
+  if (type === 'keypairs' && getValues('keypairs').size === 0 && keypairs) {
+    setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
+    console.log('set fist keypair');
   }
 
   return (
