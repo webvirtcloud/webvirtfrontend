@@ -77,7 +77,7 @@ export function VirtanceConsole({ id }) {
         return 'active';
       case 'Disconnected':
       case 'Something went wrong, connection is closed':
-        return 'active';
+        return 'inactive';
     }
   }
 
