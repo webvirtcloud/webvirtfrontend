@@ -44,6 +44,8 @@ export function VirtanceConsole({ id }) {
         });
       }
     },
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
   });
 
   function generateURL(console: Console) {
