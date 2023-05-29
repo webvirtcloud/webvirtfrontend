@@ -27,6 +27,9 @@ export function VirtanceConsole({ id }) {
         connection.current.background = 'rgb(0,0,0)';
 
         connection.current.addEventListener('credentialsrequired', () => {
+          window.console.log('credentialsrequired', {
+            password: generatePassword(console.websocket.hash),
+          });
           connection.current.sendCredentials({
             password: generatePassword(console.websocket.hash),
           });
