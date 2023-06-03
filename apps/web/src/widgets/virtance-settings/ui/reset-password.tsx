@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { Label } from 'ui/components/label';
 import { Input } from 'ui/components/input';
 import { Error } from 'ui/components/error';
+import KeyIcon from '@heroicons/react/24/outline/KeyIcon';
 
 interface FormState {
   password: string;
@@ -56,11 +57,16 @@ export function ResetPassword({ id }: { id: number }) {
 
   return (
     <div className="flex items-end justify-between p-6">
-      <div>
-        <h2 className="text-lg font-medium">Reset password</h2>
-        <p className="text-neutral-500">
-          Virtance will be shutdown and reset password to new one.
-        </p>
+      <div className="flex gap-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md border dark:border-neutral-700">
+          <KeyIcon className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="mb-1 text-lg font-medium leading-none">Reset password</h2>
+          <p className="text-neutral-500">
+            Virtance will be shutdown and reset password to new one.
+          </p>
+        </div>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>

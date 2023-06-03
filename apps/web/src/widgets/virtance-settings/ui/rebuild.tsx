@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'ui/components/select';
+import ArrowPathRoundedSquareIcon from '@heroicons/react/24/outline/ArrowPathRoundedSquareIcon';
 
 export function Rebuild({ id }: { id: number }) {
   const [isRebuilding, setRebuilding] = useState(false);
@@ -41,11 +42,16 @@ export function Rebuild({ id }: { id: number }) {
 
   return virtance ? (
     <div className="flex items-end justify-between p-6">
-      <div>
-        <h2 className="text-lg font-medium">Rebuild</h2>
-        <p className=" text-neutral-500">
-          Be careful. It's erase all of your data and install new image.
-        </p>
+      <div className="flex gap-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md border dark:border-neutral-700">
+          <ArrowPathRoundedSquareIcon className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="text-lg font-medium">Rebuild</h2>
+          <p className=" text-neutral-500">
+            Be careful. It's erase all of your data and install new image.
+          </p>
+        </div>
       </div>
       {images ? (
         <div className="flex max-w-sm items-end gap-2">

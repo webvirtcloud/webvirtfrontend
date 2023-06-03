@@ -73,6 +73,7 @@ export type VirtanceAction =
   | 'power_off'
   | 'rename'
   | 'shutdown'
+  | 'reset'
   | 'rebuild'
   | 'reboot'
   | 'password_reset'
@@ -90,6 +91,10 @@ export type ActionType =
   | {
       id: number;
       action: 'shutdown';
+    }
+  | {
+      id: number;
+      action: 'reset';
     }
   | {
       id: number;
