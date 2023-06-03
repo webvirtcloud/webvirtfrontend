@@ -56,7 +56,7 @@ export function RecoveryMode({ id }: { id: number }) {
         </p>
       </div>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex w-full max-w-3xl items-center gap-4">
+        <div className="flex w-full flex-col items-center gap-4 md:flex-row">
           {MODES.map((mode) => (
             <Controller
               key={mode.value.toString()}
