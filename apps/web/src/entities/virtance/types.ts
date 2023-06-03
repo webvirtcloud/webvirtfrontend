@@ -5,6 +5,7 @@ export type Virtance = {
   memory: number;
   disk: number;
   locked: boolean;
+  recovery_mode: boolean;
   status: VirtanceStatus;
   created_at: string;
   features: [];
@@ -77,7 +78,8 @@ export type VirtanceAction =
   | 'rebuild'
   | 'reboot'
   | 'password_reset'
-  | 'snapshot';
+  | 'snapshot'
+  | 'enable_recovery_mode';
 
 export type ActionType =
   | {
@@ -95,6 +97,18 @@ export type ActionType =
   | {
       id: number;
       action: 'reset';
+    }
+  | {
+      id: number;
+      action: 'reset';
+    }
+  | {
+      id: number;
+      action: 'enable_recovery_mode';
+    }
+  | {
+      id: number;
+      action: 'disable_recovery_mode';
     }
   | {
       id: number;
