@@ -23,17 +23,13 @@ const MODES = [
 ] as const;
 
 export function RecoveryMode({ id }: { id: number }) {
-  const { virtance, runAction } = useVirtance(id, {
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { virtance, runAction } = useVirtance(id);
   const {
     control,
     handleSubmit,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm<FormState>();
+  } = useForm<FormState>({ defaultValues: { mode: virtance?.recovery_mode } });
 
   const mode = watch('mode');
 
