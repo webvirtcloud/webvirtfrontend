@@ -54,6 +54,6 @@ export function UserMenu({ user }: Props) {
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
-    <div className="h-8 w-32 animate-pulse rounded bg-neutral-100 dark:bg-neutral-800"></div>
+    <div className="h-8 w-8 animate-pulse rounded-full bg-neutral-100 dark:bg-neutral-800"></div>
   );
 }
