@@ -67,8 +67,8 @@ export function SignInForm({ onSuccess }: Props) {
             Reset password
           </Link>
         </div>
-        <Button type="submit" className="w-full" disabled={!isValid}>
-          Sign In
+        <Button type="submit" className="w-full" disabled={!isValid || isSubmitting}>
+          {isSubmitting ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
       <p className="mt-4 text-center text-neutral-500">
