@@ -4,7 +4,7 @@ import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
 import { Link, NavLink } from 'react-router-dom';
 import { cx } from 'ui/lib';
 import { links } from './config';
-import { useUser } from '@/entities/user';
+import { UserMenu, useUser } from '@/entities/user';
 import { Skeleton } from 'ui/components/skeleton';
 
 export function Navbar() {
@@ -32,7 +32,7 @@ export function Navbar() {
               <Skeleton className="h-5 w-32" />
             )}
           </div>
-          {/* <UserMenu user={user} /> */}
+          <UserMenu user={user} />
         </div>
 
         <ul className="flex items-center space-x-2">

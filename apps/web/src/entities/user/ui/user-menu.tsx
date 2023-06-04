@@ -1,70 +1,59 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'ui/components/dropdown-menu';
+import type { User } from '../types';
 import ArrowLeftOnRectangleIcon from '@heroicons/react/20/solid/ArrowLeftOnRectangleIcon';
-import ChevronUpDownIcon from '@heroicons/react/20/solid/ChevronUpDownIcon';
-import Cog6ToothIcon from '@heroicons/react/20/solid/Cog6ToothIcon';
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { User } from '@/entities/user';
-import { Button } from 'ui/components/button';
-// import { Menu, MenuItem } from 'ui/components/menu';
+import AdjustmentsHorizontalIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
+import CommandLineIcon from '@heroicons/react/20/solid/CommandLineIcon';
+import UserIcon from '@heroicons/react/20/solid/UserIcon';
+import { Link } from 'react-router-dom';
 
 type Props = {
   user: User | undefined;
 };
 
 export function UserMenu({ user }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reference = useRef<HTMLButtonElement>(null);
-  const [isOpen, toggle] = useState(false);
-  const navigate = useNavigate();
-
   const handleLogout = () => {
     window.localStorage.removeItem('token');
 
     window.location.href = '/sign-in';
   };
 
-  const goToSettings = () => {
-    navigate('/settings/');
-
-    toggle(false);
-  };
-
   return user ? (
-    <div ref={ref}>
-      <Button
-        ref={reference}
-        variant="secondary"
-        endIcon={<ChevronUpDownIcon width={16} height={16} />}
-        onClick={() => toggle(!isOpen)}
-      >
-        <div css={tw`min-w-0 overflow-hidden max-w-[168px]`}>
-          <h4 css={tw`font-medium truncate`}>{user?.email}</h4>
-        </div>
-      </Button>
-      {/* <Menu
-        isOpen={isOpen}
-        source={reference}
-        placement="bottom-end"
-        onClose={() => toggle(false)}
-      >
-        <MenuItem
-          startIcon={<Cog6ToothIcon width={16} height={16} />}
-          onClick={() => goToSettings()}
-        >
-          Settings
-        </MenuItem>
-        <MenuItem
-          startIcon={<ArrowLeftOnRectangleIcon width={16} height={16} />}
-          onClick={() => handleLogout()}
-        >
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black">
+          <UserIcon className="h-4 w-4" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/settings">
+            <AdjustmentsHorizontalIcon className="mr-2 h-4 w-4" />
+            Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/keypairs">
+            <CommandLineIcon className="mr-2 h-4 w-4" />
+            Keypairs
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleLogout}>
+          <ArrowLeftOnRectangleIcon className="mr-2 h-4 w-4" />
           Logout
-        </MenuItem>
-      </Menu> */}
-    </div>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   ) : (
-    <div
-      css={tw`bg-neutral-100 dark:bg-neutral-800 h-8 w-32 rounded animate-pulse`}
-    ></div>
+    <div className="h-8 w-32 animate-pulse rounded bg-neutral-100 dark:bg-neutral-800"></div>
   );
 }
