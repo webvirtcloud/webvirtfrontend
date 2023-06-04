@@ -27,7 +27,7 @@ export function UserMenu({ user }: Props) {
   return user ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black">
+        <button className="flex h-8 w-8 items-center justify-center rounded-full border dark:border-neutral-700">
           <UserIcon className="h-4 w-4" />
         </button>
       </DropdownMenuTrigger>
