@@ -3,6 +3,7 @@ import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
 import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
 import { lazy, Suspense } from 'react';
+import { ImagesLayout } from '@/widgets/layouts/images-layout';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
@@ -17,6 +18,7 @@ const VirtanceSettings = lazy(() => import('@/pages/virtances/virtance/settings'
 const VirtanceSnapshots = lazy(() => import('@/pages/virtances/virtance/snapshots'));
 const VirtanceConsole = lazy(() => import('@/pages/virtances/virtance/console'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
+const ImagesSnapshots = lazy(() => import('@/pages/images/snapshots'));
 const Settings = lazy(() => import('@/pages/settings'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
@@ -103,6 +105,17 @@ export function Routing() {
             />
           </Route>
 
+          <Route path="/images" element={<ImagesLayout />}>
+            <Route path="" element={<Navigate to="snapshots" />} />
+            <Route
+              path="snapshots"
+              element={
+                <Suspense>
+                  <ImagesSnapshots />
+                </Suspense>
+              }
+            />
+          </Route>
           <Route
             path="/settings"
             element={
