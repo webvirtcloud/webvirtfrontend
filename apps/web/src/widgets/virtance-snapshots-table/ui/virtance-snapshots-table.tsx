@@ -1,4 +1,6 @@
 import { State } from '@/shared/ui/state';
+import { format } from 'date-fns';
+import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
 
 export function VirtanceSnapshotsTable({
@@ -8,7 +10,42 @@ export function VirtanceSnapshotsTable({
   snapshots: [] | undefined;
   error: any;
 }) {
-  const columns = [{ name: 'Name', field: 'name' }];
+  function onDialogOpen() {}
+
+  const Actions = ({ value: key }) => (
+    <div className="space-x-2">
+      <div className="flex justify-end space-x-2">
+        <Button size="sm" variant="destructive" onClick={() => onDialogOpen()}>
+          Delete
+        </Button>
+      </div>
+    </div>
+  );
+
+  const columns = [
+    {
+      field: 'name',
+      name: 'Name',
+      component: ({ value }) => (
+        <div>
+          <div className="font-bold">{value.name}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            Disk {value.size_gigabytes} GB
+          </div>
+        </div>
+      ),
+    },
+    {
+      field: 'created_at',
+      name: 'Created at',
+      formatter: (item) => format(new Date(item.created_at), 'MMM dd, yyyy'),
+    },
+    {
+      field: 'actions',
+      name: '',
+      component: Actions,
+    },
+  ];
 
   if (error) {
     return (
