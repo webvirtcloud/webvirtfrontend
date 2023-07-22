@@ -30,7 +30,7 @@ export function VirtanceSnapshotsTable({
         <div>
           <div className="font-bold">{value.name}</div>
           <div className="text-xs text-gray-500 dark:text-gray-400">
-            Disk {value.size_gigabytes} GB
+            Size {value.size_gigabytes} GB
           </div>
         </div>
       ),
