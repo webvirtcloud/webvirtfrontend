@@ -5,10 +5,10 @@ import useSWR from 'swr';
 
 export function VirtanceSnapshotsTable({ id }: { id: number }) {
   const { data: snapshots, error } = useSWR(['virtance-snapshots', id], () =>
-    getVirtancesSnapshots(id),
+    getVirtancesSnapshots(id).then((response) => response.snapshots),
   );
 
-  const columns = [{ name: 'Name' }];
+  const columns = [{ name: 'Name', field: 'name' }];
 
   if (error) {
     return (
