@@ -21,5 +21,15 @@ export function VirtanceSnapshotsTable({ id }: { id: number }) {
     );
   }
 
-  return snapshots ? <Table columns={columns} data={snapshots} /> : null;
+  return snapshots ? (
+    <>
+      <Table columns={columns} data={snapshots} />
+      {snapshots.length === 0 ? (
+        <State
+          title="No snapshots"
+          description="Take some snapshots to start use them."
+        />
+      ) : null}
+    </>
+  ) : null;
 }
