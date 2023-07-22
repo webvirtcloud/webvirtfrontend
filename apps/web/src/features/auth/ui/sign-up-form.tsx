@@ -4,6 +4,7 @@ import { register as authRegister } from '@/entities/auth';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
+import { useToast } from 'ui/components/toast';
 
 interface IFormInputs {
   email: string;
@@ -18,15 +19,22 @@ export function SignUpForm({ onSuccess }: Props) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<IFormInputs>();
+
+  const { toast } = useToast();
 
   async function onSubmit(data: IFormInputs) {
     try {
       const { token } = await authRegister(data);
 
       onSuccess(token);
-    } catch (error) {}
+    } catch (e) {
+      const { message } = await e.response.json();
+      setError('root', { message: 'Bad request' });
+      toast({ title: 'Bad request', variant: 'destructive', description: message });
+    }
   }
 
   return (

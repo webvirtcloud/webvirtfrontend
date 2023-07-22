@@ -4,6 +4,7 @@ import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { Error } from 'ui/components/error';
 import { login } from '@/entities/auth';
+import { useToast } from 'ui/components/toast';
 
 interface IFormInputs {
   email: string;
@@ -18,13 +19,22 @@ export function SignInForm({ onSuccess }: Props) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting, isValid },
   } = useForm<IFormInputs>();
 
-  async function onSubmit(data) {
-    const { token } = await login(data);
+  const { toast } = useToast();
 
-    onSuccess(token);
+  async function onSubmit(data) {
+    try {
+      const { token } = await login(data);
+
+      onSuccess(token);
+    } catch (e) {
+      const { message } = await e.response.json();
+      setError('root', { message: 'Bad request' });
+      toast({ title: 'Bad request', variant: 'destructive', description: message });
+    }
   }
 
   return (
@@ -67,7 +77,7 @@ export function SignInForm({ onSuccess }: Props) {
             Reset password
           </Link>
         </div>
-        <Button type="submit" className="w-full" disabled={!isValid || isSubmitting}>
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
