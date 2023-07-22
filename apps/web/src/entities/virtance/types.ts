@@ -11,6 +11,9 @@ export type Virtance = {
   features: [];
   backup_ids: [];
   snapshot_ids: [];
+  event: {
+    name: string;
+  } | null;
   image: {
     slug: string;
     name: string;
