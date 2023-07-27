@@ -13,6 +13,7 @@ export type Virtance = {
   snapshot_ids: [];
   event: {
     name: string;
+    description: string;
   } | null;
   image: {
     slug: string;
@@ -122,7 +123,8 @@ export type ActionType =
   | { action: 'rebuild'; id: number; image: string }
   | { action: 'reboot'; id: number }
   | { action: 'password_reset'; id: number; password: string }
-  | { action: 'snapshot'; id: number; name: string };
+  | { action: 'snapshot'; id: number; name: string }
+  | { action: 'restore'; id: number; image_id: number };
 
 export type VirtanceCPUMetrics = {
   name: string;

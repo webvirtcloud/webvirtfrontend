@@ -17,8 +17,18 @@ export default function VirtanceSnapshots() {
     data: snapshots,
     error,
     mutate,
-  } = useSWR(`virtance-snapshots-${id}`, () =>
-    getVirtancesSnapshots(Number(id)).then((response) => response.snapshots),
+  } = useSWR(
+    `virtance-snapshots-${id}`,
+    () => getVirtancesSnapshots(Number(id)).then((response) => response.snapshots),
+    {
+      refreshInterval: (latestData) => {
+        if (latestData?.some((snapshot) => snapshot.event !== null)) {
+          return 1000;
+        }
+
+        return 0;
+      },
+    },
   );
 
   async function onSubmit(data: { name: string }) {
@@ -50,7 +60,13 @@ export default function VirtanceSnapshots() {
         </FormProvider>
       </div>
 
-      <VirtanceSnapshotsTable snapshots={snapshots} error={error} />
+      <VirtanceSnapshotsTable
+        virtanceId={Number(id)}
+        snapshots={snapshots}
+        error={error}
+        mutate={mutate}
+        runAction={runAction}
+      />
     </div>
   );
 }
