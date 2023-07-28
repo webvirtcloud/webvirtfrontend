@@ -12,28 +12,20 @@ export function VirtanceConsole({ id }) {
   const [status, setStatus] = useState('Connecting...');
 
   useSWR(['virtance-console', id], () => consoleVirtance(id), {
-    onSuccess({ console }) {
-      connection.current = new RFB(ref.current, generateURL(console), {
-        credentials: { password: generatePassword(console.websocket.hash) },
+    onSuccess(response) {
+      connection.current = new RFB(ref.current, generateURL(response.console), {
+        credentials: { password: generatePassword(response.console.websocket.hash) },
       });
 
       window.console.log({
-        password: generatePassword(console.websocket.hash),
-        url: generateURL(console),
+        password: generatePassword(response.console.websocket.hash),
+        url: generateURL(response.console),
       });
 
       if (connection.current) {
         connection.current.scaleViewport = readQueryVariable('scale', false);
         connection.current.background = 'rgb(0,0,0)';
 
-        connection.current.addEventListener('credentialsrequired', () => {
-          window.console.log('credentialsrequired', {
-            password: generatePassword(console.websocket.hash),
-          });
-          connection.current.sendCredentials({
-            password: generatePassword(console.websocket.hash),
-          });
-        });
         connection.current.addEventListener('connect', () => {
           setStatus('Connected');
           connection.current.focus();
@@ -60,7 +52,7 @@ export function VirtanceConsole({ id }) {
 
   function generatePassword(hash: string) {
     const decoded = window.atob(hash);
-    return decoded.substring(7, decoded.length - 13);
+    return decoded.substring(6, decoded.length - 8);
   }
 
   function sendCtrlAltDel() {
