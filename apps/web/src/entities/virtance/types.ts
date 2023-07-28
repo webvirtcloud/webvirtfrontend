@@ -124,7 +124,7 @@ export type ActionType =
   | { action: 'reboot'; id: number }
   | { action: 'password_reset'; id: number; password: string }
   | { action: 'snapshot'; id: number; name: string }
-  | { action: 'restore'; id: number; image_id: number };
+  | { action: 'restore'; id: number; image: number };
 
 export type VirtanceCPUMetrics = {
   name: string;

@@ -12,7 +12,7 @@ import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
 import { Spin } from 'ui/components/spin';
-import { ActionType } from '@/entities/virtance';
+import { type ActionType } from '@/entities/virtance';
 
 export function VirtanceSnapshotsTable({
   virtanceId,
@@ -34,8 +34,7 @@ export function VirtanceSnapshotsTable({
 
   const onRestore = async (id: number) => {
     try {
-      virtanceId &&
-        (await runAction({ action: 'restore', id: virtanceId, image_id: id }));
+      virtanceId && (await runAction({ action: 'restore', id: virtanceId, image: id }));
       await mutate();
       toast({
         title: 'The task to restore a snapshot has been started.',
