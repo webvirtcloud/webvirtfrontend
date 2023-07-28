@@ -47,7 +47,7 @@ export function VirtanceConsole({ id }) {
     const { websocket } = console;
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
 
-    return `${protocol}://${websocket.host}`;
+    return `${protocol}://${websocket.host}:${websocket.port}`;
   }
 
   function generatePassword(hash: string) {
