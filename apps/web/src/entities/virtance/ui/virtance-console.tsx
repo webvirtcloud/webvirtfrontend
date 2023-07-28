@@ -60,7 +60,7 @@ export function VirtanceConsole({ id }) {
 
   function generatePassword(hash: string) {
     const decoded = window.atob(hash);
-    return decoded.substring(6, decoded.length - 8);
+    return decoded.substring(7, decoded.length - 13);
   }
 
   function sendCtrlAltDel() {
