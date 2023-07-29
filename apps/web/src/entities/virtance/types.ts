@@ -146,6 +146,7 @@ export type VirtanceDiskMetrics = {
 
 export type Console = {
   id: number;
+  uuid: string;
   name: string;
   websocket: {
     host: string;

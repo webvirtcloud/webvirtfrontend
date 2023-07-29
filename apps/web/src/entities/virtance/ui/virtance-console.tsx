@@ -5,6 +5,7 @@ import { consoleVirtance } from '../api';
 import type { Console } from '../types';
 import { Button } from 'ui/components/button';
 import { StatusDot } from 'ui/components/status-dot';
+import Cookies from 'js-cookie';
 
 export function VirtanceConsole({ id }) {
   const ref = useRef(null);
@@ -13,6 +14,8 @@ export function VirtanceConsole({ id }) {
 
   useSWR(['virtance-console', id], () => consoleVirtance(id), {
     onSuccess(response) {
+      Cookies.set('uuid', response.console.uuid);
+
       connection.current = new RFB(ref.current, generateURL(response.console), {
         credentials: { password: generatePassword(response.console.websocket.hash) },
       });
