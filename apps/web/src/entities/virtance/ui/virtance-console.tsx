@@ -17,7 +17,7 @@ export function VirtanceConsole({ id }) {
       Cookies.set('uuid', response.console.uuid, {
         secure: true,
         sameSite: 'None',
-        domain: '.webvirt.cloud',
+        domain: response.console.websocket.host,
       });
 
       connection.current = new RFB(ref.current, generateURL(response.console), {
