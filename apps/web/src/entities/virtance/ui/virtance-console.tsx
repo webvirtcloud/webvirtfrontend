@@ -14,24 +14,14 @@ export function VirtanceConsole({ id }) {
 
   useSWR(['virtance-console', id], () => consoleVirtance(id), {
     onSuccess(response) {
-      console.log({
-        secure: true,
-        sameSite: 'None',
-        domain: response.console.websocket.host,
-      });
       Cookies.set('uuid', response.console.uuid, {
         secure: true,
         sameSite: 'None',
-        domain: response.console.websocket.host,
+        domain: response.console.websocket.host.replace(/^[^.]+\./, '.'),
       });
 
       connection.current = new RFB(ref.current, generateURL(response.console), {
         credentials: { password: generatePassword(response.console.websocket.hash) },
-      });
-
-      window.console.log({
-        password: generatePassword(response.console.websocket.hash),
-        url: generateURL(response.console),
       });
 
       if (connection.current) {
