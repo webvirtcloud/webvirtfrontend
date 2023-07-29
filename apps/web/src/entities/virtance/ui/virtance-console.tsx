@@ -14,6 +14,11 @@ export function VirtanceConsole({ id }) {
 
   useSWR(['virtance-console', id], () => consoleVirtance(id), {
     onSuccess(response) {
+      console.log({
+        secure: true,
+        sameSite: 'None',
+        domain: response.console.websocket.host,
+      });
       Cookies.set('uuid', response.console.uuid, {
         secure: true,
         sameSite: 'None',
