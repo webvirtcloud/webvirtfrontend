@@ -14,7 +14,7 @@ export function VirtanceConsole({ id }) {
 
   useSWR(['virtance-console', id], () => consoleVirtance(id), {
     onSuccess(response) {
-      Cookies.set('uuid', response.console.uuid);
+      Cookies.set('uuid', response.console.uuid, { secure: true, sameSite: 'Lax' });
 
       connection.current = new RFB(ref.current, generateURL(response.console), {
         credentials: { password: generatePassword(response.console.websocket.hash) },
