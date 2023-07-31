@@ -29,3 +29,5 @@ export type Snapshot = {
     name: string;
   } | null;
 };
+
+export type Backup = {};
