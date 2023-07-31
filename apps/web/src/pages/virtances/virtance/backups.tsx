@@ -17,13 +17,14 @@ export default function VirtanceBackups() {
     'virtance-backups',
     () => getVirtancesBackups(Number(id)).then((response) => response.backups),
     {
-      isPaused: () => !isBackupsEnabled,
+      isOnline: () => !!isBackupsEnabled,
     },
   );
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
+      setIsSubmitting(true);
       await runAction({ action: 'enable_backups', id: Number(id) });
     } catch (error) {
     } finally {
@@ -65,7 +66,7 @@ export default function VirtanceBackups() {
               type="submit"
               variant={isBackupsEnabled ? 'destructive' : 'default'}
             >
-              {isBackupsEnabled ? 'Disable' : 'Enable'}
+              {isSubmitting ? 'Submitting...' : isBackupsEnabled ? 'Disable' : 'Enable'}
             </Button>
           </form>
         </div>
