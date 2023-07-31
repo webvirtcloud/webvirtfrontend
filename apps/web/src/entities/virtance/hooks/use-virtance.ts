@@ -33,6 +33,8 @@ export function useVirtance(id: number, options?: SWRConfiguration<Virtance>) {
     },
   );
 
+  const isBusy = virtance?.event !== null;
+
   async function runAction(payload: ActionType) {
     await runVirtanceAction(payload);
     virtance && mutate({ ...virtance, status: 'pending' });
@@ -43,5 +45,6 @@ export function useVirtance(id: number, options?: SWRConfiguration<Virtance>) {
     mutate,
     runAction,
     error,
+    isBusy,
   };
 }
