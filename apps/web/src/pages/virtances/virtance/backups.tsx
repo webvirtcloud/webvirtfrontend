@@ -25,7 +25,10 @@ export default function VirtanceBackups() {
     try {
       e.preventDefault();
       setIsSubmitting(true);
-      await runAction({ action: 'enable_backups', id: Number(id) });
+      await runAction({
+        action: isBackupsEnabled ? 'disable_backups' : 'enable_backups',
+        id: Number(id),
+      });
     } catch (error) {
     } finally {
       setIsSubmitting(false);

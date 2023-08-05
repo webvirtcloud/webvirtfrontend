@@ -127,7 +127,7 @@ export type ActionType =
   | { action: 'snapshot'; id: number; name: string }
   | { action: 'restore'; id: number; image: number }
   | { action: 'enable_backups'; id: number }
-  | { action: 'disabled_backups'; id: number };
+  | { action: 'disable_backups'; id: number };
 
 export type VirtanceCPUMetrics = {
   name: string;
