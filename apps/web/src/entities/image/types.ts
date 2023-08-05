@@ -27,7 +27,25 @@ export type Snapshot = {
   status: 'available';
   event: {
     name: string;
+    description: string;
   } | null;
 };
 
-export type Backup = {};
+export type Backup = {
+  id: number;
+  slug: null;
+  name: string;
+  type: 'backup';
+  event: {
+    name: string;
+    description: string;
+  } | null;
+  public: false;
+  regions: string[];
+  created_at: string;
+  description: null;
+  distribution: string;
+  min_disk_size: number;
+  size_gigabytes: number;
+  status: 'available';
+};
