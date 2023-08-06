@@ -55,7 +55,9 @@ export function VirtanceLayout() {
                   className="h-10 w-10"
                   src={
                     new URL(
-                      `/src/shared/assets/images/os/${virtance.image.distribution.toLowerCase()}.svg`,
+                      `/src/shared/assets/images/os/${virtance.image.distribution
+                        .toLowerCase()
+                        .replaceAll(' ', '-')}.svg`,
                       import.meta.url,
                     ).href
                   }
