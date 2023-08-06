@@ -1,13 +1,13 @@
 import ArrowPathIcon from '@heroicons/react/20/solid/ArrowPathIcon';
 import { Button } from 'ui/components/button';
 import { cx } from 'ui/lib';
-import { MouseEvent } from 'react';
-import { type VirtanceAction, VirtanceStatus } from '../types';
+import { type MouseEvent } from 'react';
+import type { ActionType, VirtanceStatus } from '../types';
 
 interface Props {
   id: number;
   status: VirtanceStatus;
-  onToggle: (payload: { id: number; action: VirtanceAction }) => void;
+  onToggle: (payload: ActionType) => void;
 }
 
 export function VirtanceRebootButton({ id, status, onToggle }: Props) {

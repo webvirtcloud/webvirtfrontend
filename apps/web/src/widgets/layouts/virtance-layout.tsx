@@ -1,5 +1,5 @@
 import {
-  type VirtanceAction,
+  type ActionType,
   useVirtance,
   VirtanceRebootButton,
   VirtanceToggleStateButton,
@@ -28,7 +28,7 @@ export function VirtanceLayout() {
     { label: 'Settings', to: `/virtances/${id}/settings`, end: false },
   ] as const;
 
-  async function onRunAction(payload: { id: number; action: VirtanceAction }) {
+  async function onRunAction(payload: ActionType) {
     runAction(payload);
   }
 
