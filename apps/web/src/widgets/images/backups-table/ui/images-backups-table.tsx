@@ -1,11 +1,8 @@
-import { getVirtancesBackups } from '@/entities/virtance/api/get-virtance-backups';
-import { useParams } from 'react-router-dom';
 import { Table } from 'ui/components/table';
 import { State } from '@/shared/ui/state';
 import useSWR from 'swr';
 import { Button } from 'ui/components/button';
-import { useVirtance } from '@/entities/virtance';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { Spin } from 'ui/components/spin';
 import { useToast } from 'ui/components/toast';
@@ -13,29 +10,22 @@ import {
   type Backup,
   ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
+  getImages,
 } from '@/entities/image';
 
-export default function VirtanceBackups() {
-  const { id } = useParams();
-  const { virtance, isBusy, runAction } = useVirtance(Number(id));
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const isBackupsEnabled = virtance?.backups_enabled;
+export function ImagesBackupsTable() {
   const [selectedBackup, setSelectedBackup] = useState<Backup>();
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const { data, mutate, error } = useSWR(
-    'virtance-backups',
-    () => getVirtancesBackups(Number(id)).then((response) => response.backups),
-    {
-      isOnline: () => !!isBackupsEnabled,
-    },
+  const { data, mutate, error } = useSWR('virtance-backups', () =>
+    getImages('backup').then((response) => response.images),
   );
 
   const onRestore = async (id: number) => {
     try {
-      virtance && (await runAction({ action: 'restore', id: virtance.id, image: id }));
+      // TODO check if backup still has working instance then we can restore backup
       await mutate();
       toast({
         title: 'The task to restore a backup has been started.',
@@ -54,20 +44,6 @@ export default function VirtanceBackups() {
       });
     } catch (error) {}
   };
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    try {
-      e.preventDefault();
-      setIsSubmitting(true);
-      await runAction({
-        action: isBackupsEnabled ? 'disable_backups' : 'enable_backups',
-        id: Number(id),
-      });
-    } catch (error) {
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
 
   function onDialogOpen(backup: Backup, type: 'restore' | 'convert') {
     setSelectedBackup(backup);
@@ -117,7 +93,6 @@ export default function VirtanceBackups() {
         <Button
           size="sm"
           variant="secondary"
-          disabled={isBusy}
           onClick={() => onDialogOpen(backup, 'restore')}
         >
           Restore
@@ -156,61 +131,40 @@ export default function VirtanceBackups() {
       <div className="rounded-md border dark:border-neutral-700">
         <State
           title="Oh no..."
-          description="We cannot display any snapshots at this time for some reason."
+          description="We cannot display any backups at this time for some reason."
         />
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-medium">Backups</h2>
-            <p className="text-neutral-500">
-              Backups are created on a weekly basis and kept for a duration of four weeks.
-            </p>
-          </div>
-          <form onSubmit={onSubmit}>
-            <Button
-              disabled={isBusy}
-              type="submit"
-              variant={isBackupsEnabled ? 'destructive' : 'default'}
-            >
-              {isSubmitting ? 'Submitting...' : isBackupsEnabled ? 'Disable' : 'Enable'}
-            </Button>
-          </form>
-        </div>
-
-        {data ? (
-          <>
-            <Table columns={columns} data={data} />
-            {data.length === 0 ? (
-              <State
-                title="No backups"
-                description="Enable backups and they will show up here."
-              />
-            ) : null}
-          </>
-        ) : null}
-
-        {selectedBackup ? (
-          <>
-            <ImageRestoreAlertDialog
-              open={isRestoreDialogOpen}
-              onOpenChange={() => onDialogClose('restore')}
-              onRestore={() => onRestore(selectedBackup.id)}
-              type="backup"
+    <>
+      {data ? (
+        <>
+          <Table columns={columns} data={data} />
+          {data.length === 0 ? (
+            <State
+              title="No backups"
+              description="Enable backups and they will show up here."
             />
-            <BackupConvertAlertDialog
-              open={isConvertDialogOpen}
-              onOpenChange={() => onDialogClose('convert')}
-              onDelete={() => onConvert(selectedBackup.id)}
-            />
-          </>
-        ) : null}
-      </div>
-    </div>
+          ) : null}
+        </>
+      ) : null}
+      {selectedBackup ? (
+        <>
+          <ImageRestoreAlertDialog
+            open={isRestoreDialogOpen}
+            onOpenChange={() => onDialogClose('restore')}
+            onRestore={() => onRestore(selectedBackup.id)}
+            type="backup"
+          />
+          <BackupConvertAlertDialog
+            open={isConvertDialogOpen}
+            onOpenChange={() => onDialogClose('convert')}
+            onDelete={() => onConvert(selectedBackup.id)}
+          />
+        </>
+      ) : null}
+    </>
   );
 }
