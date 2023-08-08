@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { type Virtance, getVirtances } from '@/entities/virtance';
 
 import { ImagesManageBackupsSheet } from '@/features/images-manage-backups-sheet';
+import { StatusDot } from 'ui/components/status-dot';
 
 export function ImagesBackupsTable() {
   const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
@@ -33,18 +34,32 @@ export function ImagesBackupsTable() {
       field: 'name',
       name: 'Name',
       component: ({ value }) => (
-        <div>
-          <div className="font-bold">{value.name}</div>
-          <div className="text-xs text-neutral-500 dark:text-neutral-400">
-            Size {value.size_gigabytes} GB
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center">
+            <img
+              className="h-8 w-8"
+              src={
+                new URL(
+                  `/src/shared/assets/images/os/${value.image.distribution
+                    .toLowerCase()
+                    .replaceAll(' ', '-')}.svg`,
+                  import.meta.url,
+                ).href
+              }
+              alt={`Logo of ${value.image.distribution}`}
+            />
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-medium">{value.name}</h3>
+              <StatusDot status={value.status} />
+            </div>
+            <p className="text-sm text-neutral-500">
+              {value.size.memory}GB DDR4 / {value.size.disk}GB SSD
+            </p>
           </div>
         </div>
       ),
-    },
-    {
-      field: 'created_at',
-      name: 'Created at',
-      formatter: (item) => format(new Date(item.created_at), 'MMM dd, yyyy'),
     },
     {
       field: 'actions',
