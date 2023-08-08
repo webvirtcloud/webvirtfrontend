@@ -4,102 +4,29 @@ import useSWR from 'swr';
 import { Button } from 'ui/components/button';
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { Spin } from 'ui/components/spin';
-import { useToast } from 'ui/components/toast';
-import {
-  type Backup,
-  ImageRestoreAlertDialog,
-  BackupConvertAlertDialog,
-  getImages,
-} from '@/entities/image';
+import { type Virtance, getVirtances } from '@/entities/virtance';
+
+import { ImagesManageBackupsSheet } from '@/features/images-manage-backups-sheet';
 
 export function ImagesBackupsTable() {
-  const [selectedBackup, setSelectedBackup] = useState<Backup>();
-  const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
-  const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
-  const { toast } = useToast();
+  const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const { data, mutate, error } = useSWR('virtance-backups', () =>
-    getImages('backup').then((response) => response.images),
+  const { data: virtances, error } = useSWR('images-virtances', () =>
+    getVirtances({ has_backups: true }).then((response) => response.virtances),
   );
 
-  const onRestore = async (id: number) => {
-    try {
-      // TODO check if backup still has working instance then we can restore backup
-      await mutate();
-      toast({
-        title: 'The task to restore a backup has been started.',
-        variant: 'default',
-      });
-    } catch (error) {}
-  };
-
-  const onConvert = async (id: number) => {
-    try {
-      // TODO: Add convert api method
-      await mutate();
-      toast({
-        title: 'The task to convert a backup has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
-  };
-
-  function onDialogOpen(backup: Backup, type: 'restore' | 'convert') {
-    setSelectedBackup(backup);
-
-    switch (type) {
-      case 'restore':
-        setIsRestoreDialogOpen(true);
-        break;
-      case 'convert':
-        setIsConvertDialogOpen(true);
-        break;
-    }
+  function openSheet(virtance: Virtance) {
+    setSelectedVirtance(virtance);
+    setIsSheetOpen(true);
   }
 
-  function onDialogClose(type: 'restore' | 'convert') {
-    switch (type) {
-      case 'convert':
-        setIsConvertDialogOpen(false);
-        break;
+  function onSheetOpenChange(value: boolean) {
+    setIsSheetOpen(false);
+    if (!value) {
+      setSelectedVirtance(undefined);
     }
-    switch (type) {
-      case 'convert':
-        setIsConvertDialogOpen(false);
-        break;
-    }
-    setSelectedBackup(undefined);
   }
-
-  const Actions = ({ value: backup }: { value: Backup }) => (
-    <div className="space-x-2">
-      <div className="flex justify-end space-x-2">
-        <Button
-          size="sm"
-          variant="secondary"
-          disabled={!!backup.event}
-          onClick={() => onDialogOpen(backup, 'convert')}
-        >
-          {backup.event && backup.event.name === 'convert' ? (
-            <>
-              <Spin size="sm" />
-              <span className="ml-2">{backup.event.description}</span>
-            </>
-          ) : (
-            'Convert'
-          )}
-        </Button>
-        <Button
-          size="sm"
-          variant="secondary"
-          onClick={() => onDialogOpen(backup, 'restore')}
-        >
-          Restore
-        </Button>
-      </div>
-    </div>
-  );
 
   const columns = [
     {
@@ -122,7 +49,13 @@ export function ImagesBackupsTable() {
     {
       field: 'actions',
       name: '',
-      component: Actions,
+      component: ({ value }) => (
+        <div className="flex justify-end">
+          <Button size="sm" variant="secondary" onClick={() => openSheet(value)}>
+            Show backups
+          </Button>
+        </div>
+      ),
     },
   ];
 
@@ -139,10 +72,10 @@ export function ImagesBackupsTable() {
 
   return (
     <>
-      {data ? (
+      {virtances ? (
         <>
-          <Table columns={columns} data={data} />
-          {data.length === 0 ? (
+          <Table columns={columns} data={virtances} />
+          {virtances.length === 0 ? (
             <State
               title="No backups"
               description="Enable backups and they will show up here."
@@ -150,21 +83,12 @@ export function ImagesBackupsTable() {
           ) : null}
         </>
       ) : null}
-      {selectedBackup ? (
-        <>
-          <ImageRestoreAlertDialog
-            open={isRestoreDialogOpen}
-            onOpenChange={() => onDialogClose('restore')}
-            onRestore={() => onRestore(selectedBackup.id)}
-            type="backup"
-          />
-          <BackupConvertAlertDialog
-            open={isConvertDialogOpen}
-            onOpenChange={() => onDialogClose('convert')}
-            onDelete={() => onConvert(selectedBackup.id)}
-          />
-        </>
-      ) : null}
+
+      <ImagesManageBackupsSheet
+        open={isSheetOpen}
+        onOpenChange={onSheetOpenChange}
+        virtance={selectedVirtance}
+      />
     </>
   );
 }
