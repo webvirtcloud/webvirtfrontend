@@ -1,6 +1,14 @@
 import request from '@/shared/api/request';
 import { Virtance } from '../types';
 
-export function getVirtances(): Promise<{ virtances: Virtance[] }> {
-  return request.get('virtances').json();
+interface Params {
+  has_backups?: boolean;
+}
+
+export function getVirtances(params?: Params): Promise<{ virtances: Virtance[] }> {
+  return request
+    .get('virtances', {
+      searchParams: { ...params },
+    })
+    .json();
 }
