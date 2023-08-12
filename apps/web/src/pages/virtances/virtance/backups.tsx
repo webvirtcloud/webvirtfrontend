@@ -14,6 +14,7 @@ import {
   ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
 } from '@/entities/image';
+import { runImageAction } from '@/entities/image/api/run-image-action';
 
 export default function VirtanceBackups() {
   const { id } = useParams();
@@ -30,6 +31,9 @@ export default function VirtanceBackups() {
     () => getVirtancesBackups(Number(id)).then((response) => response.backups),
     {
       isOnline: () => !!isBackupsEnabled,
+      refreshInterval(latestData) {
+        return latestData?.some((backup) => backup.status === 'pending') ? 1000 : 0;
+      },
     },
   );
 
@@ -46,7 +50,7 @@ export default function VirtanceBackups() {
 
   const onConvert = async (id: number) => {
     try {
-      // TODO: Add convert api method
+      await runImageAction({ id, action: 'convert' });
       await mutate();
       toast({
         title: 'The task to convert a backup has been started.',
@@ -117,7 +121,7 @@ export default function VirtanceBackups() {
         <Button
           size="sm"
           variant="secondary"
-          disabled={isBusy}
+          disabled={isBusy || !!backup.event}
           onClick={() => onDialogOpen(backup, 'restore')}
         >
           Restore
