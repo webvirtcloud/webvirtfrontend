@@ -1,13 +1,11 @@
 import { Table } from 'ui/components/table';
 import { State } from '@/shared/ui/state';
-import useSWR from 'swr';
 import { Button } from 'ui/components/button';
 import { useState } from 'react';
-import { format } from 'date-fns';
 import { type Virtance, getVirtances } from '@/entities/virtance';
+import useSWR from 'swr';
 
 import { ImagesManageBackupsSheet } from '@/features/images-manage-backups-sheet';
-import { StatusDot } from 'ui/components/status-dot';
 
 export function ImagesBackupsTable() {
   const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
@@ -52,7 +50,6 @@ export function ImagesBackupsTable() {
           <div className="space-y-0.5">
             <div className="flex items-center gap-2">
               <h3 className="text-base font-medium">{value.name}</h3>
-              <StatusDot status={value.status} />
             </div>
             <p className="text-sm text-neutral-500">
               {value.size.memory}GB DDR4 / {value.size.disk}GB SSD

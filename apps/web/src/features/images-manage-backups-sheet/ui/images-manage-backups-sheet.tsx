@@ -10,7 +10,7 @@ import {
   ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
 } from '@/entities/image';
-import { type Virtance } from '@/entities/virtance';
+import { runVirtanceAction, type Virtance } from '@/entities/virtance';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { format } from 'date-fns';
@@ -40,8 +40,9 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
 
   const onRestore = async (id: number) => {
     try {
-      // TODO check if backup still has working instance then we can restore backup
-      // await mutate();
+      if (!virtance) return;
+      await runVirtanceAction({ id: virtance.id, image: id, action: 'restore' });
+      await mutate();
       toast({
         title: 'The task to restore a backup has been started.',
         variant: 'default',
@@ -109,7 +110,14 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
           variant="secondary"
           onClick={() => onDialogOpen(backup, 'restore')}
         >
-          Restore
+          {backup.event && backup.event.name === 'restore' ? (
+            <>
+              <Spin size="sm" />
+              <span className="ml-2">{backup.event.description}</span>
+            </>
+          ) : (
+            'Restore'
+          )}
         </Button>
       </div>
     </div>
