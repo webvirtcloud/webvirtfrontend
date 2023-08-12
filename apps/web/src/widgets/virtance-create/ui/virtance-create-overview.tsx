@@ -13,7 +13,7 @@ export function VirtanceCreateOverview() {
   const size = watch('size');
 
   return (
-    <div className="sticky top-[120px] left-0 right-0 mb-16 flex flex-col justify-between gap-4 rounded-md border bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-900 md:flex-row md:items-center md:gap-0">
+    <div className="sticky left-0 right-0 top-[120px] z-10 mb-16 flex flex-col justify-between gap-4 rounded-md border bg-white p-4 shadow-lg dark:border-neutral-700 dark:bg-neutral-900 md:flex-row md:items-center md:gap-0">
       <div>
         <div className="flex items-center space-x-2">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
