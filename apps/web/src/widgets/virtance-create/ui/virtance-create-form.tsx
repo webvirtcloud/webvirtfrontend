@@ -25,6 +25,7 @@ export default function VirtanceCreateForm({
         image: data.image.slug,
         name: data.name,
         region: data.region.slug,
+        backups: data.backups,
         ...(data.keypairs && data.keypairs.length > 0
           ? { keypairs: [...data.keypairs] }
           : {}),
