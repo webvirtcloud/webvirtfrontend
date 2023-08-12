@@ -14,6 +14,7 @@ import { type Virtance } from '@/entities/virtance';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { format } from 'date-fns';
+import { runImageAction } from '@/entities/image/api/run-image-action';
 
 interface Props extends ComponentPropsWithoutRef<typeof Sheet> {
   virtance: Virtance | undefined;
@@ -25,12 +26,15 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const { data: backups } = useSWR(
+  const { data: backups, mutate } = useSWR(
     `images-virtance-backups-${virtance?.id}`,
     () =>
       virtance && getVirtancesBackups(virtance.id).then((response) => response.backups),
     {
       isOnline: () => !!virtance,
+      refreshInterval(latestData) {
+        return latestData?.some((backup) => !!backup.event) ? 1000 : 0;
+      },
     },
   );
 
@@ -47,8 +51,8 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
 
   const onConvert = async (id: number) => {
     try {
-      // TODO: Add convert api method
-      // await mutate();
+      await runImageAction({ id, action: 'convert' });
+      await mutate();
       toast({
         title: 'The task to convert a backup has been started.',
         variant: 'destructive',
@@ -71,11 +75,9 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
 
   function onDialogClose(type: 'restore' | 'convert') {
     switch (type) {
-      case 'convert':
-        setIsConvertDialogOpen(false);
+      case 'restore':
+        setIsRestoreDialogOpen(false);
         break;
-    }
-    switch (type) {
       case 'convert':
         setIsConvertDialogOpen(false);
         break;
@@ -103,6 +105,7 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
         </Button>
         <Button
           size="sm"
+          disabled={!!backup.event}
           variant="secondary"
           onClick={() => onDialogOpen(backup, 'restore')}
         >
@@ -155,7 +158,7 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
       ) : null}
 
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="md:max-w-[600px]">
+        <SheetContent className="md:max-w-[720px]">
           <SheetHeader className="mb-4">
             <SheetTitle>Backups list of {virtance?.name}</SheetTitle>
           </SheetHeader>
