@@ -32,7 +32,7 @@ export default function VirtanceBackups() {
     {
       isOnline: () => !!isBackupsEnabled,
       refreshInterval(latestData) {
-        return latestData?.some((backup) => backup.status === 'pending') ? 1000 : 0;
+        return latestData?.some((backup) => !!backup.event) ? 1000 : 0;
       },
     },
   );
