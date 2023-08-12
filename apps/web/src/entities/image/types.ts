@@ -14,6 +14,7 @@ export type Image = {
 
 export type Snapshot = {
   id: number;
+  virtance_id: number | null;
   slug: null | string;
   name: string;
   distribution: string;

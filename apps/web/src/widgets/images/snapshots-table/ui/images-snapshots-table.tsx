@@ -3,7 +3,7 @@ import {
   SnapshotDeleteAlertDialog,
   SnapshotRestoreAlertDialog,
   deleteImage,
-  getImages,
+  getSnapshots,
 } from '@/entities/image';
 import { State } from '@/shared/ui/state';
 import { format } from 'date-fns';
@@ -13,6 +13,7 @@ import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
 import { Spin } from 'ui/components/spin';
 import useSWR from 'swr';
+import { runVirtanceAction } from '@/entities/virtance';
 
 export function ImagesSnapshotsTable() {
   const [selectedSnapshot, setSelectedSnapshot] = useState<Snapshot>();
@@ -24,17 +25,26 @@ export function ImagesSnapshotsTable() {
     data: snapshots,
     mutate,
     error,
-  } = useSWR('images-snapshots', () => getImages('snapshot').then((data) => data.images));
+  } = useSWR('images-snapshots', () => getSnapshots().then((data) => data.snapshots), {
+    refreshInterval(latestData) {
+      return latestData?.some((snapshot) => !!snapshot.event) ? 1000 : 0;
+    },
+  });
 
-  const onRestore = async (id: number) => {
-    // try {
-    //   virtanceId && (await runAction({ action: 'restore', id: virtanceId, image: id }));
-    //   await mutate();
-    //   toast({
-    //     title: 'The task to restore a snapshot has been started.',
-    //     variant: 'default',
-    //   });
-    // } catch (error) {}
+  const onRestore = async (snapshot: Snapshot) => {
+    try {
+      if (!snapshot.virtance_id) return;
+      await runVirtanceAction({
+        action: 'restore',
+        id: snapshot.virtance_id,
+        image: snapshot.id,
+      });
+      await mutate();
+      toast({
+        title: 'The task to restore a snapshot has been started.',
+        variant: 'default',
+      });
+    } catch (error) {}
   };
 
   const onDelete = async (id: number) => {
@@ -162,7 +172,7 @@ export function ImagesSnapshotsTable() {
           <SnapshotRestoreAlertDialog
             open={isRestoreDialogOpen}
             onOpenChange={() => onDialogClose('restore')}
-            onRestore={() => onRestore(selectedSnapshot.id)}
+            onRestore={() => onRestore(selectedSnapshot)}
           />
           <SnapshotDeleteAlertDialog
             open={isDeleteDialogOpen}
