@@ -47,5 +47,10 @@ export type Backup = {
   distribution: string;
   min_disk_size: number;
   size_gigabytes: number;
-  status: 'available';
+  status: 'available' | 'pending';
+};
+
+export type ActionType = {
+  id: number;
+  action: 'convert';
 };
