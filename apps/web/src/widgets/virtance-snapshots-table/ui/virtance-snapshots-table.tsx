@@ -69,6 +69,9 @@ export function VirtanceSnapshotsTable({
 
   function onDialogClose(type: 'restore' | 'delete') {
     switch (type) {
+      case 'restore':
+        setIsRestoreDialogOpen(false);
+        break;
       case 'delete':
         setIsDeleteDialogOpen(false);
         break;
