@@ -157,3 +157,9 @@ export type Console = {
     hash: string;
   };
 };
+
+export type VirtanceHistory = {
+  id: number;
+  event: string | null;
+  created: string;
+};

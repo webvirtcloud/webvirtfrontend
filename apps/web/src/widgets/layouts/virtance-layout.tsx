@@ -25,6 +25,7 @@ export function VirtanceLayout() {
     { label: 'Snapshots', to: `/virtances/${id}/snapshots`, end: false },
     { label: 'Backups', to: `/virtances/${id}/backups`, end: false },
     { label: 'Resize', to: `/virtances/${id}/resize`, end: false },
+    { label: 'History', to: `/virtances/${id}/history`, end: false },
     { label: 'Settings', to: `/virtances/${id}/settings`, end: false },
   ] as const;
 
