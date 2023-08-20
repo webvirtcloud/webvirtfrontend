@@ -23,8 +23,8 @@ export function VirtanceHistoryTable({ data }: { data: VirtanceHistory[] | undef
           <Table data={data} columns={columns} />
           {data.length === 0 ? (
             <State
-              title="No keypairs"
-              description="Add new keypairs to start use them."
+              title="No history"
+              description="It will displays all kind of virtance's actions."
             />
           ) : null}
         </>
