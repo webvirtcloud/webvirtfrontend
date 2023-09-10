@@ -4,9 +4,12 @@ import { Label } from 'ui/components/label';
 import { Checkbox } from 'ui/components/checkbox';
 import { VirtanceCreateSecurity } from './virtance-create-security';
 import { VirtanceCreateUserdata } from './virtance-create-userdata';
+import { Region } from '@/entities/region/types';
 
 export function VirtanceCreateSettings() {
-  const { register, control } = useFormContext();
+  const { register, control, watch } = useFormContext();
+
+  const region: Region = watch('region');
 
   return (
     <section className="space-y-4">
@@ -15,8 +18,8 @@ export function VirtanceCreateSettings() {
       <div className="space-y-8">
         <VirtanceCreateSecurity />
         <VirtanceCreateUserdata />
-
-        <Controller
+        
+        {region.features.includes('backup') && <Controller
           name="backups"
           control={control}
           defaultValue={false}
@@ -35,7 +38,7 @@ export function VirtanceCreateSettings() {
               </Label>
             </div>
           )}
-        />
+        />}
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">Name</Label>
