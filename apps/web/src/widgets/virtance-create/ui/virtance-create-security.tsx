@@ -39,7 +39,9 @@ export function VirtanceCreateSecurity() {
     }
     if (value === 'keypairs') {
       resetField('password');
-      keypairs && setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
+      if (keypairs.length) {
+        keypairs && setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
+      }
     }
   }
 
