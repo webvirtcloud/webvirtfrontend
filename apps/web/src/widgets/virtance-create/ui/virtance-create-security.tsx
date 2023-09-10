@@ -44,7 +44,7 @@ export function VirtanceCreateSecurity() {
   }
 
   // set first keypair on mount
-  if (type === 'keypairs' && getValues('keypairs').size === 0 && keypairs) {
+  if (type === 'keypairs' && getValues('keypairs').size === 0 && keypairs?.length) {
     setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
     console.log('set fist keypair');
   }
