@@ -1,11 +1,13 @@
 import { RegionCard } from '@/entities/region';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export function VirtanceCreateRegions({ regions }) {
+export function VirtanceCreateRegions(props) {
   const { setValue, watch, control } = useFormContext();
   const currentRegion = watch('region');
+  const isHidden = props.regions.length === 1 && props.regions[0].slug === 'default';
+  const regions = props.regions?.filter((region) => region.slug !== 'default');
 
-  return regions ? (
+  return regions && !isHidden ? (
     <section className="mb-12">
       <h2 className="mb-4 text-lg font-medium">Regions</h2>
       <div className="grid gap-4 md:grid-cols-3">
