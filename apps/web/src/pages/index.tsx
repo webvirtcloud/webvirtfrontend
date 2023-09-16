@@ -8,6 +8,7 @@ import { ImagesLayout } from '@/widgets/layouts/images-layout';
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
 const ResetPassword = lazy(() => import('@/pages/reset-password'));
+const ConfirmEmail = lazy(() => import('@/pages/confirm-email'));
 const CreateVirtance = lazy(() => import('@/pages/virtances/create/create'));
 const Virtances = lazy(() => import('@/pages/virtances/virtances'));
 const VirtanceOverview = lazy(() => import('@/pages/virtances/virtance/overview'));
@@ -32,9 +33,8 @@ export function Routing() {
     return (
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
-          <Route index element={<Navigate to="/virtances" />} />
           <Route
-            path="/virtances"
+            path="/"
             element={
               <Suspense>
                 <Virtances />
@@ -157,6 +157,14 @@ export function Routing() {
           element={
             <Suspense>
               <VirtanceConsole />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/confirm-email/:token"
+          element={
+            <Suspense>
+              <ConfirmEmail />
             </Suspense>
           }
         />
