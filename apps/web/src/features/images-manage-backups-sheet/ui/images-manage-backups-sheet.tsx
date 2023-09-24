@@ -7,6 +7,7 @@ import { useToast } from 'ui/components/toast';
 import { getVirtancesBackups } from '@/entities/virtance/api/get-virtance-backups';
 import {
   type Backup,
+  runImageAction,
   ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
 } from '@/entities/image';
@@ -14,7 +15,6 @@ import { runVirtanceAction, type Virtance } from '@/entities/virtance';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { format } from 'date-fns';
-import { runImageAction } from '@/entities/image/api/run-image-action';
 
 interface Props extends ComponentPropsWithoutRef<typeof Sheet> {
   virtance: Virtance | undefined;

@@ -11,10 +11,10 @@ import { Spin } from 'ui/components/spin';
 import { useToast } from 'ui/components/toast';
 import {
   type Backup,
+  runImageAction,
   ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
 } from '@/entities/image';
-import { runImageAction } from '@/entities/image/api/run-image-action';
 
 export default function VirtanceBackups() {
   const { id } = useParams();
