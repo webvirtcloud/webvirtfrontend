@@ -23,12 +23,6 @@ export function VirtanceCreateSecurity() {
     field: ControllerRenderProps<FieldValues, 'keypairs'>,
     id: number,
   ) {
-    // if (field.value.has(id)) {
-    //   const value = field.value;
-    //   value.delete(id);
-    //   return field.onChange(value);
-    // }
-
     field.onChange(field.value.add(id));
   }
 
@@ -39,7 +33,7 @@ export function VirtanceCreateSecurity() {
     }
     if (value === 'keypairs') {
       resetField('password');
-      if (keypairs.length) {
+      if (keypairs?.length) {
         keypairs && setValue('keypairs', getValues('keypairs').add(keypairs[0].id));
       }
     }

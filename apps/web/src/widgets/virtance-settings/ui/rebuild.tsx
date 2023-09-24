@@ -32,7 +32,7 @@ export function Rebuild({ id }: { id: number }) {
   async function onDelete() {
     try {
       setRebuilding(true);
-      await runAction({ id, action: 'rebuild', image });
+      image && (await runAction({ id, action: 'rebuild', image }));
       setImage(undefined);
     } catch (error) {
     } finally {

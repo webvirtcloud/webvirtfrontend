@@ -1,4 +1,5 @@
-import RFB from '@novnc/novnc';
+// @ts-ignore
+import RFB from '@novnc/novnc'; // there is not currently available and working types for this package
 import useSWR from 'swr';
 import { useRef, useState } from 'react';
 import { consoleVirtance } from '../api';
