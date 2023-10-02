@@ -1,4 +1,4 @@
-import SettingsIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
+import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import KeypairsIcon from '@heroicons/react/20/solid/CommandLineIcon';
 import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
 import ServerStackIcon from '@heroicons/react/20/solid/ServerStackIcon';
@@ -50,7 +50,7 @@ export function Navbar() {
                 {link.name === 'Virtances' && <ListIcon width={18} height={18} />}
                 {link.name === 'Keypairs' && <KeypairsIcon width={18} height={18} />}
                 {link.name === 'Images' && <ServerStackIcon width={18} height={18} />}
-                {link.name === 'Settings' && <SettingsIcon width={18} height={18} />}
+                {link.name === 'Firewalls' && <ShieldCheckIcon width={18} height={18} />}
                 <span>{link.name}</span>
               </NavLink>
             </li>
