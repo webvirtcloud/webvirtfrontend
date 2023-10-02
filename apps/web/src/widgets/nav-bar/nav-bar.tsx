@@ -16,10 +16,7 @@ export function Navbar() {
       <div className="container mx-auto p-4">
         <div className="flex items-center justify-between">
           <div className="mb-4 flex items-center space-x-4">
-            <Link
-              className="inline-flex items-center justify-center space-x-4"
-              to="/virtances"
-            >
+            <Link className="inline-flex items-center justify-center space-x-4" to="/">
               <img
                 className="w-8"
                 src={new URL('/src/shared/assets/images/logo.svg', import.meta.url).href}
