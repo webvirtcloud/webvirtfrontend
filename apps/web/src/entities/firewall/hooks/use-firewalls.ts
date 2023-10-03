@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 export function useFirewalls() {
   return useSWR(
-    '/keypairs/',
+    '/firewalls/',
     () => getFirewalls().then((response) => response.firewalls),
     {
       refreshInterval(latestData) {
