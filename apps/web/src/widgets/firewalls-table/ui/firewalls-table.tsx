@@ -26,12 +26,14 @@ export const FirewallsTable = () => {
     });
   };
 
-  const onDelete = async (id: number) => {
+  const onDelete = async (uuid: string) => {
     try {
-      await deleteFirewall(id);
-      await mutate(firewalls ? firewalls.filter((firewall) => firewall.id !== id) : []);
+      await deleteFirewall(uuid);
+      await mutate(
+        firewalls ? firewalls.filter((firewall) => firewall.uuid !== uuid) : [],
+      );
       toast({
-        title: 'Keypair was delete',
+        title: 'Firewall was delete',
       });
     } catch (error) {}
   };
@@ -150,7 +152,7 @@ export const FirewallsTable = () => {
           <FirewallDeleteAlertDialog
             open={isDeleteDialogOpen}
             onOpenChange={() => onDialogClose('delete')}
-            onDelete={() => onDelete(selectedFirewall.id)}
+            onDelete={() => onDelete(selectedFirewall.uuid)}
           />
         </>
       ) : null}
