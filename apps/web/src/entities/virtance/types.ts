@@ -1,3 +1,5 @@
+import { type Event } from '@/entities/event';
+
 export type Virtance = {
   id: number;
   name: string;
@@ -12,10 +14,7 @@ export type Virtance = {
   features: [];
   backup_ids: [];
   snapshot_ids: [];
-  event: {
-    name: string;
-    description: string;
-  } | null;
+  event: Event | null;
   image: {
     slug: string;
     name: string;
