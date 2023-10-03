@@ -11,6 +11,7 @@ import {
   useFirewalls,
   deleteFirewall,
 } from '@/entities/firewall';
+import { Link } from 'react-router-dom';
 
 export const FirewallsTable = () => {
   const { data: firewalls, mutate, error } = useFirewalls();
@@ -22,7 +23,7 @@ export const FirewallsTable = () => {
   const onCreate = async (firewall: Firewall) => {
     await mutate(firewalls ? [firewall, ...firewalls] : []);
     toast({
-      title: 'Keypair was created',
+      title: 'Firewall was created',
     });
   };
 
@@ -42,12 +43,12 @@ export const FirewallsTable = () => {
     selectedFirewall &&
       (await mutate(
         firewalls
-          ? firewalls.map((item) => (item.id === firewall.id ? firewall : item))
+          ? firewalls.map((item) => (item.uuid === firewall.uuid ? firewall : item))
           : [],
       ));
     setIsEditDialogOpen(false);
     toast({
-      title: 'Keypair was updated',
+      title: 'Firewall was updated',
     });
   }
 
@@ -97,6 +98,28 @@ export const FirewallsTable = () => {
     {
       field: 'name',
       name: 'Name',
+      component: ({ value }) => {
+        return (
+          <Link className="font-medium" to={`/firewalls/${value.uuid}`}>
+            {value.name}
+          </Link>
+        );
+      },
+    },
+    {
+      field: 'rules',
+      name: 'Rules',
+      component: ({ value }) => {
+        return (
+          <div>
+            <span className="text-gray-500">Inbound:</span>{' '}
+            <span className="font-medium">{value.inbound_rules.length}</span>
+            &nbsp;|&nbsp;
+            <span className="text-gray-500">Outbound:</span>{' '}
+            <span className="font-medium">{value.outbound_rules.length}</span>
+          </div>
+        );
+      },
     },
     {
       field: 'created_at',
