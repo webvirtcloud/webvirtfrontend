@@ -3,12 +3,13 @@ import { type Event } from '@/entities/event';
 export type FirewallInboundRule = {
   ports: string;
   protocol: string;
-  sources: { addresses: string }[];
+  sources: { addresses: string[] };
 };
+
 export type FirewallOutboundRule = {
   ports: string;
   protocol: string;
-  destinations: { addresses: string }[];
+  destinations: { addresses: string[] };
 };
 
 export type Firewall = {
@@ -16,7 +17,7 @@ export type Firewall = {
   name: string;
   event: Event | null;
   created_at: string;
-  inboud_rules: FirewallInboundRule[];
+  inbound_rules: FirewallInboundRule[];
   outbound_rules: FirewallOutboundRule[];
   virtance_ids: number[];
 };
