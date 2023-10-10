@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Skeleton } from 'ui/components/skeleton';
 import { State } from '@/shared/ui/state';
 import {
@@ -11,6 +11,7 @@ import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import TrashIcon from '@heroicons/react/20/solid/TrashIcon';
 import { useState } from 'react';
 import { useToast } from 'ui/components/toast';
+import { cx } from 'ui/lib';
 
 export function FirewallLayout() {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -31,6 +32,11 @@ export function FirewallLayout() {
     navigate('/firewalls');
   }
 
+  const links = [
+    { label: 'Rules', to: ``, end: true },
+    { label: 'Virtances', to: `virtances`, end: false },
+  ] as const;
+
   if (error) {
     return (
       <State
@@ -41,7 +47,7 @@ export function FirewallLayout() {
   }
   return (
     <div className="mx-auto max-w-6xl">
-      <header className="mb-6 border-b pb-6 dark:border-neutral-800">
+      <header className="mb-4">
         {firewall ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -93,6 +99,25 @@ export function FirewallLayout() {
           </div>
         )}
       </header>
+      <div className="mb-6 flex items-center gap-4 border-b dark:border-neutral-800">
+        {links.map((link) => (
+          <NavLink
+            to={link.to}
+            end={link.end}
+            key={link.label}
+            className={({ isActive }) =>
+              cx(
+                'px-2 py-4 font-medium',
+                isActive
+                  ? 'border-b border-black dark:border-white dark:text-white'
+                  : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300',
+              )
+            }
+          >
+            {link.label}
+          </NavLink>
+        ))}
+      </div>
       <Outlet />
     </div>
   );

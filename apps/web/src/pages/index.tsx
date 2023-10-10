@@ -23,7 +23,8 @@ const VirtanceBackups = lazy(() => import('@/pages/virtances/virtance/backups'))
 const VirtanceConsole = lazy(() => import('@/pages/virtances/virtance/console'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
 const Firewalls = lazy(() => import('@/pages/firewalls/firewalls'));
-const Firewall = lazy(() => import('@/pages/firewalls/firewall'));
+const FirewallRules = lazy(() => import('@/pages/firewalls/rules'));
+const FirewallVirtances = lazy(() => import('@/pages/firewalls/virtances'));
 const ImagesSnapshots = lazy(() => import('@/pages/images/snapshots'));
 const ImagesBackups = lazy(() => import('@/pages/images/backups'));
 const Settings = lazy(() => import('@/pages/settings'));
@@ -163,7 +164,15 @@ export function Routing() {
               index
               element={
                 <Suspense>
-                  <Firewall />
+                  <FirewallRules />
+                </Suspense>
+              }
+            />
+            <Route
+              path="virtances"
+              element={
+                <Suspense>
+                  <FirewallVirtances />
                 </Suspense>
               }
             />
