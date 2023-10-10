@@ -7,15 +7,18 @@ import {
 } from 'react';
 import { TagInput } from 'ui/components/tag-input';
 
+const ALL_PORTS_ADDRESS = '0.0.0.0/0';
+const ALL_PORTS_LABEL = 'All Traffic';
+
 export const FirewallAddressInput = forwardRef<
   ElementRef<typeof TagInput>,
   ComponentPropsWithoutRef<typeof TagInput>
 >(({ value, onValueChange, ...props }, ref) => {
   const [addresses, setAddresses] = useState<string[]>(
-    value.length === 1 && value[0] === '0.0.0.0/0' ? ['All Traffic'] : value,
+    value.length === 1 && value[0] === ALL_PORTS_ADDRESS ? [ALL_PORTS_LABEL] : value,
   );
 
-  const isDisabled = addresses.length === 1 && addresses[0] === 'All Traffic';
+  const isDisabled = addresses.length === 1 && addresses[0] === ALL_PORTS_LABEL;
 
   function onAddressesValueChange(data: string[]) {
     if (data.length === 0) {
@@ -23,19 +26,20 @@ export const FirewallAddressInput = forwardRef<
       onValueChange([]);
       return;
     }
-    if (data.includes('0.0.0.0/0')) {
-      setAddresses(['All Traffic']);
-      onValueChange(['0.0.0.0/0']);
+
+    if (data.includes(ALL_PORTS_ADDRESS)) {
+      setAddresses([ALL_PORTS_LABEL]);
+      onValueChange([ALL_PORTS_ADDRESS]);
       return;
     }
-    console.log('input data', data);
+
     setAddresses(data);
     onValueChange(data);
   }
 
   useEffect(() => {
-    if (value.length === 1 && value[0] === '0.0.0.0/0') {
-      setAddresses(['All Traffic']);
+    if (value.length === 1 && value[0] === ALL_PORTS_ADDRESS) {
+      setAddresses([ALL_PORTS_LABEL]);
     }
   }, [value]);
 
@@ -49,10 +53,10 @@ export const FirewallAddressInput = forwardRef<
         {...props}
         placeholder="Enter your addresses"
       />
-      {!value.includes('0.0.0.0/0') && (
+      {!value.includes(ALL_PORTS_ADDRESS) && (
         <button
           className="mt-1 rounded bg-zinc-200 px-2 dark:bg-zinc-700"
-          onClick={() => onValueChange(['0.0.0.0/0'])}
+          onClick={() => onValueChange([ALL_PORTS_ADDRESS])}
           type="button"
         >
           All Traffic
