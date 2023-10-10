@@ -4,6 +4,7 @@ import { DefaultLayout } from '@/shared/layouts/default';
 import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
 import { lazy, Suspense } from 'react';
 import { ImagesLayout } from '@/widgets/layouts/images-layout';
+import { FirewallLayout } from '@/widgets/layouts/firewall-layout';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
@@ -157,7 +158,7 @@ export function Routing() {
             />
           </Route>
 
-          <Route path="/firewalls/:id">
+          <Route path="/firewalls/:uuid" element={<FirewallLayout />}>
             <Route
               index
               element={
