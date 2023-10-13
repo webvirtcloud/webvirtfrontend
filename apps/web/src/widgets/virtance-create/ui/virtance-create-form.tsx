@@ -33,7 +33,7 @@ export default function VirtanceCreateForm({
         ...(data.userdata ? { userdata: data.userdata } : {}),
       });
 
-      navigate('/virtances');
+      navigate('/');
     } catch (e) {
       const { errors } = await e.response.json();
 
