@@ -52,25 +52,25 @@ export const FirewallsTable = () => {
     });
   }
 
-  function onDialogOpen(firewall: Firewall, type: 'edit' | 'delete') {
+  function onDialogOpen(firewall: Firewall, type: 'edit' | 'detach') {
     setSelectedFirewall(firewall);
 
     switch (type) {
       case 'edit':
         setIsEditDialogOpen(true);
         break;
-      case 'delete':
+      case 'detach':
         setIsDeleteDialogOpen(true);
         break;
     }
   }
 
-  function onDialogClose(type: 'edit' | 'delete') {
+  function onDialogClose(type: 'edit' | 'detach') {
     switch (type) {
       case 'edit':
         setIsEditDialogOpen(false);
         break;
-      case 'delete':
+      case 'detach':
         setIsDeleteDialogOpen(false);
         break;
     }
@@ -86,7 +86,7 @@ export const FirewallsTable = () => {
         <Button
           size="sm"
           variant="destructive"
-          onClick={() => onDialogOpen(key, 'delete')}
+          onClick={() => onDialogOpen(key, 'detach')}
         >
           Delete
         </Button>
@@ -173,7 +173,7 @@ export const FirewallsTable = () => {
           /> */}
           <FirewallDeleteAlertDialog
             open={isDeleteDialogOpen}
-            onOpenChange={() => onDialogClose('delete')}
+            onOpenChange={() => onDialogClose('detach')}
             onDelete={() => onDelete(selectedFirewall.uuid)}
           />
         </>

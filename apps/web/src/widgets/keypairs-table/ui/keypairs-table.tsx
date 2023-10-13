@@ -48,25 +48,25 @@ export const KeypairsTable = () => {
     });
   }
 
-  function onDialogOpen(key: Keypair, type: 'edit' | 'delete') {
+  function onDialogOpen(key: Keypair, type: 'edit' | 'detach') {
     setSelectedKeypair(key);
 
     switch (type) {
       case 'edit':
         setIsEditDialogOpen(true);
         break;
-      case 'delete':
+      case 'detach':
         setIsDeleteDialogOpen(true);
         break;
     }
   }
 
-  function onDialogClose(type: 'edit' | 'delete') {
+  function onDialogClose(type: 'edit' | 'detach') {
     switch (type) {
       case 'edit':
         setIsEditDialogOpen(false);
         break;
-      case 'delete':
+      case 'detach':
         setIsDeleteDialogOpen(false);
         break;
     }
@@ -82,7 +82,7 @@ export const KeypairsTable = () => {
         <Button
           size="sm"
           variant="destructive"
-          onClick={() => onDialogOpen(key, 'delete')}
+          onClick={() => onDialogOpen(key, 'detach')}
         >
           Delete
         </Button>
@@ -152,7 +152,7 @@ export const KeypairsTable = () => {
           />
           <KeypairDeleteAlertDialog
             open={isDeleteDialogOpen}
-            onOpenChange={() => onDialogClose('delete')}
+            onOpenChange={() => onDialogClose('detach')}
             onDelete={() => onDelete(selectedKeypair.id)}
           />
         </>
