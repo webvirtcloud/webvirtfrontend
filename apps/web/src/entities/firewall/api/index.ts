@@ -5,3 +5,6 @@ export * from './get-firewall';
 export * from './create-firewall-rule';
 export * from './update-firewall-rules';
 export * from './delete-firewall-rule';
+export * from './get-firewall-virtances';
+export * from './attach-firewall-virtance';
+export * from './detach-firewall-virtance';
