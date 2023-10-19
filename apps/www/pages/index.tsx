@@ -170,8 +170,12 @@ export default function Home() {
             </li>
           </ul>
         </div>
+        <div className="absolute bottom-0 flex h-1 w-full flex-row items-center justify-center pt-4">
+          <div className="h-[1px] w-1/2 bg-gradient-to-r from-transparent to-black/10 dark:to-white/20"></div>
+          <div className="h-[1px] w-1/2 bg-gradient-to-l from-transparent to-black/10 dark:to-white/20"></div>
+        </div>
       </motion.nav>
-      <header className="relative overflow-hidden p-4 py-32 text-center md:px-8">
+      <header className="relative overflow-hidden p-4 py-48 text-center md:px-8">
         <motion.div
           initial={{ opacity: 0, translateY: -8 }}
           animate={{ opacity: 100, translateY: 0 }}
