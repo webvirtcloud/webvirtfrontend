@@ -15,7 +15,10 @@ import CubeIcon from '@heroicons/react/24/solid/CubeIcon';
 import Cog6ToothIcon from '@heroicons/react/24/solid/Cog6ToothIcon';
 import Square2StackIcon from '@heroicons/react/24/solid/Square2StackIcon';
 import Square3Stack3DIcon from '@heroicons/react/24/solid/Square3Stack3DIcon';
+import SparklesIcon from '@heroicons/react/24/solid/SparklesIcon';
+import ArrowSmallRightIcon from '@heroicons/react/24/solid/ArrowSmallRightIcon';
 import GithubIcon from '@/icons/github';
+import DockerIcon from '@/icons/docker';
 import cx from 'clsx';
 
 function Logotype() {
@@ -124,62 +127,73 @@ export default function Home() {
         initial={{ opacity: 0, translateY: -10 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ delay: 0.7, duration: 0.8 }}
-        className="container mx-auto flex items-center justify-between p-4 md:p-8"
+        className="fixed left-0 right-0 top-0 z-10 backdrop-blur-xl dark:bg-black/10"
       >
-        <Logotype />
-        <ul className="hidden items-center space-x-8 text-neutral-600 dark:text-neutral-400 md:flex">
-          <li>
-            <Link
-              scroll={false}
-              className="transition-colors hover:text-black dark:hover:text-white"
-              href="#features"
-            >
-              Features
-            </Link>
-          </li>
-          <li>
-            <Link
-              scroll={false}
-              className="transition-colors hover:text-black dark:hover:text-white"
-              href="#benefits"
-            >
-              Benefits
-            </Link>
-          </li>
-          <li>
-            <Link
-              scroll={false}
-              className="transition-colors hover:text-black dark:hover:text-white"
-              href="#how-it-works"
-            >
-              How it works
-            </Link>
-          </li>
-          <li>
-            <Link
-              scroll={false}
-              className="transition-colors hover:text-black dark:hover:text-white"
-              href="#who-we-are"
-            >
-              Who we are
-            </Link>
-          </li>
-        </ul>
+        <div className="container mx-auto  flex h-20 items-center justify-between px-4 md:px-8">
+          <Logotype />
+          <ul className="hidden items-center space-x-8 text-neutral-600 dark:text-neutral-400 md:flex">
+            <li>
+              <Link
+                scroll={false}
+                className="transition-colors hover:text-black dark:hover:text-white"
+                href="#features"
+              >
+                Features
+              </Link>
+            </li>
+            <li>
+              <Link
+                scroll={false}
+                className="transition-colors hover:text-black dark:hover:text-white"
+                href="#benefits"
+              >
+                Benefits
+              </Link>
+            </li>
+            <li>
+              <Link
+                scroll={false}
+                className="transition-colors hover:text-black dark:hover:text-white"
+                href="#how-it-works"
+              >
+                How it works
+              </Link>
+            </li>
+            <li>
+              <Link
+                scroll={false}
+                className="transition-colors hover:text-black dark:hover:text-white"
+                href="#who-we-are"
+              >
+                Who we are
+              </Link>
+            </li>
+          </ul>
+        </div>
       </motion.nav>
       <header className="relative overflow-hidden p-4 py-32 text-center md:px-8">
-        <motion.span
+        <motion.div
           initial={{ opacity: 0, translateY: -8 }}
           animate={{ opacity: 100, translateY: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="mb-2 inline-block rounded-lg bg-black/10 px-3 py-1.5 text-center text-xs font-bold uppercase dark:bg-white/20 dark:text-white"
+          className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-center backdrop-blur-xl dark:border-white/20 dark:bg-white/5"
         >
-          Beta
-        </motion.span>
+          <SparklesIcon className="h-5 w-5" />
+          <span>Beta release is finally here!</span>
+          <div className="h-5 w-px bg-black/20 dark:bg-white/20"></div>
+          <Link
+            className="inline-flex items-center gap-1 text-sky-500"
+            href={'/blog/beta-release'}
+          >
+            <span>Read post</span>
+            <ArrowSmallRightIcon className="h-4 w-4" />
+          </Link>
+        </motion.div>
         <motion.h1
           initial={{ opacity: 0, translateY: -20 }}
           animate={{ opacity: 100, translateY: 0 }}
           transition={{ duration: 1 }}
-          className="mx-auto mb-6 text-4xl font-medium text-neutral-500 dark:text-neutral-400 md:text-6xl md:leading-snug"
+          className="mx-auto mb-6 text-5xl font-bold text-neutral-400 dark:text-neutral-500 md:text-7xl md:leading-none"
         >
           Take{' '}
           <span className="font-medium text-black dark:text-white">cloud providers</span>{' '}
@@ -190,7 +204,7 @@ export default function Home() {
           initial={{ opacity: 0, translateY: 14 }}
           animate={{ opacity: 100, translateY: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="mb-12 text-xl dark:text-neutral-100"
+          className="mb-12 text-xl text-neutral-500"
         >
           Self-hosted cloud platform solution
         </motion.p>
@@ -200,13 +214,14 @@ export default function Home() {
           transition={{ delay: 0.8, duration: 0.7 }}
           className="flex items-center justify-center space-x-4"
         >
-          <Link
-            scroll={false}
-            href="#features"
-            className="inline-flex h-12 items-center rounded-xl bg-gradient-to-l from-blue-600 to-cyan-500 px-8 font-semibold text-white outline-none transition-transform duration-300 hover:scale-105 dark:text-black"
+          <a
+            target="_blank"
+            href="https://hub.docker.com/u/webvirtcloud"
+            className="inline-flex h-12 items-center gap-2 rounded-lg bg-gradient-to-l from-blue-600 to-cyan-500 px-8 font-semibold text-white outline-none transition-transform duration-300 hover:scale-105"
           >
-            Explore
-          </Link>
+            <DockerIcon className="h-6 w-6" />
+            Run in Docker
+          </a>
           <GithubButton />
         </motion.div>
         <p className="mb-8"></p>
@@ -228,7 +243,7 @@ export default function Home() {
                 },
               }}
               animate="pulse"
-              className="absolute left-1/2 -top-12 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px] lg:h-96 lg:w-96"
+              className="absolute -top-12 left-1/2 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-cyan-300 blur-[120px] lg:h-96 lg:w-96"
             ></motion.div>
             <motion.div
               variants={{
@@ -325,7 +340,7 @@ export default function Home() {
                     {feature.name}
                   </h3>
                   {feature.coming && (
-                    <span className="rounded-3xl bg-yellow-200/50 py-1.5 px-2 text-xs font-medium text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-500">
+                    <span className="rounded-3xl bg-yellow-200/50 px-2 py-1.5 text-xs font-medium text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-500">
                       coming soon
                     </span>
                   )}
@@ -350,7 +365,7 @@ export default function Home() {
               </p>
             </div>
             <div className="relative flex flex-col justify-end overflow-hidden rounded-xl bg-neutral-200 p-8 pt-16 transition-transform duration-300 hover:scale-[1.01] dark:bg-neutral-800 md:col-span-4">
-              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-3xl bg-yellow-500 blur-[80px]"></div>
+              <div className="absolute -right-20 -top-20 h-40 w-40 rounded-3xl bg-yellow-500 blur-[80px]"></div>
               <h3 className="relative z-10 mb-4 text-3xl font-semibold">Time-saving</h3>
               <p className="relative z-10 text-2xl font-normal text-neutral-600 dark:text-white/80">
                 With our interface, you can perform virtual machine management tasks
@@ -428,7 +443,7 @@ export default function Home() {
         </section>
         <section
           id="get-started"
-          className="relative my-32 flex flex-col overflow-hidden rounded-3xl bg-neutral-200 pt-16 pb-0 dark:bg-neutral-800 md:flex-row md:items-center md:gap-32 md:py-32"
+          className="relative my-32 flex flex-col overflow-hidden rounded-3xl bg-neutral-200 pb-0 pt-16 dark:bg-neutral-800 md:flex-row md:items-center md:gap-32 md:py-32"
         >
           <div className="shrink-0 p-4 md:w-1/2 md:p-0 md:pl-16">
             <h2 className="mb-8 text-3xl font-semibold md:text-5xl">Get started</h2>
