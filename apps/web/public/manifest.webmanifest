@@ -1,6 +1,6 @@
 {
-  "short_name": "webvirtcloudfrontend",
-  "name": "Frontend of WebVirtCloud on React 18",
+  "short_name": "webvirtcloud",
+  "name": "WebVirtCloud",
   "icons": [
     {
       "src": "favicon.svg",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#111827",
-  "background_color": "#111827"
+  "theme_color": "#171717",
+  "background_color": "#171717"
 }
