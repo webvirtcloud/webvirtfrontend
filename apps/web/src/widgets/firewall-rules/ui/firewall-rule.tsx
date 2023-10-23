@@ -5,6 +5,7 @@ import {
   FirewallAddressInput,
   InboundTypeOptions,
   OutboundTypeOptions,
+  calculateType,
 } from '@/entities/firewall';
 import { type ChangeEvent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -94,29 +95,6 @@ export function FirewallRule({
     onDeleteRule?.({
       ...('sources' in rule ? { inbound_rules: [rule] } : { outbound_rules: [rule] }),
     });
-  }
-
-  function calculateType(rule: FirewallInboundRule | FirewallOutboundRule) {
-    if (rule.ports === '80') {
-      return 'HTTP';
-    }
-    if (rule.ports === '443') {
-      return 'HTTPS';
-    }
-    if (rule.ports === '22') {
-      return 'SSH';
-    }
-    if (rule.ports === '0' && rule.protocol === 'tcp') {
-      return 'All TCP';
-    }
-    if (rule.ports === '0' && rule.protocol === 'udp') {
-      return 'All UDP';
-    }
-    if (rule.ports === '0' && rule.protocol === 'icmp') {
-      return 'All ICMP';
-    }
-
-    return 'Custom';
   }
 
   function onTypeValueChange(e: ChangeEvent<HTMLSelectElement>) {

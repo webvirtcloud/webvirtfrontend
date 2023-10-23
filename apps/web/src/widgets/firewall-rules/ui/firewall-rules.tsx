@@ -144,7 +144,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
             </tr>
           </thead>
           <tbody className="divide-y dark:divide-neutral-700">
-            {firewall?.inbound_rules.map((rule, i) => (
+            {firewall?.inbound_rules.map((rule) => (
               <FirewallRule
                 rule={rule}
                 onUpdateRule={onUpdateRule}
