@@ -5,10 +5,15 @@ import { notFound } from 'next/navigation';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { Toc } from '@/components/toc';
 import { Pagination } from '@/components/pagination';
+import { Note } from '@/components/note';
 
 interface Props {
   params: { slug: string[] };
 }
+
+const mdxComponents = {
+  Note,
+} as const;
 
 export function generateStaticParams(): Array<Props['params']> {
   const slugs = allDocs.map((doc) => doc.slug);
@@ -54,7 +59,7 @@ export default function Page({ params }: Props) {
           </p>
         </div>
         <div className="prose dark:prose-invert prose-pre:bg-transparent prose-headings:scroll-mt-28 max-w-none">
-          <MDXContent />
+          <MDXContent components={mdxComponents} />
         </div>
         {next || prev ? <Pagination next={next} prev={prev} /> : null}
       </article>
@@ -65,7 +70,7 @@ export default function Page({ params }: Props) {
         <a
           className="inline-flex items-center gap-2 text-sm text-neutral-500"
           target="_blank"
-          href={`https://github.com/webvirtcloud/webvirtfrontend/tree/master/apps/www/${doc._raw.sourceFilePath}`}
+          href={`https://github.com/webvirtcloud/webvirtfrontend/tree/master/apps/www/content/${doc._raw.sourceFilePath}`}
         >
           Edit this page on GitHub
           <ArrowRightCircleIcon className="h-4 w-4" />
