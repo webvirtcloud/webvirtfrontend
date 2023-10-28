@@ -5,9 +5,14 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "../../packages/ui/components/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth: {
+        '8xl': '90rem',
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography', require("tailwindcss-animate")),

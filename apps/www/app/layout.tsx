@@ -27,17 +27,15 @@ export const metadata: Metadata = {
     'webvirtcloud, cloud, servers, kvm, virtualization, virtual machines, vms, webvirtmgr, webvirt, docker, kubernetes, k8s',
 };
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children, ...props }: PropsWithChildren) {
   return (
     <html lang="en" className="scroll-smooth">
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
-        <GoogleAnalytics
-          gaTrackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID as string}
-        />
+        <GoogleAnalytics gaTrackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
       ) : null}
       <body className="flex min-h-screen flex-col overflow-x-hidden">
         <Navigation />
-        <div className="flex-1">{children}</div>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

@@ -10,7 +10,7 @@ import { DockerButton } from '@/components/docker-button';
 
 export function HomeHeader() {
   return (
-    <header className="relative overflow-hidden p-4 py-48 text-center md:px-8">
+    <header className="relative overflow-hidden p-4 py-24 text-center md:px-8">
       <motion.div
         initial={{ opacity: 0, translateY: -8 }}
         animate={{ opacity: 100, translateY: 0 }}

@@ -1,0 +1,77 @@
+---
+title: Setup
+description: This guide will walk you through the steps required to get your cloud platform up and running quickly. Whether you're a seasoned system administrator or a first-time user, this guide is designed to make the installation process as smooth as possible.
+index: 1
+---
+
+## Prerequisites
+
+- Docker
+- Docker Compose
+
+## Install
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/webvirtcloud/webvirtbackend.git
+```
+
+2. Change into the cloned directory:
+
+```bash
+cd webvirtbackend
+```
+
+3. Build the Docker image:
+
+```bash
+docker compose build
+```
+
+4. Run the Docker container:
+
+```bash
+docker compose up -d
+```
+
+5. Run the database migrations:
+
+```bash
+docker compose exec backend python3 manage.py migrate
+```
+
+6. Load the initial data:
+
+```bash
+docker compose exec backend python3 manage.py loaddata initial_data
+```
+
+7. Access the admin site:
+
+Open your web browser and go to `http://localhost:8000/admin`. You can log in with the following credentials:
+
+- Username: `admin@webvirt.cloud`
+- Password: `admin`
+
+## Configuration
+
+You can configure the backend by editing the `webvirtcloud/settings/local.py` file for modifying the default settings. The default settings are defined in `webvirtcloud/settings/base.py`.
+
+### Swagger
+
+The Swagger API documentation is available at `http://localhost:8000/swagger/`.
+
+## Usage
+
+The API endpoints are available at `http://localhost:8000/api/`. You can use them to create, delete, and manage virtual machines. You can log in with the following credentials:
+
+- Username: `user@webvirt.cloud`
+- Password: `1qaz2wsx`
+- Token: `fcc69bfad35527d087bf22a8a84a4f6c3b75387877c78ae3050e9e8036ef`
+
+Example API requests:
+
+```bash
+curl -H "Authorization: Bearer fcc69bfad35527d087bf22a8a84a4f6c3b75387877c78ae3050e9e8036ef" http://localhost:8000/api/v1/virtances/
+```

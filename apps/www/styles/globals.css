@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 body {
-  @apply bg-neutral-50 dark:bg-neutral-950 dark:text-neutral-50;
+  @apply bg-white dark:bg-neutral-950 dark:text-neutral-50;
   font-family: 'Outfit', sans-serif;
+}
+
+[data-rehype-pretty-code-fragment] pre {
+  font-size: 13px;
 }

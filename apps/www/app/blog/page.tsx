@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 
 export default function Page() {
   return (
-    <main className="mx-auto max-w-4xl space-y-16 px-4 py-32 md:px-8">
+    <div className="mx-auto max-w-4xl space-y-16 px-4 py-12 md:px-8">
       <header className="space-y-4">
         <h1 className="text-3xl font-bold">All posts</h1>
         <p className="text-neutral-500">Get the latest updates from WebVirtCloud</p>
@@ -38,6 +38,6 @@ export default function Page() {
           </section>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

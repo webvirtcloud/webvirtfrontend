@@ -44,14 +44,14 @@ export default function Page({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <div className="py-32">
+    <div className="py-12">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <Link href={'/blog'} className="flex items-center gap-2">
           <ArrowLeftIcon className="h-4 w-4" />
           Go back
         </Link>
       </div>
-      <main className="mx-auto w-full max-w-3xl space-y-16 px-4 md:px-8">
+      <div className="mx-auto w-full max-w-3xl space-y-16 px-4 md:px-8">
         <article className="prose lg:prose-lg dark:prose-p:text-neutral-400 prose-p:text-neutral-600 dark:prose-p:font-light dark:prose-invert prose-h1:mb-0 xl:prose-h1:mb-0 mx-auto pt-8">
           <div className="mb-4 text-sm text-neutral-500">
             <span>{post.readTime}</span> /{' '}
@@ -71,7 +71,7 @@ export default function Page({ params }: Props) {
 
           <div dangerouslySetInnerHTML={{ __html: post.body.html }} />
         </article>
-      </main>
+      </div>
     </div>
   );
 }

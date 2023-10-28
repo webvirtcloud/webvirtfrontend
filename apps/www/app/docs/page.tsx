@@ -1,0 +1,38 @@
+import Link from 'next/link';
+import ChevronRightIcon from '@heroicons/react/20/solid/ChevronRightIcon';
+
+export default function Page() {
+  return (
+    <div>
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-neutral-200 sm:text-3xl">
+        WebVirtCloud Documentation
+      </h1>
+      <p className="mt-4 text-lg">
+        Here is a documentation of WebVirtCloud where you can find all information needed
+        to get started, how to use API and so on.
+      </p>
+      <div className="mt-8 grid grid-cols-3 gap-4">
+        <div className="flex flex-col">
+          <div className="mt-6 grow rounded-t-xl border p-6 dark:border-neutral-800">
+            <h3 className="mb-4 text-xl font-medium">Getting Started</h3>
+            <p className="text-neutral-500">
+              Learn the basics of WebVirtCloud to quickly run your own sefl-hosted cloud
+              platform.
+            </p>
+          </div>
+          <div className="rounded-b-xl border bg-neutral-100 p-6 py-4 dark:border-neutral-800 dark:bg-neutral-900">
+            <Link
+              className="inline-flex items-center space-x-1.5 text-sky-500 no-underline hover:text-sky-600 dark:text-sky-500 "
+              href="/docs/getting-started/setup"
+            >
+              <span>Jump into it</span>
+              <span className="block w-2">
+                <ChevronRightIcon className="h-5 w-5" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
