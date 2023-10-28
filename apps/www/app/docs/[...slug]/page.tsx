@@ -26,7 +26,11 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!doc) notFound();
 
   const title = `${doc.title} - WebVirtCloud Documentation`;
-  const { description } = doc;
+
+  const description =
+    doc.description.length > 200
+      ? `${doc.description.substring(0, 200)}...`
+      : doc.description;
 
   return {
     title,

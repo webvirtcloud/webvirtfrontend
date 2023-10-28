@@ -5,10 +5,15 @@ import { type Metadata } from 'next';
 import { allPosts } from 'contentlayer/generated';
 import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
+import { useMDXComponent } from 'next-contentlayer/hooks';
+import { Note } from '@/components/note';
 
 interface Props {
   params: { slug: string };
 }
+const mdxComponents = {
+  Note,
+} as const;
 
 export function generateStaticParams(): Array<Props['params']> {
   return allPosts.map((post) => ({ slug: post.slug }));
@@ -41,7 +46,10 @@ export function generateMetadata({ params }: Props): Metadata {
 
 export default function Page({ params }: Props) {
   const post = allPosts.find((post) => post.slug === params.slug);
+
   if (!post) notFound();
+
+  const MDXContent = useMDXComponent(post.body.code);
 
   return (
     <div className="py-12">
@@ -69,7 +77,7 @@ export default function Page({ params }: Props) {
             className="rounded-xl"
           />
 
-          <div dangerouslySetInnerHTML={{ __html: post.body.html }} />
+          <MDXContent components={mdxComponents} />
         </article>
       </div>
     </div>

@@ -8,7 +8,8 @@ import { toTitleCase } from './utils';
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
-  filePathPattern: `posts/**/*.md`,
+  filePathPattern: `posts/**/*.mdx`,
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     description: { type: 'string', required: true },
