@@ -11,7 +11,7 @@ export default function VirtanceSnapshots() {
   const methods = useForm<{ name: string }>();
   const { toast } = useToast();
   const { id } = useParams();
-  const { virtance, runAction } = useVirtance(Number(id));
+  const { runAction } = useVirtance(Number(id));
 
   const {
     data: snapshots,
@@ -38,15 +38,29 @@ export default function VirtanceSnapshots() {
       methods.reset();
     } catch (e) {
       methods.setError('root', { message: 'Internal server error' });
-      const { errors } = await e.response.json();
+      const response = await e.response.json();
 
-      errors.forEach((error) => {
-        const keys = Object.keys(error);
+      if (response.errors) {
+        return response.errors.forEach((error) => {
+          const keys = Object.keys(error);
 
-        keys.forEach((key) => {
-          toast({ title: 'Form error', description: error[key] });
+          keys.forEach((key) => {
+            toast({
+              title: 'Form error',
+              variant: 'destructive',
+              description: error[key],
+            });
+          });
         });
-      });
+      }
+
+      if (response.message) {
+        toast({
+          title: 'Form error',
+          variant: 'destructive',
+          description: response.message,
+        });
+      }
     }
   }
 
