@@ -11,7 +11,7 @@ export default function Page() {
         Here is a documentation of WebVirtCloud where you can find all information needed
         to get started, how to use API and so on.
       </p>
-      <div className="mt-8 grid grid-cols-3 gap-4">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         <div className="flex flex-col">
           <div className="mt-6 grow rounded-t-xl border p-6 dark:border-neutral-800">
             <h3 className="mb-4 text-xl font-medium">Getting Started</h3>
