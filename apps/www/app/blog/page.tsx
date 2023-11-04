@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { allPosts } from '@/.contentlayer/generated';
-import { format } from 'date-fns';
+import { compareDesc, format } from 'date-fns';
 
 export default function Page() {
+  const posts = allPosts.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+
   return (
     <div className="mx-auto max-w-4xl space-y-16 px-4 py-12 md:px-8">
       <header className="space-y-4">
@@ -12,7 +14,7 @@ export default function Page() {
       </header>
 
       <div className="grid grid-cols-1 gap-8">
-        {allPosts.map((post) => (
+        {posts.map((post) => (
           <section key={post.slug}>
             <Link
               href={`/blog/${post.slug}`}
