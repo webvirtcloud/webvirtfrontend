@@ -1,3 +1,5 @@
+import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
+import EllipsisVerticalIcon from '@heroicons/react/20/solid/EllipsisVerticalIcon';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Skeleton } from 'ui/components/skeleton';
 import { State } from '@/shared/ui/state';
@@ -7,11 +9,15 @@ import {
   deleteFirewall,
 } from '@/entities/firewall';
 import { Button } from 'ui/components/button';
-import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
-import TrashIcon from '@heroicons/react/20/solid/TrashIcon';
 import { useState } from 'react';
 import { useToast } from 'ui/components/toast';
 import { cx } from 'ui/lib';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from 'ui/components/dropdown-menu';
 
 export function FirewallLayout() {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -65,14 +71,17 @@ export function FirewallLayout() {
               </div>
             </div>
             <div className="flex gap-2">
-              <Button
-                onClick={openDeleteDialog}
-                disabled={isBusy}
-                className="w-8 p-0"
-                variant="secondary"
-              >
-                <TrashIcon className="mx-auto h-4 w-4 text-red-500" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="secondary" disabled={isBusy} className="w-8 px-0">
+                    <EllipsisVerticalIcon className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={openDeleteDialog}>Delete</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <FirewallDeleteAlertDialog
                 open={isDeleteDialogOpen}
                 onOpenChange={setDeleteDialogOpen}
