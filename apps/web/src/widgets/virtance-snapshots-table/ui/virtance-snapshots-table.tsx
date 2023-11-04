@@ -123,7 +123,7 @@ export function VirtanceSnapshotsTable({
       component: ({ value }) => (
         <div>
           <div className="font-bold">{value.name}</div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-xs text-neutral-500 dark:text-neutral-400">
             Size {value.size_gigabytes} GB
           </div>
         </div>

@@ -112,7 +112,7 @@ export const FirewallsTable = () => {
       component: ({ value }) => {
         return (
           <div>
-            <span className="text-gray-500">
+            <span className="text-neutral-500">
               {value.inbound_rules.length + value.outbound_rules.length} rules /{' '}
               {value.virtance_ids.length} virtances
             </span>

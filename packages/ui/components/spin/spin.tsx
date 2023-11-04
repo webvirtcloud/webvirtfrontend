@@ -2,7 +2,7 @@ import { cx } from '../../lib';
 import { cva, VariantProps } from 'class-variance-authority';
 import { SVGAttributes } from 'react';
 
-const spinVariants = cva('animate-spin text-gray-200 dark:text-gray-600', {
+const spinVariants = cva('animate-spin text-neutral-200 dark:text-neutral-600', {
   variants: {
     variant: {
       default: 'fill-sky-600',
