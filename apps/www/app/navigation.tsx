@@ -7,7 +7,7 @@ export function Navigation() {
     <nav className="sticky inset-x-0 top-0 z-30 bg-white/50 backdrop-blur-md dark:bg-black/10">
       <div className="max-w-8xl mx-auto flex h-20 items-center justify-between px-4 md:px-8">
         <Logotype />
-        <ul className="flex items-center gap-3 text-neutral-500 dark:text-neutral-400 md:gap-8">
+        <ul className="flex items-center gap-3 text-neutral-500 dark:text-neutral-400 md:gap-6">
           <NavigationItem href="/blog">Blog</NavigationItem>
           <NavigationItem href="/docs">Docs</NavigationItem>
           <li role="separator" className="h-4 w-px bg-neutral-300 dark:bg-neutral-700" />
@@ -20,6 +20,7 @@ export function Navigation() {
                   href={link.href}
                   target="_blank"
                 >
+                  <span className="sr-only">{link.name}</span>
                   <Icon />
                 </a>
               </li>

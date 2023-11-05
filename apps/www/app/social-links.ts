@@ -1,4 +1,5 @@
 import GithubIcon from '@/icons/github';
+import TgIcon from '@/icons/tg';
 import XIcon from '@/icons/x';
 
 export const SOCIAL_LINKS = [
@@ -11,5 +12,10 @@ export const SOCIAL_LINKS = [
     icon: XIcon,
     name: 'x',
     href: 'https://x.com/webvirtcloud',
+  },
+  {
+    icon: TgIcon,
+    name: 'telegram',
+    href: 'https://t.me/webvirtcloud',
   },
 ] as const;

@@ -29,6 +29,7 @@ export function Footer() {
                       href={link.href}
                       target="_blank"
                     >
+                      <span className="sr-only">{link.name}</span>
                       <Icon />
                     </a>
                   </li>
