@@ -1,5 +1,6 @@
+import { formatMemorySize } from '@/shared/lib';
+import { type Size } from '@/entities/size';
 import { cx } from 'ui/lib';
-import { Size } from '../types';
 
 interface Props {
   isActive: boolean;
@@ -27,14 +28,14 @@ export function SizeCard({ size, isActive, isDisabled, onClick }: Props) {
         <ul className="space-y-2 text-end">
           <li>
             <span className="font-medium">{size.vcpu}</span>{' '}
-            <span className="text-neutral-500">vCPU</span>
+            <span className="text-neutral-500">CPU</span>
           </li>
           <li>
-            <span className="font-medium">{size.memory}</span>{' '}
+            <span className="font-medium">{formatMemorySize(size.memory)}</span>{' '}
             <span className="text-neutral-500">Memory</span>
           </li>
           <li>
-            <span className="font-medium">{size.disk}</span>{' '}
+            <span className="font-medium">{size.disk}GB</span>{' '}
             <span className="text-neutral-500">Disk</span>
           </li>
         </ul>

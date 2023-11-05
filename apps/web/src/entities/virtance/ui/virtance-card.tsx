@@ -1,12 +1,12 @@
 import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
 import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
 import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
-import type { Virtance } from '@/entities/virtance';
+import { type Virtance } from '@/entities/virtance';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { cx } from 'ui/lib';
 import { StatusDot } from 'ui/components/status-dot';
+import { formatMemorySize } from '@/shared/lib';
 
 type Props = {
   to: string;
@@ -15,9 +15,6 @@ type Props = {
 };
 
 export function VirtanceCard({ virtance, to, actions }: Props) {
-  const isActive = () => virtance.status === 'active';
-  const isPending = () => virtance.status === 'pending';
-
   const getIpAddress = () =>
     virtance.networks.v4.find((ip) => ip.type === 'public')?.address;
 
@@ -49,7 +46,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
                 <StatusDot status={virtance.status} />
               </div>
               <p className="text-sm text-neutral-500">
-                {virtance.size.memory}GB DDR4 / {virtance.size.disk}GB SSD
+                {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB SSD
               </p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { type Virtance, getVirtances } from '@/entities/virtance';
 import useSWR from 'swr';
 
 import { ImagesManageBackupsSheet } from '@/features/images-manage-backups-sheet';
+import { formatMemorySize } from '@/shared/lib';
 
 export function ImagesBackupsTable() {
   const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
@@ -52,7 +53,7 @@ export function ImagesBackupsTable() {
               <h3 className="text-base font-medium">{value.name}</h3>
             </div>
             <p className="text-sm text-neutral-500">
-              {value.size.memory}GB DDR4 / {value.size.disk}GB SSD
+              {formatMemorySize(value.size.memory)} DDR4 / {value.size.disk}GB SSD
             </p>
           </div>
         </div>

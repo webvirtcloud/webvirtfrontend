@@ -11,11 +11,13 @@ import { StatusDot } from 'ui/components/status-dot';
 import { ChangeEvent } from 'react';
 import { Skeleton } from 'ui/components/skeleton';
 import { State } from '@/shared/ui/state';
+import { formatMemorySize } from '@/shared/lib';
 
 export function VirtanceLayout() {
   const { id } = useParams();
   const { pathname } = useLocation();
   const { virtance, runAction, error } = useVirtance(Number(id));
+
   const navigate = useNavigate();
 
   const links = [
@@ -71,8 +73,8 @@ export function VirtanceLayout() {
                   <StatusDot status={virtance.status} />
                 </div>
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  {virtance.size.memory}GB DDR4 / {virtance.size.disk}GB SSD /{' '}
-                  {virtance.region.name} /{' '}
+                  {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB
+                  SSD / {virtance.region.name} /{' '}
                   <span className="font-medium text-neutral-900 dark:text-white">
                     {virtance.image.distribution} {virtance.image.name}
                   </span>

@@ -1,3 +1,4 @@
+import { formatMemorySize } from '@/shared/lib';
 import { useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 
@@ -33,7 +34,7 @@ export function VirtanceCreateOverview() {
               {distribution.name} {image.name}
             </h3>
             <p className="text-sm text-neutral-500">
-              {size.memory}GB DDR4 / {size.disk}GB SSD / {region.name}
+              {formatMemorySize(size.memory)} DDR4 / {size.disk}GB SSD / {region.name}
             </p>
           </div>
         </div>
