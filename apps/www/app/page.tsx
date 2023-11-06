@@ -52,7 +52,6 @@ export default function Page() {
     {
       name: '7. Firewalls',
       icon: ShieldCheckIcon,
-      coming: true,
       description: 'Security rules for network access control and threat prevention.',
     },
     {
