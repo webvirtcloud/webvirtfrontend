@@ -62,7 +62,7 @@ export default function Page({ params }: Props) {
             {doc.description}
           </p>
         </div>
-        <div className="prose dark:prose-invert prose-pre:bg-transparent prose-headings:scroll-mt-28 max-w-none">
+        <div className="prose dark:prose-invert prose-pre:bg-transparent prose-code:break-words prose-headings:scroll-mt-28 max-w-none">
           <MDXContent components={mdxComponents} />
         </div>
         {next || prev ? <Pagination next={next} prev={prev} /> : null}
