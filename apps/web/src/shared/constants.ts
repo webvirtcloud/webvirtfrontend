@@ -1,2 +1,2 @@
-export const API_HOST = import.meta.env.VITE_API_HOST;
-export const API_AUTH_HOST = import.meta.env.VITE_API_AUTH_HOST;
+export const API_BASE_DOMAIN = import.meta.env.VITE_API_BASE_DOMAIN;
+export const API_PREFIX = import.meta.env.VITE_API_PREFIX;
