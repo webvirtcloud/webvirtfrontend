@@ -10,7 +10,7 @@ const config = dotenv.config({
 // WORKAROUND: We need to populate the process.env object with `API_DOMAIN` variable from docker
 //env variables with VITE_ prefix to make them available in the browser.
 dotenv.populate(process.env as DotenvPopulateInput, {
-  VITE_API_BASE_DOMAIN: config.parsed?.API_DOMAIN as string,
+  VITE_API_BASE_DOMAIN: (process.env.API_DOMAIN || config.parsed?.API_DOMAIN) as string,
 });
 
 // console.log(process.env);
