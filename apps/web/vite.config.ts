@@ -9,8 +9,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      'import.meta.env.VITE_API_BASE_DOMAIN': JSON.stringify(
-        process.env.API_DOMAIN || env.API_DOMAIN,
+      'import.meta.env.VITE_API_DOMAIN': JSON.stringify(
+        process.env.API_DOMAIN || env.VITE_API_DOMAIN,
       ),
     },
     resolve: {

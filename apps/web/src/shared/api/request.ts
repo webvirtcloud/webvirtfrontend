@@ -1,9 +1,9 @@
 import ky from 'ky';
 
-import { API_BASE_DOMAIN, API_PREFIX } from '@/shared/constants';
+import { API_DOMAIN, API_PREFIX } from '@/shared/constants';
 
 const request = ky.create({
-  prefixUrl: `${API_BASE_DOMAIN}${API_PREFIX}`,
+  prefixUrl: `${API_DOMAIN}${API_PREFIX}`,
   hooks: {
     beforeRequest: [
       (request) => {
