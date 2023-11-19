@@ -20,6 +20,8 @@ export function FloatingIPAssignForm({ onSubmit, virtances }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [virtanceId, setVirtanceId] = useState<string>();
 
+  const isDisabled = virtances?.length === 0;
+
   async function submit(e: FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
@@ -44,8 +46,10 @@ export function FloatingIPAssignForm({ onSubmit, virtances }: Props) {
         </Label>
         <div className="flex items-center gap-2">
           <Select value={virtanceId} onValueChange={setVirtanceId} key={virtanceId}>
-            <SelectTrigger id="virtance" className="w-80">
-              <SelectValue placeholder="Select virtance" />
+            <SelectTrigger id="virtance" className="w-80" disabled={isDisabled}>
+              <SelectValue
+                placeholder={isDisabled ? 'No available virtances' : 'Select virtance'}
+              />
             </SelectTrigger>
             <SelectContent>
               {virtances?.map((virtance) => (
