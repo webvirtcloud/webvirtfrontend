@@ -1,10 +1,11 @@
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+
 import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
-import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
-import { lazy, Suspense } from 'react';
-import { ImagesLayout } from '@/widgets/layouts/images-layout';
 import { FirewallLayout } from '@/widgets/layouts/firewall-layout';
+import { ImagesLayout } from '@/widgets/layouts/images-layout';
+import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
@@ -25,6 +26,7 @@ const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
 const Firewalls = lazy(() => import('@/pages/firewalls/firewalls'));
 const FirewallRules = lazy(() => import('@/pages/firewalls/rules'));
 const FirewallVirtances = lazy(() => import('@/pages/firewalls/virtances'));
+const FloatingIPs = lazy(() => import('@/pages/floating-ip/floating-ips'));
 const ImagesSnapshots = lazy(() => import('@/pages/images/snapshots'));
 const ImagesBackups = lazy(() => import('@/pages/images/backups'));
 const Settings = lazy(() => import('@/pages/settings'));
@@ -58,6 +60,14 @@ export function Routing() {
             element={
               <Suspense>
                 <Keypairs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/floating-ips"
+            element={
+              <Suspense>
+                <FloatingIPs />
               </Suspense>
             }
           />

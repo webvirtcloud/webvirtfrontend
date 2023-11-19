@@ -1,12 +1,10 @@
-import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
-import KeypairsIcon from '@heroicons/react/20/solid/CommandLineIcon';
-import ListIcon from '@heroicons/react/20/solid/QueueListIcon';
-import ServerStackIcon from '@heroicons/react/20/solid/ServerStackIcon';
 import { Link, NavLink } from 'react-router-dom';
-import { cx } from 'ui/lib';
-import { links } from './config';
-import { UserMenu, useUser } from '@/entities/user';
 import { Skeleton } from 'ui/components/skeleton';
+import { cx } from 'ui/lib';
+
+import { UserMenu, useUser } from '@/entities/user';
+
+import { NavbarLinks } from './config';
 
 export function Navbar() {
   const { data: user } = useUser();
@@ -34,27 +32,28 @@ export function Navbar() {
         </div>
 
         <ul className="flex items-center space-x-2">
-          {links.map((link) => (
-            <li key={link.name}>
-              <NavLink
-                to={link.to}
-                className={({ isActive }) =>
-                  cx([
-                    'inline-flex w-full items-center space-x-2 rounded-md px-2 py-1.5 font-medium transition-opacity',
-                    isActive
-                      ? ' bg-neutral-100 dark:bg-neutral-800'
-                      : 'opacity-50 hover:opacity-100',
-                  ])
-                }
-              >
-                {link.name === 'Virtances' && <ListIcon width={18} height={18} />}
-                {link.name === 'Keypairs' && <KeypairsIcon width={18} height={18} />}
-                {link.name === 'Images' && <ServerStackIcon width={18} height={18} />}
-                {link.name === 'Firewalls' && <ShieldCheckIcon width={18} height={18} />}
-                <span>{link.name}</span>
-              </NavLink>
-            </li>
-          ))}
+          {NavbarLinks.map((link) => {
+            const Icon = link.icon;
+
+            return (
+              <li key={link.name}>
+                <NavLink
+                  to={link.to}
+                  className={({ isActive }) =>
+                    cx([
+                      'inline-flex w-full items-center space-x-2 rounded-md px-2 py-1.5 font-medium transition-opacity',
+                      isActive
+                        ? ' bg-neutral-100 dark:bg-neutral-800'
+                        : 'opacity-50 hover:opacity-100',
+                    ])
+                  }
+                >
+                  <Icon width={18} height={18} />
+                  <span>{link.name}</span>
+                </NavLink>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>

@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { Navbar } from '@/widgets/nav-bar';
+
 import { useUser } from '@/entities/user';
 import { ConfirmEmail } from '@/widgets/confirm-email';
+import { Navbar } from '@/widgets/nav-bar';
 
 export function DefaultLayout() {
   const { data } = useUser();
