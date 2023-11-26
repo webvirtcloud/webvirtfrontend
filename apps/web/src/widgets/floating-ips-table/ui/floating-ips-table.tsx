@@ -196,7 +196,7 @@ export function FloatingIpsTable() {
     <div className="space-y-12">
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-medium">Assgin</h2>
+          <h2 className="text-lg font-medium">Assign</h2>
           <p className="text-neutral-500">
             You can assign a Floating IP to any virtances.
           </p>

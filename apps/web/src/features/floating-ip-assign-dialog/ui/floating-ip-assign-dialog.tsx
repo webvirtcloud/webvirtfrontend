@@ -13,12 +13,14 @@ interface Props
 }
 
 export function FloatingIPAssignDialog({ open, onOpenChange, onCreate, ip }: Props) {
-  const { virtances } = useVirtances({ has_floating_ip: false });
+  const { virtances, mutate: mutateVirtances } = useVirtances({ has_floating_ip: false });
   const { toast } = useToast();
 
   async function onSubmit(virtanceId: number) {
     try {
       await runFloatingIPAction({ action: 'assign', ip, virtance_id: virtanceId });
+
+      await mutateVirtances();
 
       onCreate();
     } catch (e) {
