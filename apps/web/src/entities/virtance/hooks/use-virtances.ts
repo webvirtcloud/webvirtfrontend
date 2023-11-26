@@ -1,6 +1,7 @@
-import { type ActionType, type Virtance } from '../types';
-import { GetVirtancesParams, getVirtances, runVirtanceAction } from '../api';
 import useSWR, { type SWRConfiguration } from 'swr';
+
+import { getVirtances, GetVirtancesParams, runVirtanceAction } from '../api';
+import { type ActionType, type Virtance } from '../types';
 
 export function useVirtances(
   params?: GetVirtancesParams,
@@ -11,7 +12,7 @@ export function useVirtances(
     mutate,
     error,
   } = useSWR<Virtance[]>(
-    'virtances',
+    ['virtances', params],
     () => getVirtances(params).then((response) => response.virtances),
     {
       refreshInterval(latestData) {
