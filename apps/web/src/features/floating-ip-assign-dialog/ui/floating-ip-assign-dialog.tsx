@@ -4,23 +4,27 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from 'ui/components/
 import { useToast } from 'ui/components/toast';
 
 import { FloatingIPAssignForm, runFloatingIPAction } from '@/entities/floating-ip';
-import { useVirtances } from '@/entities/virtance';
+import { Virtance } from '@/entities/virtance';
 
 interface Props
   extends Pick<ComponentPropsWithoutRef<typeof AlertDialog>, 'open' | 'onOpenChange'> {
   onCreate: () => void;
+  virtances?: Virtance[];
   ip: string;
 }
 
-export function FloatingIPAssignDialog({ open, onOpenChange, onCreate, ip }: Props) {
-  const { virtances, mutate: mutateVirtances } = useVirtances({ has_floating_ip: false });
+export function FloatingIPAssignDialog({
+  open,
+  onOpenChange,
+  onCreate,
+  ip,
+  virtances,
+}: Props) {
   const { toast } = useToast();
 
   async function onSubmit(virtanceId: number) {
     try {
       await runFloatingIPAction({ action: 'assign', ip, virtance_id: virtanceId });
-
-      await mutateVirtances();
 
       onCreate();
     } catch (e) {

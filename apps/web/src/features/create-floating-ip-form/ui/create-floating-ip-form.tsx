@@ -1,17 +1,19 @@
 import { useToast } from 'ui/components/toast';
 
 import { createFloatingIP, FloatingIPAssignForm } from '@/entities/floating-ip';
-import { useVirtances } from '@/entities/virtance';
+import { type Virtance } from '@/entities/virtance';
 
-export function CreateFloatingIPForm({ onCreate }) {
-  const { virtances, mutate: mutateVirtances } = useVirtances({ has_floating_ip: false });
+interface FloatingIPFormProps {
+  virtances?: Virtance[];
+  onCreate: () => void;
+}
+
+export function CreateFloatingIPForm({ onCreate, virtances }: FloatingIPFormProps) {
   const { toast } = useToast();
 
   async function onSubmit(virtanceId: number) {
     try {
       virtanceId && (await createFloatingIP(Number(virtanceId)));
-
-      await mutateVirtances();
 
       onCreate();
     } catch (e) {

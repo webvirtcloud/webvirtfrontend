@@ -13,6 +13,7 @@ import {
   runFloatingIPAction,
   useFloatingIPs,
 } from '@/entities/floating-ip';
+import { useVirtances } from '@/entities/virtance';
 import { CreateFloatingIPForm } from '@/features/create-floating-ip-form';
 import { FloatingIPAssignDialog } from '@/features/floating-ip-assign-dialog';
 import { State } from '@/shared/ui/state';
@@ -23,6 +24,7 @@ export function FloatingIpsTable() {
     error: floatingIPsError,
     mutate: mutateFloatingIPs,
   } = useFloatingIPs();
+  const { virtances, mutate: mutateVirtances } = useVirtances({ has_floating_ip: false });
   const [selectedFloatingIP, setSelectedFloatingIP] = useState<FloatingIP>();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isUnassignDialogOpen, setIsUnassignDialogOpen] = useState(false);
@@ -32,12 +34,14 @@ export function FloatingIpsTable() {
 
   const onCreate = () => {
     mutateFloatingIPs();
+    mutateVirtances();
     setIsAssignDialogOpen(false);
   };
 
   const onDelete = async (ip: string) => {
     try {
       await deleteFloatingIP(ip);
+      await mutateVirtances();
       await mutateFloatingIPs();
       toast({
         title: 'The task to delete a Floating IP has been started.',
@@ -49,6 +53,7 @@ export function FloatingIpsTable() {
   const onUnassgin = async (ip: string) => {
     try {
       await runFloatingIPAction({ action: 'unassign', ip });
+      await mutateVirtances();
       await mutateFloatingIPs();
       toast({
         title: 'The task to unassgin a Floating IP has been started.',
@@ -201,7 +206,7 @@ export function FloatingIpsTable() {
             You can assign a Floating IP to any virtances.
           </p>
         </div>
-        <CreateFloatingIPForm onCreate={mutateFloatingIPs} />
+        <CreateFloatingIPForm virtances={virtances} onCreate={onCreate} />
       </div>
 
       <hr className="dark:border-neutral-800" />
@@ -231,6 +236,7 @@ export function FloatingIpsTable() {
               open={isAssignDialogOpen}
               onOpenChange={() => onDialogClose('assign')}
               onCreate={() => onCreate()}
+              virtances={virtances}
               ip={selectedFloatingIP.ip}
             />
             <FloatingIPUnassignAlertDialog
