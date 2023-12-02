@@ -13,60 +13,65 @@ index: 1
 
 ## Install
 
-1. Clone the repository
+<Steps>
+### Clone the repository
 
 ```bash
-git clone https://github.com/webvirtcloud/webvirtbackend.git
+git clone https://github.com/webvirtcloud/webvirtcloud.git
 ```
 
-2. Change into the cloned directory:
+### Go into the webvirtcloud directory
 
 ```bash
-cd webvirtbackend
+cd webvirtcloud
 ```
 
-3. Build the Docker image:
+### Run script for deploy WebVirtCloud
 
 ```bash
-docker compose build
+./webvirtcloud.sh env
 ```
 
-4. Run the Docker container:
+### Start WebVirtCloud
 
 ```bash
-docker compose up -d
+./webvirtcloud.sh start
 ```
 
-5. Run the database migrations:
+### Open client side in browser
 
-```bash
-docker compose exec backend python3 manage.py migrate
-```
+Example for domain: webvirt.local
 
-6. Load the initial data:
+[http://client.webvirt.local](http://client.webvirt.local)
 
-```bash
-docker compose exec backend python3 manage.py loaddata initial_data
-```
+You can log in with the following credentials:
 
-7. Access the admin site:
+- Username: `user@webvirt.cloud`
+- Password: `1qaz2wsx`
+- Token: `fcc69bfad35527d087bf22a8a84a4f6c3b75387877c78ae3050e9e8036ef`
 
-Open your web browser and go to `http://localhost:8000/admin`. You can log in with the following credentials:
+### Open admin side in browser
+
+Example for domain: webvirt.local
+
+[http://manage.webvirt.local](http://manage.webvirt.local)
+
+You can log in with the following credentials:
 
 - Username: `admin@webvirt.cloud`
 - Password: `admin`
 
-## Configuration
+### Allow custom SSL certificate (optional)
 
-You can configure the backend by editing the `webvirtcloud/settings/local.py` file for modifying the default settings. The default settings are defined in `webvirtcloud/settings/base.py`.
+If you use webvirt.local wildcard domain you need to allow custom SSL certificate in browser.
 
-### Swagger
+[http://assets.webvirt.local](http://assets.webvirt.local)
 
-The Swagger API documentation is available at `http://localhost:8000/swagger/`.
+</Steps>
 
-## Usage
+## API
 
-The API endpoints are available at `http://localhost:8000/api/`. You can use them to create, delete, and manage virtual machines. You can log in with the following credentials:
+The API endpoints are available at `http://webvirt.local/api/`. You can use them to create, delete, and manage virtual machines. You can log in with the following credentials:
 
 - Username: `user@webvirt.cloud`
 - Password: `1qaz2wsx`
