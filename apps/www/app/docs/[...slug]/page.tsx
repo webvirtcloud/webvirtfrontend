@@ -6,6 +6,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 import { Toc } from '@/components/toc';
 import { Pagination } from '@/components/pagination';
 import { Note } from '@/components/note';
+import { Steps } from '@/components/steps';
 
 interface Props {
   params: { slug: string[] };
@@ -13,6 +14,7 @@ interface Props {
 
 const mdxComponents = {
   Note,
+  Steps,
 } as const;
 
 export function generateStaticParams(): Array<Props['params']> {
