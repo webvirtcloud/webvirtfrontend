@@ -7,7 +7,7 @@ import { UserMenu, useUser } from '@/entities/user';
 import { NavbarLinks } from './config';
 
 export function Navbar() {
-  const { data: user } = useUser();
+  const { data: user } = useUser({ refetchOnMount: false });
 
   return (
     <nav className="sticky left-0 right-0 top-0 z-10 flex flex-col justify-between border-b bg-white dark:border-neutral-800 dark:bg-neutral-900">
