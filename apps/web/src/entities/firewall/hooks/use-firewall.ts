@@ -1,34 +1,27 @@
-import useSWR, { SWRConfiguration, useSWRConfig } from 'swr';
-import { getFirewall } from '../api';
-import type { Firewall } from '../types';
+import { type QueryOptions, useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 
-export function useFirewall(uuid: string, options?: SWRConfiguration<Firewall>) {
-  // const event = useRef<Virtance['event']>(null);
-  const { mutate: globalMutate } = useSWRConfig();
-  const {
-    data: firewall,
-    mutate,
-    error,
-  } = useSWR<Firewall>(
-    ['firewall', uuid],
-    () => getFirewall(uuid).then((response) => response.firewall),
-    {
-      // refreshInterval(latestData) {
-      //   if (latestData?.event === null) {
+import { type Event } from '@/entities/event';
+import { type Firewall, firewallQueries, getFirewall } from '@/entities/firewall';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 
-      //   return 1000;
-      // },
-      ...options,
+export function useFirewall(uuid: string, options?: QueryOptions<Firewall>) {
+  const event = useRef<Event | null>(null);
+
+  return useQuery({
+    queryKey: firewallQueries.one(uuid),
+    queryFn: () => getFirewall(uuid).then((response) => response.firewall),
+    refetchInterval(query) {
+      if (query.state.data?.event === null) {
+        event.current = null;
+
+        return false;
+      }
+
+      event.current = query.state.data ? query.state.data.event : null;
+
+      return REFRESH_INTERVAL;
     },
-  );
-
-  const isBusy = firewall?.event !== null;
-
-  return {
-    firewall,
-    mutate,
-    error,
-    isBusy,
-  };
+    ...options,
+  });
 }

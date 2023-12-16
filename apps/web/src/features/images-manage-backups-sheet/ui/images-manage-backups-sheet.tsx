@@ -1,23 +1,26 @@
-import { Table } from 'ui/components/table';
-import { State } from '@/shared/ui/state';
-import { useState, type ComponentPropsWithoutRef } from 'react';
-import useSWR from 'swr';
+import { format } from 'date-fns';
+import { type ComponentPropsWithoutRef, useState } from 'react';
+import { Button } from 'ui/components/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from 'ui/components/sheet';
+import { Spin } from 'ui/components/spin';
+import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
-import { getVirtancesBackups } from '@/entities/virtance/api/get-virtance-backups';
+
 import {
   type Backup,
-  runImageAction,
-  ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
+  ImageRestoreAlertDialog,
+  runImageAction,
 } from '@/entities/image';
-import { runVirtanceAction, type Virtance } from '@/entities/virtance';
-import { Button } from 'ui/components/button';
-import { Spin } from 'ui/components/spin';
-import { format } from 'date-fns';
+import {
+  type Virtance,
+  runVirtanceAction,
+  useVirtanceBackups,
+} from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
 interface Props extends ComponentPropsWithoutRef<typeof Sheet> {
-  virtance: Virtance | undefined;
+  virtance: Virtance;
 }
 
 export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props) {
@@ -26,39 +29,27 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const { data: backups, mutate } = useSWR(
-    `images-virtance-backups-${virtance?.id}`,
-    () =>
-      virtance && getVirtancesBackups(virtance.id).then((response) => response.backups),
-    {
-      isOnline: () => !!virtance,
-      refreshInterval(latestData) {
-        return latestData?.some((backup) => !!backup.event) ? 1000 : 0;
-      },
-    },
-  );
+  const { data: backups, refetch } = useVirtanceBackups(virtance?.id, {
+    enabled: !!virtance?.id,
+  });
 
   const onRestore = async (id: number) => {
-    try {
-      if (!virtance) return;
-      await runVirtanceAction({ id: virtance.id, image: id, action: 'restore' });
-      await mutate();
-      toast({
-        title: 'The task to restore a backup has been started.',
-        variant: 'default',
-      });
-    } catch (error) {}
+    if (!virtance) return;
+    await runVirtanceAction({ id: virtance.id, image: id, action: 'restore' });
+    await refetch();
+    toast({
+      title: 'The task to restore a backup has been started.',
+      variant: 'default',
+    });
   };
 
   const onConvert = async (id: number) => {
-    try {
-      await runImageAction({ id, action: 'convert' });
-      await mutate();
-      toast({
-        title: 'The task to convert a backup has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
+    await runImageAction({ id, action: 'convert' });
+    await refetch();
+    toast({
+      title: 'The task to convert a backup has been started.',
+      variant: 'destructive',
+    });
   };
 
   function onDialogOpen(backup: Backup, type: 'restore' | 'convert') {
@@ -170,7 +161,7 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent className="md:max-w-[720px]">
           <SheetHeader className="mb-4">
-            <SheetTitle>Backups list of {virtance?.name}</SheetTitle>
+            <SheetTitle>{virtance?.name}&apos;s backups</SheetTitle>
           </SheetHeader>
           {backups ? (
             <>

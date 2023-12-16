@@ -12,8 +12,6 @@ export const InboundTypeOptions = [
 
 export const OutboundTypeOptions = ['All TCP', 'All UDP', 'All ICMP', 'Custom'] as const;
 
-const kek = typeof InboundTypeOptions;
-
 export interface FirewallTypeSelectProps {
   value?: string;
   disabled?: boolean;

@@ -1,11 +1,12 @@
 import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
 import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
 import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
-import { type Virtance } from '@/entities/virtance';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { StatusDot } from 'ui/components/status-dot';
+
+import { type Virtance } from '@/entities/virtance';
 import { formatMemorySize } from '@/shared/lib';
 
 type Props = {

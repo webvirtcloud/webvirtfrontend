@@ -1,7 +1,8 @@
-import { Button } from 'ui/components/button';
-import { resendConfirmEmail } from '@/entities/user';
 import { FormEvent } from 'react';
+import { Button } from 'ui/components/button';
 import { useToast } from 'ui/components/toast';
+
+import { resendConfirmEmail } from '@/entities/user';
 
 export function ConfirmEmail() {
   const { toast } = useToast();
@@ -35,8 +36,8 @@ export function ConfirmEmail() {
       >
         <h1 className="text-lg font-medium">Confirm email please</h1>
         <p className="max-w-md text-center text-neutral-500">
-          Please check your inbox and follow instructions. If you didn't receive it, hit
-          button below to resend it again.
+          Please check your inbox and follow instructions. If you didn&apos;t receive it,
+          hit button below to resend it again.
         </p>
         <Button type="submit">Resend email</Button>
       </form>

@@ -1,5 +1,5 @@
+import { type VirtanceCPUMetrics } from '@/entities/virtance';
 import request from '@/shared/api/request';
-import type { VirtanceCPUMetrics } from '../types';
 
 export function getVirtanceCPUMetrics(
   id: number,

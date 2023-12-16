@@ -1,20 +1,17 @@
-import { Table } from 'ui/components/table';
-import { State } from '@/shared/ui/state';
-import { Button } from 'ui/components/button';
 import { useState } from 'react';
-import { type Virtance, getVirtances } from '@/entities/virtance';
-import useSWR from 'swr';
+import { Button } from 'ui/components/button';
+import { Table } from 'ui/components/table';
 
+import { type Virtance, useVirtances } from '@/entities/virtance';
 import { ImagesManageBackupsSheet } from '@/features/images-manage-backups-sheet';
 import { formatMemorySize } from '@/shared/lib';
+import { State } from '@/shared/ui/state';
 
 export function ImagesBackupsTable() {
   const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const { data: virtances, error } = useSWR('images-virtances', () =>
-    getVirtances({ has_backups: true }).then((response) => response.virtances),
-  );
+  const { data: virtances, error } = useVirtances({ has_backups: true });
 
   function openSheet(virtance: Virtance) {
     setSelectedVirtance(virtance);
@@ -97,11 +94,13 @@ export function ImagesBackupsTable() {
         </>
       ) : null}
 
-      <ImagesManageBackupsSheet
-        open={isSheetOpen}
-        onOpenChange={onSheetOpenChange}
-        virtance={selectedVirtance}
-      />
+      {selectedVirtance && (
+        <ImagesManageBackupsSheet
+          open={isSheetOpen}
+          onOpenChange={onSheetOpenChange}
+          virtance={selectedVirtance}
+        />
+      )}
     </>
   );
 }

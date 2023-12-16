@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
-import type { VirtanceCPUMetrics } from '../types';
 import { type IChartApi, type ISeriesApi, createChart } from 'lightweight-charts';
 import { UTCTimestamp } from 'lightweight-charts';
 import { CrosshairMode } from 'lightweight-charts';
-import { theme } from '@/shared/ui/chart';
+import { useEffect, useRef } from 'react';
+
+import { type VirtanceCPUMetrics } from '@/entities/virtance';
 import { usePrefersColorScheme } from '@/shared/hooks';
+import { theme } from '@/shared/ui/chart';
 
 export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
   const container = useRef<HTMLDivElement>(null);

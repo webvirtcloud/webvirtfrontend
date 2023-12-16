@@ -1,9 +1,10 @@
-import StopIcon from '@heroicons/react/20/solid/StopIcon';
 import PlayIcon from '@heroicons/react/20/solid/PlayIcon';
+import StopIcon from '@heroicons/react/20/solid/StopIcon';
+import { MouseEvent } from 'react';
 import { Button } from 'ui/components/button';
 import { cx } from 'ui/lib';
-import { MouseEvent } from 'react';
-import { ActionType, VirtanceStatus } from '../types';
+
+import { type ActionType, type VirtanceStatus } from '@/entities/virtance';
 
 interface Props {
   id: number;

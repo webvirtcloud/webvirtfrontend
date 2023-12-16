@@ -1,5 +1,5 @@
+import { type Image } from '@/entities/image';
 import request from '@/shared/api/request';
-import { Image } from '../types';
 
 export const getImages = (
   type: 'distribution' | 'snapshot' | 'backup',

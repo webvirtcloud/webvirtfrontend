@@ -1,7 +1,8 @@
 import { Controller, useForm } from 'react-hook-form';
-import { useVirtance } from '@/entities/virtance';
-import { cx } from 'ui/lib';
 import { Button } from 'ui/components/button';
+import { cx } from 'ui/lib';
+
+import { useVirtance, useVirtanceAction } from '@/entities/virtance';
 
 interface FormState {
   mode: boolean;
@@ -23,23 +24,22 @@ const MODES = [
 ] as const;
 
 export function RecoveryMode({ id }: { id: number }) {
-  const { virtance, runAction } = useVirtance(id);
+  const { data: virtance } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
   const {
     control,
     handleSubmit,
     watch,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm<FormState>({ defaultValues: { mode: virtance?.recovery_mode } });
 
   const mode = watch('mode');
 
   async function onSubmit(data: FormState) {
-    try {
-      await runAction({
-        action: data.mode ? 'enable_recovery_mode' : 'disable_recovery_mode',
-        id: Number(id),
-      });
-    } catch (error) {}
+    await runAction({
+      action: data.mode ? 'enable_recovery_mode' : 'disable_recovery_mode',
+      id: Number(id),
+    });
   }
 
   return virtance ? (

@@ -1,4 +1,3 @@
-import { useKeypairs } from '@/entities/keypair';
 import { useState } from 'react';
 import {
   Controller,
@@ -11,13 +10,15 @@ import { Button, buttonVariants } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { cx } from 'ui/lib';
 
+import { useKeypairs } from '@/entities/keypair';
+
 type Type = 'password' | 'keypairs';
 
 export function VirtanceCreateSecurity() {
   const { resetField, control, register, setValue, getValues } = useFormContext();
   const [type, setType] = useState<Type>('keypairs');
 
-  const { keypairs } = useKeypairs();
+  const { data: keypairs } = useKeypairs();
 
   function handleKeyparSelect(
     field: ControllerRenderProps<FieldValues, 'keypairs'>,

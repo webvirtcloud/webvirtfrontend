@@ -45,7 +45,12 @@ export function FloatingIPAssignForm({ onSubmit, virtances }: Props) {
           Virtance
         </Label>
         <div className="flex items-center gap-2">
-          <Select value={virtanceId} onValueChange={setVirtanceId} key={virtanceId}>
+          <Select
+            value={virtanceId}
+            onValueChange={setVirtanceId}
+            key={virtanceId}
+            disabled={isDisabled}
+          >
             <SelectTrigger id="virtance" className="w-80" disabled={isDisabled}>
               <SelectValue
                 placeholder={isDisabled ? 'No available virtances' : 'Select virtance'}

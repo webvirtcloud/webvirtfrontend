@@ -5,12 +5,12 @@ import { ConfirmEmail } from '@/widgets/confirm-email';
 import { Navbar } from '@/widgets/nav-bar';
 
 export function DefaultLayout() {
-  const { data } = useUser();
+  const { data: user } = useUser();
 
   return (
     <main className="flex min-h-screen flex-col">
-      {data ? (
-        data.email_verified ? (
+      {user ? (
+        user.email_verified ? (
           <>
             <Navbar />
             <div className="container mx-auto flex-1 px-4 py-8">

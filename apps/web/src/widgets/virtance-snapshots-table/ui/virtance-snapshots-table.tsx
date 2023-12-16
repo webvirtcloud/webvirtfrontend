@@ -1,57 +1,53 @@
-import {
-  type Snapshot,
-  SnapshotDeleteAlertDialog,
-  SnapshotRestoreAlertDialog,
-  deleteImage,
-} from '@/entities/image';
-import { State } from '@/shared/ui/state';
+import { useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { KeyedMutator } from 'swr';
 import { Button } from 'ui/components/button';
+import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
-import { Spin } from 'ui/components/spin';
-import { type ActionType } from '@/entities/virtance';
+
+import {
+  type Snapshot,
+  deleteImage,
+  SnapshotDeleteAlertDialog,
+  SnapshotRestoreAlertDialog,
+} from '@/entities/image';
+import { type ActionType, virtanceQueries } from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
 export function VirtanceSnapshotsTable({
   virtanceId,
   snapshots,
-  mutate,
   runAction,
   error,
 }: {
   virtanceId: number | undefined;
   snapshots: Snapshot[] | undefined;
-  mutate: KeyedMutator<Snapshot[]>;
   runAction: (type: ActionType) => Promise<void>;
   error: any;
 }) {
+  const queryClient = useQueryClient();
   const [selectedSnapshot, setSelectedSnapshot] = useState<Snapshot>();
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
 
   const onRestore = async (id: number) => {
-    try {
-      virtanceId && (await runAction({ action: 'restore', id: virtanceId, image: id }));
-      await mutate();
-      toast({
-        title: 'The task to restore a snapshot has been started.',
-        variant: 'default',
-      });
-    } catch (error) {}
+    virtanceId && (await runAction({ action: 'restore', id: virtanceId, image: id }));
+    await queryClient.invalidateQueries({ queryKey: virtanceQueries.snapshots(id) });
+    toast({
+      title: 'The task to restore a snapshot has been started.',
+      variant: 'default',
+    });
   };
 
   const onDelete = async (id: number) => {
-    try {
-      await deleteImage(id);
-      await mutate();
-      toast({
-        title: 'The task to delete a snapshot has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
+    await deleteImage(id);
+    await queryClient.invalidateQueries({ queryKey: virtanceQueries.snapshots(id) });
+    toast({
+      title: 'The task to delete a snapshot has been started.',
+      variant: 'destructive',
+    });
   };
 
   function onDialogOpen(snapshot: any, type: 'restore' | 'delete') {

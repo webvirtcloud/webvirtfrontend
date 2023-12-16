@@ -1,17 +1,18 @@
-import { confirmEmail, useUser } from '@/entities/user';
 import { useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useToast } from 'ui/components/toast';
 import { Spin } from 'ui/components/spin';
+import { useToast } from 'ui/components/toast';
+
+import { confirmEmail, useUser } from '@/entities/user';
 
 export default function ConfirmEmail() {
   const params = useParams();
   const navigate = useNavigate();
-  const { mutate, data: user } = useUser();
+  const { refetch, data: user } = useUser();
   const { toast } = useToast();
 
   if (user?.email_verified) {
-    return <Navigate to={'/'} />;
+    return <Navigate to="/" />;
   }
 
   async function confirmation(token: string) {
@@ -22,7 +23,7 @@ export default function ConfirmEmail() {
         variant: 'default',
         description: 'Happy hacking',
       });
-      await mutate();
+      await refetch();
       navigate('/');
     } catch (error) {
       toast({

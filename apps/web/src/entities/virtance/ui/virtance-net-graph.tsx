@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
-import type { VirtanceNetMetrics } from '../types';
-import { IChartApi, ISeriesApi, createChart } from 'lightweight-charts';
+import { createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
 import { UTCTimestamp } from 'lightweight-charts';
 import { CrosshairMode } from 'lightweight-charts';
-import { theme } from '@/shared/ui/chart';
+import { useEffect, useRef } from 'react';
+
+import { type VirtanceNetMetrics } from '@/entities/virtance';
 import { usePrefersColorScheme } from '@/shared/hooks';
+import { theme } from '@/shared/ui/chart';
 
 export function VirtanceNetGraph({ metrics }: { metrics: VirtanceNetMetrics }) {
   const container = useRef<HTMLDivElement>(null);

@@ -1,28 +1,31 @@
-import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import EllipsisVerticalIcon from '@heroicons/react/20/solid/EllipsisVerticalIcon';
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
-import { Skeleton } from 'ui/components/skeleton';
-import { State } from '@/shared/ui/state';
-import {
-  FirewallDeleteAlertDialog,
-  useFirewall,
-  deleteFirewall,
-} from '@/entities/firewall';
-import { Button } from 'ui/components/button';
+import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import { useState } from 'react';
-import { useToast } from 'ui/components/toast';
-import { cx } from 'ui/lib';
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Button } from 'ui/components/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
+import { Skeleton } from 'ui/components/skeleton';
+import { useToast } from 'ui/components/toast';
+import { cx } from 'ui/lib';
+
+import {
+  deleteFirewall,
+  FirewallDeleteAlertDialog,
+  useFirewall,
+  useIsFirewallBusy,
+} from '@/entities/firewall';
+import { State } from '@/shared/ui/state';
 
 export function FirewallLayout() {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const { uuid } = useParams();
-  const { firewall, isBusy, error } = useFirewall(uuid!);
+  const params = useParams();
+  const { data: firewall, error } = useFirewall(params.uuid!);
+  const isBusy = useIsFirewallBusy(firewall);
   const { toast } = useToast();
   const navigate = useNavigate();
 

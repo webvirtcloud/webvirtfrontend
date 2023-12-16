@@ -1,8 +1,9 @@
 import ArrowPathIcon from '@heroicons/react/20/solid/ArrowPathIcon';
+import { type MouseEvent } from 'react';
 import { Button } from 'ui/components/button';
 import { cx } from 'ui/lib';
-import { type MouseEvent } from 'react';
-import type { ActionType, VirtanceStatus } from '../types';
+
+import { type ActionType, type VirtanceStatus } from '@/entities/virtance';
 
 interface Props {
   id: number;

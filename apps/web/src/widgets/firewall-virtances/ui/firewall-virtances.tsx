@@ -1,36 +1,93 @@
-import {
-  FirewallDetachAlertDialog,
-  FirewallAttachVirtanceForm,
-  attachFirewallVirtance,
-  detachFirewallVirtance,
-  useFirewallVirtances,
-} from '@/entities/firewall';
-import { useVirtances, type Virtance } from '@/entities/virtance';
-import { State } from '@/shared/ui/state';
+import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button } from 'ui/components/button';
+import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
-import { Spin } from 'ui/components/spin';
+
+import { type Event } from '@/entities/event';
+import {
+  attachFirewallVirtance,
+  detachFirewallVirtance,
+  FirewallAttachVirtanceForm,
+  FirewallDetachAlertDialog,
+  firewallQueries,
+  useFirewallVirtances,
+} from '@/entities/firewall';
+import { type Virtance, getVirtance, useVirtances } from '@/entities/virtance';
+import { REFRESH_INTERVAL } from '@/shared/constants';
+import { State } from '@/shared/ui/state';
 
 export function FirewallVirtances({ uuid }: { uuid: string }) {
-  const { virtances: VirtancesWithoutFirewall, mutate: mutateVirtancesWithoutFirewall } =
+  const queryClient = useQueryClient();
+  const { data: VirtancesWithoutFirewall, refetch: refetchVirtancesWithoutFirewall } =
     useVirtances({
       has_firewall: false,
     });
   const [selectedVirtance, setSelectedVirtance] = useState<Virtance>();
   const [isDetachDialogOpen, setIsDetachDialogOpen] = useState(false);
   const {
-    virtances: virtancesWithFirewall,
-    mutate: mutateVirtancesWithFirewall,
+    data: virtancesWithFirewall,
+    refetch: refetchVirtancesWithFirewall,
     error,
   } = useFirewallVirtances(uuid);
   const { toast } = useToast();
 
+  const events = useMemo(() => {
+    const uniqueIds = new Set<number>();
+    const uniqueEvents: { id: number; event: Event }[] = [];
+
+    if (virtancesWithFirewall === undefined) return uniqueEvents;
+
+    virtancesWithFirewall.forEach((virtance) => {
+      if (virtance.event !== null && !uniqueIds.has(virtance.id)) {
+        uniqueIds.add(virtance.id);
+        uniqueEvents.push({ id: virtance.id, event: virtance.event });
+      }
+    });
+
+    return uniqueEvents;
+  }, [virtancesWithFirewall]);
+
+  useQueries({
+    queries: events.map((event) => ({
+      queryKey: firewallQueries.virtanceEvent(event.id),
+      queryFn: () => getVirtance(event.id),
+      refetchInterval: (query) => {
+        if (query.state.data && query.state.data.virtance.event === null) {
+          queryClient.setQueryData<Virtance[]>(
+            firewallQueries.virtances(uuid),
+            (previousData) => {
+              if (previousData) {
+                return previousData.map((virtance: Virtance) =>
+                  virtance.id === event.id ? query.state.data?.virtance : virtance,
+                );
+              }
+            },
+          );
+
+          refetchVirtancesWithFirewall();
+
+          toast({
+            title: `The task to ${event.event?.name} a Virtance has been completed.`,
+            variant: 'default',
+          });
+
+          queryClient.removeQueries({
+            queryKey: firewallQueries.virtanceEvent(event.id),
+          });
+
+          return false;
+        }
+        return REFRESH_INTERVAL;
+      },
+    })),
+  });
+
   useEffect(() => {
     if (virtancesWithFirewall?.every((virtance) => !virtance.event)) {
-      mutateVirtancesWithoutFirewall();
+      refetchVirtancesWithoutFirewall();
     }
   }, [virtancesWithFirewall]);
 
@@ -40,7 +97,7 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
         virtance_ids: payload,
       });
 
-      mutateVirtancesWithFirewall();
+      refetchVirtancesWithFirewall();
     } catch (e) {
       const { message } = await e.response.json();
       toast({ title: 'Bad request', variant: 'destructive', description: message });
@@ -52,8 +109,8 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
     selectedVirtance &&
       (await detachFirewallVirtance(uuid, { virtance_ids: [selectedVirtance.id] }));
 
-    mutateVirtancesWithFirewall();
-    mutateVirtancesWithoutFirewall();
+    refetchVirtancesWithFirewall();
+    refetchVirtancesWithoutFirewall();
   }
 
   function onDialogOpen(virtance: Virtance, type: 'detach') {
@@ -125,7 +182,7 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
       <div className="mb-8">
         <FirewallAttachVirtanceForm
           virtances={VirtancesWithoutFirewall}
-          mutate={mutateVirtancesWithoutFirewall}
+          refetch={refetchVirtancesWithoutFirewall}
           onSubmit={onAttach}
         />
       </div>

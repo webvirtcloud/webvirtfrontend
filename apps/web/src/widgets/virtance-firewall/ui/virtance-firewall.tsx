@@ -1,15 +1,13 @@
-import { calculateType, getFirewalls } from '@/entities/firewall';
+import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'ui/components/button';
-import useSWR from 'swr';
-import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
+
+import { calculateType } from '@/entities/firewall';
+import { useVirtanceFirewall } from '@/entities/virtance';
 
 export function VirtanceFirewall({ id }: { id: number }) {
   const navigate = useNavigate();
-  const { data, error } = useSWR('virtance-firewall', () =>
-    getFirewalls({ virtance_id: Number(id) }).then((data) => data.firewalls),
-  );
-
+  const { data, error } = useVirtanceFirewall(id);
   const firewall = data?.[0];
 
   if (error) {

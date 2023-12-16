@@ -1,5 +1,6 @@
-import { RegionCard } from '@/entities/region';
 import { Controller, useFormContext } from 'react-hook-form';
+
+import { RegionCard } from '@/entities/region';
 
 export function VirtanceCreateRegions(props) {
   const { setValue, watch, control } = useFormContext();

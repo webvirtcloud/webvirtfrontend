@@ -1,5 +1,7 @@
-import { useVirtance } from '@/entities/virtance';
+import KeyIcon from '@heroicons/react/24/outline/KeyIcon';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Button } from 'ui/components/button';
 import {
   Dialog,
   DialogContent,
@@ -8,12 +10,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'ui/components/dialog';
-import { Button } from 'ui/components/button';
-import { useForm } from 'react-hook-form';
-import { Label } from 'ui/components/label';
-import { Input } from 'ui/components/input';
 import { Error } from 'ui/components/error';
-import KeyIcon from '@heroicons/react/24/outline/KeyIcon';
+import { Input } from 'ui/components/input';
+import { Label } from 'ui/components/label';
+
+import { useVirtanceAction } from '@/entities/virtance';
 
 interface FormState {
   password: string;
@@ -22,7 +23,7 @@ interface FormState {
 export function ResetPassword({ id }: { id: number }) {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isResetting, setResetting] = useState(false);
-  const { virtance, runAction } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
   const {
     register,
     handleSubmit,

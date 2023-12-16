@@ -1,5 +1,5 @@
 import { VirtanceCreate } from '@/widgets/virtance-create';
 
-export default function CreateVirtance() {
+export default function VirtanceCreatePage() {
   return <VirtanceCreate />;
 }

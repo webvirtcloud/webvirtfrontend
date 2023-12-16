@@ -1,7 +1,8 @@
-import { State } from '@/shared/ui/state';
-import { Table } from 'ui/components/table';
-import { VirtanceHistory } from '../types';
 import { format } from 'date-fns';
+import { Table } from 'ui/components/table';
+
+import { type VirtanceHistory } from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
 export function VirtanceHistoryTable({ data }: { data: VirtanceHistory[] | undefined }) {
   const columns = [

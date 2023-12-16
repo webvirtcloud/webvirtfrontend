@@ -1,7 +1,8 @@
-import { VirtanceConsole } from '@/entities/virtance';
 import { useParams } from 'react-router-dom';
 
-export default function () {
+import { VirtanceConsole } from '@/entities/virtance';
+
+export default function VirtanceConsolePage() {
   const { id } = useParams();
   return <VirtanceConsole id={id} />;
 }

@@ -1,9 +1,10 @@
-import { VirtanceSettings as Settings } from '@/widgets/virtance-settings';
-
 import { useParams } from 'react-router-dom';
 
-export default function VirtanceSettings() {
-  const { id } = useParams();
+import { VirtanceSettings } from '@/widgets/virtance-settings';
 
-  return <Settings id={Number(id)} />;
+export default function VirtanceSettingsPage() {
+  const params = useParams();
+  const id = Number(params.id);
+
+  return <VirtanceSettings id={id} />;
 }

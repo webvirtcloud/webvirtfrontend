@@ -1,4 +1,4 @@
-import { deleteVirtance } from '@/entities/virtance';
+import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -13,21 +13,18 @@ import {
   AlertDialogTrigger,
 } from 'ui/components/alert-dialog';
 import { Button } from 'ui/components/button';
-import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
+
+import { deleteVirtance } from '@/entities/virtance';
 
 export function Deletion({ id }: { id: number }) {
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   async function onDelete() {
-    try {
-      setDeleting(true);
-      await deleteVirtance(Number(id));
-      navigate('/virtances');
-    } catch (error) {
-    } finally {
-      setDeleting(false);
-    }
+    setDeleting(true);
+    await deleteVirtance(Number(id));
+    navigate('/virtances');
+    setDeleting(false);
   }
 
   return (

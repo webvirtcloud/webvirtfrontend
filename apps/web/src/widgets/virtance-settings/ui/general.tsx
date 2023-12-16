@@ -1,16 +1,19 @@
+import { useForm } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
-import { useForm } from 'react-hook-form';
-import { useVirtance } from '@/entities/virtance';
+
+import { useIsVirtanceBusy, useVirtance, useVirtanceAction } from '@/entities/virtance';
 
 interface FormState {
   name: string;
 }
 
 export function General({ id }: { id: number }) {
-  const { virtance, runAction } = useVirtance(id);
+  const { data: virtance } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
+  const isBusy = useIsVirtanceBusy(virtance);
   const {
     register,
     handleSubmit,
@@ -40,9 +43,10 @@ export function General({ id }: { id: number }) {
               id="virtance-name"
               placeholder="Enter virtance name"
               className="max-w-sm"
+              disabled={isBusy}
               error={!!errors.name}
             />
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting || isBusy}>
               {isSubmitting ? 'Renaming...' : 'Rename'}
             </Button>
           </div>

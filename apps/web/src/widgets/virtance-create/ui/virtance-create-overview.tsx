@@ -1,6 +1,7 @@
-import { formatMemorySize } from '@/shared/lib';
 import { useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
+
+import { formatMemorySize } from '@/shared/lib';
 
 export function VirtanceCreateOverview() {
   const {

@@ -1,6 +1,6 @@
 import { ImagesBackupsTable } from '@/widgets/images/backups-table';
 
-export default function () {
+export default function ImagesBackupsPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-lg font-medium">Backups</h1>

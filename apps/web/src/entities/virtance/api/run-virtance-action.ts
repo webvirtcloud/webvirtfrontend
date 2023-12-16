@@ -1,5 +1,5 @@
+import { type ActionType, type Virtance } from '@/entities/virtance';
 import request from '@/shared/api/request';
-import type { ActionType, Virtance } from '../types';
 
 export function runVirtanceAction({
   id,

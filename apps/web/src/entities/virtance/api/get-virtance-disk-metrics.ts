@@ -1,5 +1,5 @@
+import { type VirtanceDiskMetrics } from '@/entities/virtance';
 import request from '@/shared/api/request';
-import type { VirtanceDiskMetrics } from '../types';
 
 export function getVirtanceDiskMetrics(
   id: number,

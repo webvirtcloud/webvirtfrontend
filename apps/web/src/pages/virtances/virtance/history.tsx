@@ -1,16 +1,13 @@
-import { VirtanceHistoryTable, useVirtance } from '@/entities/virtance';
-import { getVirtanceHistory } from '@/entities/virtance/api/get-virtance-history';
-import { State } from '@/shared/ui/state';
 import { useParams } from 'react-router-dom';
-import useSWR from 'swr';
 
-export default function VirtanceHistory() {
-  const { id } = useParams();
-  const { virtance } = useVirtance(Number(id));
+import { useVirtanceHistory, VirtanceHistoryTable } from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
-  const { data, error } = useSWR('virtance-history', () =>
-    getVirtanceHistory(Number(id)).then((data) => data.virtance),
-  );
+export default function VirtanceHistoryPage() {
+  const params = useParams();
+  const id = Number(params.id);
+
+  const { data, error } = useVirtanceHistory(id);
 
   if (error) {
     return (
@@ -22,7 +19,7 @@ export default function VirtanceHistory() {
   }
 
   return (
-    <div className="">
+    <div>
       <h2 className="mb-4 text-lg font-medium">History</h2>
 
       <VirtanceHistoryTable data={data} />

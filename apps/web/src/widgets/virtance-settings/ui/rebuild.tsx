@@ -1,6 +1,5 @@
+import ArrowPathRoundedSquareIcon from '@heroicons/react/24/outline/ArrowPathRoundedSquareIcon';
 import { useState } from 'react';
-import { useImages } from '@/entities/image';
-import { useVirtance } from '@/entities/virtance';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,23 +20,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'ui/components/select';
-import ArrowPathRoundedSquareIcon from '@heroicons/react/24/outline/ArrowPathRoundedSquareIcon';
+
+import { useImages } from '@/entities/image';
+import { useVirtance, useVirtanceAction } from '@/entities/virtance';
 
 export function Rebuild({ id }: { id: number }) {
   const [isRebuilding, setRebuilding] = useState(false);
   const [image, setImage] = useState<string>();
-  const { virtance, runAction } = useVirtance(id);
-  const { images } = useImages('distribution');
+  const { data: virtance } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
+  const { data: images } = useImages('distribution');
 
   async function onDelete() {
-    try {
-      setRebuilding(true);
-      image && (await runAction({ id, action: 'rebuild', image }));
-      setImage(undefined);
-    } catch (error) {
-    } finally {
-      setRebuilding(false);
-    }
+    setRebuilding(true);
+    image && (await runAction({ id, action: 'rebuild', image }));
+    setImage(undefined);
+    setRebuilding(false);
   }
 
   return virtance ? (
@@ -49,7 +47,7 @@ export function Rebuild({ id }: { id: number }) {
         <div>
           <h2 className="text-lg font-medium">Rebuild</h2>
           <p className=" text-neutral-500">
-            Be careful. It's erase all of your data and install new image.
+            Be careful. It&apos;s erase all of your data and install new image.
           </p>
         </div>
       </div>

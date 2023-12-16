@@ -1,50 +1,46 @@
-import { useState } from 'react';
 import { format } from 'date-fns';
+import { useState } from 'react';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
+
 import {
   type Keypair,
+  deleteKeypair,
   KeypairDeleteAlertDialog,
   useKeypairs,
-  deleteKeypair,
 } from '@/entities/keypair';
 import { KeypairCreateDialog } from '@/features/keypair-create-dialog';
 import { KeypairEditDialog } from '@/features/keypair-edit-dialog';
 import { State } from '@/shared/ui/state';
 
-export const KeypairsTable = () => {
-  const { keypairs, mutate, error } = useKeypairs();
+export function KeypairsTable() {
+  const { data: keypairs, refetch, error } = useKeypairs();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedKeypair, setSelectedKeypair] = useState<Keypair>();
   const { toast } = useToast();
 
-  const onCreate = async (keypair: Keypair) => {
-    await mutate(keypairs ? [keypair, ...keypairs] : []);
+  async function onCreate() {
+    await refetch();
     toast({
-      title: 'Keypair was created',
+      title: 'The keypair has been created',
     });
-  };
+  }
 
-  const onDelete = async (id: number) => {
-    try {
-      await deleteKeypair(id);
-      await mutate(keypairs ? keypairs.filter((key) => key.id !== id) : []);
-      toast({
-        title: 'Keypair was delete',
-      });
-    } catch (error) {}
-  };
+  async function onDelete(id: number) {
+    await deleteKeypair(id);
+    await refetch();
+    toast({
+      title: 'The keypair has been deleted',
+    });
+  }
 
-  async function onUpdate(keypair: Keypair) {
-    selectedKeypair &&
-      (await mutate(
-        keypairs ? keypairs.map((key) => (key.id === keypair.id ? keypair : key)) : [],
-      ));
+  async function onUpdate() {
+    await refetch();
     setIsEditDialogOpen(false);
     toast({
-      title: 'Keypair was updated',
+      title: 'The keypair has been updated',
     });
   }
 
@@ -159,4 +155,4 @@ export const KeypairsTable = () => {
       ) : null}
     </div>
   );
-};
+}

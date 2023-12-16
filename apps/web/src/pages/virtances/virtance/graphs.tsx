@@ -1,41 +1,38 @@
-import useSWR from 'swr';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { Skeleton } from 'ui/components/skeleton';
+
 import {
-  VirtanceCPUGraph,
   getVirtanceCPUMetrics,
   getVirtanceNetMetrics,
+  VirtanceCPUGraph,
+  virtanceQueries,
 } from '@/entities/virtance';
 import { getVirtanceDiskMetrics } from '@/entities/virtance/api/get-virtance-disk-metrics';
 import { VirtanceDiskGraph } from '@/entities/virtance/ui/virtance-disk-graph';
 import { VirtanceNetGraph } from '@/entities/virtance/ui/virtance-net-graph';
-import { useParams } from 'react-router-dom';
-import { Skeleton } from 'ui/components/skeleton';
 
-export default function VirtanceGraphs() {
-  const { id } = useParams();
+export default function VirtanceGraphsPage() {
+  const params = useParams();
+  const id = Number(params.id);
 
-  const { data: cpu } = useSWR(
-    ['virtance-cpu-metrics', id],
-    () => getVirtanceCPUMetrics(Number(id)),
-    {
-      refreshInterval: 5000,
-    },
-  );
+  const { data: cpu } = useQuery({
+    queryKey: virtanceQueries.metrics.cpu(id),
+    queryFn: () => getVirtanceCPUMetrics(id),
+    refetchInterval: 5000,
+  });
 
-  const { data: net } = useSWR(
-    ['virtance-net-metrics', id],
-    () => getVirtanceNetMetrics(Number(id)),
-    {
-      refreshInterval: 5000,
-    },
-  );
+  const { data: net } = useQuery({
+    queryKey: virtanceQueries.metrics.net(id),
+    queryFn: () => getVirtanceNetMetrics(id),
+    refetchInterval: 5000,
+  });
 
-  const { data: disk } = useSWR(
-    ['virtance-disk-metrics', id],
-    () => getVirtanceDiskMetrics(Number(id)),
-    {
-      refreshInterval: 5000,
-    },
-  );
+  const { data: disk } = useQuery({
+    queryKey: virtanceQueries.metrics.disk(id),
+    queryFn: () => getVirtanceDiskMetrics(id),
+    refetchInterval: 5000,
+  });
 
   return (
     <div className="space-y-8">

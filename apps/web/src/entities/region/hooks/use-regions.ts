@@ -1,12 +1,10 @@
-import useSWR from 'swr';
-import { getRegions } from '../api';
+import { useQuery } from '@tanstack/react-query';
+
+import { getRegions, regionQueries } from '@/entities/region';
 
 export function useRegions() {
-  const {
-    data: regions,
-    mutate,
-    error,
-  } = useSWR(['regions'], () => getRegions().then((response) => response.regions));
-
-  return { regions, mutate, error };
+  return useQuery({
+    queryKey: regionQueries.list(),
+    queryFn: () => getRegions().then((response) => response.regions),
+  });
 }

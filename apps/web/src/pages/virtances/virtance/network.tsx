@@ -1,10 +1,11 @@
-import { useVirtance } from '@/entities/virtance';
-import { VirtanceFirewall } from '@/widgets/virtance-firewall';
 import { useParams } from 'react-router-dom';
 
-export default function VirtanceNetwork() {
+import { useVirtance } from '@/entities/virtance';
+import { VirtanceFirewall } from '@/widgets/virtance-firewall';
+
+export default function VirtanceNetworkPage() {
   const { id } = useParams();
-  const { virtance } = useVirtance(Number(id));
+  const { data: virtance } = useVirtance(Number(id));
 
   return (
     <div className="space-y-8">

@@ -1,50 +1,35 @@
-import useSWR, { SWRConfiguration, useSWRConfig } from 'swr';
-import { getVirtance, runVirtanceAction } from '../api';
-import type { ActionType, Virtance } from '../types';
+import { type QueryOptions, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 
-export function useVirtance(id: number, options?: SWRConfiguration<Virtance>) {
-  const event = useRef<Virtance['event']>(null);
-  const { mutate: globalMutate } = useSWRConfig();
-  const {
-    data: virtance,
-    mutate,
-    error,
-  } = useSWR<Virtance>(
-    ['virtance', id],
-    () => getVirtance(id).then((response) => response.virtance),
-    {
-      refreshInterval(latestData) {
-        if (latestData?.event === null) {
-          // refetch snapshots if 'snapshot' task is completed
-          if (event.current?.name === 'snapshot') {
-            globalMutate(`virtance-snapshots-${id}`);
-          }
+import { type Event } from '@/entities/event';
+import { type Virtance, getVirtance, virtanceQueries } from '@/entities/virtance';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 
-          event.current = null;
-          return 0;
+export function useVirtance(id: number, options?: QueryOptions<Virtance>) {
+  const queryClient = useQueryClient();
+  const event = useRef<Event | null>(null);
+
+  return useQuery({
+    queryKey: virtanceQueries.one(id),
+    queryFn: () => getVirtance(id).then((response) => response.virtance),
+    refetchInterval(query) {
+      if (query.state.data?.event === null) {
+        // invalidate snapshots if 'snapshot' task is completed
+        if (event.current?.name === 'snapshot') {
+          queryClient.invalidateQueries({
+            queryKey: virtanceQueries.snapshots(id),
+          });
         }
 
-        event.current = latestData ? latestData.event : null;
+        event.current = null;
 
-        return 1000;
-      },
-      ...options,
+        return false;
+      }
+
+      event.current = query.state.data ? query.state.data.event : null;
+
+      return REFRESH_INTERVAL;
     },
-  );
-
-  const isBusy = virtance?.event !== null;
-
-  async function runAction(payload: ActionType) {
-    await runVirtanceAction(payload);
-    virtance && mutate({ ...virtance, status: 'pending' });
-  }
-
-  return {
-    virtance,
-    mutate,
-    runAction,
-    error,
-    isBusy,
-  };
+    ...options,
+  });
 }

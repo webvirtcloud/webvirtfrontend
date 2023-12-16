@@ -1,15 +1,17 @@
+import { useState } from 'react';
+import { useToast } from 'ui/components/toast';
+
 import {
   type FirewallInboundRule,
   type FirewallOutboundRule,
-  useFirewall,
   createFirewallRule,
   deleteFirewallRule,
+  useFirewall,
 } from '@/entities/firewall';
-import { FirewallRule } from './firewall-rule';
-import { updateFirewallRules, FirewallRuleDeleteAlertDialog } from '@/entities/firewall';
-import { useState } from 'react';
+import { FirewallRuleDeleteAlertDialog, updateFirewallRules } from '@/entities/firewall';
+
 import { CreateFirewallRuleForm } from './create-firewall-rule-form';
-import { useToast } from 'ui/components/toast';
+import { FirewallRule } from './firewall-rule';
 
 function isDuplicate(
   arr: (FirewallInboundRule | FirewallOutboundRule)[],
@@ -28,7 +30,7 @@ function transformRulesBeforeSubmit(
 }
 
 export function FirewallRules({ uuid }: { uuid: string }) {
-  const { firewall, mutate } = useFirewall(uuid);
+  const { data: firewall, refetch } = useFirewall(uuid);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedRule, setSelectedRule] = useState<FirewallInboundRule>();
   const { toast } = useToast();
@@ -63,7 +65,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
             : {}),
         }));
 
-      await mutate();
+      await refetch();
     } catch (e) {
       const { message } = await e.response.json();
       toast({ title: 'Bad request', variant: 'destructive', description: message });
@@ -85,7 +87,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
             ? { outbound_rules: transformRulesBeforeSubmit(payload.outbound_rules) }
             : {}),
         }));
-      await mutate();
+      await refetch();
     } catch (e) {
       const { message } = await e.response.json();
       toast({ title: 'Bad request', variant: 'destructive', description: message });
@@ -101,7 +103,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
   async function deleteRule(payload) {
     try {
       firewall && (await deleteFirewallRule(firewall.uuid, payload));
-      await mutate();
+      await refetch();
     } catch (e) {
       const { message } = await e.response.json();
       toast({ title: 'Bad request', variant: 'destructive', description: message });

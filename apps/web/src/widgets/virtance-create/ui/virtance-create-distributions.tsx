@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+
 import { DistributionCard } from '@/entities/image';
 
 export function VirtanceCreateDistributions({ distributions }) {

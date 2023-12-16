@@ -1,11 +1,10 @@
-import useSWR, { SWRConfiguration } from 'swr';
-import { getSizes } from '../api';
-import { Size } from '../types';
+import { useQuery } from '@tanstack/react-query';
 
-export function useSizes(options?: SWRConfiguration<Size[]>) {
-  return useSWR<Size[]>(
-    ['sizes'],
-    () => getSizes().then((response) => response.sizes),
-    options,
-  );
+import { getSizes, sizeQueries } from '@/entities/size';
+
+export function useSizes() {
+  return useQuery({
+    queryKey: sizeQueries.list(),
+    queryFn: () => getSizes().then((response) => response.sizes),
+  });
 }

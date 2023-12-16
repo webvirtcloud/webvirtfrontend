@@ -1,18 +1,10 @@
-import useSWR from 'swr';
-import { getImages } from '../api';
+import { useQuery } from '@tanstack/react-query';
 
-export function useImages(type: 'distribution') {
-  const {
-    data: images,
-    mutate,
-    error,
-  } = useSWR(['images', { type }], () =>
-    getImages('distribution').then((response) => response.images),
-  );
+import { getImages, imageQueries } from '@/entities/image';
 
-  return {
-    images,
-    mutate,
-    error,
-  };
+export function useImages(type: 'distribution' | 'snapshot' | 'backup') {
+  return useQuery({
+    queryKey: imageQueries.list(type),
+    queryFn: () => getImages('distribution').then((response) => response.images),
+  });
 }

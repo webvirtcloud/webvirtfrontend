@@ -1,40 +1,24 @@
-import { useVirtance } from '@/entities/virtance';
-import { getVirtancesSnapshots } from '@/entities/virtance/api/get-virtance-snapshots';
-import { TakeSnapshotForm } from '@/features/take-snapshot-form';
-import { VirtanceSnapshotsTable } from '@/widgets/virtance-snapshots-table';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import useSWR from 'swr';
 import { useToast } from 'ui/components/toast';
 
-export default function VirtanceSnapshots() {
+import { useVirtanceAction, useVirtanceSnapshots } from '@/entities/virtance';
+import { TakeSnapshotForm } from '@/features/take-snapshot-form';
+import { VirtanceSnapshotsTable } from '@/widgets/virtance-snapshots-table';
+
+export default function VirtanceSnapshotsPage() {
+  const params = useParams();
+  const id = Number(params.id);
   const methods = useForm<{ name: string }>();
   const { toast } = useToast();
-  const { id } = useParams();
-  const { runAction } = useVirtance(Number(id));
+  const { runAction } = useVirtanceAction();
 
-  const {
-    data: snapshots,
-    error,
-    mutate,
-  } = useSWR(
-    `virtance-snapshots-${id}`,
-    () => getVirtancesSnapshots(Number(id)).then((response) => response.snapshots),
-    {
-      refreshInterval: (latestData) => {
-        if (latestData?.some((snapshot) => snapshot.event !== null)) {
-          return 1000;
-        }
-
-        return 0;
-      },
-    },
-  );
+  const { data: snapshots, refetch, error } = useVirtanceSnapshots(id);
 
   async function onSubmit(data: { name: string }) {
     try {
-      await runAction({ action: 'snapshot', id: Number(id), name: data.name });
-      await mutate();
+      await runAction({ action: 'snapshot', id: id, name: data.name });
+      await refetch();
       methods.reset();
     } catch (e) {
       methods.setError('root', { message: 'Internal server error' });
@@ -78,7 +62,6 @@ export default function VirtanceSnapshots() {
         virtanceId={Number(id)}
         snapshots={snapshots}
         error={error}
-        mutate={mutate}
         runAction={runAction}
       />
     </div>

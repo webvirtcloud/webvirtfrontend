@@ -162,3 +162,9 @@ export type VirtanceHistory = {
   event: string | null;
   created: string;
 };
+
+export interface GetVirtancesParams {
+  has_backups?: boolean;
+  has_firewall?: boolean;
+  has_floating_ip?: boolean;
+}

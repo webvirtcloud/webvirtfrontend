@@ -1,5 +1,6 @@
-import { useVirtance } from '@/entities/virtance';
+import BoltSlashIcon from '@heroicons/react/24/outline/BoltSlashIcon';
 import { FormEvent, useState } from 'react';
+import { Button } from 'ui/components/button';
 import {
   Dialog,
   DialogContent,
@@ -8,13 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'ui/components/dialog';
-import { Button } from 'ui/components/button';
-import BoltSlashIcon from '@heroicons/react/24/outline/BoltSlashIcon';
+
+import { useVirtance, useVirtanceAction } from '@/entities/virtance';
 
 export function Reset({ id }: { id: number }) {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isResetting, setResetting] = useState(false);
-  const { virtance, runAction } = useVirtance(id);
+  const { data: virtance } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();

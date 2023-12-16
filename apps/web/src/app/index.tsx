@@ -1,5 +1,7 @@
-import { Routing } from '@/pages';
 import { Toaster } from 'ui/components/toast';
+
+import { Routing } from '@/pages';
+
 import { withProviders } from './providers';
 
 function App() {

@@ -1,25 +1,10 @@
-import useSWR from 'swr';
+import { useQuery } from '@tanstack/react-query';
 
-import { getFloatingIPs } from '@/entities/floating-ip';
+import { floatingIPQueries, getFloatingIPs } from '@/entities/floating-ip';
 
 export function useFloatingIPs() {
-  const {
-    data: floatingIps,
-    mutate,
-    error,
-  } = useSWR(
-    '/floatng_ips/',
-    () => getFloatingIPs().then((response) => response.floating_ips),
-    {
-      refreshInterval(latestData) {
-        return latestData?.some((floatingIP) => !!floatingIP.event) ? 1000 : 0;
-      },
-    },
-  );
-
-  return {
-    floatingIps,
-    mutate,
-    error,
-  };
+  return useQuery({
+    queryKey: floatingIPQueries.list(),
+    queryFn: () => getFloatingIPs().then((response) => response.floating_ips),
+  });
 }

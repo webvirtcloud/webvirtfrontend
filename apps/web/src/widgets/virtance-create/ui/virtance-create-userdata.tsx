@@ -1,3 +1,5 @@
+import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import CodeBracketSquareIcon from '@heroicons/react/24/outline/CodeBracketSquareIcon';
 import { useState } from 'react';
 import { useForm, useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
@@ -11,8 +13,6 @@ import {
 import { Error } from 'ui/components/error';
 import { Label } from 'ui/components/label';
 import { Textarea } from 'ui/components/textarea';
-import CodeBracketSquareIcon from '@heroicons/react/24/outline/CodeBracketSquareIcon';
-import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
 
 interface FormState {
   userdata: string;

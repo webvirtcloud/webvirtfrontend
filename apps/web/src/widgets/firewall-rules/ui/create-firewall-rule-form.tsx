@@ -1,5 +1,6 @@
-import { FirewallRule } from './firewall-rule';
 import { FirewallInboundRule, FirewallOutboundRule } from '@/entities/firewall';
+
+import { FirewallRule } from './firewall-rule';
 
 export function CreateFirewallRuleForm({
   defaultRule,

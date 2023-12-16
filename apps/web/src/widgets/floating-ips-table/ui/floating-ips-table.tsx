@@ -1,65 +1,108 @@
-import { useState } from 'react';
+import { useQueries, useQueryClient } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
 
+import { type Event } from '@/entities/event';
 import {
   type FloatingIP,
   deleteFloatingIP,
   FloatingIPDeleteAlertDialog,
+  floatingIPQueries,
   FloatingIPUnassignAlertDialog,
   runFloatingIPAction,
   useFloatingIPs,
 } from '@/entities/floating-ip';
+import { getFloatingIP } from '@/entities/floating-ip/api/get-floating-ip';
 import { useVirtances } from '@/entities/virtance';
 import { CreateFloatingIPForm } from '@/features/create-floating-ip-form';
 import { FloatingIPAssignDialog } from '@/features/floating-ip-assign-dialog';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 import { State } from '@/shared/ui/state';
 
 export function FloatingIpsTable() {
   const {
-    floatingIps,
+    data: floatingIps,
     error: floatingIPsError,
-    mutate: mutateFloatingIPs,
+    refetch: refetchFloatingIPs,
   } = useFloatingIPs();
-  const { virtances, mutate: mutateVirtances } = useVirtances({ has_floating_ip: false });
+  const queryClient = useQueryClient();
+  const { data: virtances, refetch: refetchVirtances } = useVirtances({
+    has_floating_ip: false,
+  });
   const [selectedFloatingIP, setSelectedFloatingIP] = useState<FloatingIP>();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isUnassignDialogOpen, setIsUnassignDialogOpen] = useState(false);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
-
   const { toast } = useToast();
 
-  const onCreate = () => {
-    mutateFloatingIPs();
-    mutateVirtances();
-    setIsAssignDialogOpen(false);
-  };
+  const events = useMemo(() => {
+    const uniqueIPs = new Set<string>();
+    const uniqueEvents: { ip: string; event: Event }[] = [];
 
-  const onDelete = async (ip: string) => {
-    try {
-      await deleteFloatingIP(ip);
-      await mutateVirtances();
-      await mutateFloatingIPs();
-      toast({
-        title: 'The task to delete a Floating IP has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
-  };
+    if (floatingIps === undefined) return uniqueEvents;
+
+    floatingIps.forEach((floatingIP) => {
+      if (floatingIP.event !== null && !uniqueIPs.has(floatingIP.ip)) {
+        uniqueIPs.add(floatingIP.ip);
+        uniqueEvents.push({ ip: floatingIP.ip, event: floatingIP.event });
+      }
+    });
+
+    return uniqueEvents;
+  }, [floatingIps]);
+
+  useQueries({
+    queries: events.map((event) => ({
+      queryKey: floatingIPQueries.event(event.ip),
+      queryFn: ({ signal }) => getFloatingIP({ ip: event.ip, options: { signal } }),
+      refetchInterval: (query) => {
+        if (query.state.data && query.state.data.floating_ip.event === null) {
+          queryClient.setQueryData<FloatingIP[]>(
+            floatingIPQueries.list(),
+            (previousData) => {
+              if (previousData) {
+                return previousData.map((floatingIP: FloatingIP) =>
+                  floatingIP.ip === event.ip ? query.state.data?.floating_ip : floatingIP,
+                );
+              }
+            },
+          );
+
+          refetchVirtances();
+
+          toast({
+            title: `The task to ${event.event?.description.toLowerCase()} a Floating IP has been completed.`,
+            variant: 'default',
+          });
+
+          queryClient.removeQueries({ queryKey: floatingIPQueries.event(event.ip) });
+
+          return false;
+        }
+        return REFRESH_INTERVAL;
+      },
+    })),
+  });
+
+  function onCreate() {
+    refetchFloatingIPs();
+    refetchVirtances();
+    setIsAssignDialogOpen(false);
+  }
+
+  async function onDelete(ip: string) {
+    await deleteFloatingIP(ip);
+    refetchVirtances();
+    refetchFloatingIPs();
+  }
 
   const onUnassgin = async (ip: string) => {
-    try {
-      await runFloatingIPAction({ action: 'unassign', ip });
-      await mutateVirtances();
-      await mutateFloatingIPs();
-      toast({
-        title: 'The task to unassgin a Floating IP has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
+    await runFloatingIPAction({ action: 'unassign', ip });
+    refetchFloatingIPs();
   };
 
   function onDialogOpen(floatingIP: FloatingIP, type: 'assign' | 'unassign' | 'delete') {
@@ -96,54 +139,60 @@ export function FloatingIpsTable() {
   const Actions = ({ value: floatingIP }) => (
     <div className="space-x-2">
       <div className="flex justify-end space-x-2">
-        {floatingIP.virtance ? (
-          <Button
-            size="sm"
-            variant="secondary"
-            disabled={!!floatingIP.event}
-            onClick={() => onDialogOpen(floatingIP, 'unassign')}
-          >
-            {floatingIP.event && floatingIP.event.name === 'unassign' ? (
-              <>
-                <Spin size="sm" />
-                <span className="ml-2">{floatingIP.event.description}</span>
-              </>
-            ) : (
-              'Unassign'
-            )}
-          </Button>
+        {floatingIP.event ? (
+          <Spin size="sm" />
         ) : (
-          <Button
-            size="sm"
-            variant="secondary"
-            disabled={!!floatingIP.event}
-            onClick={() => onDialogOpen(floatingIP, 'assign')}
-          >
-            {floatingIP.event && floatingIP.event.name === 'assign' ? (
-              <>
-                <Spin size="sm" />
-                <span className="ml-2">{floatingIP.event.description}</span>
-              </>
+          <>
+            {floatingIP.virtance ? (
+              <Button
+                size="sm"
+                variant="secondary"
+                disabled={!!floatingIP.event}
+                onClick={() => onDialogOpen(floatingIP, 'unassign')}
+              >
+                {floatingIP.event && floatingIP.event.name === 'unassign' ? (
+                  <>
+                    <Spin size="sm" />
+                    <span className="ml-2">{floatingIP.event.description}</span>
+                  </>
+                ) : (
+                  'Unassign'
+                )}
+              </Button>
             ) : (
-              'Assign'
+              <Button
+                size="sm"
+                variant="secondary"
+                disabled={!!floatingIP.event}
+                onClick={() => onDialogOpen(floatingIP, 'assign')}
+              >
+                {floatingIP.event && floatingIP.event.name === 'assign' ? (
+                  <>
+                    <Spin size="sm" />
+                    <span className="ml-2">{floatingIP.event.description}</span>
+                  </>
+                ) : (
+                  'Assign'
+                )}
+              </Button>
             )}
-          </Button>
+            <Button
+              size="sm"
+              variant="destructive"
+              disabled={!!floatingIP.event}
+              onClick={() => onDialogOpen(floatingIP, 'delete')}
+            >
+              {floatingIP.event && floatingIP.event.name === 'delete' ? (
+                <>
+                  <Spin size="sm" />
+                  <span className="ml-2">{floatingIP.event.description}</span>
+                </>
+              ) : (
+                'Destroy'
+              )}
+            </Button>
+          </>
         )}
-        <Button
-          size="sm"
-          variant="destructive"
-          disabled={!!floatingIP.event}
-          onClick={() => onDialogOpen(floatingIP, 'delete')}
-        >
-          {floatingIP.event && floatingIP.event.name === 'delete' ? (
-            <>
-              <Spin size="sm" />
-              <span className="ml-2">{floatingIP.event.description}</span>
-            </>
-          ) : (
-            'Destroy'
-          )}
-        </Button>
       </div>
     </div>
   );

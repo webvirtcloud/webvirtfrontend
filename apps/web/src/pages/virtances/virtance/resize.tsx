@@ -1,14 +1,17 @@
-import { useSizes, SizeCard, type Size } from '@/entities/size';
-import { useVirtance } from '@/entities/virtance';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 
-export default function VirtanceResize() {
-  const { id } = useParams();
-  const { virtance, runAction } = useVirtance(Number(id));
+import { type Size, SizeCard, useSizes } from '@/entities/size';
+import { useVirtance, useVirtanceAction } from '@/entities/virtance';
+
+export default function VirtanceResizePage() {
+  const params = useParams();
+  const id = Number(params.id);
   const [currentSize, setCurrentSize] = useState<Size>();
+  const { data: virtance } = useVirtance(id);
   const { data: sizes } = useSizes();
+  const { runAction } = useVirtanceAction();
 
   useEffect(() => {
     if (virtance && sizes) {
@@ -31,9 +34,9 @@ export default function VirtanceResize() {
   }
 
   function onResize() {
-    virtance &&
-      currentSize &&
+    if (virtance && currentSize) {
       runAction({ id: virtance.id, action: 'resize', size: currentSize.slug });
+    }
   }
 
   return (

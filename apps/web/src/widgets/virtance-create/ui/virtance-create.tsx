@@ -1,13 +1,15 @@
-import { useImages, type Image } from '@/entities/image';
-import VirtanceCreateForm from './virtance-create-form';
+import { useMemo } from 'react';
+
+import { type Image, useImages } from '@/entities/image';
 import { useRegions } from '@/entities/region';
 import { useSizes } from '@/entities/size';
-import { useMemo } from 'react';
+
+import VirtanceCreateForm from './virtance-create-form';
 
 export function VirtanceCreate() {
   const { data: sizes } = useSizes();
-  const { regions } = useRegions();
-  const { images } = useImages('distribution');
+  const { data: regions } = useRegions();
+  const { data: images } = useImages('distribution');
 
   const distributions = useMemo(() => {
     return images?.reduce((p, c) => {

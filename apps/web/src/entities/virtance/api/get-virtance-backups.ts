@@ -1,4 +1,4 @@
-import type { Backup } from '@/entities/image';
+import { type Backup } from '@/entities/image';
 import request from '@/shared/api/request';
 
 export function getVirtancesBackups(id: number): Promise<{ backups: Backup[] }> {

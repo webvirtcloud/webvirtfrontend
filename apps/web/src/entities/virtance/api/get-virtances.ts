@@ -1,12 +1,5 @@
+import { type GetVirtancesParams, type Virtance } from '@/entities/virtance';
 import request from '@/shared/api/request';
-
-import { Virtance } from '../types';
-
-export interface GetVirtancesParams {
-  has_backups?: boolean;
-  has_firewall?: boolean;
-  has_floating_ip?: boolean;
-}
 
 export function getVirtances(
   params?: GetVirtancesParams,

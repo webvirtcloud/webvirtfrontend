@@ -1,11 +1,12 @@
-import { type VirtanceStatus, useVirtance } from '@/entities/virtance';
 import { useParams } from 'react-router-dom';
-import { formatMemorySize } from '@/shared/lib/number';
 import { cx } from 'ui/lib';
 
-export default function VirtanceOverview() {
+import { type VirtanceStatus, useVirtance } from '@/entities/virtance';
+import { formatMemorySize } from '@/shared/lib/number';
+
+export default function VirtanceOverviewPage() {
   const { id } = useParams();
-  const { virtance } = useVirtance(Number(id));
+  const { data: virtance } = useVirtance(Number(id));
 
   const VirtanceStatusClasses: Record<VirtanceStatus, string> = {
     active: 'text-green-400',

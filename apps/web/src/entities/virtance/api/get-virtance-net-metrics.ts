@@ -1,5 +1,5 @@
+import { type VirtanceNetMetrics } from '@/entities/virtance';
 import request from '@/shared/api/request';
-import type { VirtanceNetMetrics } from '../types';
 
 export function getVirtanceNetMetrics(
   id: number,

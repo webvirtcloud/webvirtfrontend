@@ -1,24 +1,30 @@
-import { getVirtancesBackups } from '@/entities/virtance/api/get-virtance-backups';
-import { useParams } from 'react-router-dom';
-import { Table } from 'ui/components/table';
-import { State } from '@/shared/ui/state';
-import useSWR from 'swr';
-import { Button } from 'ui/components/button';
-import { useVirtance } from '@/entities/virtance';
-import { FormEvent, useState } from 'react';
 import { format } from 'date-fns';
+import { type FormEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
+import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
+
 import {
   type Backup,
-  runImageAction,
-  ImageRestoreAlertDialog,
   BackupConvertAlertDialog,
+  ImageRestoreAlertDialog,
+  runImageAction,
 } from '@/entities/image';
+import {
+  useIsVirtanceBusy,
+  useVirtance,
+  useVirtanceAction,
+  useVirtanceBackups,
+} from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
-export default function VirtanceBackups() {
-  const { id } = useParams();
-  const { virtance, isBusy, runAction } = useVirtance(Number(id));
+export default function VirtanceBackupsPage() {
+  const params = useParams();
+  const id = Number(params.id);
+  const { data: virtance } = useVirtance(id);
+  const { runAction } = useVirtanceAction();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isBackupsEnabled = virtance?.backups_enabled;
   const [selectedBackup, setSelectedBackup] = useState<Backup>();
@@ -26,37 +32,30 @@ export default function VirtanceBackups() {
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const { data, mutate, error } = useSWR(
-    'virtance-backups',
-    () => getVirtancesBackups(Number(id)).then((response) => response.backups),
-    {
-      isOnline: () => !!isBackupsEnabled,
-      refreshInterval(latestData) {
-        return latestData?.some((backup) => !!backup.event) ? 1000 : 0;
-      },
-    },
-  );
+  const isBusy = useIsVirtanceBusy(virtance);
+
+  const { data, refetch, error } = useVirtanceBackups(id, {
+    enabled: !!isBackupsEnabled,
+  });
 
   const onRestore = async (id: number) => {
-    try {
+    if (virtance) {
       virtance && (await runAction({ action: 'restore', id: virtance.id, image: id }));
-      await mutate();
+      await refetch();
       toast({
         title: 'The task to restore a backup has been started.',
         variant: 'default',
       });
-    } catch (error) {}
+    }
   };
 
   const onConvert = async (id: number) => {
-    try {
-      await runImageAction({ id, action: 'convert' });
-      await mutate();
-      toast({
-        title: 'The task to convert a backup has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
+    await runImageAction({ id, action: 'convert' });
+    await refetch();
+    toast({
+      title: 'The task to convert a backup has been started.',
+      variant: 'destructive',
+    });
   };
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -67,7 +66,9 @@ export default function VirtanceBackups() {
         action: isBackupsEnabled ? 'disable_backups' : 'enable_backups',
         id: Number(id),
       });
-    } catch (error) {
+    } catch (e) {
+      const { message } = await e.response.json();
+      toast({ title: 'Bad request', variant: 'destructive', description: message });
     } finally {
       setIsSubmitting(false);
     }
@@ -189,13 +190,13 @@ export default function VirtanceBackups() {
           </form>
         </div>
 
-        {data ? (
+        {isBackupsEnabled && data ? (
           <>
             <Table columns={columns} data={data} />
             {data.length === 0 ? (
               <State
                 title="No backups"
-                description="Enable backups and they will show up here."
+                description="Your first backup will be created soon."
               />
             ) : null}
           </>

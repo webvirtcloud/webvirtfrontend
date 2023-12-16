@@ -1,18 +1,11 @@
-import useSWR, { SWRConfiguration } from 'swr';
-import { getUser } from '../api';
-import { User } from '../types';
+import { QueryOptions, useQuery } from '@tanstack/react-query';
 
-export function useUser(options?: SWRConfiguration<User>) {
-  const { data, error, isValidating, mutate } = useSWR<User>(
-    'user',
-    () => getUser().then((response) => response.profile),
-    options,
-  );
+import { type User, getUser, userQueries } from '@/entities/user';
 
-  return {
-    data,
-    error,
-    isValidating,
-    mutate,
-  };
+export function useUser(options?: QueryOptions<User>) {
+  return useQuery({
+    queryKey: userQueries.user(),
+    queryFn: () => getUser().then((response) => response.profile),
+    ...options,
+  });
 }

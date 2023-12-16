@@ -1,28 +1,30 @@
 // @ts-ignore
 import RFB from '@novnc/novnc'; // there is not currently available and working types for this package
-import useSWR from 'swr';
-import { useRef, useState } from 'react';
-import { consoleVirtance } from '../api';
-import type { Console } from '../types';
+import Cookies from 'js-cookie';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from 'ui/components/button';
 import { StatusDot } from 'ui/components/status-dot';
-import Cookies from 'js-cookie';
+
+import { useVirtanceConsole } from '../hooks';
+import type { Console } from '../types';
 
 export function VirtanceConsole({ id }) {
   const ref = useRef(null);
-  const connection = useRef<any | null>(null);
+  const connection = useRef<any>(null);
   const [status, setStatus] = useState('Connecting...');
 
-  useSWR(['virtance-console', id], () => consoleVirtance(id), {
-    onSuccess(response) {
-      Cookies.set('uuid', response.console.uuid, {
+  const { data } = useVirtanceConsole(id);
+
+  useEffect(() => {
+    if (data) {
+      Cookies.set('uuid', data.uuid, {
         secure: true,
         sameSite: 'None',
-        domain: response.console.websocket.host.replace(/^[^.]+\./, '.'),
+        domain: data.websocket.host.replace(/^[^.]+\./, '.'),
       });
 
-      connection.current = new RFB(ref.current, generateURL(response.console), {
-        credentials: { password: generatePassword(response.console.websocket.hash) },
+      connection.current = new RFB(ref.current, generateURL(data), {
+        credentials: { password: generatePassword(data.websocket.hash) },
       });
 
       if (connection.current) {
@@ -33,6 +35,7 @@ export function VirtanceConsole({ id }) {
           setStatus('Connected');
           connection.current.focus();
         });
+
         connection.current.addEventListener('disconnect', (e) => {
           if (e.detail.clean) {
             setStatus('Disconnected');
@@ -41,10 +44,8 @@ export function VirtanceConsole({ id }) {
           }
         });
       }
-    },
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-  });
+    }
+  }, [data]);
 
   function generateURL(console: Console) {
     const { websocket } = console;

@@ -1,17 +1,18 @@
-import {
-  type FirewallInboundRule,
-  type FirewallOutboundRule,
-  FirewallTypeSelect,
-  FirewallAddressInput,
-  InboundTypeOptions,
-  OutboundTypeOptions,
-  calculateType,
-} from '@/entities/firewall';
 import { type ChangeEvent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
+
+import {
+  type FirewallInboundRule,
+  type FirewallOutboundRule,
+  calculateType,
+  FirewallAddressInput,
+  FirewallTypeSelect,
+  InboundTypeOptions,
+  OutboundTypeOptions,
+} from '@/entities/firewall';
 
 const regex =
   /^(((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|1[0-9]|2[0-8]|3[0-2])){0,1}){0,1}((\s*,\s*)(?=[^,])){0,1})+$/;

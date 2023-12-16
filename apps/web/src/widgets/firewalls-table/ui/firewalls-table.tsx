@@ -1,51 +1,43 @@
-import { useState } from 'react';
 import { format } from 'date-fns';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
-import { FirewallCreateDialog } from '@/features/firewall-create-dialog';
-import { State } from '@/shared/ui/state';
+
 import {
   type Firewall,
+  deleteFirewall,
   FirewallDeleteAlertDialog,
   useFirewalls,
-  deleteFirewall,
 } from '@/entities/firewall';
-import { Link } from 'react-router-dom';
+import { FirewallCreateDialog } from '@/features/firewall-create-dialog';
+import { State } from '@/shared/ui/state';
 
 export const FirewallsTable = () => {
-  const { data: firewalls, mutate, error } = useFirewalls();
+  const { data: firewalls, refetch, error } = useFirewalls();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedFirewall, setSelectedFirewall] = useState<Firewall>();
   const { toast } = useToast();
 
   const onCreate = async (firewall: Firewall) => {
-    await mutate(firewalls ? [firewall, ...firewalls] : []);
+    await refetch();
     toast({
       title: 'Firewall was created',
     });
   };
 
   const onDelete = async (uuid: string) => {
-    try {
-      await deleteFirewall(uuid);
-      await mutate(
-        firewalls ? firewalls.filter((firewall) => firewall.uuid !== uuid) : [],
-      );
-      toast({
-        title: 'Firewall was delete',
-      });
-    } catch (error) {}
+    await deleteFirewall(uuid);
+    await refetch();
+    toast({
+      title: 'Firewall was delete',
+    });
   };
 
   async function onUpdate(firewall: Firewall) {
-    selectedFirewall &&
-      (await mutate(
-        firewalls
-          ? firewalls.map((item) => (item.uuid === firewall.uuid ? firewall : item))
-          : [],
-      ));
+    await refetch();
     setIsEditDialogOpen(false);
     toast({
       title: 'Firewall was updated',

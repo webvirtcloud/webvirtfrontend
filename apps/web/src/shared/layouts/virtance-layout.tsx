@@ -1,22 +1,25 @@
+import { type ChangeEvent } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Skeleton } from 'ui/components/skeleton';
+import { StatusDot } from 'ui/components/status-dot';
+import { cx } from 'ui/lib';
+
 import {
   type ActionType,
   useVirtance,
+  useVirtanceAction,
+  VirtanceOpenConsoleButton,
   VirtanceRebootButton,
   VirtanceToggleStateButton,
-  VirtanceOpenConsoleButton,
 } from '@/entities/virtance';
-import { NavLink, Outlet, useNavigate, useParams, useLocation } from 'react-router-dom';
-import { cx } from 'ui/lib';
-import { StatusDot } from 'ui/components/status-dot';
-import { ChangeEvent } from 'react';
-import { Skeleton } from 'ui/components/skeleton';
-import { State } from '@/shared/ui/state';
 import { formatMemorySize } from '@/shared/lib';
+import { State } from '@/shared/ui/state';
 
 export function VirtanceLayout() {
   const { id } = useParams();
   const { pathname } = useLocation();
-  const { virtance, runAction, error } = useVirtance(Number(id));
+  const { data: virtance, error } = useVirtance(Number(id));
+  const { runAction } = useVirtanceAction();
 
   const navigate = useNavigate();
 

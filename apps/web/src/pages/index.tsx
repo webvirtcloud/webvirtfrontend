@@ -3,9 +3,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
-import { FirewallLayout } from '@/widgets/layouts/firewall-layout';
-import { ImagesLayout } from '@/widgets/layouts/images-layout';
-import { VirtanceLayout } from '@/widgets/layouts/virtance-layout';
+import { FirewallLayout } from '@/shared/layouts/firewall-layout';
+import { ImagesLayout } from '@/shared/layouts/images-layout';
+import { VirtanceLayout } from '@/shared/layouts/virtance-layout';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));

@@ -1,19 +1,19 @@
-import {
-  type Snapshot,
-  SnapshotDeleteAlertDialog,
-  SnapshotRestoreAlertDialog,
-  deleteImage,
-  getSnapshots,
-} from '@/entities/image';
-import { State } from '@/shared/ui/state';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Button } from 'ui/components/button';
+import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
 import { useToast } from 'ui/components/toast';
-import { Spin } from 'ui/components/spin';
-import useSWR from 'swr';
+
+import {
+  type Snapshot,
+  deleteImage,
+  SnapshotDeleteAlertDialog,
+  SnapshotRestoreAlertDialog,
+  useSnapshots,
+} from '@/entities/image';
 import { runVirtanceAction } from '@/entities/virtance';
+import { State } from '@/shared/ui/state';
 
 export function ImagesSnapshotsTable() {
   const [selectedSnapshot, setSelectedSnapshot] = useState<Snapshot>();
@@ -21,41 +21,29 @@ export function ImagesSnapshotsTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  const {
-    data: snapshots,
-    mutate,
-    error,
-  } = useSWR('images-snapshots', () => getSnapshots().then((data) => data.snapshots), {
-    refreshInterval(latestData) {
-      return latestData?.some((snapshot) => !!snapshot.event) ? 1000 : 0;
-    },
-  });
+  const { data: snapshots, refetch, error } = useSnapshots();
 
   const onRestore = async (snapshot: Snapshot) => {
-    try {
-      if (!snapshot.virtance_id) return;
-      await runVirtanceAction({
-        action: 'restore',
-        id: snapshot.virtance_id,
-        image: snapshot.id,
-      });
-      await mutate();
-      toast({
-        title: 'The task to restore a snapshot has been started.',
-        variant: 'default',
-      });
-    } catch (error) {}
+    if (!snapshot.virtance_id) return;
+    await runVirtanceAction({
+      action: 'restore',
+      id: snapshot.virtance_id,
+      image: snapshot.id,
+    });
+    await refetch();
+    toast({
+      title: 'The task to restore a snapshot has been started.',
+      variant: 'default',
+    });
   };
 
   const onDelete = async (id: number) => {
-    try {
-      await deleteImage(id);
-      await mutate();
-      toast({
-        title: 'The task to delete a snapshot has been started.',
-        variant: 'destructive',
-      });
-    } catch (error) {}
+    await deleteImage(id);
+    await refetch();
+    toast({
+      title: 'The task to delete a snapshot has been started.',
+      variant: 'destructive',
+    });
   };
 
   function onDialogOpen(snapshot: any, type: 'restore' | 'delete') {
@@ -74,6 +62,7 @@ export function ImagesSnapshotsTable() {
     switch (type) {
       case 'restore':
         setIsRestoreDialogOpen(false);
+        break;
       case 'delete':
         setIsDeleteDialogOpen(false);
         break;

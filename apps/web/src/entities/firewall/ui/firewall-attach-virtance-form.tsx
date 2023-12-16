@@ -1,4 +1,4 @@
-import { type Virtance } from '@/entities/virtance';
+import { type FormEvent, useState } from 'react';
 import { Button } from 'ui/components/button';
 import { Label } from 'ui/components/label';
 import {
@@ -8,19 +8,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'ui/components/select';
-import { type FormEvent, useState } from 'react';
-import { type KeyedMutator } from 'swr';
+
+import { type Virtance } from '@/entities/virtance';
 
 interface FirewallAttachVirtanceFormProps {
   virtances?: Virtance[];
-  mutate: KeyedMutator<Virtance[]>;
+  refetch: () => void;
   onSubmit: (payload: number[]) => Promise<void>;
 }
 
 export function FirewallAttachVirtanceForm({
   onSubmit,
   virtances,
-  mutate,
+  refetch,
 }: FirewallAttachVirtanceFormProps) {
   const [virtanceId, setVirtanceId] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +36,7 @@ export function FirewallAttachVirtanceForm({
 
         setVirtanceId(undefined);
 
-        mutate();
+        refetch();
       }
     } finally {
       setIsSubmitting(false);
@@ -64,7 +64,11 @@ export function FirewallAttachVirtanceForm({
           </SelectTrigger>
           <SelectContent>
             {virtances?.map((item) => (
-              <SelectItem key={item.id} value={item.id.toString()}>
+              <SelectItem
+                key={item.id}
+                value={item.id.toString()}
+                disabled={item.event !== null}
+              >
                 {item.name}
               </SelectItem>
             ))}

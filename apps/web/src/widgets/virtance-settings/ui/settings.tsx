@@ -1,5 +1,5 @@
-import { General } from './general';
 import { DangerZone } from './danger-zone';
+import { General } from './general';
 import { RecoveryMode } from './recovery-mode';
 
 export function VirtanceSettings({ id }: { id: number }) {
