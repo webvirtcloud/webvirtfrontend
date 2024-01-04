@@ -1,3 +1,9 @@
+import AdjustmentsHorizontalIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
+import ArrowLeftOnRectangleIcon from '@heroicons/react/20/solid/ArrowLeftOnRectangleIcon';
+import CommandLineIcon from '@heroicons/react/20/solid/CommandLineIcon';
+import CreditCardIcon from '@heroicons/react/20/solid/CreditCardIcon';
+import UserIcon from '@heroicons/react/20/solid/UserIcon';
+import { Link } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,12 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
+
 import type { User } from '../types';
-import ArrowLeftOnRectangleIcon from '@heroicons/react/20/solid/ArrowLeftOnRectangleIcon';
-import AdjustmentsHorizontalIcon from '@heroicons/react/20/solid/AdjustmentsHorizontalIcon';
-import CommandLineIcon from '@heroicons/react/20/solid/CommandLineIcon';
-import UserIcon from '@heroicons/react/20/solid/UserIcon';
-import { Link } from 'react-router-dom';
 
 type Props = {
   user: User | undefined;
@@ -38,6 +40,12 @@ export function UserMenu({ user }: Props) {
           <Link to="/settings">
             <AdjustmentsHorizontalIcon className="mr-2 h-4 w-4" />
             Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/billing">
+            <CreditCardIcon className="mr-2 h-4 w-4" />
+            Billing
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>

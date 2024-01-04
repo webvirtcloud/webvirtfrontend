@@ -29,6 +29,7 @@ const FirewallVirtances = lazy(() => import('@/pages/firewalls/virtances'));
 const FloatingIPs = lazy(() => import('@/pages/floating-ip/floating-ips'));
 const ImagesSnapshots = lazy(() => import('@/pages/images/snapshots'));
 const ImagesBackups = lazy(() => import('@/pages/images/backups'));
+const Billing = lazy(() => import('@/pages/billing/billing'));
 const Settings = lazy(() => import('@/pages/settings'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
@@ -187,6 +188,15 @@ export function Routing() {
               }
             />
           </Route>
+
+          <Route
+            path="/billing"
+            element={
+              <Suspense>
+                <Billing />
+              </Suspense>
+            }
+          ></Route>
 
           <Route
             path="/settings"
