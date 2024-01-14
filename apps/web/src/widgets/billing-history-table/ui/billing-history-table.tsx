@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { Table } from 'ui/components/table';
 
 import { useHistory } from '@/entities/billing';
@@ -19,6 +20,11 @@ export function BillingHistoryTable() {
       field: 'amount',
       name: 'Amount',
       formatter: (value) => `$${value.amount}`,
+    },
+    {
+      field: 'date',
+      name: 'Created at',
+      formatter: (item) => format(new Date(item.date), 'MMM dd, yyyy'),
     },
   ];
 
