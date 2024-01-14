@@ -13,5 +13,9 @@ export interface Invoice {
 }
 
 export interface BillingHistory {
-  id: number;
+  date: string;
+  type: string;
+  invoice: string;
+  description: string;
+  amount: string;
 }

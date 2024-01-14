@@ -1,4 +1,3 @@
-import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
 
 import { useHistory } from '@/entities/billing';
@@ -7,25 +6,19 @@ import { State } from '@/shared/ui/state';
 export function BillingHistoryTable() {
   const { data: history, error } = useHistory();
 
-  const Actions = () => (
-    <div className="space-x-2">
-      <div className="flex justify-end space-x-2">
-        <Button size="sm" variant="secondary">
-          Download
-        </Button>
-      </div>
-    </div>
-  );
-
   const columns = [
     {
-      field: 'name',
-      name: 'Name',
+      field: 'type',
+      name: 'Type',
     },
     {
-      field: 'actions',
-      name: '',
-      component: Actions,
+      field: 'description',
+      name: 'Description',
+    },
+    {
+      field: 'amount',
+      name: 'Amount',
+      formatter: (value) => `$${value.amount}`,
     },
   ];
 
