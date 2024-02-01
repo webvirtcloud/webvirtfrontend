@@ -33,7 +33,7 @@ export function HomeHeader() {
         initial={{ opacity: 0, translateY: -20 }}
         animate={{ opacity: 100, translateY: 0 }}
         transition={{ duration: 1 }}
-        className="mx-auto mb-6 text-5xl font-bold leading-tight md:text-7xl md:leading-none"
+        className="mx-auto mb-6 text-5xl font-medium leading-tight md:text-7xl md:leading-none"
       >
         Free, open source <br /> cloud platform
       </motion.h1>
