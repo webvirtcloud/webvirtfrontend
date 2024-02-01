@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   title: 'WebVirtCloud - Free, open source cloud platform',
   description:
     'Meet a modern and powerful all-in-one cloud management platform for your company & your clients',
-  authors: { name: 'WebVirtCloud Team', url: 'https://webvirt.cloud' },
   robots: 'index, follow',
   openGraph: {
     type: 'website',
