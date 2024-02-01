@@ -23,19 +23,19 @@ export function Navigation() {
     <nav className="sticky inset-x-0 top-0 z-30 bg-white/50 backdrop-blur-md dark:bg-black/10">
       <div className="max-w-8xl mx-auto flex h-20 items-center justify-between px-4 md:px-8">
         <Logotype />
-        <ul className="hidden items-center gap-3 text-neutral-500 dark:text-neutral-400 md:flex md:gap-6">
+        <ul className="text-muted-foreground hidden items-center gap-3 md:flex md:gap-6">
           {NavLinks.map((link) => (
             <NavigationItem key={link.name} href={link.href}>
               {link.name}
             </NavigationItem>
           ))}
-          <li role="separator" className="h-4 w-px bg-neutral-300 dark:bg-neutral-700" />
+          <li role="separator" className="bg-border h-4 w-px" />
           {SOCIAL_LINKS.map((link) => {
             const Icon = link.icon;
             return (
               <li key={link.name}>
                 <a
-                  className="transition-colors hover:text-black dark:hover:text-white"
+                  className="hover:text-foreground transition-colors"
                   href={link.href}
                   target="_blank"
                 >
