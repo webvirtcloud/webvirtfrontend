@@ -16,14 +16,24 @@ import { Footer } from '@/app/footer';
 import { ThemeProvider } from './providers';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://webvirt.cloud'),
   title: 'WebVirtCloud - Free, open source cloud platform',
   description:
     'Meet a modern and powerful all-in-one cloud management platform for your company & your clients',
   authors: { name: 'WebVirtCloud Team', url: 'https://webvirt.cloud' },
-  themeColor: { color: '#fff', media: 'not screen' },
   robots: 'index, follow',
   openGraph: {
-    images: '/public/',
+    type: 'website',
+    url: 'https://webvirt.cloud',
+    title: 'WebVirtCloud',
+    description:
+      'Meet a modern and powerful all-in-one cloud management platform for your company & your clients',
+    siteName: 'WebVirtCloud',
+    images: [
+      {
+        url: 'https://webvirt.cloud/opengraph-image.png',
+      },
+    ],
   },
   keywords:
     'webvirtcloud, cloud, servers, kvm, virtualization, virtual machines, vms, webvirtmgr, webvirt, docker, kubernetes, k8s',
