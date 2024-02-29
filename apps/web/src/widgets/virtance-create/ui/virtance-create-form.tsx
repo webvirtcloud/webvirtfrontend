@@ -1,10 +1,16 @@
+import { DevTool } from '@hookform/devtools';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from 'ui/components/toast';
 
+import { Region } from '@/entities/region';
+import { Size } from '@/entities/size';
 import { createVirtance } from '@/entities/virtance';
 
-import { VirtanceCreateDistributions } from './virtance-create-distributions';
+import { type CreateVirtanceForm, schema } from '../types';
+import { VirtanceCreateImages } from './virtance-create-images';
 import { VirtanceCreateOverview } from './virtance-create-overview';
 import { VirtanceCreateRegions } from './virtance-create-regions';
 import { VirtanceCreateSettings } from './virtance-create-settings';
@@ -12,48 +18,91 @@ import { VirtanceCreateSizes } from './virtance-create-sizes';
 
 export default function VirtanceCreateForm({
   defaultValues,
-  distributions,
   sizes,
   regions,
+}: {
+  defaultValues: CreateVirtanceForm;
+  sizes: Size[];
+  regions: Region[];
 }) {
   const navigate = useNavigate();
-  const methods = useForm({ defaultValues });
+  const form = useForm<CreateVirtanceForm>({
+    defaultValues,
+    resolver: zodResolver(schema),
+  });
   const { toast } = useToast();
 
-  async function onSubmit(data) {
+  const { slug: currentSizeSlug } = form.watch('size');
+  const currentImage = form.watch('image');
+  const currentRegion = form.watch('region');
+
+  const filteredSizes = useMemo(
+    () =>
+      sizes
+        .filter((size) => size.regions.includes(currentRegion.slug))
+        .map((size) => ({
+          ...size,
+          available: size.available && size.disk > currentImage.minDiskSize,
+        })),
+    [sizes, currentImage],
+  );
+
+  useEffect(() => {
+    const currentSize = filteredSizes.find((size) => size.slug === currentSizeSlug);
+    const nextAvailableSize = filteredSizes.find((size) => size.available);
+    const isSizeChanged = form.getFieldState('size').isDirty;
+
+    if (nextAvailableSize && !(currentSize?.available && isSizeChanged)) {
+      form.setValue('size', {
+        slug: nextAvailableSize.slug,
+        price_monthly: nextAvailableSize.price_monthly,
+        disk: nextAvailableSize.disk,
+        memory: nextAvailableSize.memory,
+      });
+    }
+  }, [filteredSizes]);
+
+  async function onSubmit(data: CreateVirtanceForm) {
     try {
       await createVirtance({
-        size: data.size.slug,
-        image: data.image.slug,
         name: data.name,
+        size: data.size.slug,
+        image: data.image.id,
         region: data.region.slug,
         backups: data.backups,
-        ...(data.keypairs && data.keypairs.length > 0
-          ? { keypairs: [...data.keypairs] }
+        ...(data.authentication?.keys && data.authentication.keys.size > 0
+          ? { keypairs: [...data.authentication.keys.values()] }
           : {}),
-        ...(data.password ? { password: data.password } : {}),
+        ...(data.authentication.password
+          ? { password: data.authentication.password }
+          : {}),
         ...(data.userdata ? { userdata: data.userdata } : {}),
       });
-
       navigate('/');
     } catch (e) {
-      const { errors } = await e.response.json();
+      const { errors, message, status_code } = await e.response.json();
 
-      errors.forEach((error) => {
-        const keys = Object.keys(error);
+      if (status_code === 500 && message) {
+        return toast({ title: '500', description: message });
+      }
 
-        keys.forEach((key) => {
-          toast({ title: 'Form error', description: error[key] });
+      if (status_code === 400 && errors) {
+        return errors.forEach((error) => {
+          const keys = Object.keys(error);
+
+          keys.forEach((key) => {
+            toast({ title: 'Form error', description: error[key] });
+          });
         });
-      });
+      }
     }
   }
 
   return (
     <>
-      <FormProvider {...methods}>
+      <FormProvider {...form}>
         <form
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="relative mx-auto max-w-4xl py-8 md:py-16"
         >
           <div className="md:col-span-5">
@@ -67,13 +116,14 @@ export default function VirtanceCreateForm({
             </div>
 
             <VirtanceCreateOverview />
-            <VirtanceCreateDistributions distributions={distributions} />
             <VirtanceCreateRegions regions={regions} />
-            <VirtanceCreateSizes sizes={sizes} />
-            <VirtanceCreateSettings />
+            <VirtanceCreateImages />
+            <VirtanceCreateSizes sizes={filteredSizes} />
+            <VirtanceCreateSettings regions={regions} />
           </div>
         </form>
       </FormProvider>
+      <DevTool control={form.control} />
     </>
   );
 }

@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
+    "@hookform/devtools": "^4.3.1",
+    "@hookform/resolvers": "^3.3.4",
     "@novnc/novnc": "^1.4.0",
     "@tanstack/react-query": "^5.13.4",
     "compose-function": "^3.0.3",
@@ -42,7 +44,7 @@
     "lightweight-charts": "^4.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.38.0",
+    "react-hook-form": "^7.50.1",
     "react-router-dom": "^6.4.2",
     "react-use-measure": "^2.1.1",
     "ui": "*"

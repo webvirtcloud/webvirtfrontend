@@ -1,18 +1,23 @@
-export type Image = {
+import { type Event } from '@/entities/event';
+
+export interface Distribution {
+  type: 'distribution';
+  id: number;
+  slug: string;
+  name: string;
+  event: Event | null;
+  public: true;
+  regions: string[];
   created_at: string;
   description: string;
   distribution: string;
   min_disk_size: number;
-  name: string;
-  public: true;
-  regions: string[];
   size_gigabytes: number;
-  slug: string;
-  status: string;
-  type: 'distribution';
-};
+  status: 'available';
+}
 
-export type Snapshot = {
+export interface Snapshot {
+  type: 'snapshot';
   id: number;
   virtance_id: number | null;
   slug: null | string;
@@ -21,34 +26,37 @@ export type Snapshot = {
   regions: string[];
   public: false;
   created_at: string;
-  type: 'snapshot';
-  description: null | string;
+  description: string;
   min_disk_size: number;
   size_gigabytes: number;
   status: 'available';
-  event: {
-    name: string;
-    description: string;
-  } | null;
-};
+  event: Event | null;
+}
 
-export type Backup = {
+export interface Backup {
+  type: 'backup';
   id: number;
   slug: null;
   name: string;
-  type: 'backup';
-  event: {
-    name: string;
-    description: string;
-  } | null;
+  event: Event | null;
   public: false;
   regions: string[];
   created_at: string;
-  description: null;
+  description: string;
   distribution: string;
   min_disk_size: number;
   size_gigabytes: number;
   status: 'available' | 'pending';
+}
+
+export type ImageType = 'distribution' | 'snapshot' | 'backup';
+
+export type ImagesResponse<T extends ImageType> = {
+  images: T extends 'distribution'
+    ? Distribution[]
+    : T extends 'snapshot'
+    ? Snapshot[]
+    : Backup[];
 };
 
 export type ActionType = {

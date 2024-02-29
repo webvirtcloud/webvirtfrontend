@@ -1,5 +1,5 @@
 export interface Size {
-  available: true;
+  available: boolean;
   description: string;
   disk: number;
   memory: number;

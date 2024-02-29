@@ -1,8 +1,8 @@
-export const RegionFeature = ['backup'] as const;
+export type RegionFeature = 'backup' | 'snapshot';
 
 export type Region = {
   available: boolean;
-  features: typeof RegionFeature;
+  features: RegionFeature[];
   name: string;
   sizes: string[];
   slug: string;

@@ -3,15 +3,17 @@ import { Checkbox } from 'ui/components/checkbox';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
 
-import { type Region } from '@/entities/region';
+import { Region } from '@/entities/region';
 
+import type { CreateVirtanceForm } from '../types';
 import { VirtanceCreateSecurity } from './virtance-create-security';
 import { VirtanceCreateUserdata } from './virtance-create-userdata';
 
-export function VirtanceCreateSettings() {
-  const { register, control, watch } = useFormContext();
+export function VirtanceCreateSettings({ regions }: { regions: Region[] }) {
+  const { register, control, watch } = useFormContext<CreateVirtanceForm>();
 
-  const region: Region = watch('region');
+  const { slug: regionSlug } = watch('region');
+  const region = regions.find((region) => region.slug === regionSlug);
 
   return (
     <section className="space-y-4">
@@ -21,7 +23,7 @@ export function VirtanceCreateSettings() {
         <VirtanceCreateSecurity />
         <VirtanceCreateUserdata />
 
-        {region.features.includes('backup') && (
+        {region?.features.includes('backup') && (
           <Controller
             name="backups"
             control={control}
