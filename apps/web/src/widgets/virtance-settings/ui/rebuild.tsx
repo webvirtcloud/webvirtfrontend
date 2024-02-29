@@ -62,7 +62,7 @@ export function Rebuild({ id }: { id: number }) {
                 <SelectValue placeholder="Select new image" />
               </SelectTrigger>
               <SelectContent>
-                {images.map((image) => (
+                {images.images.map((image) => (
                   <SelectItem
                     key={image.slug}
                     value={image.slug}
