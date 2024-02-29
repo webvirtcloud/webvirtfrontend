@@ -23,7 +23,7 @@ export function Deletion({ id }: { id: number }) {
   async function onDelete() {
     setDeleting(true);
     await deleteVirtance(Number(id));
-    navigate('/virtances');
+    navigate('/');
     setDeleting(false);
   }
 
