@@ -118,7 +118,7 @@ export default function VirtanceCreateForm({
             <VirtanceCreateRegions regions={regions} />
             <VirtanceCreateImages />
             <VirtanceCreateSizes sizes={filteredSizes} />
-            <VirtanceCreateSettings regions={regions} />
+            <VirtanceCreateSettings />
           </div>
         </form>
       </FormProvider>

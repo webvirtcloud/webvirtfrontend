@@ -63,7 +63,7 @@ export function VirtanceCreateSecurity() {
       {method === 'ssh' &&
         (keypairs?.length ? (
           <>
-            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {keypairs.map((keypair) => (
                 <Controller
                   key={keypair.id}
