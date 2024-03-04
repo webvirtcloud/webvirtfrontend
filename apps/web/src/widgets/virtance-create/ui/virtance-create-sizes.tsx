@@ -21,7 +21,14 @@ export function VirtanceCreateSizes({ sizes }: { sizes: Size[] }) {
               control={control}
               render={({ field }) => (
                 <SizeCard
-                  onClick={() => field.onChange(size.slug)}
+                  onClick={() =>
+                    field.onChange({
+                      slug: size.slug,
+                      price_monthly: size.price_monthly,
+                      memory: size.memory,
+                      disk: size.disk,
+                    })
+                  }
                   isActive={slug === size.slug}
                   isDisabled={!size.available}
                   key={size.slug}
