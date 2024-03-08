@@ -102,7 +102,7 @@ export default function VirtanceCreateForm({
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="relative mx-auto max-w-4xl py-8 md:py-16"
+          className="relative mx-auto max-w-4xl py-8"
         >
           <div className="md:col-span-5">
             <div className="mb-8">
@@ -114,11 +114,11 @@ export default function VirtanceCreateForm({
               </p>
             </div>
 
-            <VirtanceCreateOverview />
             <VirtanceCreateRegions regions={regions} />
             <VirtanceCreateImages />
             <VirtanceCreateSizes sizes={filteredSizes} />
             <VirtanceCreateSettings />
+            <VirtanceCreateOverview />
           </div>
         </form>
       </FormProvider>

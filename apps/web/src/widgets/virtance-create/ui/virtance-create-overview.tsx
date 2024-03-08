@@ -18,7 +18,7 @@ export function VirtanceCreateOverview() {
   const size = watch('size');
 
   return (
-    <div className="sticky left-0 right-0 top-[120px] z-10 mb-16 flex flex-col justify-between gap-4 rounded-md border bg-white p-4 shadow-lg md:flex-row md:items-center md:gap-0 dark:border-neutral-700 dark:bg-neutral-900">
+    <div className="mt-8 flex flex-col justify-between gap-4 rounded-md border bg-white p-4 md:flex-row md:items-center md:gap-0 dark:border-neutral-700 dark:bg-neutral-900">
       <div>
         {distribution ? (
           <div className="flex items-center space-x-2">
@@ -35,7 +35,9 @@ export function VirtanceCreateOverview() {
               />
             </div>
             <div className="space-y-0.5">
-              <h3 className="font-medium">{image.name}</h3>
+              <h3 className="font-medium capitalize">
+                {distribution} {image.name}
+              </h3>
               <p className="text-sm text-neutral-500">
                 {formatMemorySize(size.memory)} DDR4 / {size.disk}GB SSD / {region.name}
               </p>
