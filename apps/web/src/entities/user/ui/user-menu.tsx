@@ -29,13 +29,12 @@ export function UserMenu({ user }: Props) {
   return user ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-8 w-8 items-center justify-center rounded-full border dark:border-neutral-700">
+        <button className="flex h-8 items-center justify-center gap-2 rounded-full border px-4 dark:border-neutral-700">
           <UserIcon className="h-4 w-4" />
+          <span className="truncate font-medium">{user.email}</span>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent align="center" side="top">
         <DropdownMenuItem asChild>
           <Link to="/settings">
             <AdjustmentsHorizontalIcon className="mr-2 h-4 w-4" />

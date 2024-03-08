@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import { useUser } from '@/entities/user';
 import { ConfirmEmail } from '@/widgets/confirm-email';
-import { Navbar } from '@/widgets/nav-bar';
+import { Sidebar } from '@/widgets/sidebar';
 
 export function DefaultLayout() {
   const { data: user } = useUser();
@@ -11,12 +11,12 @@ export function DefaultLayout() {
     <main className="flex min-h-screen flex-col">
       {user ? (
         user.email_verified ? (
-          <>
-            <Navbar />
-            <div className="container mx-auto flex-1 px-4 py-8">
+          <div className="flex flex-1">
+            <Sidebar className="shrink-0" />
+            <div className="mx-auto max-w-7xl flex-1 p-4 md:p-8">
               <Outlet />
             </div>
-          </>
+          </div>
         ) : (
           <ConfirmEmail />
         )
