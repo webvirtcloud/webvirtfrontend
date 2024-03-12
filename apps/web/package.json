@@ -47,7 +47,8 @@
     "react-hook-form": "^7.50.1",
     "react-router-dom": "^6.4.2",
     "react-use-measure": "^2.1.1",
-    "ui": "*"
+    "ui": "*",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
