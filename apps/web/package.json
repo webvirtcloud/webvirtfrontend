@@ -38,7 +38,6 @@
     "compose-function": "^3.0.3",
     "d3": "^7.8.4",
     "date-fns": "^2.29.3",
-    "jotai": "^1.9.1",
     "js-cookie": "^3.0.5",
     "ky": "^0.32.0",
     "lightweight-charts": "^4.0.1",
