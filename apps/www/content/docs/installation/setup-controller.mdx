@@ -1,10 +1,14 @@
 ---
-title: Setup
+title: Setup controller
 description: This guide will walk you through the steps required to get your cloud platform up and running quickly. Whether you're a seasoned system administrator or a first-time user, this guide is designed to make the installation process as smooth as possible.
 index: 1
 ---
 
-<Note title="Warning">This section is under development.</Note>
+<Note title="Recommended setup">
+  We recommend running the controller and the compute on separate servers. The controller
+  can be installed on a server or even your laptop or PC. The compute should be installed
+  on a server with virtualization support (e.g. KVM).
+</Note>
 
 ## Prerequisites
 
@@ -63,13 +67,18 @@ You can log in with the following credentials:
 
 ### Allow custom SSL certificate (optional)
 
-If you use webvirt.local wildcard domain you need to allow custom SSL certificate in browser.
+<Note title="Warning">
+  If you use webvirt.local wildcard domain you need to allow custom SSL certificate in
+  browser.
+</Note>
 
 [http://assets.webvirt.local](http://assets.webvirt.local)
 
+[https://api.webvirt.local](https://api.webvirt.local)
+
 </Steps>
 
-## Update
+## Update controller
 
 <Steps>
 ### Run update script
@@ -78,9 +87,27 @@ If you use webvirt.local wildcard domain you need to allow custom SSL certificat
 ./webvirtcloud.sh update
 ```
 
+<Note title="Warning">
+  Don't forget update WebVirtCompute daemon on nodes after update controller.
+</Note>
+
 Wait until the update process finishes.
 
 </Steps>
+
+## Additional settings
+
+You can change the default settings in the `custom.env` file. Just copy variables you want to change from the `global.env` file and change them in the `custom.env` file. Example for mail settings:
+
+```bash
+# Email environment variables
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "admin"
+EMAIL_HOST_PASSWORD = "admin"
+EMAIL_USE_TLS = True
+EMAIL_FROM = "WebVirtCloud <noreply@gmail.com>"
+```
 
 ## API
 
