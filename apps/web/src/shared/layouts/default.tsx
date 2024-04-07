@@ -1,6 +1,7 @@
 import MenuIcon from '@heroicons/react/20/solid/Bars3BottomLeftIcon';
 import { Outlet } from 'react-router-dom';
 import { Button } from 'ui/components/button';
+import { Spin } from 'ui/components/spin';
 
 import { useUser } from '@/entities/user';
 import { ConfirmEmail } from '@/widgets/confirm-email';
@@ -34,7 +35,9 @@ export function DefaultLayout() {
           <ConfirmEmail />
         )
       ) : (
-        <div className="flex grow items-center justify-center">Loading app...</div>
+        <div className="flex grow items-center justify-center">
+          <Spin />
+        </div>
       )}
     </main>
   );
