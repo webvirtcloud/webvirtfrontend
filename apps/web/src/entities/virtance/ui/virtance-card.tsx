@@ -35,10 +35,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
   }
 
   return (
-    <Link
-      to={to}
-      className="flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:border-sky-500 hover:ring-1 hover:ring-sky-500 dark:border-neutral-700"
-    >
+    <div className="relative flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:border-sky-500 hover:ring-1 hover:ring-sky-500 dark:border-neutral-700">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center space-x-2">
@@ -68,7 +65,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-2">{actions}</div>
+        <div className="relative z-[2] flex items-center space-x-2">{actions}</div>
       </div>
 
       <div className="flex items-center space-x-3 text-sm">
@@ -86,7 +83,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
           <button
             type="button"
             onClick={copyIpAdress}
-            className="dark:bg-neutral-8002 flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 p-0.5 transition-colors duration-300 hover:bg-neutral-100 dark:bg-neutral-800"
+            className="relative z-[2] flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 p-0.5 transition-colors duration-300 hover:bg-neutral-100 dark:bg-neutral-800"
           >
             <ClipboardIcon className="h-3 w-3" />
           </button>
@@ -102,6 +99,8 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
           {formatDistanceToNow(parseISO(virtance.created_at), { addSuffix: true })}
         </span>
       </div>
-    </Link>
+
+      <Link to={to} className="absolute inset-0 z-[1]" />
+    </div>
   );
 }
