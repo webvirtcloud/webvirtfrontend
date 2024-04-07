@@ -23,7 +23,7 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cx([
-        'fixed top-0 z-10 flex h-screen w-56 transform flex-col gap-8 self-start border-r bg-white p-4 transition-transform lg:sticky lg:translate-x-0 dark:border-neutral-700 dark:bg-neutral-900',
+        'bg-background fixed top-0 z-10 flex h-screen w-56 transform flex-col gap-8 self-start border-r p-4 transition-transform lg:sticky lg:translate-x-0',
         className,
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
       ])}
@@ -36,7 +36,7 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
             ? 'translate-x-0 opacity-100 lg:-translate-x-12 lg:opacity-0'
             : '-translate-x-12 opacity-0',
         ])}
-        variant="secondary"
+        variant="outline"
       >
         <XMarkIcon className="h-4 w-4" />
       </Button>
