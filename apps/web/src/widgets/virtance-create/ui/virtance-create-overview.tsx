@@ -18,7 +18,7 @@ export function VirtanceCreateOverview() {
   const size = watch('size');
 
   return (
-    <div className="mt-8 flex flex-col justify-between gap-4 rounded-md border bg-white p-4 md:flex-row md:items-center md:gap-0 dark:border-neutral-700 dark:bg-neutral-900">
+    <div className="mt-8 flex flex-col justify-between gap-4 rounded-md border p-4 md:flex-row md:items-center md:gap-0">
       <div>
         {distribution ? (
           <div className="flex items-center space-x-2">

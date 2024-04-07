@@ -43,7 +43,7 @@ export function DistributionCard({
         isActive ? 'border-sky-500 ring-1 ring-sky-500 dark:border-sky-500' : '',
         isDisabled
           ? 'cursor-not-allowed bg-neutral-100 grayscale dark:border-neutral-800 dark:bg-neutral-800/30'
-          : 'cursor-pointer bg-white dark:border-neutral-700 dark:bg-neutral-900',
+          : 'cursor-pointer',
       ])}
     >
       <Controller

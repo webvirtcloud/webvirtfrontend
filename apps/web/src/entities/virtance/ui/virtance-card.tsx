@@ -36,11 +36,11 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
   }
 
   return (
-    <div className="relative flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:border-sky-500 hover:ring-1 hover:ring-sky-500 dark:border-neutral-700">
+    <div className="hover:ring-ring hover:border-ring relative flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:ring-1">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center space-x-2">
-            <div className="flex h-12 w-12 items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
+            <div className="bg-muted flex h-12 w-12 items-center justify-center rounded">
               <img
                 className="h-8 w-8"
                 src={
@@ -59,7 +59,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
                 <h3 className="text-base font-medium">{virtance.name}</h3>
                 <StatusDot status={virtance.status} />
               </div>
-              <p className="text-sm text-neutral-500">
+              <p className="text-muted-foreground text-sm">
                 {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB SSD
               </p>
             </div>
@@ -94,7 +94,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
 
       <div className="flex items-center justify-between">
         <span
-          className="text-neutral-500"
+          className="text-muted-foreground"
           title={format(parseISO(virtance.created_at), "E, MMMM d 'at' h:m a")}
         >
           Created{' '}
