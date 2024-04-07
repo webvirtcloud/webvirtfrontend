@@ -87,11 +87,8 @@ export function VirtancesList() {
   }
   return (
     <section>
-      <div className="mb-8 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Input id="server-search" name="server-search" placeholder="Search..." />
-        </div>
-        <Button onClick={() => navigate('/virtances/create')}>New virtance</Button>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-lg font-medium">Virtances</h2>
       </div>
 
       {virtances ? (
