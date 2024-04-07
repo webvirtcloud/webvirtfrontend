@@ -1,9 +1,11 @@
 import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
 import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
 import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
+import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
-import { type ReactNode } from 'react';
+import { type ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { StatusDot } from 'ui/components/status-dot';
 
 import { type Virtance } from '@/entities/virtance';
@@ -16,8 +18,21 @@ type Props = {
 };
 
 export function VirtanceCard({ virtance, to, actions }: Props) {
+  const [_, copyToClipboard] = useCopyToClipboard();
+
   const getIpAddress = () =>
     virtance.networks.v4.find((ip) => ip.type === 'public')?.address;
+
+  function copyIpAdress(e: MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    e.preventDefault();
+    const address = getIpAddress();
+
+    if (address) {
+      copyToClipboard(address);
+      toast.success('IP address was copied to clipboard.');
+    }
+  }
 
   return (
     <Link
@@ -70,6 +85,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
           <span className="">{getIpAddress()}</span>
           <button
             type="button"
+            onClick={copyIpAdress}
             className="dark:bg-neutral-8002 flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 p-0.5 transition-colors duration-300 hover:bg-neutral-100 dark:bg-neutral-800"
           >
             <ClipboardIcon className="h-3 w-3" />
