@@ -4,11 +4,11 @@ import CommandLineIcon from '@heroicons/react/20/solid/CommandLineIcon';
 import CreditCardIcon from '@heroicons/react/20/solid/CreditCardIcon';
 import UserIcon from '@heroicons/react/20/solid/UserIcon';
 import { Link } from 'react-router-dom';
+import { Button } from 'ui/components/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
@@ -29,10 +29,10 @@ export function UserMenu({ user }: Props) {
   return user ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-8 items-center justify-center gap-2 rounded-full border px-4 dark:border-neutral-700">
+        <Button className="gap-2" variant="outline">
           <UserIcon className="h-4 w-4" />
           <span className="truncate font-medium">{user.email}</span>
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" side="top">
         <DropdownMenuItem asChild>
