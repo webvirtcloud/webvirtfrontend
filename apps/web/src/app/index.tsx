@@ -1,3 +1,4 @@
+import { Toaster as SonnerToaster } from 'ui/components/sonner';
 import { Toaster } from 'ui/components/toast';
 
 import { Routing } from '@/pages';
@@ -9,6 +10,7 @@ function App() {
     <div className="antialiased">
       <Routing />
       <Toaster />
+      <SonnerToaster />
     </div>
   );
 }
