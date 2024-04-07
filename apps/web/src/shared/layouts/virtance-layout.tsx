@@ -56,7 +56,7 @@ export function VirtanceLayout() {
         {virtance ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded bg-neutral-100 dark:bg-neutral-800">
+              <div className="bg-muted/50 flex h-14 w-14 shrink-0 items-center justify-center rounded">
                 <img
                   className="h-10 w-10"
                   src={
@@ -75,7 +75,7 @@ export function VirtanceLayout() {
                   <h1 className="text-xl font-medium">{virtance.name}</h1>
                   <StatusDot status={virtance.status} />
                 </div>
-                <p className="text-neutral-500 dark:text-neutral-400">
+                <p className="text-muted-foreground">
                   {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB
                   SSD / {virtance.region.name} /{' '}
                   <span className="font-medium text-neutral-900 dark:text-white">
@@ -123,7 +123,7 @@ export function VirtanceLayout() {
             name="virtance-menu"
             value={pathname}
             onChange={onMenuValueChange}
-            className="w-full rounded-md border-neutral-300 bg-transparent dark:border-neutral-600 lg:hidden"
+            className="w-full rounded-md border-neutral-300 bg-transparent lg:hidden dark:border-neutral-600"
           >
             {links.map((link) => (
               <option value={link.to} key={link.label}>
@@ -141,8 +141,8 @@ export function VirtanceLayout() {
                     cx(
                       'rounded-md px-2 py-1.5 font-medium',
                       isActive
-                        ? 'dark:bg-neutral-800 dark:text-white'
-                        : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300',
+                        ? 'bg-muted text-foreground'
+                        : 'text-muted-foreground hover:text-foreground',
                     )
                   }
                 >

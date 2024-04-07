@@ -67,7 +67,7 @@ export function FirewallLayout() {
                 <div className="flex items-center gap-3">
                   <h1 className="text-xl font-medium">{firewall.name}</h1>
                 </div>
-                <p className="text-neutral-500 dark:text-neutral-400">
+                <p className="text-muted-foreground">
                   {firewall.inbound_rules.length + firewall.outbound_rules.length} rules /{' '}
                   {firewall.virtance_ids.length} virtances
                 </p>

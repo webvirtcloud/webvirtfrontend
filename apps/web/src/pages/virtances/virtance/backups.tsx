@@ -140,7 +140,7 @@ export default function VirtanceBackupsPage() {
           <div className="font-bold">
             {virtance?.name}-{format(new Date(value.created_at), 'MM-dd-yyyy')}
           </div>
-          <div className="text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="text-muted-foreground text-xs">
             Size {value.size_gigabytes} GB
           </div>
         </div>

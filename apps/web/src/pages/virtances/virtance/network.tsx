@@ -12,22 +12,16 @@ export default function VirtanceNetworkPage() {
       <div className="">
         <h2 className="mb-4 text-lg font-medium">Network</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
-            <h4 className="font-medium text-neutral-500 dark:text-neutral-400">
-              Private IP
-            </h4>
+          <div className="space-y-1 rounded-lg border p-4">
+            <h4 className="text-muted-foreground font-medium">Private IP</h4>
             <p className="font-medium">{virtance?.networks.v4[0].address}</p>
           </div>
-          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
-            <h4 className="font-medium text-neutral-500 dark:text-neutral-400">
-              Public IP
-            </h4>
+          <div className="space-y-1 rounded-lg border p-4">
+            <h4 className="text-muted-foreground font-medium">Public IP</h4>
             <p className="font-medium">{virtance?.networks.v4[1].address}</p>
           </div>
-          <div className="space-y-1 rounded-xl bg-neutral-100 p-4 dark:bg-neutral-800">
-            <h4 className="font-medium text-neutral-500 dark:text-neutral-400">
-              Compute IP
-            </h4>
+          <div className="space-y-1 rounded-lg border p-4">
+            <h4 className="text-muted-foreground font-medium">Compute IP</h4>
             <p className="font-medium">{virtance?.networks.v4[2].address}</p>
           </div>
         </div>
