@@ -20,8 +20,9 @@ export function VirtanceRebootButton({ id, status, onToggle }: Props) {
   return (
     <Button
       disabled={status === 'pending' || status === 'inactive'}
-      variant="secondary"
-      className="w-8 p-0"
+      variant="outline"
+      size="icon"
+      className="h-8 w-8"
       onClick={handleClick}
     >
       <ArrowPathIcon className={cx('mx-auto h-4 w-4')} />

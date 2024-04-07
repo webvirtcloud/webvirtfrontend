@@ -6,6 +6,7 @@ import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import { type ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { Button } from 'ui/components/button';
 import { StatusDot } from 'ui/components/status-dot';
 
 import { type Virtance } from '@/entities/virtance';
@@ -65,7 +66,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
           </div>
         </div>
 
-        <div className="relative z-[2] flex items-center space-x-2">{actions}</div>
+        <div className="relative z-[2] flex items-center space-x-1">{actions}</div>
       </div>
 
       <div className="flex items-center space-x-3 text-sm">
@@ -80,13 +81,14 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
             <GlobeIcon className="h-4 w-4" />
           </span>
           <span className="">{getIpAddress()}</span>
-          <button
-            type="button"
+          <Button
             onClick={copyIpAdress}
-            className="relative z-[2] flex h-5 w-5 items-center justify-center rounded-md bg-neutral-100 p-0.5 transition-colors duration-300 hover:bg-neutral-100 dark:bg-neutral-800"
+            variant="outline"
+            className="relative z-[2] h-6 w-6"
+            size="icon"
           >
             <ClipboardIcon className="h-3 w-3" />
-          </button>
+          </Button>
         </div>
       </div>
 

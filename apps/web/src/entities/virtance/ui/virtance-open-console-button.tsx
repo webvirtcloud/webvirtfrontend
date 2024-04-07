@@ -7,8 +7,8 @@ export function VirtanceOpenConsoleButton({ id }) {
   };
 
   return (
-    <Button onClick={openConsole} variant="secondary" className="w-8 p-0">
-      <CommandLineIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+    <Button onClick={openConsole} variant="outline" size="icon" className="h-8 w-8">
+      <CommandLineIcon className="h-4 w-4" />
     </Button>
   );
 }

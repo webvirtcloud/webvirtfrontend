@@ -21,8 +21,9 @@ export function VirtanceToggleStateButton({ id, status, onToggle }: Props) {
   return (
     <Button
       disabled={status === 'pending'}
-      variant="secondary"
-      className="w-8 p-0"
+      variant="outline"
+      size="icon"
+      className="h-8 w-8"
       onClick={handleClick}
     >
       {status === 'active' ? (
