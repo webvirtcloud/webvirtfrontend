@@ -71,7 +71,7 @@ export function ResetPassword({ id }: { id: number }) {
       </div>
       <Dialog open={isDialogOpen} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
-          <Button variant="secondary" disabled={isResetting}>
+          <Button variant="outline" disabled={isResetting}>
             {isResetting ? 'Resetting...' : 'Reset password'}
           </Button>
         </DialogTrigger>

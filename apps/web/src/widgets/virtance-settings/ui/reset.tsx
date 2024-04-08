@@ -51,7 +51,7 @@ export function Reset({ id }: { id: number }) {
       <Dialog open={isDialogOpen} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
           <Button
-            variant="secondary"
+            variant="outline"
             disabled={isResetting || virtance?.status === 'inactive'}
           >
             {isResetting ? 'Resetting...' : 'Reset virtance'}

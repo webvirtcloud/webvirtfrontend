@@ -49,7 +49,7 @@ export function PowerOff({ id }: { id: number }) {
       <Dialog open={isDialogOpen} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
           <Button
-            variant="secondary"
+            variant="outline"
             disabled={isPoweringOff || virtance?.status === 'inactive'}
           >
             {isPoweringOff ? 'Powering off...' : 'Power off virtance'}

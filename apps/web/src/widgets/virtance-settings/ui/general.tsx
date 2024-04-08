@@ -21,7 +21,7 @@ export function General({ id }: { id: number }) {
   } = useForm<FormState>();
 
   async function onSubmit(data: FormState) {
-    runAction({ action: 'rename', id: Number(id), name: data.name });
+    await runAction({ action: 'rename', id: Number(id), name: data.name });
   }
 
   return virtance ? (
@@ -30,7 +30,7 @@ export function General({ id }: { id: number }) {
         <h2 className="text-lg font-medium">General</h2>
         <p className="text-neutral-500">
           Settings and options for the{' '}
-          <span className="font-semibold">{virtance.name}</span> virtance.
+          <span className="text-foreground font-semibold">{virtance.name}</span> virtance.
         </p>
       </div>
       <form className="" onSubmit={handleSubmit(onSubmit)}>
