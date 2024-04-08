@@ -7,6 +7,7 @@ import {
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 
 import { cx } from '../../lib';
+import { buttonVariants } from '../button';
 
 export const AlertDialog = AlertDialogPrimitive.Root;
 
@@ -38,7 +39,7 @@ export const AlertDialogContent = forwardRef<
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cx(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 dark:border-neutral-700 dark:bg-neutral-900 sm:rounded-lg',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] bg-background fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 sm:rounded-lg',
         className,
       )}
       {...props}
@@ -78,11 +79,7 @@ export const AlertDialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cx(
-      'text-lg font-semibold text-neutral-900',
-      'dark:text-neutral-50',
-      className,
-    )}
+    className={cx('text-foreground text-lg font-semibold', className)}
     {...props}
   />
 ));
@@ -94,7 +91,7 @@ export const AlertDialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cx('text-sm text-neutral-500', 'dark:text-neutral-400', className)}
+    className={cx('text-muted-foreground text-sm', className)}
     {...props}
   />
 ));
@@ -103,11 +100,23 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 export const AlertDialogAction = forwardRef<
   ElementRef<typeof AlertDialogPrimitive.Action>,
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
->(({ className, ...props }, ref) => <AlertDialogPrimitive.Action ref={ref} {...props} />);
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Action
+    ref={ref}
+    className={cx(buttonVariants(), className)}
+    {...props}
+  />
+));
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 export const AlertDialogCancel = forwardRef<
   ElementRef<typeof AlertDialogPrimitive.Cancel>,
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
->(({ className, ...props }, ref) => <AlertDialogPrimitive.Cancel ref={ref} {...props} />);
+>(({ className, ...props }, ref) => (
+  <AlertDialogPrimitive.Cancel
+    ref={ref}
+    className={cx(buttonVariants({ variant: 'outline' }), 'mt-2 sm:mt-0', className)}
+    {...props}
+  />
+));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
