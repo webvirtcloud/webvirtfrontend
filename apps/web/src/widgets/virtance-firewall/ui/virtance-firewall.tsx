@@ -1,52 +1,52 @@
 import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'ui/components/button';
+import { Link } from 'react-router-dom';
+import { buttonVariants } from 'ui/components/button';
+import { cx } from 'ui/lib';
 
 import { calculateType } from '@/entities/firewall';
 import { useVirtanceFirewall } from '@/entities/virtance';
 
 export function VirtanceFirewall({ id }: { id: number }) {
-  const navigate = useNavigate();
   const { data, error } = useVirtanceFirewall(id);
   const firewall = data?.[0];
 
   if (error) {
-    return <div className="text-neutral-500">Error while fetching Firewall</div>;
+    return <div className="text-muted-foreground">Error while fetching Firewall</div>;
   }
   return (
-    <div className="border-t border-zinc-800 pt-8">
+    <div className="border-t pt-8">
       <h2 className="mb-4 text-lg font-medium">Firewall</h2>
       {firewall ? (
         <div className="space-y-8">
-          <Button
-            onClick={() => navigate(`/firewalls/${firewall.uuid}`)}
-            variant="secondary"
+          <Link
+            to={`/firewalls/${firewall.uuid}`}
+            className={cx(buttonVariants({ variant: 'outline' }), 'min-w-32')}
           >
-            <ShieldCheckIcon className="mr-2 h-4 w-4" />
+            <ShieldCheckIcon className="mr-1 h-4 w-4" />
             {firewall.name}
-          </Button>
+          </Link>
 
           <div>
             <h2 className="mb-4 text-lg font-medium">Inbound rules</h2>
             <table className="w-full">
               <thead>
                 <tr>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 first:rounded-tl-md dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs first:rounded-tl-md">
                     Type
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Protocol
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Port range
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Sources
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 last:rounded-tr-md dark:bg-zinc-800"></th>
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs last:rounded-tr-md"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-neutral-700">
+              <tbody className="divide-y">
                 {firewall.inbound_rules.map((rule) => (
                   <tr key={'inbound' + rule.ports + rule.protocol}>
                     <td className="px-4 py-2.5">{calculateType(rule)}</td>
@@ -55,10 +55,7 @@ export function VirtanceFirewall({ id }: { id: number }) {
                     <td className="px-4 py-2.5">
                       <ul className="flex flex-wrap items-start gap-1">
                         {rule.sources.addresses.map((address) => (
-                          <li
-                            key={address}
-                            className="rounded bg-zinc-100 px-2 dark:bg-zinc-700"
-                          >
+                          <li key={address} className="bg-muted rounded px-2">
                             {address}
                           </li>
                         ))}
@@ -75,22 +72,22 @@ export function VirtanceFirewall({ id }: { id: number }) {
             <table className="w-full">
               <thead>
                 <tr>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 first:rounded-tl-md dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs first:rounded-tl-md">
                     Type
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Protocol
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Port range
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                     Sources
                   </th>
-                  <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 last:rounded-tr-md dark:bg-zinc-800"></th>
+                  <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs last:rounded-tr-md"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-neutral-700">
+              <tbody className="divide-y">
                 {firewall.outbound_rules.map((rule) => (
                   <tr key={'inbound' + rule.ports + rule.protocol}>
                     <td className="px-4 py-2.5">{calculateType(rule)}</td>
@@ -99,10 +96,7 @@ export function VirtanceFirewall({ id }: { id: number }) {
                     <td className="px-4 py-2.5">
                       <ul className="flex flex-wrap items-start gap-1">
                         {rule.destinations.addresses.map((address) => (
-                          <li
-                            key={address}
-                            className="rounded bg-zinc-100 px-2 dark:bg-zinc-700"
-                          >
+                          <li key={address} className="bg-muted rounded px-2">
                             {address}
                           </li>
                         ))}
@@ -116,7 +110,7 @@ export function VirtanceFirewall({ id }: { id: number }) {
         </div>
       ) : (
         <div>
-          <p className="text-neutral-500">No Firewalls applied to this Virtance</p>
+          <p className="text-muted-foreground">No Firewalls applied to this Virtance</p>
         </div>
       )}
     </div>
