@@ -72,7 +72,7 @@ export function KeypairsTable() {
   const Actions = ({ value: key }) => (
     <div className="space-x-2">
       <div className="flex justify-end space-x-2">
-        <Button size="sm" variant="secondary" onClick={() => onDialogOpen(key, 'edit')}>
+        <Button size="sm" variant="outline" onClick={() => onDialogOpen(key, 'edit')}>
           Edit
         </Button>
         <Button

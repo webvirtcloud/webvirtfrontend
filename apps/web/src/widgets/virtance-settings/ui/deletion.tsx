@@ -55,12 +55,8 @@ export function Deletion({ id }: { id: number }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel asChild>
-              <Button variant="secondary">Cancel</Button>
-            </AlertDialogCancel>
-            <AlertDialogAction asChild onClick={onDelete}>
-              <Button>Delete virtance</Button>
-            </AlertDialogAction>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={onDelete}>Delete virtance</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

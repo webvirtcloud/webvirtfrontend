@@ -258,7 +258,7 @@ export function FirewallRule({
             </>
           ) : (
             <>
-              <Button variant="secondary" onClick={startEdit}>
+              <Button variant="outline" onClick={startEdit}>
                 Edit
               </Button>
               <Button onClick={handleDelete} variant="destructive">

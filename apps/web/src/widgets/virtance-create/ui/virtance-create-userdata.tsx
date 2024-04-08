@@ -48,12 +48,7 @@ export function VirtanceCreateUserdata() {
         <div className="mb-4 flex w-full items-center gap-2 rounded-md border p-2 md:max-w-[212px] dark:border-neutral-700">
           <CodeBracketSquareIcon className="h-8 w-8 text-green-500" />
           Code
-          <Button
-            onClick={clear}
-            size="sm"
-            className="ml-auto w-7 p-0"
-            variant="secondary"
-          >
+          <Button onClick={clear} size="sm" className="ml-auto w-7 p-0" variant="outline">
             <XMarkIcon className="h-4 w-4" />
           </Button>
         </div>
@@ -61,7 +56,7 @@ export function VirtanceCreateUserdata() {
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
-          <Button variant="secondary" className="w-full md:max-w-[212px]">
+          <Button variant="outline" className="w-full md:max-w-[212px]">
             {userdata ? 'Edit' : 'Add'} user data
           </Button>
         </DialogTrigger>

@@ -76,7 +76,7 @@ export function FirewallLayout() {
             <div className="flex gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="secondary" disabled={isBusy} className="w-8 px-0">
+                  <Button variant="outline" disabled={isBusy} className="w-8 px-0">
                     <EllipsisVerticalIcon className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>

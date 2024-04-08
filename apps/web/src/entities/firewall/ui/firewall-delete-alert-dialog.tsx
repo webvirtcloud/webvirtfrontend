@@ -9,8 +9,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from 'ui/components/alert-dialog';
-import { Button } from 'ui/components/button';
-
 interface Props
   extends Pick<ComponentPropsWithoutRef<typeof AlertDialog>, 'open' | 'onOpenChange'> {
   onDelete: () => void;
@@ -27,12 +25,8 @@ export function FirewallDeleteAlertDialog({ open, onOpenChange, onDelete }: Prop
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel asChild>
-            <Button variant="secondary">Cancel</Button>
-          </AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button onClick={onDelete}>Delete firewall</Button>
-          </AlertDialogAction>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={onDelete}>Delete firewall</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

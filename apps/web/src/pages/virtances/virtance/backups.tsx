@@ -106,7 +106,7 @@ export default function VirtanceBackupsPage() {
       <div className="flex justify-end space-x-2">
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
           disabled={!!backup.event}
           onClick={() => onDialogOpen(backup, 'convert')}
         >
@@ -121,7 +121,7 @@ export default function VirtanceBackupsPage() {
         </Button>
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
           disabled={isBusy || !!backup.event}
           onClick={() => onDialogOpen(backup, 'restore')}
         >

@@ -82,7 +82,7 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
       <div className="flex justify-end space-x-2">
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
           disabled={!!backup.event}
           onClick={() => onDialogOpen(backup, 'convert')}
         >
@@ -98,7 +98,7 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
         <Button
           size="sm"
           disabled={!!backup.event}
-          variant="secondary"
+          variant="outline"
           onClick={() => onDialogOpen(backup, 'restore')}
         >
           {backup.event && backup.event.name === 'restore' ? (

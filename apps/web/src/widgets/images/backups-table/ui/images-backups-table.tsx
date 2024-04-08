@@ -61,7 +61,7 @@ export function ImagesBackupsTable() {
       name: '',
       component: ({ value }) => (
         <div className="flex justify-end">
-          <Button size="sm" variant="secondary" onClick={() => openSheet(value)}>
+          <Button size="sm" variant="outline" onClick={() => openSheet(value)}>
             Show backups
           </Button>
         </div>

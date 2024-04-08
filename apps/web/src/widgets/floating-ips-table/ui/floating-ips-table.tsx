@@ -146,7 +146,7 @@ export function FloatingIpsTable() {
             {floatingIP.virtance ? (
               <Button
                 size="sm"
-                variant="secondary"
+                variant="outline"
                 disabled={!!floatingIP.event}
                 onClick={() => onDialogOpen(floatingIP, 'unassign')}
               >
@@ -162,7 +162,7 @@ export function FloatingIpsTable() {
             ) : (
               <Button
                 size="sm"
-                variant="secondary"
+                variant="outline"
                 disabled={!!floatingIP.event}
                 onClick={() => onDialogOpen(floatingIP, 'assign')}
               >

@@ -90,12 +90,8 @@ export function Rebuild({ id }: { id: number }) {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel asChild>
-                  <Button variant="secondary">Cancel</Button>
-                </AlertDialogCancel>
-                <AlertDialogAction asChild onClick={onDelete}>
-                  <Button>Rebuild virtance</Button>
-                </AlertDialogAction>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={onDelete}>Rebuild virtance</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

@@ -75,7 +75,7 @@ export function ImagesSnapshotsTable() {
       <div className="flex justify-end space-x-2">
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
           disabled={!!snapshot.event}
           onClick={() => onDialogOpen(snapshot, 'restore')}
         >

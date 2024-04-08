@@ -33,7 +33,7 @@ export function BillingInvoicesTable() {
   const Actions = ({ value: invoice }) => (
     <div className="space-x-2">
       <div className="flex justify-end space-x-2">
-        <Button size="sm" variant="secondary" onClick={() => handleDownload(invoice)}>
+        <Button size="sm" variant="outline" onClick={() => handleDownload(invoice)}>
           Download
         </Button>
       </div>
