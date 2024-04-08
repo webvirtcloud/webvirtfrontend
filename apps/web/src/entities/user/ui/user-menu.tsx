@@ -34,7 +34,11 @@ export function UserMenu({ user }: Props) {
           <span className="truncate font-medium">{user.email}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" side="top">
+      <DropdownMenuContent
+        align="center"
+        side="top"
+        className="w-[var(--radix-dropdown-menu-trigger-width)]"
+      >
         <DropdownMenuItem asChild>
           <Link to="/settings">
             <AdjustmentsHorizontalIcon className="mr-2 h-4 w-4" />
