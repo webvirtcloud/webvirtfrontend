@@ -1,10 +1,7 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from 'ui/components/button';
-import { Input } from 'ui/components/input';
+import { toast } from 'sonner';
 import { Skeleton } from 'ui/components/skeleton';
-import { useToast } from 'ui/components/toast';
 
 import { type Event } from '@/entities/event';
 import {
@@ -22,8 +19,6 @@ import { State } from '@/shared/ui/state';
 
 export function VirtancesList() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const { toast } = useToast();
 
   const { data: virtances, refetch, error } = useVirtances();
   const { runAction } = useVirtanceAction();
@@ -63,10 +58,9 @@ export function VirtancesList() {
             }
           });
 
-          toast({
-            title: `The task ${event.event?.description.toLowerCase()} of virtance has been completed.`,
-            variant: 'default',
-          });
+          toast.success(
+            `The task ${event.event?.description.toLowerCase()} of virtance has been completed.`,
+          );
 
           queryClient.removeQueries({ queryKey: virtanceQueries.event(event.id) });
 

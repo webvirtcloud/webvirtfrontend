@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { useToast } from 'ui/components/toast';
+import { toast } from 'sonner';
 
 import { useVirtanceAction, useVirtanceSnapshots } from '@/entities/virtance';
 import { TakeSnapshotForm } from '@/features/take-snapshot-form';
@@ -10,7 +10,6 @@ export default function VirtanceSnapshotsPage() {
   const params = useParams();
   const id = Number(params.id);
   const methods = useForm<{ name: string }>();
-  const { toast } = useToast();
   const { runAction } = useVirtanceAction();
 
   const { data: snapshots, refetch, error } = useVirtanceSnapshots(id);
@@ -29,21 +28,13 @@ export default function VirtanceSnapshotsPage() {
           const keys = Object.keys(error);
 
           keys.forEach((key) => {
-            toast({
-              title: 'Form error',
-              variant: 'destructive',
-              description: error[key],
-            });
+            toast.error('Bad request', { description: error[key] });
           });
         });
       }
 
       if (response.message) {
-        toast({
-          title: 'Form error',
-          variant: 'destructive',
-          description: response.message,
-        });
+        toast.error('Bad request', { description: response.message });
       }
     }
   }

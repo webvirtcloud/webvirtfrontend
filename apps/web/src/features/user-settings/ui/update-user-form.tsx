@@ -1,9 +1,9 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
-import { useToast } from 'ui/components/toast';
 
 import { useUser } from '@/entities/user';
 import { type User, updateUser } from '@/entities/user';
@@ -11,7 +11,6 @@ import { type User, updateUser } from '@/entities/user';
 export function UpdateUserForm() {
   const queryClient = useQueryClient();
   const { data: profile } = useUser();
-  const { toast } = useToast();
 
   const {
     register,
@@ -34,7 +33,7 @@ export function UpdateUserForm() {
 
     queryClient.setQueryData(['profile'], response.profile);
 
-    toast({ title: 'Profile', description: 'Your profile was updated.' });
+    toast.success('Your profile was updated.');
   };
 
   useEffect(() => {

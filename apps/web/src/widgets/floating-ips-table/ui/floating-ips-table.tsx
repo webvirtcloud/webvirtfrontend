@@ -1,10 +1,10 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import { type Event } from '@/entities/event';
 import {
@@ -37,7 +37,6 @@ export function FloatingIpsTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isUnassignDialogOpen, setIsUnassignDialogOpen] = useState(false);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
-  const { toast } = useToast();
 
   const events = useMemo(() => {
     const uniqueIPs = new Set<string>();
@@ -74,10 +73,9 @@ export function FloatingIpsTable() {
 
           refetchVirtances();
 
-          toast({
-            title: `The task to ${event.event?.description.toLowerCase()} a Floating IP has been completed.`,
-            variant: 'default',
-          });
+          toast.success(
+            `The task to ${event.event?.description.toLowerCase()} a Floating IP has been completed.`,
+          );
 
           queryClient.removeQueries({ queryKey: floatingIPQueries.event(event.ip) });
 

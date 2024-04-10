@@ -1,27 +1,19 @@
 import { FormEvent } from 'react';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
-import { useToast } from 'ui/components/toast';
 
 import { resendConfirmEmail } from '@/entities/user';
 
 export function ConfirmEmail() {
-  const { toast } = useToast();
-
   async function resendEmail(e: FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
 
       await resendConfirmEmail();
 
-      toast({
-        title: 'Email was sent again',
-        variant: 'default',
-        description: 'Please check your inbox',
-      });
+      toast.success('Email has been sent', { description: 'Please check your inbox' });
     } catch (error) {
-      toast({
-        title: 'Something goes wrong',
-        variant: 'destructive',
+      toast.error('Something goes wrong', {
         description:
           'We cannot send an email again at this moment. Please try again later or contact support',
       });

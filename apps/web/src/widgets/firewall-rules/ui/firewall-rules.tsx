@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useToast } from 'ui/components/toast';
+import { toast } from 'sonner';
 
 import {
   type FirewallInboundRule,
@@ -33,7 +33,6 @@ export function FirewallRules({ uuid }: { uuid: string }) {
   const { data: firewall, refetch } = useFirewall(uuid);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedRule, setSelectedRule] = useState<FirewallInboundRule>();
-  const { toast } = useToast();
 
   async function onUpdateRule(payload: {
     inbound_rules?: FirewallInboundRule[];
@@ -68,7 +67,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
       await refetch();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
       throw e;
     }
   }
@@ -90,7 +89,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
       await refetch();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
       throw e;
     }
   }
@@ -106,7 +105,7 @@ export function FirewallRules({ uuid }: { uuid: string }) {
       await refetch();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     }
   }
 

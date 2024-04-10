@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import {
   type Firewall,
@@ -19,29 +19,22 @@ export const FirewallsTable = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedFirewall, setSelectedFirewall] = useState<Firewall>();
-  const { toast } = useToast();
 
-  const onCreate = async (firewall: Firewall) => {
+  const onCreate = async () => {
     await refetch();
-    toast({
-      title: 'Firewall was created',
-    });
+    toast.success('Firewall has been created');
   };
 
   const onDelete = async (uuid: string) => {
     await deleteFirewall(uuid);
     await refetch();
-    toast({
-      title: 'Firewall was delete',
-    });
+    toast.success('Firewall has been deleted');
   };
 
   async function onUpdate(firewall: Firewall) {
     await refetch();
     setIsEditDialogOpen(false);
-    toast({
-      title: 'Firewall was updated',
-    });
+    toast.success('Firewall has been updated');
   }
 
   function onDialogOpen(firewall: Firewall, type: 'edit' | 'detach') {

@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   Dialog,
   DialogContent,
@@ -6,9 +7,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'ui/components/dialog';
+
 import { type Firewall, type FirewallPayload, createFirewall } from '@/entities/firewall';
 import { CreateFirewallForm } from '@/features/create-firewall-form';
-import { FormProvider, useForm } from 'react-hook-form';
 
 interface Props {
   children: ReactNode;

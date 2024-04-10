@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import {
   type Snapshot,
@@ -19,7 +19,6 @@ export function ImagesSnapshotsTable() {
   const [selectedSnapshot, setSelectedSnapshot] = useState<Snapshot>();
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const { toast } = useToast();
 
   const { data: snapshots, refetch, error } = useSnapshots();
 
@@ -31,19 +30,13 @@ export function ImagesSnapshotsTable() {
       image: snapshot.id,
     });
     await refetch();
-    toast({
-      title: 'The task to restore a snapshot has been started.',
-      variant: 'default',
-    });
+    toast.success('The task to restore a snapshot has been started.');
   };
 
   const onDelete = async (id: number) => {
     await deleteImage(id);
     await refetch();
-    toast({
-      title: 'The task to delete a snapshot has been started.',
-      variant: 'destructive',
-    });
+    toast.success('The task to delete a snapshot has been started.');
   };
 
   function onDialogOpen(snapshot: any, type: 'restore' | 'delete') {

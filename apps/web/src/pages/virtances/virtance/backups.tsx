@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { type FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import {
   type Backup,
@@ -30,7 +30,6 @@ export default function VirtanceBackupsPage() {
   const [selectedBackup, setSelectedBackup] = useState<Backup>();
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
-  const { toast } = useToast();
 
   const isBusy = useIsVirtanceBusy(virtance);
 
@@ -42,20 +41,14 @@ export default function VirtanceBackupsPage() {
     if (virtance) {
       virtance && (await runAction({ action: 'restore', id: virtance.id, image: id }));
       await refetch();
-      toast({
-        title: 'The task to restore a backup has been started.',
-        variant: 'default',
-      });
+      toast.success('The task to restore a backup has been started.');
     }
   };
 
   const onConvert = async (id: number) => {
     await runImageAction({ id, action: 'convert' });
     await refetch();
-    toast({
-      title: 'The task to convert a backup has been started.',
-      variant: 'destructive',
-    });
+    toast.success('The task to convert a backup has been started.');
   };
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -68,7 +61,7 @@ export default function VirtanceBackupsPage() {
       });
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     } finally {
       setIsSubmitting(false);
     }

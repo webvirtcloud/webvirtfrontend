@@ -1,13 +1,12 @@
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import { type Invoice, downloadInvoice, useInvoices } from '@/entities/billing';
 import { State } from '@/shared/ui/state';
 
 export function BillingInvoicesTable() {
   const { data: invoices, error } = useInvoices();
-  const { toast } = useToast();
 
   async function handleDownload(invoice: Invoice) {
     try {
@@ -22,11 +21,7 @@ export function BillingInvoicesTable() {
         window.URL.revokeObjectURL(url);
       }, 100);
     } catch (error) {
-      toast({
-        title: 'Bad request',
-        variant: 'destructive',
-        description: 'Something went wrong while trying to download pdf...',
-      });
+      toast.error('Bad request', { description: 'Faild to download pdf file' });
     }
   }
 

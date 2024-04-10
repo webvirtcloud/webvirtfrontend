@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { type ComponentPropsWithoutRef, useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from 'ui/components/sheet';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import {
   type Backup,
@@ -27,7 +27,6 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
   const [selectedBackup, setSelectedBackup] = useState<Backup>();
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
   const [isConvertDialogOpen, setIsConvertDialogOpen] = useState(false);
-  const { toast } = useToast();
 
   const { data: backups, refetch } = useVirtanceBackups(virtance?.id, {
     enabled: !!virtance?.id,
@@ -37,19 +36,13 @@ export function ImagesManageBackupsSheet({ open, virtance, onOpenChange }: Props
     if (!virtance) return;
     await runVirtanceAction({ id: virtance.id, image: id, action: 'restore' });
     await refetch();
-    toast({
-      title: 'The task to restore a backup has been started.',
-      variant: 'default',
-    });
+    toast.success('The task to restore a backup has been started.');
   };
 
   const onConvert = async (id: number) => {
     await runImageAction({ id, action: 'convert' });
     await refetch();
-    toast({
-      title: 'The task to convert a backup has been started.',
-      variant: 'destructive',
-    });
+    toast.success('The task to convert a backup has been started.');
   };
 
   function onDialogOpen(backup: Backup, type: 'restore' | 'convert') {

@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { type UpdatePasswordPayload, updatePassword } from '@/entities/user';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
-import { Input } from 'ui/components/input';
 import { Error } from 'ui/components/error';
+import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
-import { useToast } from 'ui/components/toast';
+
+import { type UpdatePasswordPayload, updatePassword } from '@/entities/user';
 
 export function UpdatePasswordForm() {
   const {
@@ -13,8 +14,6 @@ export function UpdatePasswordForm() {
     watch,
     formState: { isSubmitting, errors },
   } = useForm<UpdatePasswordPayload>();
-
-  const { toast } = useToast();
 
   async function onSubmit(data: UpdatePasswordPayload) {
     try {
@@ -25,7 +24,7 @@ export function UpdatePasswordForm() {
       window.location.href = '/sign-in';
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     }
   }
 

@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import {
   type Keypair,
@@ -19,29 +19,22 @@ export function KeypairsTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedKeypair, setSelectedKeypair] = useState<Keypair>();
-  const { toast } = useToast();
 
   async function onCreate() {
     await refetch();
-    toast({
-      title: 'The keypair has been created',
-    });
+    toast.success('The keypair has been created');
   }
 
   async function onDelete(id: number) {
     await deleteKeypair(id);
     await refetch();
-    toast({
-      title: 'The keypair has been deleted',
-    });
+    toast.error('The keypair has been deleted');
   }
 
   async function onUpdate() {
     await refetch();
     setIsEditDialogOpen(false);
-    toast({
-      title: 'The keypair has been updated',
-    });
+    toast.success('The keypair has been updated');
   }
 
   function onDialogOpen(key: Keypair, type: 'edit' | 'detach') {

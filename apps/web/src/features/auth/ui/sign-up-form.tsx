@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { register as authRegister } from '@/entities/auth';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
-import { useToast } from 'ui/components/toast';
+
+import { register as authRegister } from '@/entities/auth';
 
 interface IFormInputs {
   email: string;
@@ -23,8 +24,6 @@ export function SignUpForm({ onSuccess }: Props) {
     formState: { errors, isSubmitting },
   } = useForm<IFormInputs>();
 
-  const { toast } = useToast();
-
   async function onSubmit(data: IFormInputs) {
     try {
       const { token } = await authRegister(data);
@@ -33,7 +32,7 @@ export function SignUpForm({ onSuccess }: Props) {
     } catch (e) {
       const { message } = await e.response.json();
       setError('root', { message: 'Bad request' });
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     }
   }
 

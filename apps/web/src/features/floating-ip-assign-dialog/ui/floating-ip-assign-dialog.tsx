@@ -1,7 +1,7 @@
-import { type ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { toast } from 'sonner';
 import { AlertDialog } from 'ui/components/alert-dialog';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from 'ui/components/dialog';
-import { useToast } from 'ui/components/toast';
 
 import { FloatingIPAssignForm, runFloatingIPAction } from '@/entities/floating-ip';
 import { Virtance } from '@/entities/virtance';
@@ -20,8 +20,6 @@ export function FloatingIPAssignDialog({
   ip,
   virtances,
 }: Props) {
-  const { toast } = useToast();
-
   async function onSubmit(virtanceId: number) {
     try {
       await runFloatingIPAction({ action: 'assign', ip, virtance_id: virtanceId });
@@ -29,7 +27,7 @@ export function FloatingIPAssignDialog({
       onCreate();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     }
   }
 

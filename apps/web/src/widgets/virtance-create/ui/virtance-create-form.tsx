@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from 'ui/components/toast';
+import { toast } from 'sonner';
 
 import { Region } from '@/entities/region';
 import { Size } from '@/entities/size';
@@ -29,7 +29,6 @@ export default function VirtanceCreateForm({
     defaultValues,
     resolver: zodResolver(schema),
   });
-  const { toast } = useToast();
 
   const { slug: currentSizeSlug } = form.watch('size');
   const currentImage = form.watch('image');
@@ -82,7 +81,7 @@ export default function VirtanceCreateForm({
       const { errors, message, status_code } = await e.response.json();
 
       if (status_code === 500 && message) {
-        return toast({ title: '500', description: message });
+        return toast.error('Bad request', { description: message });
       }
 
       if (status_code === 400 && errors) {
@@ -90,7 +89,7 @@ export default function VirtanceCreateForm({
           const keys = Object.keys(error);
 
           keys.forEach((key) => {
-            toast({ title: 'Form error', description: error[key] });
+            toast.error('Bad request', { description: error[key] });
           });
         });
       }

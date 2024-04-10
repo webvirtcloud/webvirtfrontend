@@ -1,7 +1,7 @@
-import { useToast } from 'ui/components/toast';
+import { toast } from 'sonner';
 
 import { createFloatingIP, FloatingIPAssignForm } from '@/entities/floating-ip';
-import { type Virtance } from '@/entities/virtance';
+import type { Virtance } from '@/entities/virtance';
 
 interface FloatingIPFormProps {
   virtances?: Virtance[];
@@ -9,8 +9,6 @@ interface FloatingIPFormProps {
 }
 
 export function CreateFloatingIPForm({ onCreate, virtances }: FloatingIPFormProps) {
-  const { toast } = useToast();
-
   async function onSubmit(virtanceId: number) {
     try {
       virtanceId && (await createFloatingIP(Number(virtanceId)));
@@ -18,7 +16,7 @@ export function CreateFloatingIPForm({ onCreate, virtances }: FloatingIPFormProp
       onCreate();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
     }
   }
 

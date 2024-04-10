@@ -2,6 +2,7 @@ import EllipsisVerticalIcon from '@heroicons/react/20/solid/EllipsisVerticalIcon
 import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import {
   DropdownMenu,
@@ -10,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
 import { Skeleton } from 'ui/components/skeleton';
-import { useToast } from 'ui/components/toast';
 import { cx } from 'ui/lib';
 
 import {
@@ -26,7 +26,6 @@ export function FirewallLayout() {
   const params = useParams();
   const { data: firewall, error } = useFirewall(params.uuid!);
   const isBusy = useIsFirewallBusy(firewall);
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   function openDeleteDialog() {
@@ -36,7 +35,7 @@ export function FirewallLayout() {
   async function onDelete() {
     firewall && (await deleteFirewall(firewall.uuid));
 
-    toast({ title: 'Success', variant: 'default', description: 'Firewall was deleted' });
+    toast.success('Firewall has been deleted.');
 
     navigate('/firewalls');
   }

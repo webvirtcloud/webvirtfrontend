@@ -1,10 +1,10 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
-import { useToast } from 'ui/components/toast';
 
 import { type Event } from '@/entities/event';
 import {
@@ -32,7 +32,6 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
     refetch: refetchVirtancesWithFirewall,
     error,
   } = useFirewallVirtances(uuid);
-  const { toast } = useToast();
 
   const events = useMemo(() => {
     const uniqueIds = new Set<number>();
@@ -69,10 +68,7 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
 
           refetchVirtancesWithFirewall();
 
-          toast({
-            title: `The task to ${event.event?.name} a Virtance has been completed.`,
-            variant: 'default',
-          });
+          toast.success(`The has been completed.`);
 
           queryClient.removeQueries({
             queryKey: firewallQueries.virtanceEvent(event.id),
@@ -100,7 +96,7 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
       refetchVirtancesWithFirewall();
     } catch (e) {
       const { message } = await e.response.json();
-      toast({ title: 'Bad request', variant: 'destructive', description: message });
+      toast.error('Bad request', { description: message });
       throw e;
     }
   }
