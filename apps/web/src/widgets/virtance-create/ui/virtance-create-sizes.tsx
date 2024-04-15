@@ -39,7 +39,7 @@ export function VirtanceCreateSizes({ sizes }: { sizes: Size[] }) {
           ))}
         </div>
       ) : (
-        <p className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8 dark:border-neutral-700">
+        <p className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8">
           You don&apos;t have sizes in selected region.
         </p>
       )}

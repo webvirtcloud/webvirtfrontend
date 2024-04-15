@@ -30,7 +30,7 @@ export function FirewallTypeSelect({
       value={value}
       disabled={disabled}
       onChange={onTypeValueChange}
-      className="h-8 rounded-lg border border-neutral-300 bg-neutral-100 py-1 text-sm dark:border-neutral-700 dark:bg-neutral-800"
+      className="border-border/70 bg-muted/50 h-8 rounded-lg border py-1 text-sm"
     >
       {options.map((option) => (
         <option key={option} value={option}>

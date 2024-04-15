@@ -40,10 +40,10 @@ export function DistributionCard({
       onClick={() => onDistributionChange(distribution)}
       className={cx([
         'flex w-full justify-between gap-4 rounded-md border p-4',
-        isActive ? 'border-sky-500 ring-1 ring-sky-500 dark:border-sky-500' : '',
+        isActive ? 'border-ring ring-ring dark:border-ring ring-1' : '',
         isDisabled
-          ? 'cursor-not-allowed bg-neutral-100 grayscale dark:border-neutral-800 dark:bg-neutral-800/30'
-          : 'cursor-pointer',
+          ? 'bg-muted/50 cursor-not-allowed grayscale'
+          : 'bg-card cursor-pointer',
       ])}
     >
       <Controller
@@ -84,7 +84,7 @@ export function DistributionCard({
                         e.preventDefault();
                         handleImageChange(e);
                       }}
-                      className="h-8 min-w-[150px] rounded-lg border border-neutral-300 bg-neutral-100 py-1 text-sm dark:border-neutral-700 dark:bg-neutral-800"
+                      className="bg-muted/50 border-border/70 h-8 min-w-[150px] rounded-md border py-1 text-sm"
                     >
                       <option value={''} disabled>
                         Select version

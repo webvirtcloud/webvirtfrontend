@@ -183,7 +183,7 @@ export function FirewallVirtances({ uuid }: { uuid: string }) {
         />
       </div>
 
-      <hr className="my-6 dark:border-neutral-800" />
+      <hr className="my-6" />
 
       <h2 className="mb-1 text-lg font-medium">Virtances</h2>
       <p className="text-muted-foreground mb-8">A list of attached virtances.</p>

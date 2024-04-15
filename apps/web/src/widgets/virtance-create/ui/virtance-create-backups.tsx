@@ -21,7 +21,7 @@ export function VirtanceCreateBackups({
 
   if (filtered?.length === 0) {
     return (
-      <p className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8 dark:border-neutral-700">
+      <p className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8">
         You don&apos;t have backups in selected region.
       </p>
     );

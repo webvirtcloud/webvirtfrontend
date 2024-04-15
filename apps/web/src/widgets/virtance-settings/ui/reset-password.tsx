@@ -59,7 +59,7 @@ export function ResetPassword({ id }: { id: number }) {
   return (
     <div className="flex items-end justify-between p-6">
       <div className="flex gap-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-md border dark:border-neutral-700">
+        <div className="bg-muted/50 flex h-10 w-10 items-center justify-center rounded-md border">
           <KeyIcon className="h-5 w-5" />
         </div>
         <div>

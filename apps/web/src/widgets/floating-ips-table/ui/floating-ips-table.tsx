@@ -235,7 +235,7 @@ export function FloatingIpsTable() {
 
   if (floatingIPsError) {
     return (
-      <div className="rounded-md border dark:border-neutral-700">
+      <div className="rounded-md border">
         <State
           title="Oh no..."
           description="We cannot display any snapshots at this time for some reason."
@@ -256,7 +256,7 @@ export function FloatingIpsTable() {
         <CreateFloatingIPForm virtances={virtances} onCreate={onCreate} />
       </div>
 
-      <hr className="dark:border-neutral-800" />
+      <hr className="" />
 
       <div className="space-y-6">
         <div>

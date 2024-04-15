@@ -153,7 +153,7 @@ export default function VirtanceBackupsPage() {
 
   if (error) {
     return (
-      <div className="rounded-md border dark:border-neutral-700">
+      <div className="rounded-md border">
         <State
           title="Oh no..."
           description="We cannot display any snapshots at this time for some reason."

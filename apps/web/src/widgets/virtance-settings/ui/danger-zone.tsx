@@ -13,7 +13,7 @@ export function DangerZone({ id }: { id: number }) {
           Think twice before touching any of below options.
         </p>
       </div>
-      <div className="divide-y rounded-xl border dark:divide-neutral-800 dark:border-neutral-800">
+      <div className="bg-card divide-y rounded-lg border">
         <Rebuild id={id} />
         <ResetPassword id={id} />
         <PowerOff id={id} />

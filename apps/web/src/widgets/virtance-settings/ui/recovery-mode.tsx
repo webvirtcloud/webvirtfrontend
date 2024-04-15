@@ -64,7 +64,7 @@ export function RecoveryMode({ id }: { id: number }) {
                   type="button"
                   onClick={() => field.onChange(mode.value)}
                   className={cx(
-                    'disabled:text-muted-foreground disabled:bg-muted/50 w-full cursor-pointer space-y-1 rounded-md border p-4 text-start disabled:cursor-not-allowed',
+                    'disabled:text-muted-foreground bg-card disabled:bg-muted/50 w-full cursor-pointer space-y-1 rounded-md border p-4 text-start disabled:cursor-not-allowed',
                     field.value === mode.value ? 'border-ring ring-ring ring-1' : '',
                   )}
                 >

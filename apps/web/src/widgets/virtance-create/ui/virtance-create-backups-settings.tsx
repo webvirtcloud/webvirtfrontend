@@ -23,10 +23,8 @@ export function VirtanceCreateBackupsSettings() {
               <Label
                 htmlFor="backups"
                 className={cx([
-                  'flex w-full max-w-sm items-center gap-4 rounded-md border p-4',
-                  field.value
-                    ? 'border-sky-500 ring-1 ring-sky-500'
-                    : 'border-neutral-200 dark:border-neutral-700',
+                  'bg-card flex w-full max-w-sm items-center gap-4 rounded-md border p-4',
+                  field.value ? 'border-ring ring-ring ring-1' : '',
                 ])}
               >
                 <Checkbox

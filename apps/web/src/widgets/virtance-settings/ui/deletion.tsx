@@ -28,11 +28,11 @@ export function Deletion({ id }: { id: number }) {
   }
 
   return (
-    <div className="relative flex items-end justify-between overflow-hidden p-6 dark:border-neutral-700">
+    <div className="relative flex items-end justify-between overflow-hidden p-6">
       <div className="absolute inset-0 -z-10 [background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#f9f9f9_20px,#f9f9f9_40px)] dark:[background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#1c1c1c_20px,#1c1c1c_40px)]"></div>
       <div className="flex gap-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-md border dark:border-neutral-700">
-          <TrashIcon className="h-5 w-5 text-red-500" />
+        <div className="bg-muted/50 flex h-10 w-10 items-center justify-center rounded-md border">
+          <TrashIcon className="h-5 w-5" />
         </div>
         <div>
           <h2 className="mb-1 text-lg font-medium leading-none">Delete virtance</h2>

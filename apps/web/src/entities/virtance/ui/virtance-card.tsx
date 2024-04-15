@@ -36,7 +36,7 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
   }
 
   return (
-    <div className="hover:ring-ring hover:border-ring relative flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:ring-1">
+    <div className="hover:ring-ring hover:border-ring bg-card relative flex min-h-[160px] flex-col justify-between rounded-lg border p-6 transition-all duration-300 hover:ring-1">
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center space-x-2">

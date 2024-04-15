@@ -75,7 +75,7 @@ export function VirtanceCreateSecurity() {
                         type="button"
                         onClick={() => field.onChange(field.value?.add(keypair.id))}
                         className={cx(
-                          'disabled:text-muted-foreground disabled:bg-muted/50 w-full cursor-pointer rounded-md border p-4 text-start disabled:cursor-not-allowed',
+                          'disabled:text-muted-foreground bg-card disabled:bg-muted/50 w-full cursor-pointer rounded-md border p-4 text-start disabled:cursor-not-allowed',
                           field.value?.has(keypair.id)
                             ? 'border-ring ring-ring ring-1'
                             : '',
@@ -93,7 +93,7 @@ export function VirtanceCreateSecurity() {
             </ul>
           </>
         ) : (
-          <div className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8 dark:border-neutral-700">
+          <div className="flex max-w-sm flex-col items-center gap-2 rounded-md border border-dashed p-8">
             You don&apos;t have any keypairs
             <Link to="/keypairs" className={buttonVariants({ size: 'sm' })}>
               Manage keypairs

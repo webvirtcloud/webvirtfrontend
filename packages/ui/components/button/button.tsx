@@ -13,7 +13,7 @@ export const buttonVariants = cva(
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 focus-visible:ring-2 focus-visible:ring-destructive/30',
         outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/30 focus-visible:ring-2 focus-visible:border-ring',
+          'border bg-background shadow-sm hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/30 focus-visible:ring-2 focus-visible:border-ring',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {

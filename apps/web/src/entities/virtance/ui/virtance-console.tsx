@@ -90,7 +90,7 @@ export function VirtanceConsole({ id }) {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       <div ref={ref} className="flex-1 overflow-hidden"></div>
-      <div className="fixed bottom-0 left-0 right-0 flex h-[65px] items-center justify-between border-t border-neutral-800 p-4">
+      <div className="fixed bottom-0 left-0 right-0 flex h-[65px] items-center justify-between border-t p-4">
         <div className="flex items-center gap-2">
           <StatusDot status={getStatus(status)} />
           <span className="text-sm font-medium">{status}</span>

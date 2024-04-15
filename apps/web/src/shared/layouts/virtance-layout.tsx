@@ -52,7 +52,7 @@ export function VirtanceLayout() {
   }
   return (
     <div className="mx-auto max-w-6xl">
-      <header className="mb-6 border-b pb-6 dark:border-neutral-800">
+      <header className="mb-6 border-b pb-6">
         {virtance ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -123,7 +123,7 @@ export function VirtanceLayout() {
             name="virtance-menu"
             value={pathname}
             onChange={onMenuValueChange}
-            className="w-full rounded-md border-neutral-300 bg-transparent lg:hidden dark:border-neutral-600"
+            className="border-border/70 w-full rounded-md border bg-transparent lg:hidden"
           >
             {links.map((link) => (
               <option value={link.to} key={link.label}>

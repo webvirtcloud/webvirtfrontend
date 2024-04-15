@@ -45,7 +45,7 @@ export function VirtanceCreateUserdata() {
       <h3 className="mb-2 font-medium">User data</h3>
 
       {userdata ? (
-        <div className="mb-4 flex w-full items-center gap-2 rounded-md border p-2 md:max-w-[212px] dark:border-neutral-700">
+        <div className="mb-4 flex w-full items-center gap-2 rounded-md border p-2 md:max-w-[212px]">
           <CodeBracketSquareIcon className="h-8 w-8 text-green-500" />
           Code
           <Button onClick={clear} size="sm" className="ml-auto w-7 p-0" variant="outline">

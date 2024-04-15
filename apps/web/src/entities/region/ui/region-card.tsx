@@ -16,8 +16,8 @@ export function RegionCard({ isActive, region, onClick }: Props) {
       disabled={!region.available}
       onClick={onClick}
       className={cx([
-        'disabled:text-muted-foreground flex w-full cursor-pointer items-center gap-4 rounded-md border p-4 disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-neutral-700 dark:disabled:bg-neutral-800',
-        isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
+        'disabled:text-muted-foreground disabled:bg-muted/50 flex w-full cursor-pointer items-center gap-4 rounded-md border p-4 disabled:cursor-not-allowed',
+        isActive ? 'border-ring ring-ring ring-1' : '',
       ])}
     >
       <MapPinIcon className="text-muted-foreground h-7 w-7 shrink-0" />

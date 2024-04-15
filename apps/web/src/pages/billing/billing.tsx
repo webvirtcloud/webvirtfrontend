@@ -11,7 +11,7 @@ export default function BillingPage() {
       <div>
         <h2 className="mb-4 text-lg font-medium">Billing</h2>
         <div className="grid grid-cols-3 gap-4">
-          <div className="space-y-2 rounded-2xl border p-8 dark:border-neutral-700">
+          <div className="space-y-2 rounded-2xl border p-8">
             <div>
               <h3 className="text-lg font-medium">Balance</h3>
               <p className="text-muted-foreground">
@@ -23,7 +23,7 @@ export default function BillingPage() {
               <span className="text-2xl font-medium">{data?.account_balance}</span>
             </div>
           </div>
-          <div className="space-y-2 rounded-2xl border p-8 dark:border-neutral-700">
+          <div className="space-y-2 rounded-2xl border p-8">
             <div>
               <h3 className="text-lg font-medium">Usage</h3>
               <p className="text-muted-foreground">

@@ -87,10 +87,5 @@ export function VirtanceDiskGraph({ metrics }: { metrics: VirtanceDiskMetrics })
     }
   }, [metrics, container, chart]);
 
-  return (
-    <div
-      className="overflow-hidden rounded-md border dark:border-neutral-700"
-      ref={container}
-    ></div>
-  );
+  return <div className="overflow-hidden rounded-md border" ref={container}></div>;
 }

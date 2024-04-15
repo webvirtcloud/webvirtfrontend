@@ -110,7 +110,7 @@ export function FirewallLayout() {
           </div>
         )}
       </header>
-      <div className="mb-6 flex items-center gap-4 border-b dark:border-neutral-800">
+      <div className="mb-6 flex items-center gap-4 border-b">
         {links.map((link) => (
           <NavLink
             to={link.to}

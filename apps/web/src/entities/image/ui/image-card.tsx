@@ -22,9 +22,7 @@ export function ImageCard({
       className={cx([
         'flex w-full items-center gap-2 rounded-md border p-4 text-start',
         isActive ? 'border-sky-500 ring-1 ring-sky-500' : '',
-        isDisabled
-          ? 'cursor-not-allowed bg-neutral-100 grayscale dark:border-neutral-800 dark:bg-neutral-800/30'
-          : 'cursor-pointer bg-white dark:border-neutral-700 dark:bg-neutral-900',
+        isDisabled ? 'bg-muted/50 cursor-not-allowed grayscale' : 'cursor-pointer',
       ])}
     >
       <CircleStackIcon className="text-muted-foreground h-7 w-7 shrink-0" />

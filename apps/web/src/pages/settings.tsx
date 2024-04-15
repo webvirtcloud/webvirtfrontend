@@ -4,7 +4,7 @@ export default function Settings() {
   return (
     <>
       <section className="space-y-8">
-        <div className="bg-base grid grid-cols-5 gap-8 rounded-xl border p-8 dark:border-neutral-700">
+        <div className="grid grid-cols-5 gap-8 rounded-xl border p-8">
           <div className="col-span-2">
             <h2 className="mb-2 text-lg font-medium">Profile</h2>
             <p className="text-muted-foreground">
@@ -16,7 +16,7 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="bg-base grid grid-cols-5 gap-8 rounded-xl border p-8 dark:border-neutral-700">
+        <div className="grid grid-cols-5 gap-8 rounded-xl border p-8">
           <div className="col-span-2">
             <h2 className="mb-2 text-lg font-medium">Password</h2>
             <p className="text-muted-foreground">
