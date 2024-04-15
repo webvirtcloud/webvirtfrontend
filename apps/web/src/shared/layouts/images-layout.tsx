@@ -20,8 +20,8 @@ export function ImagesLayout() {
               cx(
                 'px-2 py-4 font-medium',
                 isActive
-                  ? 'border-b border-black dark:border-white dark:text-white'
-                  : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300',
+                  ? 'border-foreground text-foreground border-b'
+                  : 'text-muted-foreground hover:text-foreground',
               )
             }
           >

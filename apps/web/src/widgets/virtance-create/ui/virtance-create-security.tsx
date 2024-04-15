@@ -47,14 +47,14 @@ export function VirtanceCreateSecurity() {
       <div className="mb-4 flex gap-2">
         <Button
           onClick={() => onTypeChange('ssh')}
-          variant={method === 'ssh' ? 'default' : 'secondary'}
+          variant={method === 'ssh' ? 'default' : 'outline'}
           type="button"
         >
           Keypairs
         </Button>
         <Button
           onClick={() => onTypeChange('password')}
-          variant={method === 'password' ? 'default' : 'secondary'}
+          variant={method === 'password' ? 'default' : 'outline'}
           type="button"
         >
           Password
@@ -75,14 +75,14 @@ export function VirtanceCreateSecurity() {
                         type="button"
                         onClick={() => field.onChange(field.value?.add(keypair.id))}
                         className={cx(
-                          'w-full cursor-pointer rounded-md border p-4 text-start disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-500 dark:border-neutral-700 dark:disabled:bg-neutral-800',
+                          'disabled:text-muted-foreground disabled:bg-muted/50 w-full cursor-pointer rounded-md border p-4 text-start disabled:cursor-not-allowed',
                           field.value?.has(keypair.id)
-                            ? 'border-sky-500 ring-1 ring-sky-500'
+                            ? 'border-ring ring-ring ring-1'
                             : '',
                         )}
                       >
                         <div className="font-medium">{keypair.name}</div>
-                        <div className="truncate text-xs text-neutral-500">
+                        <div className="text-muted-foreground truncate text-xs">
                           {keypair.fingerprint}
                         </div>
                       </button>

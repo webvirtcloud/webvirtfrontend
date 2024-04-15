@@ -108,7 +108,7 @@ export default function VirtanceCreateForm({
               <h1 className="mb-2 text-2xl font-medium">
                 Let&apos;s build a new server.
               </h1>
-              <p className="text-neutral-500">
+              <p className="text-muted-foreground">
                 Feel free to create server with any of provided options.
               </p>
             </div>

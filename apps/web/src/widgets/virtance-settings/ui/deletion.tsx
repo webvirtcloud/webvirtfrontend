@@ -36,7 +36,7 @@ export function Deletion({ id }: { id: number }) {
         </div>
         <div>
           <h2 className="mb-1 text-lg font-medium leading-none">Delete virtance</h2>
-          <p className="text-neutral-500">
+          <p className="text-muted-foreground">
             Note that deleting is irreversible action. You cannot restore any data.
           </p>
         </div>

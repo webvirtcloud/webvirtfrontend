@@ -8,8 +8,8 @@ export function DangerZone({ id }: { id: number }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-medium text-red-500">Danger zone</h2>
-        <p className="text-neutral-500">
+        <h2 className="text-lg font-medium">Danger zone</h2>
+        <p className="text-muted-foreground">
           Think twice before touching any of below options.
         </p>
       </div>

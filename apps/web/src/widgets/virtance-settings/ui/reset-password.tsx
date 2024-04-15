@@ -64,7 +64,7 @@ export function ResetPassword({ id }: { id: number }) {
         </div>
         <div>
           <h2 className="mb-1 text-lg font-medium leading-none">Reset password</h2>
-          <p className="text-neutral-500">
+          <p className="text-muted-foreground">
             Virtance will be shutdown and reset password to new one.
           </p>
         </div>

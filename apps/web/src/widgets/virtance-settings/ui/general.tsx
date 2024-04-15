@@ -28,7 +28,7 @@ export function General({ id }: { id: number }) {
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-medium">General</h2>
-        <p className="text-neutral-500">
+        <p className="text-muted-foreground">
           Settings and options for the{' '}
           <span className="text-foreground font-semibold">{virtance.name}</span> virtance.
         </p>

@@ -122,26 +122,26 @@ export function FirewallRules({ uuid }: { uuid: string }) {
     <div className="space-y-16">
       <div>
         <h2 className="mb-1 text-lg font-medium">Inbound rules</h2>
-        <p className="mb-8 text-neutral-500">
+        <p className="text-muted-foreground mb-8">
           Set the Firewall rules for incoming traffic. Only the specified ports will
           accept inbound connections. All other traffic will be blocked.
         </p>
         <table className="w-full">
           <thead>
             <tr>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 first:rounded-tl-md dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs first:rounded-tl-md">
                 Type
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Protocol
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Port range
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Sources
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 last:rounded-tr-md dark:bg-zinc-800"></th>
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs last:rounded-tr-md"></th>
             </tr>
           </thead>
           <tbody className="divide-y dark:divide-neutral-700">
@@ -167,26 +167,26 @@ export function FirewallRules({ uuid }: { uuid: string }) {
 
       <div>
         <h2 className="mb-1 text-lg font-medium">Outbound rules</h2>
-        <p className="mb-8 text-neutral-500">
+        <p className="text-muted-foreground mb-8">
           Set the Firewall rules for outbound traffic. Outbound traffic will only be
           allowed to the specified ports. All other traffic will be blocked.
         </p>
         <table className="w-full">
           <thead>
             <tr>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 first:rounded-tl-md dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs first:rounded-tl-md">
                 Type
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Protocol
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Port range
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 dark:bg-zinc-800">
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs">
                 Destinations
               </th>
-              <th className="whitespace-nowrap bg-zinc-100 px-4 py-2.5 text-left text-xs text-neutral-500 last:rounded-tr-md dark:bg-zinc-800"></th>
+              <th className="text-muted-foreground bg-muted whitespace-nowrap px-4 py-2.5 text-left text-xs last:rounded-tr-md"></th>
             </tr>
           </thead>
           <tbody>

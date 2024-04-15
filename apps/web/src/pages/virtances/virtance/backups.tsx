@@ -168,7 +168,7 @@ export default function VirtanceBackupsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-medium">Backups</h2>
-            <p className="text-neutral-500">
+            <p className="text-muted-foreground">
               Backups are created on a weekly basis and kept for a duration of four weeks.
             </p>
           </div>

@@ -2,7 +2,7 @@ export function State({ title, description }: { title: string; description: stri
   return (
     <div className="py-16 text-center">
       <h2 className="text-lg font-medium">{title}</h2>
-      <p className="text-neutral-500">{description}</p>
+      <p className="text-muted-foreground">{description}</p>
     </div>
   );
 }

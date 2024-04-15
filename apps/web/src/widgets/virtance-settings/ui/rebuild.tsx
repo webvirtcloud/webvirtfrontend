@@ -46,7 +46,7 @@ export function Rebuild({ id }: { id: number }) {
         </div>
         <div>
           <h2 className="text-lg font-medium">Rebuild</h2>
-          <p className=" text-neutral-500">
+          <p className=" text-muted-foreground">
             Be careful. It&apos;s erase all of your data and install new image.
           </p>
         </div>

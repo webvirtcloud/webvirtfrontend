@@ -50,7 +50,7 @@ export function VirtanceCreateImages() {
           <button
             key={t}
             type="button"
-            className={`cursor-pointer capitalize text-neutral-500 data-[active=true]:text-black dark:data-[active=true]:text-white`}
+            className={`text-muted-foreground cursor-pointer capitalize data-[active=true]:text-black dark:data-[active=true]:text-white`}
             data-active={t === tab}
             onClick={() => setTab(t)}
           >

@@ -80,7 +80,7 @@ export function SignInForm({ onSuccess }: Props) {
           {isSubmitting ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
-      <p className="mt-4 text-center text-neutral-500">
+      <p className="text-muted-foreground mt-4 text-center">
         Don&apos;t have an account?{' '}
         <Link className="font-medium text-sky-500" to="/sign-up">
           Sign Up

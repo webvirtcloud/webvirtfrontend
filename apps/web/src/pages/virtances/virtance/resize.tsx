@@ -43,7 +43,7 @@ export default function VirtanceResizePage() {
     <div className="space-y-4">
       <div>
         <h2 className="text-lg font-medium">Resize</h2>
-        <p className="text-neutral-500">Expand size of your virtance in seconds.</p>
+        <p className="text-muted-foreground">Expand size of your virtance in seconds.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -61,7 +61,9 @@ export default function VirtanceResizePage() {
           ))}
       </div>
       {virtance?.status === 'active' || virtance?.status === 'pending' ? (
-        <p className="text-neutral-500">WARNING: Turn off virtance before resizing.</p>
+        <p className="text-muted-foreground">
+          WARNING: Turn off virtance before resizing.
+        </p>
       ) : null}
       <Button
         disabled={

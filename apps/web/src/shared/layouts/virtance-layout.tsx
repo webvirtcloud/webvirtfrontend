@@ -78,7 +78,7 @@ export function VirtanceLayout() {
                 <p className="text-muted-foreground">
                   {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB
                   SSD / {virtance.region.name} /{' '}
-                  <span className="font-medium text-neutral-900 dark:text-white">
+                  <span className="text-foreground font-medium">
                     {virtance.image.distribution} {virtance.image.name}
                   </span>
                 </p>

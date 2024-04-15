@@ -38,7 +38,7 @@ export function VirtanceCreateOverview() {
               <h3 className="font-medium capitalize">
                 {distribution} {image.name}
               </h3>
-              <p className="text-sm text-neutral-500">
+              <p className="text-muted-foreground text-sm">
                 {formatMemorySize(size.memory)} DDR4 / {size.disk}GB SSD / {region.name}
               </p>
             </div>
@@ -51,7 +51,7 @@ export function VirtanceCreateOverview() {
             </div>
             <div className="space-y-0.5">
               <h3 className="font-medium">{image.name}</h3>
-              <p className="text-sm text-neutral-500">{image.description}</p>
+              <p className="text-muted-foreground text-sm">{image.description}</p>
             </div>
           </div>
         ) : null}
@@ -60,7 +60,7 @@ export function VirtanceCreateOverview() {
         {size ? (
           <div>
             <span className="text-xl font-medium">${size.price_monthly}</span>
-            <span className="text-neutral-500">/mo</span>
+            <span className="text-muted-foreground">/mo</span>
           </div>
         ) : null}
         <Button type="submit" disabled={isSubmitting}>

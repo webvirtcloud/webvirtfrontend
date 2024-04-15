@@ -75,7 +75,7 @@ export function SignUpForm({ onSuccess }: Props) {
           Create an account
         </Button>
       </form>
-      <p className="mt-4 text-center text-neutral-500">
+      <p className="text-muted-foreground mt-4 text-center">
         Already have an account?{' '}
         <Link className="font-medium text-sky-500" to="/sign-in">
           Sign In

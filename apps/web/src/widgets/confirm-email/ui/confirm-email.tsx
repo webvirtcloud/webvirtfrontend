@@ -27,7 +27,7 @@ export function ConfirmEmail() {
         className="flex flex-col items-center justify-center gap-4 rounded-lg p-8 md:p-16"
       >
         <h1 className="text-lg font-medium">Confirm email please</h1>
-        <p className="max-w-md text-center text-neutral-500">
+        <p className="text-muted-foreground max-w-md text-center">
           Please check your inbox and follow instructions. If you didn&apos;t receive it,
           hit button below to resend it again.
         </p>

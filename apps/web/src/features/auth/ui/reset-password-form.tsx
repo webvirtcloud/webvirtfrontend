@@ -1,9 +1,10 @@
-import { resetPassword } from '@/entities/auth';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
+
+import { resetPassword } from '@/entities/auth';
 
 interface IFormInputs {
   password: string;
@@ -45,7 +46,7 @@ export function ResetPasswordForm() {
           Change password
         </Button>
       </form>
-      <p className="mt-4 text-center text-neutral-500">
+      <p className="text-muted-foreground mt-4 text-center">
         Or try to{' '}
         <Link className="font-medium text-sky-500" to="/sign-in">
           Sign in

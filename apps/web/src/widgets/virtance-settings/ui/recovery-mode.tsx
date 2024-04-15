@@ -46,7 +46,7 @@ export function RecoveryMode({ id }: { id: number }) {
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-medium">Recovery mode</h2>
-        <p className="text-neutral-500">
+        <p className="text-muted-foreground">
           Booting from a recovery ISO allows you to recover from kernel mismatches and
           perform repairs on corrupted file systems.
         </p>
@@ -64,14 +64,12 @@ export function RecoveryMode({ id }: { id: number }) {
                   type="button"
                   onClick={() => field.onChange(mode.value)}
                   className={cx(
-                    'w-full cursor-pointer space-y-1 rounded-md border p-4 text-start disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-500 dark:border-neutral-700 dark:disabled:bg-neutral-800',
-                    field.value === mode.value
-                      ? 'border-sky-500 ring-1 ring-sky-500'
-                      : '',
+                    'disabled:text-muted-foreground disabled:bg-muted/50 w-full cursor-pointer space-y-1 rounded-md border p-4 text-start disabled:cursor-not-allowed',
+                    field.value === mode.value ? 'border-ring ring-ring ring-1' : '',
                   )}
                 >
                   <div className="font-medium">{mode.title}</div>
-                  <div className="text-neutral-500">{mode.description}</div>
+                  <div className="text-muted-foreground">{mode.description}</div>
                 </button>
               )}
             />

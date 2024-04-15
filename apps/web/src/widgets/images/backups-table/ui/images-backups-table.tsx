@@ -49,7 +49,7 @@ export function ImagesBackupsTable() {
             <div className="flex items-center gap-2">
               <h3 className="text-base font-medium">{value.name}</h3>
             </div>
-            <p className="text-sm text-neutral-500">
+            <p className="text-muted-foreground text-sm">
               {formatMemorySize(value.size.memory)} DDR4 / {value.size.disk}GB SSD
             </p>
           </div>

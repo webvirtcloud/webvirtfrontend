@@ -43,7 +43,7 @@ export function PowerOff({ id }: { id: number }) {
         </div>
         <div>
           <h2 className="mb-1 text-lg font-medium leading-none">Power off</h2>
-          <p className="text-neutral-500">Virtance will immidiatelly power off.</p>
+          <p className="text-muted-foreground">Virtance will immidiatelly power off.</p>
         </div>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={onOpenChange}>
