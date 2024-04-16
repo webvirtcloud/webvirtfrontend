@@ -107,7 +107,7 @@ export default function Page() {
             <div className="flex items-center justify-center gap-4">
               <Link
                 className={cx(buttonVariants({ size: 'xl', variant: 'default' }))}
-                href="/docs/getting-started/setup"
+                href="/docs/introduction"
               >
                 Try it now
               </Link>

@@ -41,7 +41,7 @@ export function HomeHeader() {
         initial={{ opacity: 0, translateY: 14 }}
         animate={{ opacity: 100, translateY: 0 }}
         transition={{ delay: 0.5, duration: 1 }}
-        className="text-muted-foreground text-balance mx-auto mb-12 max-w-2xl text-center text-2xl"
+        className="text-muted-foreground mx-auto mb-12 max-w-2xl text-balance text-center text-2xl"
       >
         Meet a modern and powerful all-in-one cloud management platform for your company &
         your clients
@@ -54,7 +54,7 @@ export function HomeHeader() {
       >
         <Link
           className={cx(buttonVariants({ size: 'xl', variant: 'default' }))}
-          href="/docs/getting-started/setup"
+          href="/docs/introduction"
         >
           Try it now
         </Link>
