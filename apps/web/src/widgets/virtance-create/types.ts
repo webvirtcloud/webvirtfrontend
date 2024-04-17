@@ -26,7 +26,17 @@ export const schema = z.object({
   region: z.object({
     slug: z.string({ required_error: 'Please select region.' }),
     name: z.string(),
-    features: z.array(z.union([z.literal('backup'), z.literal('snapshot')])),
+    features: z.array(
+      z.union([
+        z.literal('backup'),
+        z.literal('snapshot'),
+        z.literal('ipv6'),
+        z.literal('resize'),
+        z.literal('volume'),
+        z.literal('one_click'),
+        z.literal('floating_ip'),
+      ]),
+    ),
   }),
   authentication: z.object({
     method: z.enum(['ssh', 'password'] as const, {
