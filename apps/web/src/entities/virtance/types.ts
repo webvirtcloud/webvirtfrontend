@@ -131,7 +131,7 @@ export type ActionType =
 export type VirtanceCPUMetrics = {
   name: string;
   unit: string;
-  data: { sys: [number, string][]; user: [number, string][] };
+  data: { sys: [number, string][]; user: [number, string][]; total: [number, string][] };
 };
 
 export type VirtanceNetMetrics = {

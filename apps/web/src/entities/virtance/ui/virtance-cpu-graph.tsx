@@ -12,6 +12,7 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
   const chart = useRef<IChartApi>();
   const sysSeries = useRef<ISeriesApi<'Area'>>();
   const userSeries = useRef<ISeriesApi<'Area'>>();
+  const totalSeries = useRef<ISeriesApi<'Area'>>();
 
   const preferredColorSchema = usePrefersColorScheme();
 
@@ -63,6 +64,13 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
         lineWidth: 2,
       });
 
+      totalSeries.current = chart.current.addAreaSeries({
+        topColor: 'rgba(100, 250, 0, 0.2)',
+        bottomColor: 'rgba(100, 250, 0, 0.0)',
+        lineColor: 'rgba(100, 250, 0, 1)',
+        lineWidth: 2,
+      });
+
       if (preferredColorSchema === 'dark') {
         chart.current.applyOptions(theme.dark);
       } else {
@@ -70,7 +78,7 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
       }
     }
 
-    if (sysSeries.current && userSeries.current) {
+    if (sysSeries.current && userSeries.current && totalSeries.current) {
       sysSeries.current.setData(
         metrics.data.sys.map((d) => ({
           time: d[0] as UTCTimestamp,
@@ -80,6 +88,13 @@ export function VirtanceCPUGraph({ metrics }: { metrics: VirtanceCPUMetrics }) {
 
       userSeries.current.setData(
         metrics.data.user.map((d) => ({
+          time: d[0] as UTCTimestamp,
+          value: parseFloat(d[1]),
+        })),
+      );
+
+      totalSeries.current.setData(
+        metrics.data.total.map((d) => ({
           time: d[0] as UTCTimestamp,
           value: parseFloat(d[1]),
         })),
