@@ -13,5 +13,6 @@ export const virtanceQueries = {
     cpu: (id: number) => ['virtance-metric-cpu', id] as const,
     net: (id: number) => ['virtance-metric-net', id] as const,
     disk: (id: number) => ['virtance-metric-disk', id] as const,
+    memory: (id: number) => ['virtance-metric-memory', id] as const,
   },
 };
