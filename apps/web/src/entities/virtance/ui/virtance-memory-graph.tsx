@@ -10,9 +10,7 @@ import { theme } from '@/shared/ui/chart';
 export function VirtanceMemoryGraph({ metrics }: { metrics: VirtanceMemoryMetrics }) {
   const container = useRef<HTMLDivElement>(null);
   const chart = useRef<IChartApi>();
-  const sysSeries = useRef<ISeriesApi<'Area'>>();
-  const userSeries = useRef<ISeriesApi<'Area'>>();
-  const totalSeries = useRef<ISeriesApi<'Area'>>();
+  const mainSeries = useRef<ISeriesApi<'Area'>>();
 
   const preferredColorSchema = usePrefersColorScheme();
 
@@ -50,24 +48,10 @@ export function VirtanceMemoryGraph({ metrics }: { metrics: VirtanceMemoryMetric
         },
       });
 
-      sysSeries.current = chart.current.addAreaSeries({
+      mainSeries.current = chart.current.addAreaSeries({
         topColor: 'rgba(0, 200, 255, 0.5)',
         bottomColor: 'rgba(0, 200, 255, 0.0)',
         lineColor: 'rgba(0, 200, 255, 1)',
-        lineWidth: 2,
-      });
-
-      userSeries.current = chart.current.addAreaSeries({
-        topColor: 'rgba(255, 0, 80, 0.2)',
-        bottomColor: 'rgba(255, 0, 80, 0.0)',
-        lineColor: 'rgba(255, 0, 80, 1)',
-        lineWidth: 2,
-      });
-
-      totalSeries.current = chart.current.addAreaSeries({
-        topColor: 'rgba(100, 250, 0, 0.2)',
-        bottomColor: 'rgba(100, 250, 0, 0.0)',
-        lineColor: 'rgba(100, 250, 0, 1)',
         lineWidth: 2,
       });
 
@@ -78,23 +62,9 @@ export function VirtanceMemoryGraph({ metrics }: { metrics: VirtanceMemoryMetric
       }
     }
 
-    if (sysSeries.current && userSeries.current && totalSeries.current) {
-      sysSeries.current.setData(
-        metrics.data.sys.map((d) => ({
-          time: d[0] as UTCTimestamp,
-          value: parseFloat(d[1]),
-        })),
-      );
-
-      userSeries.current.setData(
-        metrics.data.user.map((d) => ({
-          time: d[0] as UTCTimestamp,
-          value: parseFloat(d[1]),
-        })),
-      );
-
-      totalSeries.current.setData(
-        metrics.data.total.map((d) => ({
+    if (mainSeries.current) {
+      mainSeries.current.setData(
+        metrics.data.map((d) => ({
           time: d[0] as UTCTimestamp,
           value: parseFloat(d[1]),
         })),

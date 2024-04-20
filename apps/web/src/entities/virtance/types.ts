@@ -137,7 +137,7 @@ export type VirtanceCPUMetrics = {
 export type VirtanceMemoryMetrics = {
   name: string;
   unit: string;
-  data: { sys: [number, string][]; user: [number, string][]; total: [number, string][] };
+  data: [number, string][];
 };
 
 export type VirtanceNetMetrics = {
