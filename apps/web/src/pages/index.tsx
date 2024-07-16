@@ -23,6 +23,8 @@ const VirtanceSnapshots = lazy(() => import('@/pages/virtances/virtance/snapshot
 const VirtanceBackups = lazy(() => import('@/pages/virtances/virtance/backups'));
 const VirtanceConsole = lazy(() => import('@/pages/virtances/virtance/console'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
+const Loadbalancers = lazy(() => import('@/pages/loadbalancers/loadbalancers'));
+const CreateLoadbalancer = lazy(() => import('@/pages/loadbalancers/create'));
 const Firewalls = lazy(() => import('@/pages/firewalls/firewalls'));
 const FirewallRules = lazy(() => import('@/pages/firewalls/rules'));
 const FirewallVirtances = lazy(() => import('@/pages/firewalls/virtances'));
@@ -69,6 +71,22 @@ export function Routing() {
             element={
               <Suspense>
                 <FloatingIPs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/loadbalancers"
+            element={
+              <Suspense>
+                <Loadbalancers />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/loadbalancers/create"
+            element={
+              <Suspense>
+                <CreateLoadbalancer />
               </Suspense>
             }
           />
