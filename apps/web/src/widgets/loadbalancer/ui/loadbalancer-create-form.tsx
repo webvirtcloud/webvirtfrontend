@@ -80,7 +80,7 @@ export function LoadbalancerCreateForm() {
                     </Label>
                     <select
                       {...register(`forwarding_rules.${index}.entry_protocol`)}
-                      className="border-border h-10 w-40 rounded-md border"
+                      className="border-border h-10 w-40 rounded-md border bg-transparent"
                     >
                       <option value="http3">HTTP3</option>
                       <option value="http2">HTTP2</option>
@@ -109,7 +109,7 @@ export function LoadbalancerCreateForm() {
                     </Label>
                     <select
                       {...register(`forwarding_rules.${index}.target_protocol`)}
-                      className="border-border h-10 w-40 rounded-md border"
+                      className="border-border h-10 w-40 rounded-md border bg-transparent"
                     >
                       <option value="http3">HTTP3</option>
                       <option value="http2">HTTP2</option>
@@ -143,7 +143,7 @@ export function LoadbalancerCreateForm() {
             <li className="flex items-end p-4">
               <div>
                 <select
-                  className="border-border h-10 w-40 rounded-md border"
+                  className="border-border h-10 w-40 rounded-md border bg-transparent"
                   defaultValue="default"
                 >
                   <option disabled value="default">
