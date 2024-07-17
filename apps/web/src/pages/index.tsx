@@ -5,6 +5,7 @@ import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
 import { FirewallLayout } from '@/shared/layouts/firewall-layout';
 import { ImagesLayout } from '@/shared/layouts/images-layout';
+import { LoadbalancerLayout } from '@/shared/layouts/loadbalancer-layout';
 import { VirtanceLayout } from '@/shared/layouts/virtance-layout';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
@@ -24,6 +25,8 @@ const VirtanceBackups = lazy(() => import('@/pages/virtances/virtance/backups'))
 const VirtanceConsole = lazy(() => import('@/pages/virtances/virtance/console'));
 const Keypairs = lazy(() => import('@/pages/keypairs/keypairs'));
 const Loadbalancers = lazy(() => import('@/pages/loadbalancers/loadbalancers'));
+const LoadbalancerVirtances = lazy(() => import('@/pages/loadbalancers/virtances'));
+const LoadbalancerSettings = lazy(() => import('@/pages/loadbalancers/settings'));
 const CreateLoadbalancer = lazy(() => import('@/pages/loadbalancers/create'));
 const Firewalls = lazy(() => import('@/pages/firewalls/firewalls'));
 const FirewallRules = lazy(() => import('@/pages/firewalls/rules'));
@@ -82,6 +85,25 @@ export function Routing() {
               </Suspense>
             }
           />
+          <Route path="/loadbalancers/:id" element={<LoadbalancerLayout />}>
+            <Route index element={<Navigate to="virtances" />} />
+            <Route
+              path="virtances"
+              element={
+                <Suspense>
+                  <LoadbalancerVirtances />
+                </Suspense>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <Suspense>
+                  <LoadbalancerSettings />
+                </Suspense>
+              }
+            />
+          </Route>
           <Route
             path="/loadbalancers/create"
             element={
