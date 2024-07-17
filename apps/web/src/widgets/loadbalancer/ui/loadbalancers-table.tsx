@@ -1,75 +1,36 @@
 import { format } from 'date-fns';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'sonner';
 import { Button, buttonVariants } from 'ui/components/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from 'ui/components/dropdown-menu';
 import { Table } from 'ui/components/table';
 
-import {
-  type Keypair,
-  deleteKeypair,
-  KeypairDeleteAlertDialog,
-} from '@/entities/keypair';
 import { useLoadbalancers } from '@/entities/loadbalancer';
-import { KeypairEditDialog } from '@/features/keypair-edit-dialog';
 import { State } from '@/shared/ui/state';
 
 export function LoadbalancersTable() {
-  const { data: loadbalancers, refetch, error } = useLoadbalancers();
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [selectedKeypair, setSelectedKeypair] = useState<Keypair>();
+  const { data: loadbalancers, error } = useLoadbalancers();
 
-  async function onDelete(id: number) {
-    await deleteKeypair(id);
-    await refetch();
-    toast.error('The load balancer has been deleted');
-  }
-
-  async function onUpdate() {
-    await refetch();
-    setIsEditDialogOpen(false);
-    toast.success('The load balancer has been updated');
-  }
-
-  function onDialogOpen(key: Keypair, type: 'edit' | 'detach') {
-    setSelectedKeypair(key);
-
-    switch (type) {
-      case 'edit':
-        setIsEditDialogOpen(true);
-        break;
-      case 'detach':
-        setIsDeleteDialogOpen(true);
-        break;
-    }
-  }
-
-  function onDialogClose(type: 'edit' | 'detach') {
-    switch (type) {
-      case 'edit':
-        setIsEditDialogOpen(false);
-        break;
-      case 'detach':
-        setIsDeleteDialogOpen(false);
-        break;
-    }
-    setSelectedKeypair(undefined);
-  }
-
-  const Actions = ({ value: key }) => (
+  const Actions = ({ value }) => (
     <div className="space-x-2">
       <div className="flex justify-end space-x-2">
-        <Button size="sm" variant="outline" onClick={() => onDialogOpen(key, 'edit')}>
-          Edit
-        </Button>
-        <Button
-          size="sm"
-          variant="destructive"
-          onClick={() => onDialogOpen(key, 'detach')}
-        >
-          Delete
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">More</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link to={`${value.id}/virtances`}>Virtances</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`${value.id}/settings`}>Settings</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
@@ -78,6 +39,11 @@ export function LoadbalancersTable() {
     {
       field: 'name',
       name: 'Name',
+      component: ({ value }) => (
+        <Link className="font-medium" to={`/loadbalancers/${value.id}`}>
+          {value.name}
+        </Link>
+      ),
     },
     {
       field: 'ip',
@@ -129,22 +95,6 @@ export function LoadbalancersTable() {
               description="Add new load balancer to start use them."
             />
           ) : null}
-        </>
-      ) : null}
-
-      {selectedKeypair ? (
-        <>
-          <KeypairEditDialog
-            open={isEditDialogOpen}
-            onUpdate={onUpdate}
-            keypair={selectedKeypair}
-            onOpenChange={() => onDialogClose('edit')}
-          />
-          <KeypairDeleteAlertDialog
-            open={isDeleteDialogOpen}
-            onOpenChange={() => onDialogClose('detach')}
-            onDelete={() => onDelete(selectedKeypair.id)}
-          />
         </>
       ) : null}
     </div>
