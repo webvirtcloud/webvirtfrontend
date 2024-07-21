@@ -86,7 +86,7 @@ export function Routing() {
             }
           />
           <Route path="/loadbalancers/:id" element={<LoadbalancerLayout />}>
-            <Route index element={<Navigate to="virtances" />} />
+            <Route index element={<Navigate replace to="virtances" />} />
             <Route
               path="virtances"
               element={
