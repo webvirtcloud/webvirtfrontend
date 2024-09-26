@@ -54,37 +54,43 @@ export function LoadbalancersTable() {
     </div>
   );
 
-  const columns = [
-    {
-      field: 'name',
-      name: 'Name',
-      component: ({ value }) => (
-        <Link className="hover:text-ring font-semibold" to={`/loadbalancers/${value.id}`}>
-          {value.name}
-        </Link>
-      ),
-    },
-    {
-      field: 'ip',
-      name: 'IP Address',
-      formatter: (item) => item.ip ?? 'N/A',
-    },
-    {
-      field: 'region',
-      name: 'Region',
-      formatter: (item) => item.region.name,
-    },
-    {
-      field: 'created_at',
-      name: 'Added on',
-      formatter: (item) => format(new Date(item.created_at), 'MMM dd, yyyy'),
-    },
-    {
-      field: 'actions',
-      name: '',
-      component: Actions,
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        field: 'name',
+        name: 'Name',
+        component: ({ value }) => (
+          <Link
+            className="hover:text-ring font-semibold"
+            to={`/loadbalancers/${value.id}`}
+          >
+            {value.name}
+          </Link>
+        ),
+      },
+      {
+        field: 'ip',
+        name: 'IP Address',
+        formatter: (item) => item.ip ?? 'N/A',
+      },
+      {
+        field: 'region',
+        name: 'Region',
+        formatter: (item) => item.region.name,
+      },
+      {
+        field: 'created_at',
+        name: 'Added on',
+        formatter: (item) => format(new Date(item.created_at), 'MMM dd, yyyy'),
+      },
+      {
+        field: 'actions',
+        name: '',
+        component: Actions,
+      },
+    ],
+    [loadbalancers],
+  );
 
   const events = useMemo(() => {
     const uniqueIds = new Set<string>();
