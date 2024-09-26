@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -6,7 +7,11 @@ import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { z } from 'zod';
 
-import { updateLoadbalancerRules, useLoadbalancer } from '@/entities/loadbalancer';
+import {
+  loadbalancerQueries,
+  updateLoadbalancerRules,
+  useLoadbalancer,
+} from '@/entities/loadbalancer';
 import { LoadbalancerForwardingRules } from '@/features/loadbalancer';
 
 const schema = z.object({
@@ -52,6 +57,7 @@ const schema = z.object({
 type Form = z.infer<typeof schema>;
 
 export function LoadbalancerRules() {
+  const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const { data: loadbalancer } = useLoadbalancer(id);
   const form = useForm<Form>({
@@ -68,6 +74,9 @@ export function LoadbalancerRules() {
     try {
       if (!id) return;
       await updateLoadbalancerRules(id, data);
+      await queryClient.invalidateQueries({
+        queryKey: loadbalancerQueries.loadbalancer(id),
+      });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 
