@@ -1,16 +1,26 @@
 import ScaleIcon from '@heroicons/react/20/solid/ScaleIcon';
 import { type ChangeEvent } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { Skeleton } from 'ui/components/skeleton';
+import { StatusDot } from 'ui/components/status-dot';
 import { cx } from 'ui/lib';
 
 import { useLoadbalancer } from '@/entities/loadbalancer';
+import { useIsLoadbalancerBusy } from '@/entities/loadbalancer/hooks/use-is-loadbalancer-busy';
 import { State } from '@/shared/ui/state';
 
 export function LoadbalancerLayout() {
   const { id } = useParams();
   const { pathname } = useLocation();
   const { data: loadbalancer, error } = useLoadbalancer(id);
+  const isLoadbalancerBusy = useIsLoadbalancerBusy(loadbalancer);
 
   const navigate = useNavigate();
 
@@ -33,26 +43,41 @@ export function LoadbalancerLayout() {
   }
   return (
     <div className="mx-auto max-w-6xl">
-      <header className="mb-6 border-b pb-6">
+      <header className="">
         {loadbalancer ? (
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="bg-muted/50 flex h-14 w-14 shrink-0 items-center justify-center rounded">
-                <ScaleIcon className="h-8 w-8" />
-              </div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-3">
-                  <h1 className="text-xl font-medium">{loadbalancer.name}</h1>
+          <>
+            <div className="mb-6 flex space-x-2 truncate font-medium">
+              <Link
+                to="/loadbalancers"
+                className="text-ring decoration-ring/50 hover:decoration-ring underline underline-offset-4"
+              >
+                All loadbalancers
+              </Link>
+              <span className="text-gray-400">/</span>
+              <span>{loadbalancer.name}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="bg-muted/50 flex h-14 w-14 shrink-0 items-center justify-center rounded">
+                  <ScaleIcon className="h-8 w-8" />
                 </div>
-                <p className="text-muted-foreground">
-                  {loadbalancer.virtance_ids.length} virtances /{' '}
-                  <span className="text-foreground font-medium">
-                    {loadbalancer.region.name} {loadbalancer.ip}
-                  </span>
-                </p>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3">
+                    <h1 className="text-xl font-semibold">{loadbalancer.name}</h1>
+                    <StatusDot status={isLoadbalancerBusy ? 'pending' : 'active'} />
+                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    {loadbalancer.virtance_ids.length} virtances /{' '}
+                    <span className="text-foreground font-medium">
+                      {loadbalancer.region.name}
+                    </span>{' '}
+                    region
+                    {loadbalancer.ip && <span> / {loadbalancer.ip}</span>}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -72,8 +97,8 @@ export function LoadbalancerLayout() {
           </div>
         )}
       </header>
-      <div className="grid gap-4 lg:grid-cols-12 lg:gap-0">
-        <div className="lg:col-span-2">
+      <div className="">
+        <div className="py-6">
           <select
             name="virtance-menu"
             value={pathname}
@@ -86,7 +111,7 @@ export function LoadbalancerLayout() {
               </option>
             ))}
           </select>
-          <ul className="hidden flex-col items-start gap-3 lg:flex">
+          <ul className="hidden items-center gap-3 border-b pb-3 lg:flex">
             {links.map((link) => (
               <li key={link.label}>
                 <NavLink
@@ -107,7 +132,7 @@ export function LoadbalancerLayout() {
             ))}
           </ul>
         </div>
-        <div className="lg:col-span-10">
+        <div className="">
           <Outlet />
         </div>
       </div>

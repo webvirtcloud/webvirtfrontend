@@ -1,18 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
-import { Input } from 'ui/components/input';
-import { Label } from 'ui/components/label';
 import { z } from 'zod';
 
-import { createLoadbalancer } from '@/entities/loadbalancer/api/create-loadbalancer';
+import { updateLoadbalancerRules, useLoadbalancer } from '@/entities/loadbalancer';
 import { LoadbalancerForwardingRules } from '@/features/loadbalancer';
 
 const schema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  region: z.string().min(1, 'Region is required'),
   forwarding_rules: z
     .array(
       z.object({
@@ -54,30 +51,23 @@ const schema = z.object({
 
 type Form = z.infer<typeof schema>;
 
-export function LoadbalancerCreateForm() {
-  const navigate = useNavigate();
-
+export function LoadbalancerRules() {
+  const { id } = useParams<{ id: string }>();
+  const { data: loadbalancer } = useLoadbalancer(id);
   const form = useForm<Form>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      name: `loadbalancer-${Math.floor(Math.random() * 1000)}`,
-      region: 'default',
-      forwarding_rules: [
-        {
-          entry_protocol: 'http',
-          entry_port: 80,
-          target_protocol: 'http',
-          target_port: 80,
-        },
-      ],
-    },
   });
+
+  useEffect(() => {
+    if (loadbalancer) {
+      form.reset({ forwarding_rules: loadbalancer.forwarding_rules });
+    }
+  }, [loadbalancer]);
 
   const submit = form.handleSubmit(async (data) => {
     try {
-      await createLoadbalancer(data);
-
-      navigate('/loadbalancers');
+      if (!id) return;
+      await updateLoadbalancerRules(id, data);
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 
@@ -98,34 +88,20 @@ export function LoadbalancerCreateForm() {
   });
 
   return (
-    <FormProvider {...form}>
-      <form onSubmit={submit} className="relative mx-auto max-w-5xl space-y-4 py-8">
-        <div className="mb-8 md:mb-12">
-          <h1 className="text-2xl font-semibold">Create Load Balancer</h1>
-          <p className="text-muted-foreground">
-            Load balancers distribute traffic between Virtances within the same region.
-          </p>
-        </div>
-        <div>
-          <h2 className="text-lg font-semibold">Forwarding rules</h2>
-          <p className="text-muted-foreground mb-4">
-            Set how traffic will be routed from the Load Balancer to your Virtances. At
-            least one rule is required.
-          </p>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold tracking-tight">Forwarding Rules</h2>
+        <p className="text-muted-foreground">
+          Set how traffic will be routed from the Load Balancer to your Virtances. At
+          least one rule is required.
+        </p>
+      </div>
+      <FormProvider {...form}>
+        <form onSubmit={submit} className="space-y-4">
           <LoadbalancerForwardingRules />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="name">Name</Label>
-          <div className="max-w-80">
-            <Input
-              id="name"
-              {...form.register('name')}
-              placeholder="Enter load balancer name"
-            />
-          </div>
-        </div>
-        <Button type="submit">Create load balancer</Button>
-      </form>
-    </FormProvider>
+          <Button type="submit">Update rules</Button>
+        </form>
+      </FormProvider>
+    </div>
   );
 }

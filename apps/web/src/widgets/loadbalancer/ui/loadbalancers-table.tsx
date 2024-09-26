@@ -1,5 +1,9 @@
+import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import { EllipsisIcon } from 'lucide-react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button, buttonVariants } from 'ui/components/button';
 import {
   DropdownMenu,
@@ -7,30 +11,45 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
+import { Spin } from 'ui/components/spin';
 import { Table } from 'ui/components/table';
 
-import { useLoadbalancers } from '@/entities/loadbalancer';
+import { type Event } from '@/entities/event';
+import {
+  getLoadbalancer,
+  Loadbalancer,
+  loadbalancerQueries,
+  useLoadbalancers,
+} from '@/entities/loadbalancer';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 import { State } from '@/shared/ui/state';
 
 export function LoadbalancersTable() {
+  const queryClient = useQueryClient();
   const { data: loadbalancers, error } = useLoadbalancers();
 
   const Actions = ({ value }) => (
     <div className="space-x-2">
       <div className="flex justify-end space-x-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">More</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem asChild>
-              <Link to={`${value.id}/virtances`}>Virtances</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to={`${value.id}/settings`}>Settings</Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {value.event !== null ? (
+          <Spin size="sm" className="mr-2.5" />
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon" className="h-8 w-8">
+                <EllipsisIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link to={`${value.id}/virtances`}>Virtances</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={`${value.id}/settings`}>Settings</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );
@@ -40,7 +59,7 @@ export function LoadbalancersTable() {
       field: 'name',
       name: 'Name',
       component: ({ value }) => (
-        <Link className="font-medium" to={`/loadbalancers/${value.id}`}>
+        <Link className="hover:text-ring font-semibold" to={`/loadbalancers/${value.id}`}>
           {value.name}
         </Link>
       ),
@@ -67,6 +86,57 @@ export function LoadbalancersTable() {
     },
   ];
 
+  const events = useMemo(() => {
+    const uniqueIds = new Set<string>();
+    const uniqueEvents: { id: string; event: Event }[] = [];
+
+    if (loadbalancers === undefined) return uniqueEvents;
+
+    loadbalancers.forEach((loadbalancer) => {
+      if (loadbalancer.event !== null && !uniqueIds.has(loadbalancer.id)) {
+        uniqueIds.add(loadbalancer.id);
+        uniqueEvents.push({ id: loadbalancer.id, event: loadbalancer.event });
+      }
+    });
+
+    return uniqueEvents;
+  }, [loadbalancers]);
+
+  useQueries({
+    queries: events.map((event) => ({
+      queryKey: loadbalancerQueries.event(event.id),
+      queryFn: () => getLoadbalancer(event.id),
+      refetchInterval: (query) => {
+        if (query.state.error) {
+          return false;
+        }
+        if (query.state.data && query.state.data.load_balancer.event === null) {
+          queryClient.setQueryData<Loadbalancer[]>(
+            loadbalancerQueries.list(),
+            (previousData) => {
+              if (previousData) {
+                return previousData.map((loadbalancer: Loadbalancer) =>
+                  loadbalancer.id === event.id
+                    ? query.state.data?.load_balancer
+                    : loadbalancer,
+                );
+              }
+            },
+          );
+
+          toast.success(
+            `The task ${event.event?.description.toLowerCase()} of virtance has been completed.`,
+          );
+
+          queryClient.removeQueries({ queryKey: loadbalancerQueries.event(event.id) });
+
+          return false;
+        }
+        return REFRESH_INTERVAL;
+      },
+    })),
+  });
+
   if (error) {
     return (
       <State
@@ -79,7 +149,7 @@ export function LoadbalancersTable() {
   return (
     <div className="space-y-4">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-lg font-medium">Load Balancers</h2>
+        <h2 className="text-xl font-semibold">Load Balancers</h2>
 
         <Link className={buttonVariants()} to="/loadbalancers/create">
           Add Load Balancer

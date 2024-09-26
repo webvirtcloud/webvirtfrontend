@@ -1,3 +1,5 @@
+import { LoadbalancerSettings } from '@/widgets/loadbalancer';
+
 export default function LoadbalancersSettings() {
-  return <div>settings</div>;
+  return <LoadbalancerSettings />;
 }

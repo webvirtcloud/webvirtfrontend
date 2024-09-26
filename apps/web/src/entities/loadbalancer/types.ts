@@ -1,5 +1,5 @@
-import { Event } from '../event';
-import { Region } from '../region';
+import type { Event } from '../event';
+import type { Region } from '../region';
 
 export interface Loadbalancer {
   id: string;

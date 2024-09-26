@@ -173,4 +173,6 @@ export interface GetVirtancesParams {
   has_backups?: boolean;
   has_firewall?: boolean;
   has_floating_ip?: boolean;
+  used_in_lb?: boolean;
+  region?: string;
 }

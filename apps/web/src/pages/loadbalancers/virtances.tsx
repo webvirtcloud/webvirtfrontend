@@ -1,3 +1,5 @@
+import { LoadbalancersVirtancesTable } from '@/widgets/loadbalancer';
+
 export default function LoadbalancersVirtances() {
-  return <div>virtances</div>;
+  return <LoadbalancersVirtancesTable />;
 }

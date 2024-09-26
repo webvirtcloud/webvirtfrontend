@@ -1,6 +1,7 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
 
 import { getLoadbalancer, loadbalancerQueries } from '@/entities/loadbalancer';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 
 export function useLoadbalancer(id?: string) {
   return useQuery({
@@ -8,5 +9,12 @@ export function useLoadbalancer(id?: string) {
     queryFn: id
       ? () => getLoadbalancer(id).then((response) => response.load_balancer)
       : skipToken,
+    refetchInterval(query) {
+      if (query.state.data?.event === null) {
+        return false;
+      }
+
+      return REFRESH_INTERVAL;
+    },
   });
 }
