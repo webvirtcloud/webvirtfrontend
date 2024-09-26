@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,9 +15,10 @@ import {
 } from 'ui/components/alert-dialog';
 import { Button } from 'ui/components/button';
 
-import { deleteLoadbalancer } from '@/entities/loadbalancer';
+import { deleteLoadbalancer, loadbalancerQueries } from '@/entities/loadbalancer';
 
 export function LoadbalancerDelete() {
+  const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ export function LoadbalancerDelete() {
       if (!id) return;
       setDeleting(true);
       await deleteLoadbalancer(id);
+      await queryClient.invalidateQueries({ queryKey: loadbalancerQueries.list() });
       navigate('/loadbalancers');
     } catch (error) {
       window.console.error(error);
