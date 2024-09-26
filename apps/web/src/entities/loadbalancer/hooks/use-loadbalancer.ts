@@ -10,7 +10,7 @@ export function useLoadbalancer(id?: string) {
       ? () => getLoadbalancer(id).then((response) => response.load_balancer)
       : skipToken,
     refetchInterval(query) {
-      if (query.state.data?.event === null) {
+      if (query.state.data?.event === null || query.state.error) {
         return false;
       }
 

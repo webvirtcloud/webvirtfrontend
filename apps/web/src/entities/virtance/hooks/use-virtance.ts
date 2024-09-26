@@ -13,7 +13,7 @@ export function useVirtance(id: number, options?: QueryOptions<Virtance>) {
     queryKey: virtanceQueries.one(id),
     queryFn: () => getVirtance(id).then((response) => response.virtance),
     refetchInterval(query) {
-      if (query.state.data?.event === null) {
+      if (query.state.data?.event === null || query.state.error) {
         // invalidate snapshots if 'snapshot' task is completed
         if (event.current?.name === 'snapshot') {
           queryClient.invalidateQueries({
