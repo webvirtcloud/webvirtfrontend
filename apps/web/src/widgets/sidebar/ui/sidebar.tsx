@@ -47,7 +47,7 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
           src={new URL('/src/shared/assets/images/logo.svg', import.meta.url).href}
           alt="Logotype"
         />
-        <span className="text-base font-semibold">WebVirtCloud</span>
+        <span className="text-lg font-semibold">WebVirtCloud</span>
       </Link>
 
       <Link to="/virtances/create" className={cx(buttonVariants(), 'w-full')}>

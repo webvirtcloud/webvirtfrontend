@@ -1,4 +1,4 @@
-import { useQueries, useQueryClient } from '@tanstack/react-query';
+import { Query, useQueries, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
 import { Skeleton } from 'ui/components/skeleton';

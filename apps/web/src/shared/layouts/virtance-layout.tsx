@@ -1,5 +1,12 @@
 import { type ChangeEvent } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { Skeleton } from 'ui/components/skeleton';
 import { StatusDot } from 'ui/components/status-dot';
 import { cx } from 'ui/lib';
@@ -52,52 +59,64 @@ export function VirtanceLayout() {
   }
   return (
     <div className="mx-auto max-w-6xl">
-      <header className="mb-6 border-b pb-6">
+      <header className="">
         {virtance ? (
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="bg-muted/50 flex h-14 w-14 shrink-0 items-center justify-center rounded">
-                <img
-                  className="h-10 w-10"
-                  src={
-                    new URL(
-                      `/src/shared/assets/images/os/${virtance.image.distribution
-                        .toLowerCase()
-                        .replaceAll(' ', '-')}.svg`,
-                      import.meta.url,
-                    ).href
-                  }
-                  alt={`Logo of Ubuntu`}
+          <>
+            <div className="mb-6 flex space-x-2 truncate font-medium">
+              <Link
+                to="/"
+                className="text-ring decoration-ring/50 hover:decoration-ring underline underline-offset-4"
+              >
+                All virtances
+              </Link>
+              <span className="text-muted-foreground">/</span>
+              <span>{virtance.name}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="bg-muted/50 flex h-14 w-14 shrink-0 items-center justify-center rounded">
+                  <img
+                    className="h-10 w-10"
+                    src={
+                      new URL(
+                        `/src/shared/assets/images/os/${virtance.image.distribution
+                          .toLowerCase()
+                          .replaceAll(' ', '-')}.svg`,
+                        import.meta.url,
+                      ).href
+                    }
+                    alt={`Logo of Ubuntu`}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-3">
+                    <h1 className="text-xl font-semibold">{virtance.name}</h1>
+                    <StatusDot status={virtance.status} />
+                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB
+                    SSD / {virtance.region.name} /{' '}
+                    <span className="text-foreground font-medium">
+                      {virtance.image.distribution} {virtance.image.name}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <VirtanceOpenConsoleButton id={virtance.id} />
+                <VirtanceToggleStateButton
+                  onToggle={onRunAction}
+                  id={virtance.id}
+                  status={virtance.status}
+                />
+                <VirtanceRebootButton
+                  onToggle={onRunAction}
+                  id={virtance.id}
+                  status={virtance.status}
                 />
               </div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-3">
-                  <h1 className="text-xl font-medium">{virtance.name}</h1>
-                  <StatusDot status={virtance.status} />
-                </div>
-                <p className="text-muted-foreground">
-                  {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB
-                  SSD / {virtance.region.name} /{' '}
-                  <span className="text-foreground font-medium">
-                    {virtance.image.distribution} {virtance.image.name}
-                  </span>
-                </p>
-              </div>
             </div>
-            <div className="flex gap-2">
-              <VirtanceOpenConsoleButton id={virtance.id} />
-              <VirtanceToggleStateButton
-                onToggle={onRunAction}
-                id={virtance.id}
-                status={virtance.status}
-              />
-              <VirtanceRebootButton
-                onToggle={onRunAction}
-                id={virtance.id}
-                status={virtance.status}
-              />
-            </div>
-          </div>
+          </>
         ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -117,8 +136,8 @@ export function VirtanceLayout() {
           </div>
         )}
       </header>
-      <div className="grid gap-4 lg:grid-cols-12 lg:gap-0">
-        <div className="lg:col-span-2">
+      <div className="">
+        <div className="py-6">
           <select
             name="virtance-menu"
             value={pathname}
@@ -131,7 +150,7 @@ export function VirtanceLayout() {
               </option>
             ))}
           </select>
-          <ul className="hidden flex-col items-start gap-3 lg:flex">
+          <ul className="hidden items-center gap-3 border-b pb-3 lg:flex">
             {links.map((link) => (
               <li key={link.label}>
                 <NavLink
@@ -152,7 +171,7 @@ export function VirtanceLayout() {
             ))}
           </ul>
         </div>
-        <div className="lg:col-span-10">
+        <div className="">
           <Outlet />
         </div>
       </div>

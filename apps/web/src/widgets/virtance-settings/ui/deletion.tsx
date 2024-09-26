@@ -29,8 +29,8 @@ export function Deletion({ id }: { id: number }) {
 
   return (
     <div className="relative flex items-end justify-between overflow-hidden p-6">
-      <div className="absolute inset-0 -z-10 [background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#f9f9f9_20px,#f9f9f9_40px)] dark:[background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#1c1c1c_20px,#1c1c1c_40px)]"></div>
-      <div className="flex gap-4">
+      <div className="absolute inset-0 rounded-b-lg [background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#f9f9f9_20px,#f9f9f9_40px)] dark:[background-image:repeating-linear-gradient(-45deg,transparent,transparent_20px,#1c1c1c_20px,#1c1c1c_40px)]"></div>
+      <div className="isolate flex gap-4">
         <div className="bg-muted/50 flex h-10 w-10 items-center justify-center rounded-md border">
           <TrashIcon className="h-5 w-5" />
         </div>
@@ -43,7 +43,7 @@ export function Deletion({ id }: { id: number }) {
       </div>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button disabled={isDeleting} variant="destructive">
+          <Button disabled={isDeleting} variant="destructive" className="isolate">
             {isDeleting ? 'Deleting...' : 'Delete'}
           </Button>
         </AlertDialogTrigger>
