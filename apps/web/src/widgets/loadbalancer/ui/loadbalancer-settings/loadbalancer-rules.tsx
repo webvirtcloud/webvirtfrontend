@@ -108,7 +108,9 @@ export function LoadbalancerRules() {
       <FormProvider {...form}>
         <form onSubmit={submit} className="space-y-4">
           <LoadbalancerForwardingRules />
-          <Button type="submit">Update rules</Button>
+          <Button type="submit" disabled={!!loadbalancer?.event}>
+            Update rules
+          </Button>
         </form>
       </FormProvider>
     </div>

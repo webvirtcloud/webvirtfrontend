@@ -15,11 +15,16 @@ import {
 } from 'ui/components/alert-dialog';
 import { Button } from 'ui/components/button';
 
-import { deleteLoadbalancer, loadbalancerQueries } from '@/entities/loadbalancer';
+import {
+  deleteLoadbalancer,
+  loadbalancerQueries,
+  useLoadbalancer,
+} from '@/entities/loadbalancer';
 
 export function LoadbalancerDelete() {
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
+  const { data: loadbalancer } = useLoadbalancer(id);
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
@@ -61,7 +66,10 @@ export function LoadbalancerDelete() {
           </div>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button disabled={isDeleting} variant="destructive">
+              <Button
+                disabled={isDeleting || !!loadbalancer?.event}
+                variant="destructive"
+              >
                 {isDeleting ? 'Deleting...' : 'Delete'}
               </Button>
             </AlertDialogTrigger>
