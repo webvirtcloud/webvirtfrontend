@@ -129,6 +129,7 @@ export function LoadbalancersVirtancesTable() {
         <LoadbalancerAttachVirtanceDialog
           name={loadbalancer?.name}
           region={loadbalancer?.region.slug}
+          attachedVirtancesIds={loadbalancer?.virtance_ids}
         />
       </div>
 
