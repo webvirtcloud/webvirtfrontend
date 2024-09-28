@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+const isLoadbalancerEnabled = import.meta.env.VITE_LOADBALANCER === 'true';
+
 import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
 import { FirewallLayout } from '@/shared/layouts/firewall-layout';
@@ -77,41 +79,45 @@ export function Routing() {
               </Suspense>
             }
           />
-          <Route
-            path="/loadbalancers"
-            element={
-              <Suspense>
-                <Loadbalancers />
-              </Suspense>
-            }
-          />
-          <Route path="/loadbalancers/:id" element={<LoadbalancerLayout />}>
-            <Route index element={<Navigate replace to="virtances" />} />
-            <Route
-              path="virtances"
-              element={
-                <Suspense>
-                  <LoadbalancerVirtances />
-                </Suspense>
-              }
-            />
-            <Route
-              path="settings"
-              element={
-                <Suspense>
-                  <LoadbalancerSettings />
-                </Suspense>
-              }
-            />
-          </Route>
-          <Route
-            path="/loadbalancers/create"
-            element={
-              <Suspense>
-                <CreateLoadbalancer />
-              </Suspense>
-            }
-          />
+          {isLoadbalancerEnabled && (
+            <>
+              <Route
+                path="/loadbalancers"
+                element={
+                  <Suspense>
+                    <Loadbalancers />
+                  </Suspense>
+                }
+              />
+              <Route path="/loadbalancers/:id" element={<LoadbalancerLayout />}>
+                <Route index element={<Navigate replace to="virtances" />} />
+                <Route
+                  path="virtances"
+                  element={
+                    <Suspense>
+                      <LoadbalancerVirtances />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="settings"
+                  element={
+                    <Suspense>
+                      <LoadbalancerSettings />
+                    </Suspense>
+                  }
+                />
+              </Route>
+              <Route
+                path="/loadbalancers/create"
+                element={
+                  <Suspense>
+                    <CreateLoadbalancer />
+                  </Suspense>
+                }
+              />
+            </>
+          )}
           <Route path="/virtances/:id" element={<VirtanceLayout />}>
             <Route
               index
