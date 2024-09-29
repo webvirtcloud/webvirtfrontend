@@ -1,8 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-const isLoadbalancerEnabled = import.meta.env.VITE_LOADBALANCER === 'true';
-
+import { IS_LOADBALANCER_ENABLED } from '@/shared/constants';
 import { AuthLayout } from '@/shared/layouts/auth';
 import { DefaultLayout } from '@/shared/layouts/default';
 import { FirewallLayout } from '@/shared/layouts/firewall-layout';
@@ -79,7 +78,7 @@ export function Routing() {
               </Suspense>
             }
           />
-          {isLoadbalancerEnabled && (
+          {IS_LOADBALANCER_ENABLED && (
             <>
               <Route
                 path="/loadbalancers"
