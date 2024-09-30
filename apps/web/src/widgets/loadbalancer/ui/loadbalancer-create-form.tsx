@@ -8,7 +8,10 @@ import { Label } from 'ui/components/label';
 import { z } from 'zod';
 
 import { createLoadbalancer } from '@/entities/loadbalancer/api/create-loadbalancer';
-import { LoadbalancerForwardingRules } from '@/features/loadbalancer';
+import {
+  LoadbalancerForwardingRules,
+  LoadbalancerStickySessions,
+} from '@/features/loadbalancer';
 import { LoadbalancerHealthCheck } from '@/features/loadbalancer/ui/loadbalancer-health-check';
 
 const schema = z.object({
@@ -85,6 +88,15 @@ const schema = z.object({
         });
       }
     }),
+  sticky_session: z
+    .object({
+      cookie_ttl_seconds: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(1, 'Must be 1s or more')
+        .max(3600, 'Max 34650s or less'),
+      cookie_name: z.string().min(1, 'Cookie name is required'),
+    })
+    .optional(),
 });
 
 type Form = z.infer<typeof schema>;
@@ -114,14 +126,16 @@ export function LoadbalancerCreateForm() {
         healthy_threshold: 5,
         unhealthy_threshold: 3,
       },
+      sticky_session: undefined,
     },
   });
 
   const submit = form.handleSubmit(async (data) => {
     try {
-      await createLoadbalancer(data);
+      console.log(data);
+      // await createLoadbalancer(data);
 
-      navigate('/loadbalancers');
+      // navigate('/loadbalancers');
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 
@@ -151,14 +165,17 @@ export function LoadbalancerCreateForm() {
           </p>
         </div>
         <div>
-          <h2 className="text-lg font-semibold">Forwarding rules</h2>
-          <p className="text-muted-foreground mb-4">
-            Set how traffic will be routed from the Load Balancer to your Virtances. At
-            least one rule is required.
-          </p>
+          <div className="mb-4 space-y-2">
+            <h2 className="text-lg font-semibold">Forwarding rules</h2>
+            <p className="text-muted-foreground">
+              Set how traffic will be routed from the Load Balancer to your Virtances. At
+              least one rule is required.
+            </p>
+          </div>
           <LoadbalancerForwardingRules />
         </div>
         <LoadbalancerHealthCheck />
+        <LoadbalancerStickySessions />
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="text-lg font-semibold">
             Name

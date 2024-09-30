@@ -1,55 +1,27 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
+import { RadioGroup, RadioGroupItem } from 'ui/components/radio-group';
 import { z } from 'zod';
 
-import {
-  loadbalancerQueries,
-  updateLoadbalancer,
-  useLoadbalancer,
-} from '@/entities/loadbalancer';
+import { loadbalancerQueries, updateLoadbalancer } from '@/entities/loadbalancer';
 
 const schema = z.object({
-  health_check: z
+  sticky_session: z
     .object({
-      protocol: z.string().min(1, 'Protocol is required'),
-      port: z.coerce
+      cookie_ttl_seconds: z.coerce
         .number({ invalid_type_error: 'Only digits' })
-        .min(1, 'Must be 1 or more')
-        .max(65535, 'Must be 65535 or less'),
-      path: z.string().optional(),
-      check_interval_seconds: z.coerce
-        .number({ invalid_type_error: 'Only digits' })
-        .min(3, 'Min 3s or more')
-        .max(300, 'Max 300s'),
-      response_timeout_seconds: z.coerce
-        .number({ invalid_type_error: 'Only digits' })
-        .min(3, 'Must be 3s or more')
-        .max(300, 'Max 300s'),
-      healthy_threshold: z.coerce
-        .number({ invalid_type_error: 'Only digits' })
-        .min(2, 'Must be 2s or more')
-        .max(300, 'Max 10s'),
-      unhealthy_threshold: z.coerce
-        .number({ invalid_type_error: 'Only digits' })
-        .min(2, 'Must be 2s or more')
-        .max(300, 'Max 10s'),
+        .min(1, 'Must be 1s or more')
+        .max(3600, 'Max 34650s or less'),
+      cookie_name: z.string().min(1, 'Cookie name is required'),
     })
-    .superRefine((path, context) => {
-      if (path.protocol !== 'tcp' && !path.path) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Path is required',
-          path: ['path'],
-        });
-      }
-    }),
+    .optional(),
 });
 
 type Form = z.infer<typeof schema>;
@@ -58,10 +30,10 @@ export function LoadbalancerStickySessions() {
   const [expanded, setExpanded] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
-  const { data: loadbalancer } = useLoadbalancer(id);
   const {
-    reset,
+    setValue,
     register,
+    unregister,
     handleSubmit,
     watch,
     formState: { errors },
@@ -69,13 +41,17 @@ export function LoadbalancerStickySessions() {
     resolver: zodResolver(schema),
   });
 
-  const protocol = watch('health_check.protocol');
+  const session = watch('sticky_session');
 
-  useEffect(() => {
-    if (loadbalancer) {
-      reset({ health_check: loadbalancer.health_check });
+  function handleValueChange(value: string) {
+    if (value === 'cookie') {
+      register('sticky_session');
+      setValue('sticky_session.cookie_ttl_seconds', 300);
+      setValue('sticky_session.cookie_name', 'WVC_LB');
+    } else {
+      unregister('sticky_session');
     }
-  }, [loadbalancer]);
+  }
 
   const submit = handleSubmit(async (data) => {
     try {
@@ -104,13 +80,13 @@ export function LoadbalancerStickySessions() {
   });
 
   return (
-    <div className="space-y-6">
+    <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold tracking-tight">Health checks</h2>
+          <h2 className="text-xl font-semibold tracking-tight">Sticky sessions</h2>
           <p className="text-muted-foreground">
-            Set how often the Load Balancer checks if Virtances are responding. It will
-            automatically stop sending traffic to unresponsive Virtances.
+            When enabled, the Load Balancer will use a cookie to route follow-up requests
+            from the same client to a single Virtance.
           </p>
         </div>
         <Button variant="outline" onClick={() => setExpanded((v) => !v)}>
@@ -118,107 +94,52 @@ export function LoadbalancerStickySessions() {
         </Button>
       </div>
       {expanded && (
-        <form onSubmit={submit} className="space-y-4">
-          <div className="mb-4 grid gap-4 md:max-w-prose md:grid-cols-4">
-            <div className="space-y-1">
-              <Label htmlFor="health-check-protocol">Protocol</Label>
-              <select
-                id="health-check-protocol"
-                {...register('health_check.protocol')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              >
-                <option disabled>Protocol</option>
-                <option value="tcp">TCP</option>
-                <option value="http">HTTP</option>
-                <option value="https">HTTPS</option>
-              </select>
+        <form onSubmit={submit} className="mt-4 space-y-4">
+          <RadioGroup
+            defaultValue="none"
+            className="flex gap-4"
+            onValueChange={handleValueChange}
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="none" id="none" />
+              <Label htmlFor="none">None</Label>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="health-check-port">Port</Label>
-              <Input
-                id="health-check-port"
-                {...register('health_check.port')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              />
-              {errors?.health_check?.port && (
-                <p className="text-sm font-medium text-red-500">
-                  {errors?.health_check?.port?.message}
-                </p>
-              )}
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="cookie" id="cookie" />
+              <Label htmlFor="cookie">Cookie</Label>
             </div>
-            {protocol !== 'tcp' && (
+          </RadioGroup>
+          {session && (
+            <div className="grid gap-4 md:max-w-prose md:grid-cols-4">
               <div className="space-y-1">
-                <Label htmlFor="health-check-path">Path</Label>
+                <Label htmlFor="health-check-port">Cookie name</Label>
                 <Input
-                  id="health-check-path"
-                  {...register('health_check.path')}
+                  id="health-check-port"
+                  {...register('sticky_session.cookie_name')}
                   className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
                 />
-                {errors?.health_check?.path && (
+                {errors?.sticky_session?.cookie_name && (
                   <p className="text-sm font-medium text-red-500">
-                    {errors?.health_check?.path?.message}
+                    {errors?.sticky_session?.cookie_name?.message}
                   </p>
                 )}
               </div>
-            )}
-          </div>
-          <div className="grid gap-4 md:max-w-prose md:grid-cols-4">
-            <div className="space-y-1">
-              <Label htmlFor="health_check-interval">Check interval (in s)</Label>
-              <Input
-                id="health_check-interval"
-                {...register('health_check.check_interval_seconds')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              />
-              {errors?.health_check?.path && (
-                <p className="text-sm font-medium text-red-500">
-                  {errors?.health_check?.path?.message}
-                </p>
-              )}
+              <div className="space-y-1">
+                <Label htmlFor="health-check-port">TTL (in s)</Label>
+                <Input
+                  id="health-check-port"
+                  {...register('sticky_session.cookie_ttl_seconds')}
+                  className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
+                />
+                {errors?.sticky_session?.cookie_ttl_seconds && (
+                  <p className="text-sm font-medium text-red-500">
+                    {errors?.sticky_session?.cookie_ttl_seconds?.message}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="health_check-timeout">Response timeout (in s)</Label>
-              <Input
-                id="health_check-timeout"
-                {...register('health_check.response_timeout_seconds')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              />
-              {errors?.health_check?.response_timeout_seconds && (
-                <p className="text-sm font-medium text-red-500">
-                  {errors?.health_check?.response_timeout_seconds?.message}
-                </p>
-              )}
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="health_check-unhealthy">Unhealthy threshold</Label>
-              <Input
-                id="health_check-unhealthy"
-                {...register('health_check.unhealthy_threshold')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              />
-              {errors?.health_check?.unhealthy_threshold && (
-                <p className="text-sm font-medium text-red-500">
-                  {errors?.health_check?.unhealthy_threshold?.message}
-                </p>
-              )}
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="health_check-unhealthy">Healthy threshold</Label>
-              <Input
-                id="health_check-healthy"
-                {...register('health_check.healthy_threshold')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              />
-              {errors?.health_check?.healthy_threshold && (
-                <p className="text-sm font-medium text-red-500">
-                  {errors?.health_check?.healthy_threshold?.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <Button type="submit" disabled={!!loadbalancer?.event}>
-            Update
-          </Button>
+          )}
+          <Button type="submit">Update</Button>
         </form>
       )}
     </div>

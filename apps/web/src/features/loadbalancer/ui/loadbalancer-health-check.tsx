@@ -35,11 +35,13 @@ export function LoadbalancerHealthCheck() {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold">Health check</h2>
-      <p className="text-muted-foreground mb-4 max-w-prose">
-        Set how often the Load Balancer checks if Virtances are responding. It will
-        automatically stop sending traffic to unresponsive Virtances.
-      </p>
+      <div className="mb-4 space-y-2">
+        <h2 className="text-lg font-semibold">Health check</h2>
+        <p className="text-muted-foreground max-w-prose">
+          Set how often the Load Balancer checks if Virtances are responding. It will
+          automatically stop sending traffic to unresponsive Virtances.
+        </p>
+      </div>
       <div className="mb-4 grid gap-4 md:max-w-prose md:grid-cols-4">
         <div className="space-y-1">
           <Label htmlFor="health-check-protocol">Protocol</Label>

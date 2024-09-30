@@ -91,7 +91,7 @@ function LoadbalancerForwardingRule({
         </div>
       </td>
       <td className="p-2">
-        <ChevronsRightIcon className="text-muted-foreground mx-auto h-6 w-6" />
+        <ChevronsRightIcon className="text-muted-foreground mx-auto mt-2 h-6 w-6" />
       </td>
       <td className="p-2">
         {/* <Label htmlFor={`forwarding_rules.${index}.target_protocol`}>Protocol</Label> */}
