@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 import { createLoadbalancer } from '@/entities/loadbalancer/api/create-loadbalancer';
 import { LoadbalancerForwardingRules } from '@/features/loadbalancer';
+import { LoadbalancerHealthCheck } from '@/features/loadbalancer/ui/loadbalancer-health-check';
 
 const schema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -50,6 +51,40 @@ const schema = z.object({
         }
       });
     }),
+  healthcheck: z
+    .object({
+      protocol: z.string().min(1, 'Protocol is required'),
+      port: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(1, 'Must be 1 or more')
+        .max(65535, 'Must be 65535 or less'),
+      path: z.string().optional(),
+      check_interval_seconds: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(3, 'Min 3s or more')
+        .max(300, 'Max 300s'),
+      response_timeout_seconds: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(3, 'Must be 3s or more')
+        .max(300, 'Max 300s'),
+      healthy_threshold: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(2, 'Must be 2s or more')
+        .max(300, 'Max 10s'),
+      unhealthy_threshold: z.coerce
+        .number({ invalid_type_error: 'Only digits' })
+        .min(2, 'Must be 2s or more')
+        .max(300, 'Max 10s'),
+    })
+    .superRefine((path, context) => {
+      if (path.protocol !== 'tcp' && !path.path) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Path is required',
+          path: ['path'],
+        });
+      }
+    }),
 });
 
 type Form = z.infer<typeof schema>;
@@ -70,6 +105,15 @@ export function LoadbalancerCreateForm() {
           target_port: 80,
         },
       ],
+      healthcheck: {
+        protocol: 'http',
+        port: 80,
+        path: '/',
+        check_interval_seconds: 10,
+        response_timeout_seconds: 5,
+        healthy_threshold: 5,
+        unhealthy_threshold: 3,
+      },
     },
   });
 
@@ -99,7 +143,7 @@ export function LoadbalancerCreateForm() {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={submit} className="relative mx-auto max-w-5xl space-y-4 py-8">
+      <form onSubmit={submit} className="relative mx-auto max-w-5xl space-y-12 py-8">
         <div className="mb-8 md:mb-12">
           <h1 className="text-2xl font-semibold">Create Load Balancer</h1>
           <p className="text-muted-foreground">
@@ -114,8 +158,11 @@ export function LoadbalancerCreateForm() {
           </p>
           <LoadbalancerForwardingRules />
         </div>
+        <LoadbalancerHealthCheck />
         <div className="flex flex-col gap-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name" className="text-lg font-semibold">
+            Name
+          </Label>
           <div className="max-w-80">
             <Input
               id="name"

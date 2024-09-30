@@ -169,9 +169,6 @@ export function LoadbalancerForwardingRules() {
             <th className="p-2 text-start"></th>
             <th className="p-2 text-start"></th>
           </tr>
-          {/* <div className="">Load balancer</div>
-        <div className=""></div>
-        <div className="">Virtance</div> */}
         </thead>
         <tbody className="divide-y">
           {fields.map((_, index) => (
