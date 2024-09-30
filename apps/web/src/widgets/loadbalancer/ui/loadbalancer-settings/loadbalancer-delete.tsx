@@ -44,7 +44,7 @@ export function LoadbalancerDelete() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight">Danger zone</h2>
         <p className="text-muted-foreground">
           Think twice before touching any of below options.

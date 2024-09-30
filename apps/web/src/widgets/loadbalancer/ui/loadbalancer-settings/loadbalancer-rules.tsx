@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -57,6 +57,7 @@ const schema = z.object({
 type Form = z.infer<typeof schema>;
 
 export function LoadbalancerRules() {
+  const [expanded, setExpanded] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const { id } = useParams<{ id: string }>();
   const { data: loadbalancer } = useLoadbalancer(id);
@@ -98,21 +99,28 @@ export function LoadbalancerRules() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-semibold tracking-tight">Forwarding Rules</h2>
-        <p className="text-muted-foreground">
-          Set how traffic will be routed from the Load Balancer to your Virtances. At
-          least one rule is required.
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold tracking-tight">Forwarding Rules</h2>
+          <p className="text-muted-foreground">
+            Set how traffic will be routed from the Load Balancer to your Virtances. At
+            least one rule is required.
+          </p>
+        </div>
+        <Button variant="outline" onClick={() => setExpanded((v) => !v)}>
+          {expanded ? 'Minimize' : 'Edit'}
+        </Button>
       </div>
-      <FormProvider {...form}>
-        <form onSubmit={submit} className="space-y-4">
-          <LoadbalancerForwardingRules />
-          <Button type="submit" disabled={!!loadbalancer?.event}>
-            Update rules
-          </Button>
-        </form>
-      </FormProvider>
+      {expanded && (
+        <FormProvider {...form}>
+          <form onSubmit={submit} className="space-y-4">
+            <LoadbalancerForwardingRules />
+            <Button type="submit" disabled={!!loadbalancer?.event}>
+              Update
+            </Button>
+          </form>
+        </FormProvider>
+      )}
     </div>
   );
 }
