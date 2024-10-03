@@ -1,6 +1,7 @@
 import { LoadbalancerDelete } from './loadbalancer-delete';
 import { LoadbalancerHealthCheck } from './loadbalancer-health-check';
 import { LoadbalancerRules } from './loadbalancer-rules';
+import { LoadbalancerSSL } from './loadbalancer-ssl';
 import { LoadbalancerStickySessions } from './loadbalancer-sticky-sessions';
 
 export function LoadbalancerSettings() {
@@ -11,6 +12,8 @@ export function LoadbalancerSettings() {
       <LoadbalancerHealthCheck />
       <hr className="my-6" />
       <LoadbalancerStickySessions />
+      <hr className="my-6" />
+      <LoadbalancerSSL />
       <hr className="my-6" />
       <LoadbalancerDelete />
     </div>

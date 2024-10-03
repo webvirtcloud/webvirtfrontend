@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { createLoadbalancer } from '@/entities/loadbalancer/api/create-loadbalancer';
 import {
   LoadbalancerForwardingRules,
+  LoadbalancerSSL,
   LoadbalancerStickySessions,
 } from '@/features/loadbalancer';
 import { LoadbalancerHealthCheck } from '@/features/loadbalancer/ui/loadbalancer-health-check';
@@ -97,6 +98,7 @@ const schema = z.object({
       cookie_name: z.string().min(1, 'Cookie name is required'),
     })
     .optional(),
+  redirect_http_to_https: z.boolean(),
 });
 
 type Form = z.infer<typeof schema>;
@@ -127,15 +129,15 @@ export function LoadbalancerCreateForm() {
         unhealthy_threshold: 3,
       },
       sticky_session: undefined,
+      redirect_http_to_https: false,
     },
   });
 
   const submit = form.handleSubmit(async (data) => {
     try {
-      console.log(data);
-      // await createLoadbalancer(data);
+      await createLoadbalancer(data);
 
-      // navigate('/loadbalancers');
+      navigate('/loadbalancers');
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 
@@ -176,6 +178,7 @@ export function LoadbalancerCreateForm() {
         </div>
         <LoadbalancerHealthCheck />
         <LoadbalancerStickySessions />
+        <LoadbalancerSSL />
         <div className="flex flex-col gap-2">
           <Label htmlFor="name" className="text-lg font-semibold">
             Name
