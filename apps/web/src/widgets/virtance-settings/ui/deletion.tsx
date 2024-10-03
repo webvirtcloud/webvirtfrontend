@@ -1,4 +1,5 @@
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,9 +15,10 @@ import {
 } from 'ui/components/alert-dialog';
 import { Button } from 'ui/components/button';
 
-import { deleteVirtance } from '@/entities/virtance';
+import { deleteVirtance, virtanceQueries } from '@/entities/virtance';
 
 export function Deletion({ id }: { id: number }) {
+  const queryClient = useQueryClient();
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ export function Deletion({ id }: { id: number }) {
     await deleteVirtance(Number(id));
     navigate('/');
     setDeleting(false);
+    queryClient.removeQueries({ queryKey: virtanceQueries.one(Number(id)) });
   }
 
   return (
