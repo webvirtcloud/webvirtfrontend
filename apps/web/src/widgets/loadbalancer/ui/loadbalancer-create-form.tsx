@@ -135,7 +135,7 @@ export function LoadbalancerCreateForm() {
 
   const submit = form.handleSubmit(async (data) => {
     try {
-      await createLoadbalancer(data);
+      await createLoadbalancer({ ...data, sticky_sessions: data.sticky_sessions ?? {} });
 
       navigate('/loadbalancers');
     } catch (e) {
