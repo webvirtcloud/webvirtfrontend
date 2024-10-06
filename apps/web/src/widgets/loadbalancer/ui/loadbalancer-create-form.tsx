@@ -89,7 +89,7 @@ const schema = z.object({
         });
       }
     }),
-  sticky_session: z
+  sticky_sessions: z
     .object({
       cookie_ttl_seconds: z.coerce
         .number({ invalid_type_error: 'Only digits' })
@@ -128,7 +128,7 @@ export function LoadbalancerCreateForm() {
         healthy_threshold: 5,
         unhealthy_threshold: 3,
       },
-      sticky_session: undefined,
+      sticky_sessions: undefined,
       redirect_http_to_https: false,
     },
   });

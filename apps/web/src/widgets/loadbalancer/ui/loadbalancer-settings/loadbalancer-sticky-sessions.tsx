@@ -13,7 +13,7 @@ import { z } from 'zod';
 import { loadbalancerQueries, updateLoadbalancer } from '@/entities/loadbalancer';
 
 const schema = z.object({
-  sticky_session: z
+  sticky_sessions: z
     .object({
       cookie_ttl_seconds: z.coerce
         .number({ invalid_type_error: 'Only digits' })
@@ -41,15 +41,15 @@ export function LoadbalancerStickySessions() {
     resolver: zodResolver(schema),
   });
 
-  const session = watch('sticky_session');
+  const session = watch('sticky_sessions');
 
   function handleValueChange(value: string) {
     if (value === 'cookie') {
-      register('sticky_session');
-      setValue('sticky_session.cookie_ttl_seconds', 300);
-      setValue('sticky_session.cookie_name', 'WVC_LB');
+      register('sticky_sessions');
+      setValue('sticky_sessions.cookie_ttl_seconds', 300);
+      setValue('sticky_sessions.cookie_name', 'WVC_LB');
     } else {
-      unregister('sticky_session');
+      unregister('sticky_sessions');
     }
   }
 
@@ -115,12 +115,12 @@ export function LoadbalancerStickySessions() {
                 <Label htmlFor="health-check-port">Cookie name</Label>
                 <Input
                   id="health-check-port"
-                  {...register('sticky_session.cookie_name')}
+                  {...register('sticky_sessions.cookie_name')}
                   className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
                 />
-                {errors?.sticky_session?.cookie_name && (
+                {errors?.sticky_sessions?.cookie_name && (
                   <p className="text-sm font-medium text-red-500">
-                    {errors?.sticky_session?.cookie_name?.message}
+                    {errors?.sticky_sessions?.cookie_name?.message}
                   </p>
                 )}
               </div>
@@ -128,12 +128,12 @@ export function LoadbalancerStickySessions() {
                 <Label htmlFor="health-check-port">TTL (in s)</Label>
                 <Input
                   id="health-check-port"
-                  {...register('sticky_session.cookie_ttl_seconds')}
+                  {...register('sticky_sessions.cookie_ttl_seconds')}
                   className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
                 />
-                {errors?.sticky_session?.cookie_ttl_seconds && (
+                {errors?.sticky_sessions?.cookie_ttl_seconds && (
                   <p className="text-sm font-medium text-red-500">
-                    {errors?.sticky_session?.cookie_ttl_seconds?.message}
+                    {errors?.sticky_sessions?.cookie_ttl_seconds?.message}
                   </p>
                 )}
               </div>
