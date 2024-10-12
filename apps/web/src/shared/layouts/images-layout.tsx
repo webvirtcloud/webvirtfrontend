@@ -9,7 +9,7 @@ export function ImagesLayout() {
 
   return (
     <div className="">
-      <h2 className="mb-4 text-lg font-medium">Images</h2>
+      <h2 className="mb-4 text-xl font-semibold">Images</h2>
       <div className="mb-6 flex items-center gap-4 border-b">
         {links.map((link) => (
           <NavLink

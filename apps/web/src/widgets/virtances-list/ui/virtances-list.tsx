@@ -82,7 +82,7 @@ export function VirtancesList() {
   return (
     <section>
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-lg font-medium">Virtances</h2>
+        <h2 className="text-xl font-semibold">Virtances</h2>
       </div>
 
       {virtances ? (

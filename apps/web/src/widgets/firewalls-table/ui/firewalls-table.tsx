@@ -129,7 +129,7 @@ export const FirewallsTable = () => {
   return (
     <div className="space-y-4">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-lg font-medium">Firewalls</h2>
+        <h2 className="text-xl font-semibold">Firewalls</h2>
 
         <FirewallCreateDialog onCreate={onCreate}>
           <Button>Add Firewall</Button>

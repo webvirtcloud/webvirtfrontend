@@ -112,7 +112,7 @@ export function KeypairsTable() {
   return (
     <div className="space-y-4">
       <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-lg font-medium">Keypairs</h2>
+        <h2 className="text-xl font-semibold">Keypairs</h2>
 
         <KeypairCreateDialog onCreate={onCreate}>
           <Button>Add Keypair</Button>

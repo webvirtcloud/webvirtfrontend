@@ -248,7 +248,7 @@ export function FloatingIpsTable() {
     <div className="space-y-12">
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-medium">Assign</h2>
+          <h2 className="text-xl font-semibold">Assign</h2>
           <p className="text-muted-foreground">
             You can assign a Floating IP to any virtances.
           </p>
@@ -260,7 +260,7 @@ export function FloatingIpsTable() {
 
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-medium">Floating IPs</h2>
+          <h2 className="text-xl font-semibold">Floating IPs</h2>
           <p className="text-muted-foreground">
             A Floating IP allows you to redirect network traffic to any of your Virtances
             in the same datacenter.
