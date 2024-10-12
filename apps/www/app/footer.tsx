@@ -11,7 +11,7 @@ export function Footer() {
 
       <div className="container mx-auto space-y-4 px-4 md:px-8">
         <div className="flex flex-col items-center justify-center gap-8">
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center space-y-4">
             <Logotype />
 
             <p className="text-sm text-neutral-500">

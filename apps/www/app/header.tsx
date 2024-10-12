@@ -19,11 +19,11 @@ export function HomeHeader() {
         className="bg-muted/50 mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-center text-xs backdrop-blur-xl md:text-base"
       >
         <SparklesIcon className="h-5 w-5" />
-        <span>Beta release is finally here!</span>
+        <span>New feature: Load Balancer is released</span>
         <div className="h-5 w-px bg-black/20 dark:bg-white/20"></div>
         <Link
           className="inline-flex items-center gap-1 text-sky-500"
-          href={'/blog/october-beta-release'}
+          href={'/blog/new-feature-load-balancer'}
         >
           <span>Read post</span>
           <ArrowSmallRightIcon className="h-4 w-4" />
