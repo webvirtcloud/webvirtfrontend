@@ -60,6 +60,13 @@ export const features: {
     description: 'On-demand, portable IP addresses for flexible network architecture.',
   },
   {
+    name: '11. Load balancer',
+    icon: Square2StackIcon,
+    coming: false,
+    description:
+      'Evenly distributes traffic for enhanced application availability and performance.',
+  },
+  {
     name: '9. One click apps',
     icon: CursorArrowRaysIcon,
     coming: true,
@@ -71,13 +78,6 @@ export const features: {
     coming: true,
     description:
       'Container orchestration for scaling and managing containerized applications.',
-  },
-  {
-    name: '11. Load balancer',
-    icon: Square2StackIcon,
-    coming: true,
-    description:
-      'Evenly distributes traffic for enhanced application availability and performance.',
   },
   {
     name: '12. Ansible',
