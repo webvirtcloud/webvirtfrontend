@@ -56,7 +56,9 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Outfit', sans-serif;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.015em;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   }
 }
 
