@@ -1,91 +1,115 @@
-import { createChart, IChartApi, ISeriesApi } from 'lightweight-charts';
-import { UTCTimestamp } from 'lightweight-charts';
-import { CrosshairMode } from 'lightweight-charts';
-import { useEffect, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { format, fromUnixTime } from 'date-fns';
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Spin } from 'ui/components/spin';
 
-import { type VirtanceDiskMetrics } from '@/entities/virtance';
-import { usePrefersColorScheme } from '@/shared/hooks';
-import { theme } from '@/shared/ui/chart';
+import {
+  getVirtanceDiskMetrics,
+  VirtanceDiskMetrics,
+  virtanceQueries,
+} from '@/entities/virtance';
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/shared/ui/chart';
 
-export function VirtanceDiskGraph({ metrics }: { metrics: VirtanceDiskMetrics }) {
-  const container = useRef<HTMLDivElement>(null);
-  const chart = useRef<IChartApi>();
-  const sysSeries = useRef<ISeriesApi<'Area'>>();
-  const userSeries = useRef<ISeriesApi<'Area'>>();
+type TransformedData = {
+  date: number;
+  read: number;
+  write: number;
+};
 
-  const preferredColorSchema = usePrefersColorScheme();
+function transformData(data: VirtanceDiskMetrics['data']): TransformedData[] {
+  return data.read.map(([timestamp, readValue], index) => ({
+    date: timestamp,
+    read: parseFloat(readValue),
+    write: parseFloat(data.write[index][1]),
+  }));
+}
 
-  useEffect(() => {
-    if (chart.current) {
-      if (preferredColorSchema === 'dark') {
-        chart.current.applyOptions(theme.dark);
-      } else {
-        chart.current.applyOptions(theme.light);
-      }
-    }
-  }, [preferredColorSchema, chart.current]);
+const chartConfig = {
+  read: {
+    label: 'read',
+    color: 'hsl(var(--chart-1))',
+  },
+  write: {
+    label: 'write',
+    color: 'hsl(var(--chart-1))',
+  },
+} satisfies ChartConfig;
 
-  useEffect(() => {
-    if (!chart.current && container.current) {
-      chart.current = createChart(container.current, {
-        autoSize: true,
-        height: 400,
-        layout: {
-          fontFamily: "'Outfit', sans-serif",
-        },
-        timeScale: {
-          timeVisible: true,
-        },
-        crosshair: {
-          mode: CrosshairMode.Normal,
-        },
-        grid: {
-          vertLines: {
-            visible: false,
-          },
-        },
-        localization: {
-          priceFormatter: (value: number) => `${value.toFixed(2)}${metrics.unit}`,
-        },
-      });
+export function VirtanceDiskGraph({ virtanceId }: { virtanceId: number }) {
+  const { data } = useQuery({
+    queryKey: virtanceQueries.metrics.disk(virtanceId),
+    queryFn: () =>
+      getVirtanceDiskMetrics(virtanceId).then((response) =>
+        transformData(response.metrics[0].data),
+      ),
+    refetchInterval: 5000,
+  });
 
-      sysSeries.current = chart.current.addAreaSeries({
-        topColor: 'rgba(0, 200, 255, 0.2)',
-        bottomColor: 'rgba(0, 200, 255, 0.0)',
-        lineColor: 'rgba(0, 200, 255, 1)',
-        lineWidth: 2,
-      });
-
-      userSeries.current = chart.current.addAreaSeries({
-        topColor: 'rgba(255, 0, 108, 0.2)',
-        bottomColor: 'rgba(255, 0, 108, 0.0)',
-        lineColor: 'rgba(255, 0, 108, 1)',
-        lineWidth: 2,
-      });
-
-      if (preferredColorSchema === 'dark') {
-        chart.current.applyOptions(theme.dark);
-      } else {
-        chart.current.applyOptions(theme.light);
-      }
-    }
-
-    if (sysSeries.current && userSeries.current) {
-      sysSeries.current.setData(
-        metrics.data.read.map((d) => ({
-          time: d[0] as UTCTimestamp,
-          value: parseFloat(d[1]),
-        })),
-      );
-
-      userSeries.current.setData(
-        metrics.data.write.map((d) => ({
-          time: d[0] as UTCTimestamp,
-          value: parseFloat(d[1]),
-        })),
-      );
-    }
-  }, [metrics, container, chart]);
-
-  return <div className="overflow-hidden rounded-md border" ref={container}></div>;
+  return (
+    <div className="bg-card space-y-1 rounded-lg border shadow-sm">
+      <div className="border-b p-4">
+        <h2 className="text-base font-semibold">Disk I/O</h2>
+      </div>
+      <div className="p-4 pl-0">
+        {data ? (
+          <ChartContainer
+            config={chartConfig}
+            className="-ml-2 aspect-auto h-[320px] w-full"
+          >
+            <AreaChart accessibilityLayer data={data}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={true}
+                tickMargin={8}
+                axisLine={true}
+                style={{ fontSize: '10px' }}
+                minTickGap={32}
+                tickFormatter={(value: number) => format(fromUnixTime(value), 'HH:mm a')}
+              />
+              <YAxis
+                style={{ fontSize: '10px' }}
+                tickFormatter={(value: number) => `${value}MB/s`}
+              />
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent
+                    labelFormatter={(_, [payload]) =>
+                      format(fromUnixTime(payload.payload.date), 'MMM d, y h:mm:ss a')
+                    }
+                  />
+                }
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Area
+                type="step"
+                dataKey="read"
+                fill="var(--color-read)"
+                fillOpacity={0.4}
+                stroke="var(--color-read)"
+              />
+              <Area
+                type="step"
+                dataKey="write"
+                fill="var(--color-write)"
+                fillOpacity={0.4}
+                stroke="var(--color-write)"
+              />
+            </AreaChart>
+          </ChartContainer>
+        ) : (
+          <div className="flex h-[320px] w-full items-center justify-center">
+            <Spin />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
