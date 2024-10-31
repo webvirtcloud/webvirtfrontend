@@ -13,6 +13,15 @@ export default defineConfig(({ mode }) => {
         process.env.API_DOMAIN || env.VITE_API_DOMAIN,
       ),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            recharts: ['recharts'],
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
