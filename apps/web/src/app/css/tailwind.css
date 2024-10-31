@@ -67,7 +67,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-sm;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.015em;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
