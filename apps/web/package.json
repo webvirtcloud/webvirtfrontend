@@ -40,7 +40,7 @@
     "compose-function": "^3.0.3",
     "date-fns": "^2.29.3",
     "js-cookie": "^3.0.5",
-    "ky": "^0.32.0",
+    "ky": "^1.7.2",
     "lucide-react": "^0.446.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,7 +48,7 @@
     "react-router-dom": "^6.4.2",
     "react-use-measure": "^2.1.1",
     "recharts": "^2.13.1",
-    "sonner": "^1.4.41",
+    "sonner": "^1.5.0",
     "ui": "*",
     "zod": "^3.22.4"
   },
