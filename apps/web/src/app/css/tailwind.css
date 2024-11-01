@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --body: 0 0% 98%;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -32,6 +33,7 @@
   }
 
   .dark {
+    --body: 240 10% 8.9%;
     --background: 240 10% 10.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 9.9%;
@@ -67,7 +69,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground text-sm;
+    @apply bg-body text-foreground text-sm;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.015em;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;

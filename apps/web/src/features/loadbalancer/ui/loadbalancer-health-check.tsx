@@ -42,7 +42,7 @@ export function LoadbalancerHealthCheck() {
           automatically stop sending traffic to unresponsive Virtances.
         </p>
       </div>
-      <div className="mb-4 grid gap-4 md:max-w-prose md:grid-cols-4">
+      <div className="mb-4 grid gap-4 md:max-w-2xl md:grid-cols-4">
         <div className="space-y-1">
           <Label htmlFor="health-check-protocol">Protocol</Label>
           <select
@@ -85,7 +85,7 @@ export function LoadbalancerHealthCheck() {
           </div>
         )}
       </div>
-      <div className="grid gap-4 md:max-w-prose md:grid-cols-4">
+      <div className="grid gap-4 md:max-w-2xl md:grid-cols-4">
         <div className="space-y-1">
           <Label htmlFor="healthcheck-interval">Check interval (in s)</Label>
           <Input

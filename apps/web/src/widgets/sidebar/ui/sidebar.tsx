@@ -23,7 +23,7 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cx([
-        'bg-background fixed top-0 z-10 flex h-screen w-56 transform flex-col gap-8 self-start border-r p-4 transition-transform lg:sticky lg:translate-x-0',
+        'bg-body fixed top-0 z-10 flex h-screen w-64 transform flex-col gap-8 self-start p-4 transition-transform max-lg:border-r lg:sticky lg:translate-x-0',
         className,
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
       ])}
@@ -72,7 +72,7 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
                         'inline-flex w-full items-center space-x-2 rounded-md px-2 py-2 font-medium transition-opacity',
                         isActive
                           ? ' bg-muted [&>svg]:text-foreground'
-                          : 'text-muted-foreground hover:bg-muted/50 [&>svg]:text-muted-foreground',
+                          : 'hover:bg-muted/50 [&>svg]:text-muted-foreground',
                       ])
                     }
                   >

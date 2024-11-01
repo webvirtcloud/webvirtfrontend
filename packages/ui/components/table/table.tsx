@@ -12,11 +12,11 @@ export function Table({ data, columns }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left">
-        <thead className="text-xs text-neutral-500">
+        <thead className="text-muted-foreground text-xs">
           <tr>
             {columns.map((column) => (
               <th
-                className="select-none whitespace-nowrap bg-neutral-100 px-4 py-3 text-neutral-500 first:rounded-l-lg last:rounded-r-lg dark:bg-neutral-800 dark:text-neutral-500"
+                className="bg-muted text-muted-foreground select-none whitespace-nowrap px-4 py-3 first:rounded-l-lg last:rounded-r-lg"
                 key={column.field}
               >
                 {column.name}

@@ -1,8 +1,10 @@
-import ClipboardIcon from '@heroicons/react/20/solid/ClipboardIcon';
-import GlobeIcon from '@heroicons/react/20/solid/GlobeAmericasIcon';
-import MapPinIcon from '@heroicons/react/20/solid/MapPinIcon';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import {
+  LucideChevronsLeftRightEllipsis,
+  LucideClipboardCopy,
+  LucideMapPinHouse,
+} from 'lucide-react';
 import { type ReactNode, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -24,13 +26,13 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
   const getIpAddress = () =>
     virtance.networks.v4.find((ip) => ip.type === 'public')?.address;
 
-  function copyIpAdress(e: MouseEvent<HTMLButtonElement>) {
+  async function copyIpAddress(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
     e.preventDefault();
     const address = getIpAddress();
 
     if (address) {
-      copyToClipboard(address);
+      await copyToClipboard(address);
       toast.success('IP address was copied to clipboard.');
     }
   }
@@ -56,10 +58,10 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
             </div>
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-medium">{virtance.name}</h3>
+                <h3 className="text-base font-semibold">{virtance.name}</h3>
                 <StatusDot status={virtance.status} />
               </div>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-xs">
                 {formatMemorySize(virtance.size.memory)} DDR4 / {virtance.size.disk}GB SSD
               </p>
             </div>
@@ -71,23 +73,19 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
 
       <div className="flex items-center space-x-3 text-sm">
         <div className="flex items-center space-x-1">
-          <span className="opacity-30">
-            <MapPinIcon className="h-4 w-4" />
-          </span>
+          <LucideMapPinHouse className="text-muted-foreground h-4 w-4" />
           <span className="">{virtance.region.name}</span>
         </div>
         <div className="flex items-center space-x-1">
-          <span className="opacity-30">
-            <GlobeIcon className="h-4 w-4" />
-          </span>
+          <LucideChevronsLeftRightEllipsis className="text-muted-foreground h-4 w-4" />
           <span className="">{getIpAddress()}</span>
           <Button
-            onClick={copyIpAdress}
-            variant="outline"
+            onClick={copyIpAddress}
+            variant="ghost"
             className="relative z-[2] h-6 w-6"
             size="icon"
           >
-            <ClipboardIcon className="h-3 w-3" />
+            <LucideClipboardCopy className="h-3.5 w-3.5" />
           </Button>
         </div>
       </div>
