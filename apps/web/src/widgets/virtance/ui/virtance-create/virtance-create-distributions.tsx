@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { type Distribution, DistributionCard, useImages } from '@/entities/image';
+import { type Distribution, useImages } from '@/entities/image';
 
+import { DistributionCard } from './distribution-card';
 import type { CreateVirtanceForm, FormDistribution } from './types';
 
 export function VirtanceCreateDistributions() {
