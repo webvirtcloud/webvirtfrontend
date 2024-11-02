@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { useVirtanceAction, useVirtanceSnapshots } from '@/entities/virtance';
-import { TakeSnapshotForm } from '@/features/take-snapshot-form';
-import { VirtanceSnapshotsTable } from '@/widgets/virtance-snapshots-table';
+import { VirtanceTakeSnapshotForm } from '@/features/virtance';
+import { VirtanceSnapshotsTable } from '@/widgets/virtance';
 
 export default function VirtanceSnapshotsPage() {
   const params = useParams();
@@ -45,7 +45,7 @@ export default function VirtanceSnapshotsPage() {
         <h2 className="text-lg font-medium">Snapshots</h2>
 
         <FormProvider {...methods}>
-          <TakeSnapshotForm onSubmit={onSubmit} />
+          <VirtanceTakeSnapshotForm onSubmit={onSubmit} />
         </FormProvider>
       </div>
 

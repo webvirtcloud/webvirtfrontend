@@ -1,7 +1,8 @@
-import { FirewallRules } from '@/widgets/firewall-rules';
 import { useParams } from 'react-router-dom';
 
-export default function () {
+import { FirewallRules } from '@/widgets/firewall';
+
+export default function FirewallRulesPage() {
   const { uuid } = useParams();
 
   return uuid ? <FirewallRules uuid={uuid} /> : null;

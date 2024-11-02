@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { useVirtance } from '@/entities/virtance';
-import { VirtanceFirewall } from '@/widgets/virtance-firewall';
+import { VirtanceFirewall } from '@/widgets/virtance';
 
 export default function VirtanceNetworkPage() {
   const { id } = useParams();

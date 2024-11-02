@@ -1,4 +1,4 @@
-import { ImagesBackupsTable } from '@/widgets/images/backups-table';
+import { ImagesBackupsTable } from '@/widgets/images';
 
 export default function ImagesBackupsPage() {
   return (

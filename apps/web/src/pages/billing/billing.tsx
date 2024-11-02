@@ -1,15 +1,14 @@
 import { format } from 'date-fns';
 
 import { useBalance } from '@/entities/billing';
-import { BillingHistoryTable } from '@/widgets/billing-history-table';
-import { BillingInvoicesTable } from '@/widgets/billing-invoices-table';
+import { BillingHistoryTable, BillingInvoicesTable } from '@/widgets/billing';
 
 export default function BillingPage() {
   const { data } = useBalance();
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       <div>
-        <h2 className="mb-4 text-lg font-medium">Billing</h2>
+        <h2 className="mb-4 text-xl font-semibold">Billing</h2>
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2 rounded-2xl border p-8">
             <div>

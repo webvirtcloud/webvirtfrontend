@@ -1,4 +1,4 @@
-import { VirtancesList } from '@/widgets/virtances-list';
+import { VirtancesList } from '@/widgets/virtance';
 
 export default function Virtances() {
   return (

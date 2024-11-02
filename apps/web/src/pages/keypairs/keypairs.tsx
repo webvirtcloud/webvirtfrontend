@@ -1,4 +1,4 @@
-import { KeypairsTable } from '@/widgets/keypairs-table';
+import { KeypairsTable } from '@/widgets/keypair';
 
 export default function Keypairs() {
   return <KeypairsTable />;

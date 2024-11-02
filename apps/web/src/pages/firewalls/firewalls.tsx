@@ -1,5 +1,5 @@
-import { FirewallsTable } from '@/widgets/firewalls-table';
+import { FirewallsTable } from '@/widgets/firewall';
 
-export default function () {
+export default function FirewallsPage() {
   return <FirewallsTable />;
 }

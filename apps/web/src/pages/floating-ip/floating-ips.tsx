@@ -1,9 +1,5 @@
-import { FloatingIpsTable } from '@/widgets/floating-ips-table';
+import { FloatingIpsTable } from '@/widgets/floating-ip';
 
 export default function FloatingIPs() {
-  return (
-    <div>
-      <FloatingIpsTable />
-    </div>
-  );
+  return <FloatingIpsTable />;
 }

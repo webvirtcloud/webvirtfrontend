@@ -1,9 +1,9 @@
-import { UpdatePasswordForm, UpdateUserForm } from '@/features/user-settings';
+import { UserUpdateForm, UserUpdatePasswordForm } from '@/features/user';
 
 export default function Settings() {
   return (
     <>
-      <section className="space-y-8">
+      <section className="mx-auto max-w-7xl space-y-8">
         <div className="grid grid-cols-5 gap-8 rounded-xl border p-8">
           <div className="col-span-2">
             <h2 className="mb-2 text-lg font-medium">Profile</h2>
@@ -12,7 +12,7 @@ export default function Settings() {
             </p>
           </div>
           <div className="col-span-3">
-            <UpdateUserForm />
+            <UserUpdateForm />
           </div>
         </div>
 
@@ -25,7 +25,7 @@ export default function Settings() {
             </p>
           </div>
           <div className="col-span-3">
-            <UpdatePasswordForm />
+            <UserUpdatePasswordForm />
           </div>
         </div>
       </section>
