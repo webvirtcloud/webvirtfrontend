@@ -16,6 +16,8 @@ import {
   DropdownMenuTrigger,
 } from 'ui/components/dropdown-menu';
 
+import { UserMenuSub } from '@/entities/user/ui/user-menu-sub';
+
 import type { User } from '../types';
 
 type Props = {
@@ -60,6 +62,7 @@ export function UserMenu({ user }: Props) {
             Keypairs
           </Link>
         </DropdownMenuItem>
+        <UserMenuSub />
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LucideLogOut className="mr-2 h-4 w-4" />

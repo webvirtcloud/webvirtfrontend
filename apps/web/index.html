@@ -4,28 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <script type="text/javascript">
-    if (!('theme' in localStorage)) {
-      localStorage.setItem('theme', 'system');
-    }
-
-    if (localStorage.getItem('theme') === 'system') {
-      document.documentElement.classList.add(
-        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light',
-      );
-    } else {
-      document.documentElement.classList.add(localStorage.getItem('theme'));
-    }
-
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', function (event) {
-        const newColorScheme = event.matches ? 'dark' : 'light';
-        localStorage.setItem('theme', newColorScheme);
-        document.documentElement.className = '';
-        document.documentElement.classList.add(newColorScheme);
-      });
+    try {
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', function (event) {
+          if (!("theme" in localStorage)) {
+            event.matches
+              ? document.documentElement.classList.add("dark")
+              : document.documentElement.classList.remove("dark");
+          }
+        });
+    } catch (_) { }
   </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
