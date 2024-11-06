@@ -30,7 +30,7 @@
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.13",
     "eslint": "latest",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "14.2.17",
     "github-slugger": "^2.0.0",
     "postcss": "^8.4.21",
     "rehype-pretty-code": "^0.10.1",

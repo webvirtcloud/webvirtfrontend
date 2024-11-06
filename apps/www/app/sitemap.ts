@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: post.date,
     }));
 
-  let routes = [
+  const routes = [
     '',
     '/blog',
     '/docs',

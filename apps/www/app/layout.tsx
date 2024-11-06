@@ -45,7 +45,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function Layout({ children, ...props }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
