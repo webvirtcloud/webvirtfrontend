@@ -1,4 +1,3 @@
-// contentlayer.config.ts
 import readingTime from 'reading-time';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode, { type Options } from 'rehype-pretty-code';
@@ -74,18 +73,15 @@ export const Doc = defineDocumentType(() => ({
       resolve: async (doc) => {
         const regXHeader = /\n(?<flag>#{2,4})\s+(?<content>.+)/g;
         const slugger = new GithubSlugger();
-        const headings = Array.from(doc.body.raw.matchAll(regXHeader)).map(
-          ({ groups }) => {
-            const flag = groups?.flag;
-            const content = groups?.content;
-            return {
-              level: flag?.length,
-              text: content,
-              slug: content ? slugger.slug(content) : undefined,
-            };
-          },
-        );
-        return headings;
+        return Array.from(doc.body.raw.matchAll(regXHeader)).map(({ groups }) => {
+          const flag = groups?.flag;
+          const content = groups?.content;
+          return {
+            level: flag?.length,
+            text: content,
+            slug: content ? slugger.slug(content) : undefined,
+          };
+        });
       },
     },
   },
