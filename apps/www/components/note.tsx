@@ -11,7 +11,7 @@ export function Note({
         <InformationCircleIcon className="inline-block h-4 w-4" />
         {title}
       </div>
-      <p className="m-0 text-yellow-700 dark:text-yellow-50">{children}</p>
+      <div className="m-0 text-yellow-700 dark:text-yellow-50">{children}</div>
     </div>
   );
 }
