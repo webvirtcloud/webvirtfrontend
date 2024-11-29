@@ -1,6 +1,7 @@
 import { cx } from 'ui/lib';
 
 import { type Size } from '@/entities/size';
+import { IS_DISPLAY_PRICES_ENABLED } from '@/shared/constants';
 import { formatMemorySize } from '@/shared/lib';
 
 interface Props {
@@ -26,7 +27,9 @@ export function SizeCard({ size, isActive, isDisabled, onClick }: Props) {
           <div className={cx(['text-lg font-medium', isActive ? 'text-ring' : ''])}>
             {size.description}
           </div>
-          <div className="text-muted-foreground text-base">${size.price_monthly}</div>
+          {IS_DISPLAY_PRICES_ENABLED && (
+            <div className="text-muted-foreground text-base">${size.price_monthly}</div>
+          )}
         </div>
         <ul className="space-y-2 text-end">
           <li>
