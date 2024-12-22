@@ -35,10 +35,10 @@ npm run build
 
 ## Environment Variables
 
-| Variable              | Description                                                                                                                   | Default                              |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `VITE_API_DOMAIN`     | API domain.                                                                                                                   | Current URL (`window.location.href`) |
-| `VITE_API_PREFIX`     | API prefix.                                                                                                                   | `api/v1`                             |
-| `VITE_LOADBALANCER`   | Enabled or disabled Load Balancer.                                                                                            | `undefined` (disabled)               |
-| `VITE_DISPLAY_PRICES` | Enabled or disabled displaying prices.                                                                                        | `undefined` (disabled)               |
-| `VITE_OUT_DIR`        | Directory relative from root where build output will be placed. If the directory exists, it will be removed before the build. | `dist`                               |
+| Variable              | Description                                                                          | Default                              |
+| --------------------- | ------------------------------------------------------------------------------------ | ------------------------------------ |
+| `VITE_API_DOMAIN`     | API domain.                                                                          | Current URL (`window.location.href`) |
+| `VITE_API_PREFIX`     | API prefix.                                                                          | `api/v1`                             |
+| `VITE_LOADBALANCER`   | Enabled or disabled Load Balancer.                                                   | `undefined` (disabled)               |
+| `VITE_DISPLAY_PRICES` | Enabled or disabled displaying prices.                                               | `undefined` (disabled)               |
+| `VITE_ASSETS_DIR`     | Directory relative from outDir where the built js/ css/ image assets will be placed. | `assets`                             |
