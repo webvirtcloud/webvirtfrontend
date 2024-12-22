@@ -41,4 +41,3 @@ npm run build
 | `VITE_API_PREFIX`     | API prefix.                                                                          | `api/v1`                             |
 | `VITE_LOADBALANCER`   | Enabled or disabled Load Balancer.                                                   | `undefined` (disabled)               |
 | `VITE_DISPLAY_PRICES` | Enabled or disabled displaying prices.                                               | `undefined` (disabled)               |
-| `VITE_ASSETS_DIR`     | Directory relative from outDir where the built js/ css/ image assets will be placed. | `static/client`                             |
