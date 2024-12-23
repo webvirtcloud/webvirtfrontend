@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => {
       ),
     },
     build: {
-      assetsDir: 'client',
-      outDir: 'dist',
+      assetsDir: env.VITE_ASSETS_DIR || 'client',
+      outDir: env.VITE_OUT_DIR || 'dist',
       rollupOptions: {
         output: {
           manualChunks: {
