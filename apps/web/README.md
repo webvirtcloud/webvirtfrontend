@@ -35,9 +35,10 @@ npm run build
 
 ## Environment Variables
 
-| Variable              | Description                                                                          | Default                              |
-| --------------------- | ------------------------------------------------------------------------------------ | ------------------------------------ |
-| `VITE_API_DOMAIN`     | API domain.                                                                          | Current URL (`window.location.href`) |
-| `VITE_API_PREFIX`     | API prefix.                                                                          | `api/v1`                             |
-| `VITE_LOADBALANCER`   | Enabled or disabled Load Balancer.                                                   | `undefined` (disabled)               |
-| `VITE_DISPLAY_PRICES` | Enabled or disabled displaying prices.                                               | `undefined` (disabled)               |
+| Variable              | Description                                                | Default                              |
+| --------------------- | ---------------------------------------------------------- | ------------------------------------ |
+| `VITE_API_DOMAIN`     | API domain.                                                | Current URL (`window.location.href`) |
+| `VITE_API_PREFIX`     | API prefix.                                                | `api/v1`                             |
+| `VITE_LOADBALANCER`   | Enabled or disabled Load Balancer.                         | `undefined` (disabled)               |
+| `VITE_DISPLAY_PRICES` | Enabled or disabled displaying prices.                     | `undefined` (disabled)               |
+| `VITE_BASE`           | Base public path when served in development or production. | `/`                                  |

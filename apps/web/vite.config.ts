@@ -13,9 +13,8 @@ export default defineConfig(({ mode }) => {
         process.env.API_DOMAIN || env.VITE_API_DOMAIN,
       ),
     },
+    base: env.VITE_BASE,
     build: {
-      assetsDir: env.VITE_ASSETS_DIR || 'client',
-      outDir: env.VITE_OUT_DIR || 'dist',
       rollupOptions: {
         output: {
           manualChunks: {
