@@ -41,12 +41,11 @@ function useHighlighted(id: string) {
     };
 
     observer.current = new IntersectionObserver(handleObserver, {
-      rootMargin: '-112px 0% -35% 0px',
-      threshold: 0.5,
+      rootMargin: '0% 0% -60% 0%',
     });
 
     const elements = document.querySelectorAll('h2, h3, h4');
-    elements.forEach((elem) => observer.current!.observe(elem));
+    elements.forEach((elem) => observer.current?.observe(elem));
     return () => observer.current?.disconnect();
   }, []);
 
