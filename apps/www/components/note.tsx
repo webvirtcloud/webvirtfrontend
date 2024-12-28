@@ -6,7 +6,7 @@ export function Note({
   title = 'Note',
 }: PropsWithChildren<{ title?: string }>) {
   return (
-    <div className="rounded border-l-4 border-yellow-400 bg-yellow-400/20 px-4 py-3 dark:bg-yellow-300/20">
+    <div className="not-prose rounded border-l-4 border-yellow-400 bg-yellow-400/20 px-4 py-3 dark:bg-yellow-300/10">
       <div className="mb-1 flex items-center gap-2 text-sm font-bold uppercase text-yellow-800 dark:text-yellow-500">
         <InformationCircleIcon className="inline-block h-4 w-4" />
         {title}
