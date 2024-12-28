@@ -48,7 +48,7 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
-      typography: ({ theme }) => ({
+      typography: (theme) => ({
         DEFAULT: {
           css: {
             code: {
@@ -68,11 +68,16 @@ module.exports = {
                 textUnderlineOffset: '4px',
               },
             },
+            'a:hover': {
+              color: theme('colors.sky.600'),
+              textDecoration: 'underline',
+              textUnderlineOffset: '4px',
+            },
             'code::before': {
-              content: '"',
+              content: '',
             },
             'code::after': {
-              content: '"',
+              content: '',
             },
           },
         },
