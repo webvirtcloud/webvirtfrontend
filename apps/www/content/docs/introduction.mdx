@@ -5,11 +5,9 @@ index: 0
 ---
 
 ## What is WebVirtCloud?
-
-WebVirtCloud is a web-based, open-source virtualization platform that allows users to manage and create virtual machines on a remote server. You just need to install WebVirtCloud on a server or even your laptop or PC and you can use it to create, manage, and delete virtual machines. It is a self-hosted alternative to platforms like DigitalOcean, Linode, and Vultr. WebVirtCloud allows users to manage their virtual infrastructure efficiently and securely.
+**WebVirtCloud** is a web platform for managing virtual machines (VMs) on remote servers. It offers an alternative to platforms like DigitalOcean, Linode, and Vultr, allowing users to host and control their virtual machines independently.
 
 ## Why WebVirtCloud?
-
 WebVirtCloud serves as an ideal replacement for traditional cloud providers by putting the power of virtualization directly in the hands of users. Here's why WebVirtCloud stands out:
 
 - **Self-Hosted Solution:** By hosting WebVirtCloud on their own infrastructure, users retain full control over their data and resources, ensuring maximum privacy and security.
@@ -24,18 +22,29 @@ WebVirtCloud serves as an ideal replacement for traditional cloud providers by p
 
 In essence, WebVirtCloud empowers users to build and manage their virtual infrastructure efficiently, securely, and cost-effectively, making it the preferred choice for those seeking full control over their cloud environment.
 
+## Features
+
+- **User Management:** Create and manage user accounts.
+- **VM Management:** Create, manage, and delete virtual machines on remote servers.
+- **VM Templates:** Pre-configured templates for Ubuntu, Debian, Fedora, CentOS, AlmaLinux, and Rocky Linux.
+- **Firewall Management:** Configure firewall rules for virtual machines.
+- **Floating IP Management:** Assign and manage floating IP addresses.
+- **Load Balancer:** Set up and manage load balancers to distribute traffic across virtual machines.
+
 ## How it works?
+WebVirtCloud consists of two main components:
+- **Controller:** A web interface to manage virtual machines.
+- **Compute Node:** A hypervisor that runs the virtual machines.
 
-WebVirtCloud have two components: the controller and the compute. The controller is the web interface that allows you to manage your virtual machines. The [compute](https://github.com/webvirtcloud/webvirtcompute) is the hypervisor that runs the virtual machines.
+## Installation
+Follow these guides to install controller and hypervisor:
+- [Setup Controller](/docs/installation/setup-controller)
+- [Setup Hypervisor](/docs/installation/setup-hypervisor)
 
-## Recommended setup
-
-We recommend running the controller and the compute on separate servers. The controller can be installed on a server or even your laptop or PC. The compute should be installed on a server with virtualization support (e.g. KVM).
+It is recommended to install the Controller and Compute Node on separate servers.
 
 ## Multi region support
-
 WebVirtCloud supports multi-region. You can have multiple compute nodes in different regions and manage them from the same controller.
 
 ## Licenses
-
 Our GitHub repo: [https://github.com/webvirtcloud/webvirtcloud](https://github.com/webvirtcloud/webvirtcloud) available to use for free under the Apache License Version 2.0.

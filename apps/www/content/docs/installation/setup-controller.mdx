@@ -30,14 +30,17 @@ git clone https://github.com/webvirtcloud/webvirtcloud.git
 cd webvirtcloud
 ```
 
-### Configure the Caddy server
+### Set up Caddy
 
-To configure TLS for the web server, copy either the Caddyfile.selfsigned or Caddyfile.letsencrypt and without TLS Caddyfile.noncert template to Caddyfile.
+To configure TLS for the web server, copy either the `Caddyfile.selfsigned` or `Caddyfile.letsencrypt` and without TLS `Caddyfile.noncert` template to `Caddyfile`.
 
-NOTE: Caddy web server does not support TLS for IP address.
+<Note title='Note'>
+Caddy web server does not support TLS for IP address.
+</Note>
 
-If you want ot use TLS connection with IP address you can use [nip.io](https://nip.io) service as a simple workaround. For example, if your IP address is `192.168.0.114`, you can use the domain name `192-168-0-114.nip.io`. In the example below, we will use the domain name `webvirtcloud-192-168-0-114.nip.io` with self-signed certificates:
+For example, if your IP address is `192.168.0.114`, you can use `192-168-0-114.nip.io` as your domain name. Below, we demonstrate how to set up a self-signed certificate for the domain `webvirtcloud-192-168-0-114.nip.io`
 
+For TLS with self-signed certificates:
 ```bash
 # Create the directory structure for Caddy certificates
 mkdir -p .caddy/certs
@@ -55,11 +58,20 @@ openssl req -x509 \
 cp Caddyfile.selfsigned Caddyfile
 ```
 
-### Run script for deploy WebVirtCloud
-**NOTE:** Example for domain: `webvirtcloud-192-168-0-114.nip.io`
+Without TLS:
+```bash
+cp Caddyfile.noncert Caddyfile
+```
 
+### Run the setup script:
 ```bash
 ./webvirtcloud.sh env
+```
+
+Example:
+```
+Enter your domain or IP address (only HTTP). Default: localhost
+Enter: webvirtcloud-192-168-0-114.nip.io
 ```
 
 ### Start WebVirtCloud
@@ -67,17 +79,20 @@ cp Caddyfile.selfsigned Caddyfile
 ```bash
 ./webvirtcloud.sh start
 ```
+For first-time users, refer to the [Features](/docs/introduction#features) section to explore the capabilities of WebVirtCloud.
 
-- Client panel - [https://webvirtcloud-192-168-0-114.nip.io](https://webvirtcloud-192-168-0-114.nip.io)
-- Admin panel - [https://webvirtcloud-192-168-0-114.nip.io/admin](https://webvirtcloud-192-168-0-114.nip.io/admin)
+- **Client panel** - [https://webvirtcloud-192-168-0-114.nip.io](https://webvirtcloud-192-168-0-114.nip.io)
+- **Admin panel** - [https://webvirtcloud-192-168-0-114.nip.io/admin](https://webvirtcloud-192-168-0-114.nip.io/admin)
 
-### Credentials
-
-Default credentials for admin side:
+#### Default Credentials for admin side:
 ```
 username: admin@webvirt.cloud
 password: admin
 ```
+<Note title="Warning">
+It is critical to change the default credentials immediately after the first login to ensure security.
+</Note>
+
 You can create new user in admin side or register new user in client side.
 </Steps>
 
@@ -127,12 +142,15 @@ echo "VITE_LOADBALANCER=true" >> custom.env
 Load Balancer required access from controller to private network for deploy and manage HaProxy on virtual machine.
 </Note>
 
-## Compute configuration (hypervisor)
-More information about the compute configuration can be found in the WebVirtCompute repository.
+## Installing the Compute Node (Hypervisor)
+Now your controller is up and running. The next step is [Setup Hypervisor](/docs/installation/setup-hypervisor).
+<Note title="Warning">
+After updating the controller, make sure to update the WebVirtCompute daemon on all compute nodes to ensure compatibility.
+</Note>
 
 ## Private networking
 If you don't have additional network interfaces on your server for private network, you can use the [WireGuard](https://www.wireguard.com/) VPN to create a private network between the controller and the compute.
 
-<Note title="Warning">
+<Note title="Important">
   Also check [README.md](https://github.com/webvirtcloud/webvirtbackend/blob/master/README.md) which is always up-to-date.
 </Note>
