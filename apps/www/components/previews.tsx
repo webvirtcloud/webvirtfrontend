@@ -3,27 +3,20 @@
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { cx } from 'ui/lib';
+import { useEffect, useState } from 'react';
 
-export function DesktopPreview({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLImageElement>) {
-  const { resolvedTheme } = useTheme();
+interface PreviewProps {
+  className?: string;
+}
 
-  let src;
+export function DesktopPreview(props: PreviewProps) {
+  const { className } = props;
+  const src = useThemedImagePath({
+    light: '/screen_white.png',
+    dark: '/screen_dark.png',
+  });
 
-  switch (resolvedTheme) {
-    case 'light':
-      src = '/screen_white.png';
-      break;
-    case 'dark':
-      src = '/screen_dark.png';
-      break;
-    default:
-      src =
-        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-      break;
-  }
+  if (!src) return null;
 
   return (
     <Image
@@ -32,32 +25,20 @@ export function DesktopPreview({
       width={1300}
       height={900}
       alt="main screen"
-      {...props}
       priority
     />
   );
 }
 
-export function MobilePreview({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLImageElement>) {
-  const { resolvedTheme } = useTheme();
+export function MobilePreview(props: PreviewProps) {
+  const { className } = props;
 
-  let src;
+  const src = useThemedImagePath({
+    light: '/screen_mobile_white.png',
+    dark: '/screen_mobile_dark.png',
+  });
 
-  switch (resolvedTheme) {
-    case 'light':
-      src = '/screen_mobile_white.png';
-      break;
-    case 'dark':
-      src = '/screen_mobile_dark.png';
-      break;
-    default:
-      src =
-        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-      break;
-  }
+  if (!src) return null;
 
   return (
     <Image
@@ -66,8 +47,30 @@ export function MobilePreview({
       width={1300}
       height={900}
       alt="main screen"
-      {...props}
       priority
     />
   );
+}
+
+function useThemedImagePath({ light, dark }: { light: string; dark: string }) {
+  const { resolvedTheme } = useTheme();
+  const [src, setSrc] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    switch (resolvedTheme) {
+      case 'light':
+        setSrc(light);
+        break;
+      case 'dark':
+        setSrc(dark);
+        break;
+      default:
+        setSrc(
+          'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+        );
+        break;
+    }
+  }, [resolvedTheme, dark, light]);
+
+  return src;
 }
