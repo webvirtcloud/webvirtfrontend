@@ -3,7 +3,7 @@
 import SparklesIcon from '@heroicons/react/24/solid/SparklesIcon';
 import ArrowSmallRightIcon from '@heroicons/react/24/solid/ArrowSmallRightIcon';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import GithubIcon from '@/icons/github';
 import { cx } from 'ui/lib';
 import { buttonVariants } from '@/components/button';
