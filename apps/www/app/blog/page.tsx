@@ -24,7 +24,7 @@ export default function Page() {
                 src={post.image}
                 width={900}
                 height={500}
-                quality={100}
+                priority
                 alt={post.imageAlt || post.title}
                 className="rounded-md"
               />

@@ -33,6 +33,7 @@ export function DesktopPreview({
       height={900}
       alt="main screen"
       {...props}
+      priority
     />
   );
 }
@@ -66,6 +67,7 @@ export function MobilePreview({
       height={900}
       alt="main screen"
       {...props}
+      priority
     />
   );
 }

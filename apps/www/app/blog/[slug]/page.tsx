@@ -72,7 +72,7 @@ export default function Page({ params }: Props) {
             src={post.image}
             width={768}
             height={400}
-            quality={100}
+            priority
             alt={post.imageAlt || post.title}
             className="rounded-xl border dark:border-neutral-800"
           />
