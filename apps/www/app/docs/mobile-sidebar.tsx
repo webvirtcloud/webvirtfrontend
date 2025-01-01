@@ -20,7 +20,7 @@ export default function MobileSidebar({
 
   return (
     <>
-      <div className="sticky inset-x-0 top-[80px] z-10 border-b bg-white/50 backdrop-blur-md dark:border-neutral-800 dark:bg-black/10 lg:hidden">
+      <div className="sticky inset-x-0 top-16 z-10 border-b bg-white/50 backdrop-blur-md lg:hidden dark:border-neutral-800 dark:bg-black/10">
         <div className="max-w-8xl mx-auto flex p-4">
           <button onClick={() => setOpen(true)}>
             <Bars3Icon className="h-5 w-5" />
@@ -28,10 +28,7 @@ export default function MobileSidebar({
         </div>
       </div>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent
-          className="dark:border-neutral-800 dark:bg-black md:max-w-xs"
-          side="left"
-        >
+        <SheetContent className="md:max-w-xs dark:border-neutral-800" side="left">
           <ul className="space-y-8">
             {Object.entries(navigation).map(([category, docs]) => (
               <li key={category} className="space-y-3">
