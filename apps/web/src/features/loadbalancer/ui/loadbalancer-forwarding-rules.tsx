@@ -4,7 +4,7 @@ import {
   ChevronsRightIcon,
   Trash2Icon,
 } from 'lucide-react';
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
@@ -21,6 +21,7 @@ function LoadbalancerForwardingRule({
   const {
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useFormContext();
 
@@ -43,6 +44,12 @@ function LoadbalancerForwardingRule({
         return [];
     }
   }, [entryProtocol]);
+
+  useEffect(() => {
+    if (targetProtocolOptions.length) {
+      setValue(`forwarding_rules.${index}.target_protocol`, targetProtocolOptions[0]);
+    }
+  }, [targetProtocolOptions]);
 
   return (
     <tr className="align-top">
