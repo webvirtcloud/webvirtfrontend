@@ -73,15 +73,15 @@ export default function VirtanceOverviewPage() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
             <h4 className="text-muted-foreground font-medium">Private IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[0].address}</p>
+            <p className="font-medium">{virtance?.networks.v4[0]?.address ?? '-'}</p>
           </div>
           <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
             <h4 className="text-muted-foreground font-medium">Public IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[1].address}</p>
+            <p className="font-medium">{virtance?.networks.v4[1]?.address ?? '-'}</p>
           </div>
           <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
             <h4 className="text-muted-foreground font-medium">Compute IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[2].address}</p>
+            <p className="font-medium">{virtance?.networks.v4[2]?.address ?? '-'}</p>
           </div>
         </div>
       </div>
