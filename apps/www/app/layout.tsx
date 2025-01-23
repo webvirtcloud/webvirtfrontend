@@ -14,6 +14,7 @@ import { Viewport, type Metadata } from 'next';
 import { Navigation } from '@/app/navigation';
 import { Footer } from '@/app/footer';
 import { ThemeProvider } from './providers';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://webvirt.cloud'),
@@ -51,6 +52,11 @@ export default function Layout({ children }: PropsWithChildren) {
       {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ? (
         <GoogleAnalytics gaTrackingId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
       ) : null}
+      <Script
+        strategy="afterInteractive"
+        src="https://umami.romanslonov.com/script.js"
+        data-website-id="59098014-7879-4355-94ac-c935f35cba07"
+      />
       <body className="flex min-h-screen flex-col overflow-x-hidden">
         <ThemeProvider
           attribute="class"
