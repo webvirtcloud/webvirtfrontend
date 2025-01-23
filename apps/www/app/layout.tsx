@@ -55,7 +55,7 @@ export default function Layout({ children }: PropsWithChildren) {
       <Script
         strategy="afterInteractive"
         src="https://umami.romanslonov.com/script.js"
-        data-website-id="59098014-7879-4355-94ac-c935f35cba07"
+        data-website-id="aa49fa78-8462-4503-b909-54d5c0b102c0"
       />
       <body className="flex min-h-screen flex-col overflow-x-hidden">
         <ThemeProvider
