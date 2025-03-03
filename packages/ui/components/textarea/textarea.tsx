@@ -3,7 +3,7 @@ import { forwardRef, type TextareaHTMLAttributes } from 'react';
 import { cx } from '../../lib';
 
 const inputVariants = cva(
-  'w-full text-sm px-2 transition-all border border-neutral-300 rounded-lg bg-neutral-50 dark:bg-neutral-800 dark:border-neutral-600 focus:bg-transparent placeholder:text-neutral-500 focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500',
+  'w-full text-sm px-2 transition-all shadow-sm border border-border rounded-lg bg-muted/50 focus:bg-background placeholder:text-muted-foreground focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-ring/30 focus:border-ring',
   {
     variants: {
       error: {
