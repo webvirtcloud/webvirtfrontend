@@ -61,7 +61,7 @@ export default function Page({ params }: Props) {
       </div>
       <div className="mx-auto w-full max-w-3xl space-y-16 px-4 md:px-8">
         <article className="prose prose-img:rounded-md lg:prose-lg dark:prose-p:text-neutral-400 prose-p:text-neutral-600 dark:prose-p:font-light dark:prose-invert prose-h1:mb-0 xl:prose-h1:mb-0 mx-auto pt-8">
-          <div className="mb-4 text-sm text-neutral-500">
+          <div className="text-muted-foreground mb-4 text-sm">
             <span>{post.readTime}</span> /{' '}
             <time>{format(new Date(post.date), 'MMMM dd, yyyy')}</time>
           </div>

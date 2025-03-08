@@ -2,7 +2,6 @@ import GithubIcon from '@/icons/github';
 import cx from 'clsx';
 import { HomeHeader } from '@/app/header';
 import { features } from './features';
-import { DesktopPreview, MobilePreview } from '@/components/previews';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/button';
 
@@ -11,9 +10,9 @@ export default function Page() {
     <>
       <HomeHeader />
 
-      <main className="container mx-auto px-4 pb-32 md:px-8">
+      <main className="container relative mx-auto px-4 pb-32 md:px-8">
         <section id="features" className="relative mx-auto max-w-6xl py-32">
-          <h2 className="mb-4 text-center text-5xl font-bold">Core features</h2>
+          <h2 className="mb-4 text-center text-4xl font-bold">Core features</h2>
           <p className="text-muted-foreground mb-16 text-center text-xl">
             WebVirtCloud shipped with the most popular tools.
           </p>
@@ -21,9 +20,7 @@ export default function Page() {
             {features.map((feature) => (
               <div
                 key={feature.name}
-                className={cx([
-                  'bg-card-gradient bg-card-border-light rounded-xl px-6 py-8',
-                ])}
+                className={cx(['bg-muted/20 rounded-xl border px-6 py-8 shadow-sm'])}
               >
                 <div className="mb-4 text-sky-500">
                   <feature.icon
@@ -33,7 +30,7 @@ export default function Page() {
                 <div className="space-y-2">
                   <h3
                     className={cx([
-                      'text-xl font-medium',
+                      'font-medium',
                       feature.coming ? 'text-neutral-600 dark:text-neutral-400' : '',
                     ])}
                   >
@@ -57,32 +54,32 @@ export default function Page() {
             for managing your cloud platform
           </p>
           <div className="mb-4 grid gap-4 md:grid-cols-12">
-            <div className="bg-card-gradient bg-card-border-light relative flex flex-col justify-end overflow-hidden rounded-xl p-8 pt-16 md:col-span-7">
-              <h3 className="mb-4 text-2xl font-medium">Ease of use</h3>
-              <p className="relative z-10 text-lg font-normal text-neutral-600 dark:text-white/80">
+            <div className="bg-muted/20 relative flex flex-col justify-end overflow-hidden rounded-xl border p-8 pt-16 md:col-span-7">
+              <h3 className="mb-2 text-2xl font-medium">Ease of use</h3>
+              <p className="text-muted-foreground">
                 Our interface is designed to be user-friendly and intuitive, making it
                 easy for even non-technical users to manage their virtual machines.
               </p>
             </div>
-            <div className="bg-card-gradient bg-card-border-light relative flex flex-col justify-end overflow-hidden rounded-xl p-8 pt-16 md:col-span-5">
-              <h3 className="mb-4 text-2xl font-medium">Time-saving</h3>
-              <p className="relative z-10 text-lg font-normal text-neutral-600 dark:text-white/80">
+            <div className="bg-muted/20 relative flex flex-col justify-end overflow-hidden rounded-xl border p-8 pt-16 md:col-span-5">
+              <h3 className="mb-2 text-2xl font-medium">Time-saving</h3>
+              <p className="text-muted-foreground">
                 With our interface, you can perform virtual machine management tasks
                 quickly and easily, saving you time and effort.
               </p>
             </div>
           </div>
           <div className="grid gap-4 md:grid-cols-12">
-            <div className="bg-card-gradient bg-card-border-light relative flex flex-col justify-end overflow-hidden rounded-xl p-8 pt-16 md:col-span-5">
-              <h3 className="mb-4 text-2xl font-medium">Increased efficiency</h3>
-              <p className="relative z-10 text-lg font-normal text-neutral-600 dark:text-white/80">
+            <div className="bg-muted/20 relative flex flex-col justify-end overflow-hidden rounded-xl border p-8 pt-16 md:col-span-5">
+              <h3 className="mb-2 text-2xl font-medium">Increased efficiency</h3>
+              <p className="text-muted-foreground">
                 Our interface allows you to manage multiple virtual machines from a single
                 interface, which increases your efficiency and productivity.
               </p>
             </div>
-            <div className="bg-card-gradient bg-card-border-light relative flex flex-col justify-end overflow-hidden rounded-xl p-8 pt-16 md:col-span-7">
-              <h3 className="mb-4 text-2xl font-medium">Cost-saving</h3>
-              <p className="relative z-10 text-lg font-normal text-neutral-600 dark:text-white/80">
+            <div className="bg-muted/20 relative flex flex-col justify-end overflow-hidden rounded-xl border p-8 pt-16 md:col-span-7">
+              <h3 className="mb-2 text-2xl font-medium">Cost-saving</h3>
+              <p className="text-muted-foreground">
                 By managing your virtual machines more efficiently, you can save on
                 resources and reduce your overall costs, because you use self-hosted
                 solution
@@ -92,7 +89,7 @@ export default function Page() {
         </section>
         <section
           id="get-started"
-          className="bg-card-gradient bg-card-border-light relative mx-auto mt-16 max-w-6xl space-y-16 rounded-2xl px-4 py-16 md:px-8 md:py-32"
+          className="bg-muted/20 relative mx-auto mt-16 max-w-6xl space-y-16 rounded-xl border px-4 py-16 md:px-8 md:py-32"
         >
           <div className="space-y-8 text-center">
             <h2 className="text-3xl font-semibold md:text-5xl">
@@ -106,7 +103,7 @@ export default function Page() {
 
             <div className="flex items-center justify-center gap-4">
               <Link
-                className={cx(buttonVariants({ size: 'xl', variant: 'default' }))}
+                className={cx(buttonVariants({ size: 'default', variant: 'default' }))}
                 href="/docs/introduction"
               >
                 Try it now
@@ -114,15 +111,13 @@ export default function Page() {
               <a
                 href="https://github.com/webvirtcloud/"
                 target="_blank"
-                className={cx(buttonVariants({ size: 'xl', variant: 'outline' }))}
+                className={cx(buttonVariants({ size: 'default', variant: 'outline' }))}
               >
                 <GithubIcon className="mr-2" />
                 Give a star
               </a>
             </div>
           </div>
-          <DesktopPreview className="mx-auto w-full max-w-4xl" />
-          <MobilePreview className="mx-auto w-full max-w-4xl" />
         </section>
       </main>
     </>

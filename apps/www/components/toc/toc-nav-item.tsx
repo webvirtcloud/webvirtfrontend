@@ -14,9 +14,7 @@ export function TocNavItem({ heading }: { heading: Heading }) {
         className={cx([
           'block py-1',
           heading.level && heading.level > 2 && 'group flex items-start py-1',
-          isActive
-            ? 'text-sky-500'
-            : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300',
+          isActive ? 'text-sky-500' : 'text-muted-foreground hover:text-foreground',
         ])}
         href={`#${heading.slug}`}
       >

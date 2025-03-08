@@ -20,20 +20,20 @@ export default function MobileSidebar({
 
   return (
     <>
-      <div className="sticky inset-x-0 top-16 z-10 border-b bg-white/50 backdrop-blur-md lg:hidden dark:border-neutral-800 dark:bg-black/10">
-        <div className="max-w-8xl mx-auto flex p-4">
+      <div className="bg-background sticky inset-x-0 top-16 z-10 border-b backdrop-blur-md lg:hidden">
+        <div className="container mx-auto flex p-4">
           <button onClick={() => setOpen(true)}>
             <Bars3Icon className="h-5 w-5" />
           </button>
         </div>
       </div>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent className="md:max-w-xs dark:border-neutral-800" side="left">
+        <SheetContent className="md:max-w-xs" side="left">
           <ul className="space-y-8">
             {Object.entries(navigation).map(([category, docs]) => (
               <li key={category} className="space-y-3">
                 <h5 className="font-medium">{toTitleCase(category)}</h5>
-                <ul className="space-y-2 border-l dark:border-neutral-800">
+                <ul className="space-y-2 border-l">
                   {docs.map((doc) => (
                     <SidebarNavItem key={doc._id} doc={doc} onClick={onNavItemClick} />
                   ))}

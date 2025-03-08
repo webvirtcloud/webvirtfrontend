@@ -10,7 +10,7 @@ export default function Page() {
     <div className="mx-auto max-w-4xl space-y-16 px-4 py-12 md:px-8">
       <header className="space-y-4">
         <h1 className="text-3xl font-bold">All posts</h1>
-        <p className="text-neutral-500">Get the latest updates from WebVirtCloud</p>
+        <p className="text-muted-foreground">Get the latest updates from WebVirtCloud</p>
       </header>
 
       <div className="grid grid-cols-1 gap-8">
@@ -31,7 +31,7 @@ export default function Page() {
 
               <div className="space-y-4 p-6">
                 <h2 className="text-4xl font-semibold">{post.title}</h2>
-                <div className="text-neutral-500">
+                <div className="text-muted-foreground">
                   <span>{post.readTime}</span> /{' '}
                   <time>{format(new Date(post.date), 'MMMM dd, yyyy')}</time>
                 </div>

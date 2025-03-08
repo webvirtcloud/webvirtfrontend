@@ -12,7 +12,7 @@ export function Pagination({ prev, next }: { prev?: Doc; next?: Doc }) {
           href={prev.url}
           aria-label={`Go to previous page: ${prev.title}`}
         >
-          <div className="pl-6 text-sm text-neutral-500">Previous</div>
+          <div className="text-muted-foreground pl-6 text-sm">Previous</div>
           <div className="flex items-center gap-2">
             <ArrowLeftIcon className="h-4 w-4" />
             {prev.title}
@@ -25,7 +25,7 @@ export function Pagination({ prev, next }: { prev?: Doc; next?: Doc }) {
           href={next.url}
           aria-label={`Go to next page: ${next.title}`}
         >
-          <div className="pr-6 text-sm text-neutral-500">Next</div>
+          <div className="text-muted-foreground pr-6 text-sm">Next</div>
           <div className="flex items-center gap-2">
             {next.title}
             <ArrowRightIcon className="h-4 w-4" />

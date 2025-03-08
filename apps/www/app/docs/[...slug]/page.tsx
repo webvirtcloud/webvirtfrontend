@@ -74,7 +74,7 @@ export default function Page({ params }: Props) {
         <Toc headings={doc.headings} />
         <div className="mt-4 border-t pb-4 dark:border-neutral-800"></div>
         <a
-          className="inline-flex items-center gap-2 text-sm text-neutral-500"
+          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm"
           target="_blank"
           href={`https://github.com/webvirtcloud/webvirtfrontend/tree/master/apps/www/content/${doc._raw.sourceFilePath}`}
         >

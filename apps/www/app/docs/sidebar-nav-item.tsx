@@ -20,7 +20,7 @@ export function SidebarNavItem({ doc, onClick }: { doc: Doc; onClick?: () => voi
           isActive
             ? ['border-sky-500 text-sky-500']
             : [
-                'border-transparent opacity-50 hover:border-neutral-500 hover:opacity-100',
+                'text-muted-foreground hover:text-foreground border-transparent transition-colors hover:border-neutral-500',
               ],
         ])}
       >

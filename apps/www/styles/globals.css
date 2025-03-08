@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 240 10% 5.5%;
+    --background: 240 10% 8.9%;
     --foreground: 0 0% 90%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -58,7 +58,7 @@
     @apply bg-background text-foreground;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.015em;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    font-family: 'Inter Variable', sans-serif;
   }
 }
 
@@ -74,7 +74,7 @@
     @apply absolute h-[33px] w-[33px];
     @apply flex items-center justify-center;
     @apply border-4 border-white bg-gray-100 dark:border-neutral-950 dark:bg-neutral-800;
-    @apply rounded-full text-center -indent-px text-xs font-normal text-neutral-500 dark:text-neutral-400;
+    @apply rounded-full text-center -indent-px text-xs font-normal text-muted-foreground;
     @apply ml-[-41px];
     content: counter(step);
   }

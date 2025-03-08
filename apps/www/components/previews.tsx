@@ -12,7 +12,7 @@ interface PreviewProps {
 export function DesktopPreview(props: PreviewProps) {
   const { className } = props;
   const src = useThemedImagePath({
-    light: '/screen_white.png',
+    light: '/screen_light.png',
     dark: '/screen_dark.png',
   });
 
@@ -20,12 +20,13 @@ export function DesktopPreview(props: PreviewProps) {
 
   return (
     <Image
-      className={cx(['hidden rounded-xl border md:block', className])}
+      className={cx(['rounded-xl border md:shadow-lg', className])}
       src={src}
       width={1300}
       height={900}
       alt="main screen"
       priority
+      loading="eager"
     />
   );
 }
@@ -37,8 +38,6 @@ export function MobilePreview(props: PreviewProps) {
     light: '/screen_mobile_white.png',
     dark: '/screen_mobile_dark.png',
   });
-
-  if (!src) return null;
 
   return (
     <Image
@@ -54,7 +53,9 @@ export function MobilePreview(props: PreviewProps) {
 
 function useThemedImagePath({ light, dark }: { light: string; dark: string }) {
   const { resolvedTheme } = useTheme();
-  const [src, setSrc] = useState<string | undefined>(undefined);
+  const [src, setSrc] = useState<string>(
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+  );
 
   useEffect(() => {
     switch (resolvedTheme) {

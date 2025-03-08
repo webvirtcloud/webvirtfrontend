@@ -1,39 +1,22 @@
 'use client';
 
-import SparklesIcon from '@heroicons/react/24/solid/SparklesIcon';
-import ArrowSmallRightIcon from '@heroicons/react/24/solid/ArrowSmallRightIcon';
-import Link from 'next/link';
 import { motion } from 'motion/react';
+import Link from 'next/link';
 import GithubIcon from '@/icons/github';
 import { cx } from 'ui/lib';
 import { buttonVariants } from '@/components/button';
-import { DesktopPreview, MobilePreview } from '@/components/previews';
+import { DesktopPreview } from '@/components/previews';
+import { ReleaseBadge } from '@/components/release-badge';
 
 export function HomeHeader() {
   return (
-    <header className="relative overflow-hidden p-4 py-24 text-center md:px-8">
-      <motion.div
-        initial={{ opacity: 0, translateY: -8 }}
-        animate={{ opacity: 100, translateY: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="bg-muted/50 mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-center text-xs backdrop-blur-xl md:text-base"
-      >
-        <SparklesIcon className="h-5 w-5" />
-        <span>New feature: Load Balancer is released</span>
-        <div className="h-5 w-px bg-black/20 dark:bg-white/20"></div>
-        <Link
-          className="inline-flex items-center gap-1 text-sky-500"
-          href={'/blog/new-feature-load-balancer'}
-        >
-          <span>Read post</span>
-          <ArrowSmallRightIcon className="h-4 w-4" />
-        </Link>
-      </motion.div>
+    <header className="container relative mx-auto p-4 py-24 text-center md:px-8">
+      <ReleaseBadge>New feature: Load Balancer is released</ReleaseBadge>
       <motion.h1
         initial={{ opacity: 0, translateY: -20 }}
         animate={{ opacity: 100, translateY: 0 }}
         transition={{ duration: 1 }}
-        className="mx-auto mb-6 text-5xl font-medium leading-tight md:text-7xl md:leading-none"
+        className="mx-auto mb-6 text-5xl font-medium leading-tight tracking-[-0.0195em] md:text-7xl md:leading-none"
       >
         Free, open source <br /> cloud platform
       </motion.h1>
@@ -53,15 +36,15 @@ export function HomeHeader() {
         className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center"
       >
         <Link
-          className={cx(buttonVariants({ size: 'xl', variant: 'default' }))}
+          className={cx(buttonVariants({ size: 'default', variant: 'default' }))}
           href="/docs/introduction"
         >
-          Try it now
+          Get started
         </Link>
         <a
           href="https://github.com/webvirtcloud/"
           target="_blank"
-          className={cx(buttonVariants({ size: 'xl', variant: 'outline' }))}
+          className={cx(buttonVariants({ size: 'default', variant: 'outline' }))}
         >
           <GithubIcon className="mr-2" />
           Give a star
@@ -107,22 +90,9 @@ export function HomeHeader() {
           initial={{ opacity: 0, translateY: 80 }}
           animate={{ opacity: 100, translateY: 0 }}
           transition={{ duration: 2 }}
-          style={{ perspective: '1000px' }}
-          className="flex justify-center"
+          className="isolate mx-auto w-[900px] md:w-auto"
         >
-          <motion.div
-            initial={{ rotateX: '30deg', scale: 1.1 }}
-            whileInView={{ rotateX: 0 }}
-            viewport={{ margin: '0px 0px -50% 0px' }}
-            transition={{
-              type: 'spring',
-              stiffness: 50,
-              damping: 20,
-            }}
-          >
-            <DesktopPreview />
-            <MobilePreview />
-          </motion.div>
+          <DesktopPreview />
         </motion.div>
       </div>
     </header>

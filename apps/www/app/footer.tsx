@@ -3,7 +3,7 @@ import { SOCIAL_LINKS } from './social-links';
 
 export function Footer() {
   return (
-    <footer className="relative border-neutral-200 py-20 dark:border-neutral-800">
+    <footer className="relative py-20">
       <div className="absolute top-0 flex h-1 w-full flex-row items-center justify-center pt-4">
         <div className="h-[1px] w-1/2 bg-gradient-to-r from-transparent to-black/10 dark:to-white/20"></div>
         <div className="h-[1px] w-1/2 bg-gradient-to-l from-transparent to-black/10 dark:to-white/20"></div>
@@ -14,7 +14,7 @@ export function Footer() {
           <div className="flex flex-col items-center justify-center space-y-4">
             <Logotype />
 
-            <p className="text-sm text-neutral-500">
+            <p className="text-muted-foreground text-sm">
               © Copyright {new Date().getFullYear()} WebVirtCloud.
             </p>
           </div>
@@ -25,7 +25,7 @@ export function Footer() {
                 return (
                   <li key={link.name}>
                     <a
-                      className="transition-colors hover:text-black dark:hover:text-white"
+                      className="hover:text-foreground text-muted-foreground transition-colors"
                       href={link.href}
                       target="_blank"
                     >

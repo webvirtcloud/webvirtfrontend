@@ -37,7 +37,7 @@ export default function Page() {
           <div className="flex flex-col" key={section.title}>
             <div className="mt-6 grow rounded-t-xl border p-6 dark:border-neutral-800">
               <h3 className="mb-4 text-xl font-medium">{section.title}</h3>
-              <p className="text-neutral-500">{section.description}</p>
+              <p className="text-muted-foreground">{section.description}</p>
             </div>
             <div className="rounded-b-xl border bg-neutral-100 p-6 py-4 dark:border-neutral-800 dark:bg-neutral-900">
               <Link
