@@ -57,7 +57,7 @@ export default function Layout({ children }: PropsWithChildren) {
           disableTransitionOnChange
         >
           <Navigation />
-          <main className="flex-1">{children}</main>
+          <div className="flex-1">{children}</div>
           <Footer />
         </ThemeProvider>
       </body>

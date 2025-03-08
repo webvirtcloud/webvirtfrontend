@@ -13,7 +13,7 @@ export default function Page() {
         <p className="text-muted-foreground">Get the latest updates from WebVirtCloud</p>
       </header>
 
-      <div className="grid grid-cols-1 gap-8">
+      <main className="grid grid-cols-1 gap-8">
         {posts.map((post) => (
           <section key={post.slug}>
             <Link
@@ -39,7 +39,7 @@ export default function Page() {
             </Link>
           </section>
         ))}
-      </div>
+      </main>
     </div>
   );
 }

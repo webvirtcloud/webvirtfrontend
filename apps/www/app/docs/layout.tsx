@@ -17,10 +17,10 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <MobileSidebar navigation={navigation} />
-      <div className="container relative mx-auto px-2 py-12 md:flex md:px-0 lg:px-8">
+      <main className="container relative mx-auto px-2 py-12 md:flex md:px-0 lg:px-8">
         <Sidebar navigation={navigation} />
         {children}
-      </div>
+      </main>
     </>
   );
 }

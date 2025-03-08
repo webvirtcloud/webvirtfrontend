@@ -48,7 +48,7 @@ export default function Page() {
           </div>
         </section>
         <section id="benefits" className="relative mx-auto max-w-6xl py-16 md:py-32">
-          <h2 className="mb-4 text-center text-5xl font-bold">Benefits</h2>
+          <h2 className="mb-4 text-center text-4xl font-bold">Benefits</h2>
           <p className="text-muted-foreground mb-16 text-center text-xl">
             Our web interface offers several benefits that make it the ideal tool <br />{' '}
             for managing your cloud platform
@@ -92,7 +92,7 @@ export default function Page() {
           className="bg-muted/20 relative mx-auto mt-16 max-w-6xl space-y-16 rounded-xl border px-4 py-16 md:px-8 md:py-32"
         >
           <div className="space-y-8 text-center">
-            <h2 className="text-3xl font-semibold md:text-5xl">
+            <h2 className="text-3xl font-semibold md:text-4xl">
               The cloud platform you <br />
               want, try it now
             </h2>
