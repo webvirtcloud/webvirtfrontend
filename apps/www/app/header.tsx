@@ -51,7 +51,7 @@ export function HomeHeader() {
         </a>
       </motion.div>
       <p className="mb-8"></p>
-      <div className="relative pt-20">
+      <div className="relative pt-8 md:pt-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -86,14 +86,16 @@ export function HomeHeader() {
             className="absolute left-1/2 top-4 -z-10 h-24 w-24 -translate-x-1/2 rounded-full bg-yellow-500 blur-[100px] md:h-48 md:w-48 lg:h-96 lg:w-96"
           ></motion.div>
         </motion.div>
-        <motion.div
-          initial={{ opacity: 0, translateY: 80 }}
-          animate={{ opacity: 100, translateY: 0 }}
-          transition={{ duration: 2 }}
-          className="isolate mx-auto w-[900px] md:w-auto"
-        >
-          <DesktopPreview />
-        </motion.div>
+        <div className="overflow-hidden max-md:relative max-md:inset-x-1/2 max-md:-mx-[50vw] max-md:w-screen max-md:pl-4">
+          <motion.div
+            initial={{ opacity: 0, translateY: 80 }}
+            animate={{ opacity: 100, translateY: 0 }}
+            transition={{ duration: 2 }}
+            className="isolate mx-auto w-[900px] md:w-auto"
+          >
+            <DesktopPreview />
+          </motion.div>
+        </div>
       </div>
     </header>
   );
