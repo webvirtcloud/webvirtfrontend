@@ -14,6 +14,8 @@ const SignUp = lazy(() => import('@/pages/sign-up'));
 const ResetPassword = lazy(() => import('@/pages/reset-password'));
 const ConfirmEmail = lazy(() => import('@/pages/confirm-email'));
 const CreateVirtance = lazy(() => import('@/pages/virtances/create/create'));
+const Databases = lazy(() => import('@/pages/database/databases'));
+const DatabaseCreate = lazy(() => import('@/pages/database/create'));
 const Virtances = lazy(() => import('@/pages/virtances/virtances'));
 const VirtanceOverview = lazy(() => import('@/pages/virtances/virtance/overview'));
 const VirtanceGraphs = lazy(() => import('@/pages/virtances/virtance/graphs'));
@@ -229,6 +231,25 @@ export function Routing() {
               element={
                 <Suspense>
                   <FirewallVirtances />
+                </Suspense>
+              }
+            />
+          </Route>
+
+          <Route path="/databases">
+            <Route
+              index
+              element={
+                <Suspense>
+                  <Databases />
+                </Suspense>
+              }
+            />
+            <Route
+              path="create"
+              element={
+                <Suspense>
+                  <DatabaseCreate />
                 </Suspense>
               }
             />

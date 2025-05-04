@@ -1,5 +1,6 @@
 import {
   BrickWallIcon,
+  DatabaseIcon,
   FileKey2Icon,
   LandPlotIcon,
   Layers2Icon,
@@ -29,4 +30,5 @@ export const NavbarLinks = [
     name: 'Load Balancers',
     icon: SplitIcon,
   },
+  { to: `/databases`, name: 'Databases', icon: DatabaseIcon },
 ].filter(Boolean) as NavbarLink[];
