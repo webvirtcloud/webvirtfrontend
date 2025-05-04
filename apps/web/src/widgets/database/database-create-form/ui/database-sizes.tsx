@@ -25,7 +25,6 @@ export function DatabaseSizes({ engines }: { engines?: Record<string, Dbm[]> }) 
 
   useEffect(() => {
     form.resetField('size');
-    console.log('size was reset');
   }, [version]);
 
   return (

@@ -1,3 +1,4 @@
+import { DatabaseIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
@@ -26,75 +27,82 @@ export function DatabaseDbms({ engines }: { engines?: Record<string, Dbm[]> }) {
 
       {engines ? (
         <div className="">
-          {Object.entries(engines).map(([engine, dbmsList]) => (
-            <Controller
-              key={engine}
-              name="engine"
-              render={({ field }) => (
-                <div
-                  className={cx([
-                    'bg-card group relative flex h-full flex-col overflow-hidden rounded-lg border transition-all duration-200',
-                    field.value === engine
-                      ? 'ring-ring border-ring ring-1'
-                      : 'border-border hover:border-muted-foreground/20',
-                  ])}
-                >
-                  <div className="flex w-full flex-1 flex-col gap-4 p-6 text-left md:flex-row md:items-center md:justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="bg-muted text-primary inline-flex h-14 w-14 items-center justify-center rounded-lg">
-                        <img
-                          src={
-                            new URL(
-                              `/src/shared/assets/images/engines/${engine}.svg`,
-                              import.meta.url,
-                            ).href
-                          }
-                          alt={engine}
-                          className="h-7 w-7"
-                        />
-                      </div>
-                      <div>
-                        <div className="text-xl font-semibold tracking-tight">
-                          PostgreSQL
-                        </div>
-                        <p className="text-muted-foreground max-w-2xl text-sm">
-                          {(dbmsList as Dbm[])[0]?.description ||
-                            `${engine} database engine`}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="">
-                      <div className="flex flex-wrap gap-1.5">
-                        {(dbmsList as Dbm[]).map((item) => (
-                          <Controller
-                            key={item.slug}
-                            name="version"
-                            render={({ field }) => (
-                              <Button
-                                type="button"
-                                size="icon"
-                                variant={
-                                  field.value === item.slug ? 'default' : 'outline'
-                                }
-                                disabled={!item.available || item.sizes.length === 0}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  field.onChange(item.slug);
-                                }}
-                              >
-                                {item.version}
-                              </Button>
-                            )}
+          {Object.entries(engines).length > 0 ? (
+            Object.entries(engines).map(([engine, dbmsList]) => (
+              <Controller
+                key={engine}
+                name="engine"
+                render={({ field }) => (
+                  <div
+                    className={cx([
+                      'bg-card group relative flex h-full flex-col overflow-hidden rounded-lg border transition-all duration-200',
+                      field.value === engine
+                        ? 'ring-ring border-ring ring-1'
+                        : 'border-border hover:border-muted-foreground/20',
+                    ])}
+                  >
+                    <div className="flex w-full flex-1 flex-col gap-4 p-6 text-left md:flex-row md:items-center md:justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="bg-muted text-primary inline-flex h-14 w-14 items-center justify-center rounded-lg">
+                          <img
+                            src={
+                              new URL(
+                                `/src/shared/assets/images/engines/${engine}.svg`,
+                                import.meta.url,
+                              ).href
+                            }
+                            alt={engine}
+                            className="h-7 w-7"
                           />
-                        ))}
+                        </div>
+                        <div>
+                          <div className="text-xl font-semibold tracking-tight">
+                            PostgreSQL
+                          </div>
+                          <p className="text-muted-foreground max-w-2xl text-sm">
+                            {(dbmsList as Dbm[])[0]?.description ||
+                              `${engine} database engine`}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="">
+                        <div className="flex flex-wrap gap-1.5">
+                          {(dbmsList as Dbm[]).map((item) => (
+                            <Controller
+                              key={item.slug}
+                              name="version"
+                              render={({ field }) => (
+                                <Button
+                                  type="button"
+                                  size="icon"
+                                  variant={
+                                    field.value === item.slug ? 'default' : 'outline'
+                                  }
+                                  disabled={!item.available || item.sizes.length === 0}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    field.onChange(item.slug);
+                                  }}
+                                >
+                                  {item.version}
+                                </Button>
+                              )}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-            />
-          ))}
+                )}
+              />
+            ))
+          ) : (
+            <div className="border-border flex flex-col items-center gap-2 rounded-lg border border-dashed p-4 py-8">
+              <DatabaseIcon className="size-6" />
+              <p className="text-muted-foreground text-sm">No engines found</p>
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex flex-col gap-2">
