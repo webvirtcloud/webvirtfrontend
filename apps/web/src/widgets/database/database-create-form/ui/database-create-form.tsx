@@ -50,7 +50,7 @@ export function DatabaseCreateForm() {
     try {
       await createDatabase({
         name: data.name,
-        engine: data.engine,
+        engine: `${data.engine}-${data.version}`,
         size: data.size,
         region: data.region,
         backups_enabled: data.backups_enabled ?? false,
