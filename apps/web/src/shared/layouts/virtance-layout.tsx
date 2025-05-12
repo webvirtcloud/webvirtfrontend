@@ -160,8 +160,8 @@ export function VirtanceLayout() {
                     cx(
                       'rounded-md px-2 py-1.5 font-medium',
                       isActive
-                        ? 'bg-muted text-foreground'
-                        : 'text-muted-foreground hover:text-foreground',
+                        ? 'bg-primary/5 text-primary'
+                        : 'text-muted-foreground hover:bg-primary/5 hover:text-foreground',
                     )
                   }
                 >

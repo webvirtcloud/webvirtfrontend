@@ -1,87 +1,101 @@
-import { useParams } from 'react-router-dom';
-import { cx } from 'ui/lib';
+import { ChevronsLeftRightEllipsisIcon, ServerCogIcon, SettingsIcon } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import { StatusDot } from 'ui/components/status-dot';
 
-import { type VirtanceStatus, useVirtance } from '@/entities/virtance';
+import { useVirtance } from '@/entities/virtance';
 import { formatMemorySize } from '@/shared/lib/number';
 
 export default function VirtanceOverviewPage() {
   const { id } = useParams();
   const { data: virtance } = useVirtance(Number(id));
 
-  const VirtanceStatusClasses: Record<VirtanceStatus, string> = {
-    active: 'text-green-400',
-    pending: 'text-orange-300',
-    inactive: 'text-red-400',
-  } as const;
+  if (!virtance) {
+    return (
+      <div className="flex h-40 items-center justify-center">
+        <div className="text-muted-foreground">Loading virtance data...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="mb-4 text-lg font-medium">Overview</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Unique identifier</h4>
-            <p className="font-medium">{virtance?.id}</p>
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
+        <div className="bg-card rounded-md border">
+          <div className="p-4 pb-0">
+            <h3 className="text-base font-medium">System Information</h3>
           </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Name</h4>
-            <p className="font-medium">{virtance?.name}</p>
+          <div className="grid gap-2 p-4 md:grid-cols-2">
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">Image</div>
+              <div className="font-medium">
+                {virtance.image.distribution} {virtance.image.name}
+              </div>
+            </div>
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">Status</div>
+              <div className="flex items-center gap-2">
+                <StatusDot status={virtance.status} />
+                <span className="font-medium capitalize">{virtance.status}</span>
+              </div>
+            </div>
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">vCPU</div>
+              <div className="font-medium">{virtance.size.vcpu} cores</div>
+            </div>
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">Memory</div>
+              <div className="font-medium">{formatMemorySize(virtance.size.memory)}</div>
+            </div>
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">Disk</div>
+              <div className="font-medium">{virtance.size.disk}GB</div>
+            </div>
+            <div className="bg-muted/50 rounded-md p-3">
+              <div className="text-muted-foreground text-xs">Region</div>
+              <div className="font-medium">{virtance.region.slug}</div>
+            </div>
           </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Image</h4>
-            <p className="font-medium">
-              {virtance?.image.distribution} {virtance?.image.name}
-            </p>
-          </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Status</h4>
-            {virtance ? (
-              <p className={cx(['font-medium', VirtanceStatusClasses[virtance.status]])}>
-                {virtance.status}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2 className="mb-4 text-lg font-medium">Hardware</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">CPU</h4>
-            <p className="font-medium">{virtance?.vcpu} core</p>
-          </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Memory</h4>
-            {virtance ? (
-              <p className="font-medium">{formatMemorySize(virtance.memory)}</p>
-            ) : null}
-          </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Disk</h4>
-            <p className="font-medium">{virtance?.disk}GB</p>
-          </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Size</h4>
-            <p className="font-medium">{virtance?.size.slug}</p>
+          <div className="bg-muted/50 flex items-center justify-end gap-1.5 border-t p-3">
+            <Link
+              className="text-highlight text-sm font-medium underline underline-offset-4"
+              to={`/virtances/${id}/settings`}
+            >
+              Manage configuration
+            </Link>
           </div>
         </div>
-      </div>
 
-      <div>
-        <h2 className="mb-4 text-lg font-medium">Network</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Private IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[0]?.address ?? '-'}</p>
+        <div className="bg-card rounded-md border">
+          <div className="p-4 pb-0">
+            <h3 className="text-base font-medium">Network Interfaces</h3>
           </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Public IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[1]?.address ?? '-'}</p>
+          <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-2">
+            {virtance.networks.v4.map((network, index) => (
+              <div
+                key={index}
+                className="bg-muted/50 flex items-center gap-2 rounded-md p-3"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-500/10 font-semibold text-blue-600">
+                  <ChevronsLeftRightEllipsisIcon className="size-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-muted-foreground text-xs font-medium capitalize">
+                    {network.type} IP
+                  </div>
+                  <div className="truncate font-mono text-sm font-medium">
+                    {network?.address ?? '-'}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="bg-card space-y-1 rounded-lg border p-4 shadow-sm">
-            <h4 className="text-muted-foreground font-medium">Compute IP</h4>
-            <p className="font-medium">{virtance?.networks.v4[2]?.address ?? '-'}</p>
+          <div className="bg-muted/50 flex items-center justify-end gap-1.5 border-t p-3">
+            <Link
+              className="text-highlight text-sm font-medium underline underline-offset-4"
+              to={`/virtances/${id}/network`}
+            >
+              Manage network
+            </Link>
           </div>
         </div>
       </div>
