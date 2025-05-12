@@ -71,8 +71,8 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
                       cx([
                         'inline-flex w-full items-center space-x-2 rounded-md px-2 py-2 font-medium transition-opacity',
                         isActive
-                          ? ' bg-muted [&>svg]:text-foreground'
-                          : 'hover:bg-muted/50 [&>svg]:text-muted-foreground',
+                          ? 'bg-primary/5 [&>svg]:text-foreground'
+                          : 'hover:bg-primary/10 [&>svg]:text-muted-foreground',
                       ])
                     }
                   >
