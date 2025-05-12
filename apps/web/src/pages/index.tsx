@@ -3,11 +3,16 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { IS_LOADBALANCER_ENABLED } from '@/shared/constants';
 import { AuthLayout } from '@/shared/layouts/auth';
+import { DatabaseLayout } from '@/shared/layouts/database';
 import { DefaultLayout } from '@/shared/layouts/default';
 import { FirewallLayout } from '@/shared/layouts/firewall-layout';
 import { ImagesLayout } from '@/shared/layouts/images-layout';
 import { LoadbalancerLayout } from '@/shared/layouts/loadbalancer-layout';
 import { VirtanceLayout } from '@/shared/layouts/virtance-layout';
+
+import { DatabaseBackups } from './database/database/backups';
+import { DatabaseOverview } from './database/database/overview';
+import { DatabaseSettingsPage } from './database/database/settings';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
@@ -253,6 +258,32 @@ export function Routing() {
                 </Suspense>
               }
             />
+            <Route path=":id" element={<DatabaseLayout />}>
+              <Route
+                index
+                element={
+                  <Suspense>
+                    <DatabaseOverview />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="settings"
+                element={
+                  <Suspense>
+                    <DatabaseSettingsPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="backups"
+                element={
+                  <Suspense>
+                    <DatabaseBackups />
+                  </Suspense>
+                }
+              />
+            </Route>
           </Route>
 
           <Route

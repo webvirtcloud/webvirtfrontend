@@ -1,4 +1,4 @@
-import { type Database } from '@/entities/database';
+import type { Database } from '@/entities/database';
 import request from '@/shared/api/request';
 
 export function createDatabase(payload: {

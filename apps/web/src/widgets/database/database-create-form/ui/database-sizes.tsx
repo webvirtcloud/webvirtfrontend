@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import type { Dbm } from '@/entities/database';
+import type { DBM } from '@/entities/database';
 import { SizeCard } from '@/entities/size';
 
 import { DatabaseCreateForm } from '../types';
 
-export function DatabaseSizes({ engines }: { engines?: Record<string, Dbm[]> }) {
+export function DatabaseSizes({ engines }: { engines?: Record<string, DBM[]> }) {
   const form = useFormContext<DatabaseCreateForm>();
 
   const engine = form.watch('engine');
@@ -22,7 +22,7 @@ export function DatabaseSizes({ engines }: { engines?: Record<string, Dbm[]> }) 
   }, [version]);
 
   return sizes ? (
-    <section className="mb-12">
+    <section className="mb-12 space-y-2">
       <h2 className="mb-4 text-lg font-semibold">Sizes</h2>
       {sizes.length ? (
         <div className="grid gap-4 md:grid-cols-3">
@@ -48,6 +48,9 @@ export function DatabaseSizes({ engines }: { engines?: Record<string, Dbm[]> }) 
           You don&apos;t have sizes in selected engine or version.
         </p>
       )}
+      {form.formState.errors.size ? (
+        <p className="text-red-500">{form.formState.errors.size.message}</p>
+      ) : null}
     </section>
   ) : null;
 }

@@ -1,17 +1,26 @@
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { type Region, RegionCard } from '@/entities/region';
+import { RegionCard, useRegions } from '@/entities/region';
 
 import type { DatabaseCreateForm } from '../types';
 
-export function DatabaseRegions(props: { regions?: Region[] }) {
+export function DatabaseRegions() {
+  const { data: regions } = useRegions();
+
   const { setValue, watch, control } = useFormContext<DatabaseCreateForm>();
 
   const currentRegion = watch('region');
 
-  const isHidden = props.regions?.length === 1 && props.regions?.[0].slug === 'default';
+  const isHidden = regions?.length === 1 && regions?.[0].slug === 'default';
 
-  const regions = props.regions?.filter((region) => region.slug !== 'default');
+  const filteredRegions = regions?.filter((region) => region.slug !== 'default');
+
+  useEffect(() => {
+    if (regions && !currentRegion) {
+      setValue('region', regions[0].slug);
+    }
+  }, [regions]);
 
   if (isHidden) return null;
 
@@ -19,7 +28,7 @@ export function DatabaseRegions(props: { regions?: Region[] }) {
     <section className="mb-12">
       <h2 className="mb-4 text-lg font-medium">Regions</h2>
       <div className="grid gap-4 md:grid-cols-3">
-        {regions.map((region) => (
+        {filteredRegions?.map((region) => (
           <Controller
             key={region.slug}
             name="region"

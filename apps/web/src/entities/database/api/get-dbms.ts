@@ -1,7 +1,6 @@
+import type { DBM } from '@/entities/database';
 import request from '@/shared/api/request';
 
-import { Dbm } from '../types';
-
-export function getDbms(): Promise<{ dbms: Dbm[] }> {
+export function getDbms(): Promise<{ dbms: DBM[] }> {
   return request.get(`dbms`).json();
 }

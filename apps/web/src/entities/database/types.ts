@@ -1,12 +1,37 @@
+import type { Event } from '@/entities/event';
+import type { Region } from '@/entities/region';
+import type { Size } from '@/entities/size';
+
 export interface Database {
   id: string;
   name: string;
-  status: string;
+  event: Event | null;
+  conection: {
+    public: {
+      uri: string;
+      host: string;
+    };
+    private: {
+      uri: string;
+      host: string;
+    };
+    user: string;
+    password: string;
+    port: number;
+    ssl: boolean;
+  };
   created_at: string;
-  updated_at: string;
+  backups_enabled: boolean;
+  size: Size;
+  region: Region;
+  engine: {
+    slug: string;
+    name: string;
+    version: string;
+  };
 }
 
-export interface Dbm {
+export interface DBM {
   slug: string;
   name: string;
   sizes: {

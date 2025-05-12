@@ -5,17 +5,17 @@ import { Button } from 'ui/components/button';
 import { Skeleton } from 'ui/components/skeleton';
 import { cx } from 'ui/lib';
 
-import type { Dbm } from '@/entities/database';
+import type { DBM } from '@/entities/database';
 
 import type { DatabaseCreateForm } from '../types';
 
-export function DatabaseDbms({ engines }: { engines?: Record<string, Dbm[]> }) {
+export function DatabaseDbms({ engines }: { engines?: Record<string, DBM[]> }) {
   const form = useFormContext<DatabaseCreateForm>();
 
   useEffect(() => {
     if (engines && !form.getValues('engine') && !form.getValues('version')) {
       form.setValue('engine', Object.keys(engines)[0]);
-      form.setValue('version', (engines[Object.keys(engines)[0]] as Dbm[])[0].slug);
+      form.setValue('version', (engines[Object.keys(engines)[0]] as DBM[])[0].slug);
     }
   }, [engines]);
 
@@ -60,15 +60,15 @@ export function DatabaseDbms({ engines }: { engines?: Record<string, Dbm[]> }) {
                             PostgreSQL
                           </div>
                           <p className="text-muted-foreground max-w-2xl text-sm">
-                            {(dbmsList as Dbm[])[0]?.description ||
+                            {(dbmsList as DBM[])[0]?.description ||
                               `${engine} database engine`}
                           </p>
                         </div>
                       </div>
 
                       <div className="">
-                        <div className="flex flex-wrap gap-1.5">
-                          {(dbmsList as Dbm[]).map((item) => (
+                        <div className="flex flex-wrap gap-1">
+                          {(dbmsList as DBM[]).map((item) => (
                             <Controller
                               key={item.slug}
                               name="version"

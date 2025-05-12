@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 
-import { createDatabase, Dbm, useDbms } from '@/entities/database';
-import { useRegions } from '@/entities/region';
+import { createDatabase, DBM, useDbms } from '@/entities/database';
 
 import { DatabaseCreateFormSchema } from '../schema';
 import { type DatabaseCreateForm } from '../types';
@@ -19,7 +18,6 @@ import { DatabaseSizes } from './database-sizes';
 export function DatabaseCreateForm() {
   const navigate = useNavigate();
   const { data } = useDbms();
-  const { data: regions } = useRegions();
 
   const engines = useMemo(
     () =>
@@ -30,7 +28,7 @@ export function DatabaseCreateForm() {
         }
         acc[engine].push(item);
         return acc;
-      }, {} as Record<string, Dbm[]>),
+      }, {} as Record<string, DBM[]>),
     [data],
   );
 
@@ -75,12 +73,6 @@ export function DatabaseCreateForm() {
     }
   }
 
-  useEffect(() => {
-    if (regions && !form.getValues('region')) {
-      form.setValue('region', regions[0].slug);
-    }
-  }, [regions]);
-
   return (
     <FormProvider {...form}>
       <form
@@ -95,7 +87,7 @@ export function DatabaseCreateForm() {
         </div>
         <DatabaseDbms engines={engines} />
         <DatabaseSizes engines={engines} />
-        <DatabaseRegions regions={regions} />
+        <DatabaseRegions />
         <DatabaseBackups />
         <DatabaseName />
         <Button type="submit">Create Database</Button>
