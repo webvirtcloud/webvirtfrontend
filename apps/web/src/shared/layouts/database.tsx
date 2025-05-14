@@ -74,7 +74,7 @@ export function DatabaseLayout() {
                 <div className="space-y-1">
                   <div className="flex items-center gap-3">
                     <h1 className="text-xl font-semibold">{database.name}</h1>
-                    <StatusDot status={database.event ? 'active' : 'pending'} />
+                    <StatusDot status={database.event ? 'pending' : 'active'} />
                   </div>
                   <p className="text-muted-foreground text-sm">
                     {formatMemorySize(database.size.memory)} DDR4 / {database.size.disk}GB
