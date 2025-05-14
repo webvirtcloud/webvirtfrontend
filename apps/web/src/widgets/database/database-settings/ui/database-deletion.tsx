@@ -25,8 +25,8 @@ export function DatabaseDeletion() {
 
   async function onDelete() {
     setDeleting(true);
-    await deleteDatabase(Number(id));
-    navigate('/');
+    await deleteDatabase(id);
+    navigate('/databases');
     setDeleting(false);
     queryClient.removeQueries({ queryKey: databaseQueries.database(id) });
   }
