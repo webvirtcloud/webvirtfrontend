@@ -1,7 +1,9 @@
+import { useQueries, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { EllipsisIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Button, buttonVariants } from 'ui/components/button';
 import {
   DropdownMenuContent,
@@ -14,12 +16,63 @@ import { StatusDot } from 'ui/components/status-dot';
 import { Table } from 'ui/components/table';
 import { cx } from 'ui/lib';
 
-import { useDatabases } from '@/entities/database';
+import {
+  Database,
+  databaseQueries,
+  getDatabase,
+  useDatabases,
+} from '@/entities/database';
+import { Event } from '@/entities/event';
+import { REFRESH_INTERVAL } from '@/shared/constants';
 import { formatMemorySize } from '@/shared/lib/number';
 import { State } from '@/shared/ui/state';
 
 export function DatabasesList() {
+  const queryClient = useQueryClient();
   const { data: databases, error } = useDatabases();
+
+  const events = useMemo(() => {
+    const uniqueIds = new Set<string>();
+    const uniqueEvents: { id: string; event: Event }[] = [];
+
+    if (databases === undefined) return uniqueEvents;
+
+    databases.forEach((database) => {
+      if (database.event !== null && !uniqueIds.has(database.id)) {
+        uniqueIds.add(database.id);
+        uniqueEvents.push({ id: database.id, event: database.event });
+      }
+    });
+
+    return uniqueEvents;
+  }, [databases]);
+
+  useQueries({
+    queries: events.map((event) => ({
+      queryKey: databaseQueries.event(event.id),
+      queryFn: () => getDatabase(event.id),
+      refetchInterval: (query) => {
+        if (query.state.data && query.state.data.database.event === null) {
+          queryClient.setQueryData<Database[]>(databaseQueries.list(), (previousData) => {
+            if (previousData) {
+              return previousData.map((database: Database) =>
+                database.id === event.id ? query.state.data?.database : database,
+              );
+            }
+          });
+
+          toast.success(
+            `The task ${event.event?.description.toLowerCase()} of database has been completed.`,
+          );
+
+          queryClient.removeQueries({ queryKey: databaseQueries.event(event.id) });
+
+          return false;
+        }
+        return REFRESH_INTERVAL;
+      },
+    })),
+  });
 
   const Actions = ({ value }) => (
     <div className="space-x-2">
@@ -77,7 +130,7 @@ export function DatabasesList() {
                   >
                     {value.name}
                   </Link>
-                  <StatusDot status={value.event ? 'active' : 'pending'} />
+                  <StatusDot status={value.event ? 'pending' : 'active'} />
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {formatMemorySize(value.size.memory)} DDR4 / {value.size.disk}GB SSD /{' '}
