@@ -36,6 +36,7 @@ export const schema = z.object({
         z.literal('one_click'),
         z.literal('floating_ip'),
         z.literal('load_balancer'),
+        z.literal('database'),
       ]),
     ),
   }),
