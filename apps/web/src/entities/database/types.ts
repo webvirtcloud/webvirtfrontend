@@ -29,6 +29,7 @@ export interface Database {
     name: string;
     version: string;
   };
+  status: 'active' | 'pending';
 }
 
 export interface DBM {
@@ -51,3 +52,58 @@ export interface DBM {
   available: boolean;
   description: string;
 }
+
+export type DatabaseAction =
+  | 'power_on'
+  | 'power_off'
+  | 'rename'
+  | 'shutdown'
+  | 'reset'
+  | 'rebuild'
+  | 'reboot'
+  | 'password_reset'
+  | 'snapshot'
+  | 'enable_recovery_mode';
+
+export type ActionType =
+  | {
+      uuid: string;
+      action: 'power_on';
+    }
+  | {
+      uuid: string;
+      action: 'power_off';
+    }
+  | {
+      uuid: string;
+      action: 'shutdown';
+    }
+  | {
+      uuid: string;
+      action: 'reset';
+    }
+  | {
+      uuid: string;
+      action: 'reset';
+    }
+  | {
+      uuid: string;
+      action: 'enable_recovery_mode';
+    }
+  | {
+      uuid: string;
+      action: 'disable_recovery_mode';
+    }
+  | {
+      uuid: string;
+      action: 'resize';
+      size: string;
+    }
+  | { action: 'rename'; uuid: string; name: string }
+  | { action: 'rebuild'; uuid: string; image: string }
+  | { action: 'reboot'; uuid: string }
+  | { action: 'password_reset'; uuid: string; password: string }
+  | { action: 'snapshot'; uuid: string; name: string }
+  | { action: 'restore'; uuid: string; image: number }
+  | { action: 'enable_backups'; uuid: string }
+  | { action: 'disable_backups'; uuid: string };

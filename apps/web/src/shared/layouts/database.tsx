@@ -24,6 +24,8 @@ export function DatabaseLayout() {
 
   const links = [
     { label: 'Overview', to: `/databases/${id}`, end: true },
+    { label: 'Snapshots', to: `/databases/${id}/snapshots`, end: false },
+    { label: 'Backups', to: `/databases/${id}/backups`, end: false },
     { label: 'Settings', to: `/databases/${id}/settings`, end: false },
   ] as const;
 

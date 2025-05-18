@@ -13,6 +13,7 @@ import { VirtanceLayout } from '@/shared/layouts/virtance-layout';
 import { DatabaseBackups } from './database/database/backups';
 import { DatabaseOverview } from './database/database/overview';
 import { DatabaseSettingsPage } from './database/database/settings';
+import { DatabaseSnapshots } from './database/database/snapshots';
 
 const SignIn = lazy(() => import('@/pages/sign-in'));
 const SignUp = lazy(() => import('@/pages/sign-up'));
@@ -272,6 +273,14 @@ export function Routing() {
                 element={
                   <Suspense>
                     <DatabaseSettingsPage />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="snapshots"
+                element={
+                  <Suspense>
+                    <DatabaseSnapshots />
                   </Suspense>
                 }
               />
