@@ -17,7 +17,7 @@ import { Button } from 'ui/components/button';
 
 import { databaseQueries, deleteDatabase } from '@/entities/database';
 
-export function DatabaseDeletion() {
+export function DatabaseSettingsDeletion() {
   const { uuid } = useParams({ from: '/_authenticated/databases/$uuid' });
   const queryClient = useQueryClient();
   const [isDeleting, setDeleting] = useState(false);

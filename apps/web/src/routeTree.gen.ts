@@ -38,6 +38,7 @@ import { Route as AuthenticatedFirewallsUuidRouteImport } from './routes/_authen
 import { Route as AuthenticatedDatabasesUuidRouteImport } from './routes/_authenticated/databases/$uuid/route'
 import { Route as AuthenticatedVirtancesIdIndexImport } from './routes/_authenticated/virtances/$id/index'
 import { Route as AuthenticatedFirewallsUuidIndexImport } from './routes/_authenticated/firewalls/$uuid/index'
+import { Route as AuthenticatedDatabasesUuidIndexImport } from './routes/_authenticated/databases/$uuid/index'
 import { Route as AuthenticatedVirtancesIdSnapshotsImport } from './routes/_authenticated/virtances/$id/snapshots'
 import { Route as AuthenticatedVirtancesIdSettingsImport } from './routes/_authenticated/virtances/$id/settings'
 import { Route as AuthenticatedVirtancesIdResizeImport } from './routes/_authenticated/virtances/$id/resize'
@@ -51,7 +52,6 @@ import { Route as AuthenticatedLoadbalancersUuidSettingsImport } from './routes/
 import { Route as AuthenticatedFirewallsUuidVirtancesImport } from './routes/_authenticated/firewalls/$uuid/virtances'
 import { Route as AuthenticatedDatabasesUuidSnapshotsImport } from './routes/_authenticated/databases/$uuid/snapshots'
 import { Route as AuthenticatedDatabasesUuidSettingsImport } from './routes/_authenticated/databases/$uuid/settings'
-import { Route as AuthenticatedDatabasesUuidOverviewImport } from './routes/_authenticated/databases/$uuid/overview'
 import { Route as AuthenticatedDatabasesUuidBackupsImport } from './routes/_authenticated/databases/$uuid/backups'
 
 // Create/Update Routes
@@ -231,6 +231,13 @@ const AuthenticatedFirewallsUuidIndexRoute =
     getParentRoute: () => AuthenticatedFirewallsUuidRouteRoute,
   } as any)
 
+const AuthenticatedDatabasesUuidIndexRoute =
+  AuthenticatedDatabasesUuidIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDatabasesUuidRouteRoute,
+  } as any)
+
 const AuthenticatedVirtancesIdSnapshotsRoute =
   AuthenticatedVirtancesIdSnapshotsImport.update({
     id: '/snapshots',
@@ -319,13 +326,6 @@ const AuthenticatedDatabasesUuidSettingsRoute =
   AuthenticatedDatabasesUuidSettingsImport.update({
     id: '/settings',
     path: '/settings',
-    getParentRoute: () => AuthenticatedDatabasesUuidRouteRoute,
-  } as any)
-
-const AuthenticatedDatabasesUuidOverviewRoute =
-  AuthenticatedDatabasesUuidOverviewImport.update({
-    id: '/overview',
-    path: '/overview',
     getParentRoute: () => AuthenticatedDatabasesUuidRouteRoute,
   } as any)
 
@@ -522,13 +522,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDatabasesUuidBackupsImport
       parentRoute: typeof AuthenticatedDatabasesUuidRouteImport
     }
-    '/_authenticated/databases/$uuid/overview': {
-      id: '/_authenticated/databases/$uuid/overview'
-      path: '/overview'
-      fullPath: '/databases/$uuid/overview'
-      preLoaderRoute: typeof AuthenticatedDatabasesUuidOverviewImport
-      parentRoute: typeof AuthenticatedDatabasesUuidRouteImport
-    }
     '/_authenticated/databases/$uuid/settings': {
       id: '/_authenticated/databases/$uuid/settings'
       path: '/settings'
@@ -620,6 +613,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedVirtancesIdSnapshotsImport
       parentRoute: typeof AuthenticatedVirtancesIdRouteImport
     }
+    '/_authenticated/databases/$uuid/': {
+      id: '/_authenticated/databases/$uuid/'
+      path: '/'
+      fullPath: '/databases/$uuid/'
+      preLoaderRoute: typeof AuthenticatedDatabasesUuidIndexImport
+      parentRoute: typeof AuthenticatedDatabasesUuidRouteImport
+    }
     '/_authenticated/firewalls/$uuid/': {
       id: '/_authenticated/firewalls/$uuid/'
       path: '/'
@@ -677,21 +677,20 @@ const AuthenticatedImagesRouteRouteWithChildren =
 
 interface AuthenticatedDatabasesUuidRouteRouteChildren {
   AuthenticatedDatabasesUuidBackupsRoute: typeof AuthenticatedDatabasesUuidBackupsRoute
-  AuthenticatedDatabasesUuidOverviewRoute: typeof AuthenticatedDatabasesUuidOverviewRoute
   AuthenticatedDatabasesUuidSettingsRoute: typeof AuthenticatedDatabasesUuidSettingsRoute
   AuthenticatedDatabasesUuidSnapshotsRoute: typeof AuthenticatedDatabasesUuidSnapshotsRoute
+  AuthenticatedDatabasesUuidIndexRoute: typeof AuthenticatedDatabasesUuidIndexRoute
 }
 
 const AuthenticatedDatabasesUuidRouteRouteChildren: AuthenticatedDatabasesUuidRouteRouteChildren =
   {
     AuthenticatedDatabasesUuidBackupsRoute:
       AuthenticatedDatabasesUuidBackupsRoute,
-    AuthenticatedDatabasesUuidOverviewRoute:
-      AuthenticatedDatabasesUuidOverviewRoute,
     AuthenticatedDatabasesUuidSettingsRoute:
       AuthenticatedDatabasesUuidSettingsRoute,
     AuthenticatedDatabasesUuidSnapshotsRoute:
       AuthenticatedDatabasesUuidSnapshotsRoute,
+    AuthenticatedDatabasesUuidIndexRoute: AuthenticatedDatabasesUuidIndexRoute,
   }
 
 const AuthenticatedDatabasesUuidRouteRouteWithChildren =
@@ -837,7 +836,6 @@ export interface FileRoutesByFullPath {
   '/firewalls': typeof AuthenticatedFirewallsIndexRoute
   '/loadbalancers': typeof AuthenticatedLoadbalancersIndexRoute
   '/databases/$uuid/backups': typeof AuthenticatedDatabasesUuidBackupsRoute
-  '/databases/$uuid/overview': typeof AuthenticatedDatabasesUuidOverviewRoute
   '/databases/$uuid/settings': typeof AuthenticatedDatabasesUuidSettingsRoute
   '/databases/$uuid/snapshots': typeof AuthenticatedDatabasesUuidSnapshotsRoute
   '/firewalls/$uuid/virtances': typeof AuthenticatedFirewallsUuidVirtancesRoute
@@ -851,6 +849,7 @@ export interface FileRoutesByFullPath {
   '/virtances/$id/resize': typeof AuthenticatedVirtancesIdResizeRoute
   '/virtances/$id/settings': typeof AuthenticatedVirtancesIdSettingsRoute
   '/virtances/$id/snapshots': typeof AuthenticatedVirtancesIdSnapshotsRoute
+  '/databases/$uuid/': typeof AuthenticatedDatabasesUuidIndexRoute
   '/firewalls/$uuid/': typeof AuthenticatedFirewallsUuidIndexRoute
   '/virtances/$id/': typeof AuthenticatedVirtancesIdIndexRoute
 }
@@ -865,7 +864,6 @@ export interface FileRoutesByTo {
   '/floating-ips': typeof AuthenticatedFloatingIpsRoute
   '/keypairs': typeof AuthenticatedKeypairsRoute
   '/settings': typeof AuthenticatedSettingsRoute
-  '/databases/$uuid': typeof AuthenticatedDatabasesUuidRouteRouteWithChildren
   '/loadbalancers/$uuid': typeof AuthenticatedLoadbalancersUuidRouteRouteWithChildren
   '/confirm-email/$token': typeof authConfirmEmailTokenRoute
   '/databases/create': typeof AuthenticatedDatabasesCreateRoute
@@ -878,7 +876,6 @@ export interface FileRoutesByTo {
   '/firewalls': typeof AuthenticatedFirewallsIndexRoute
   '/loadbalancers': typeof AuthenticatedLoadbalancersIndexRoute
   '/databases/$uuid/backups': typeof AuthenticatedDatabasesUuidBackupsRoute
-  '/databases/$uuid/overview': typeof AuthenticatedDatabasesUuidOverviewRoute
   '/databases/$uuid/settings': typeof AuthenticatedDatabasesUuidSettingsRoute
   '/databases/$uuid/snapshots': typeof AuthenticatedDatabasesUuidSnapshotsRoute
   '/firewalls/$uuid/virtances': typeof AuthenticatedFirewallsUuidVirtancesRoute
@@ -892,6 +889,7 @@ export interface FileRoutesByTo {
   '/virtances/$id/resize': typeof AuthenticatedVirtancesIdResizeRoute
   '/virtances/$id/settings': typeof AuthenticatedVirtancesIdSettingsRoute
   '/virtances/$id/snapshots': typeof AuthenticatedVirtancesIdSnapshotsRoute
+  '/databases/$uuid': typeof AuthenticatedDatabasesUuidIndexRoute
   '/firewalls/$uuid': typeof AuthenticatedFirewallsUuidIndexRoute
   '/virtances/$id': typeof AuthenticatedVirtancesIdIndexRoute
 }
@@ -924,7 +922,6 @@ export interface FileRoutesById {
   '/_authenticated/firewalls/': typeof AuthenticatedFirewallsIndexRoute
   '/_authenticated/loadbalancers/': typeof AuthenticatedLoadbalancersIndexRoute
   '/_authenticated/databases/$uuid/backups': typeof AuthenticatedDatabasesUuidBackupsRoute
-  '/_authenticated/databases/$uuid/overview': typeof AuthenticatedDatabasesUuidOverviewRoute
   '/_authenticated/databases/$uuid/settings': typeof AuthenticatedDatabasesUuidSettingsRoute
   '/_authenticated/databases/$uuid/snapshots': typeof AuthenticatedDatabasesUuidSnapshotsRoute
   '/_authenticated/firewalls/$uuid/virtances': typeof AuthenticatedFirewallsUuidVirtancesRoute
@@ -938,6 +935,7 @@ export interface FileRoutesById {
   '/_authenticated/virtances/$id/resize': typeof AuthenticatedVirtancesIdResizeRoute
   '/_authenticated/virtances/$id/settings': typeof AuthenticatedVirtancesIdSettingsRoute
   '/_authenticated/virtances/$id/snapshots': typeof AuthenticatedVirtancesIdSnapshotsRoute
+  '/_authenticated/databases/$uuid/': typeof AuthenticatedDatabasesUuidIndexRoute
   '/_authenticated/firewalls/$uuid/': typeof AuthenticatedFirewallsUuidIndexRoute
   '/_authenticated/virtances/$id/': typeof AuthenticatedVirtancesIdIndexRoute
 }
@@ -970,7 +968,6 @@ export interface FileRouteTypes {
     | '/firewalls'
     | '/loadbalancers'
     | '/databases/$uuid/backups'
-    | '/databases/$uuid/overview'
     | '/databases/$uuid/settings'
     | '/databases/$uuid/snapshots'
     | '/firewalls/$uuid/virtances'
@@ -984,6 +981,7 @@ export interface FileRouteTypes {
     | '/virtances/$id/resize'
     | '/virtances/$id/settings'
     | '/virtances/$id/snapshots'
+    | '/databases/$uuid/'
     | '/firewalls/$uuid/'
     | '/virtances/$id/'
   fileRoutesByTo: FileRoutesByTo
@@ -997,7 +995,6 @@ export interface FileRouteTypes {
     | '/floating-ips'
     | '/keypairs'
     | '/settings'
-    | '/databases/$uuid'
     | '/loadbalancers/$uuid'
     | '/confirm-email/$token'
     | '/databases/create'
@@ -1010,7 +1007,6 @@ export interface FileRouteTypes {
     | '/firewalls'
     | '/loadbalancers'
     | '/databases/$uuid/backups'
-    | '/databases/$uuid/overview'
     | '/databases/$uuid/settings'
     | '/databases/$uuid/snapshots'
     | '/firewalls/$uuid/virtances'
@@ -1024,6 +1020,7 @@ export interface FileRouteTypes {
     | '/virtances/$id/resize'
     | '/virtances/$id/settings'
     | '/virtances/$id/snapshots'
+    | '/databases/$uuid'
     | '/firewalls/$uuid'
     | '/virtances/$id'
   id:
@@ -1054,7 +1051,6 @@ export interface FileRouteTypes {
     | '/_authenticated/firewalls/'
     | '/_authenticated/loadbalancers/'
     | '/_authenticated/databases/$uuid/backups'
-    | '/_authenticated/databases/$uuid/overview'
     | '/_authenticated/databases/$uuid/settings'
     | '/_authenticated/databases/$uuid/snapshots'
     | '/_authenticated/firewalls/$uuid/virtances'
@@ -1068,6 +1064,7 @@ export interface FileRouteTypes {
     | '/_authenticated/virtances/$id/resize'
     | '/_authenticated/virtances/$id/settings'
     | '/_authenticated/virtances/$id/snapshots'
+    | '/_authenticated/databases/$uuid/'
     | '/_authenticated/firewalls/$uuid/'
     | '/_authenticated/virtances/$id/'
   fileRoutesById: FileRoutesById
@@ -1173,9 +1170,9 @@ export const routeTree = rootRoute
       "parent": "/_authenticated",
       "children": [
         "/_authenticated/databases/$uuid/backups",
-        "/_authenticated/databases/$uuid/overview",
         "/_authenticated/databases/$uuid/settings",
-        "/_authenticated/databases/$uuid/snapshots"
+        "/_authenticated/databases/$uuid/snapshots",
+        "/_authenticated/databases/$uuid/"
       ]
     },
     "/_authenticated/firewalls/$uuid": {
@@ -1253,10 +1250,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/databases/$uuid/backups.tsx",
       "parent": "/_authenticated/databases/$uuid"
     },
-    "/_authenticated/databases/$uuid/overview": {
-      "filePath": "_authenticated/databases/$uuid/overview.tsx",
-      "parent": "/_authenticated/databases/$uuid"
-    },
     "/_authenticated/databases/$uuid/settings": {
       "filePath": "_authenticated/databases/$uuid/settings.tsx",
       "parent": "/_authenticated/databases/$uuid"
@@ -1308,6 +1301,10 @@ export const routeTree = rootRoute
     "/_authenticated/virtances/$id/snapshots": {
       "filePath": "_authenticated/virtances/$id/snapshots.tsx",
       "parent": "/_authenticated/virtances/$id"
+    },
+    "/_authenticated/databases/$uuid/": {
+      "filePath": "_authenticated/databases/$uuid/index.tsx",
+      "parent": "/_authenticated/databases/$uuid"
     },
     "/_authenticated/firewalls/$uuid/": {
       "filePath": "_authenticated/firewalls/$uuid/index.tsx",

@@ -6,7 +6,7 @@ import {
   Globe as PublicIcon,
   Shield as PrivateIcon,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'ui/components/button';
 import {
   Select,
@@ -19,7 +19,7 @@ import { cx } from 'ui/lib';
 
 import { useDatabase } from '@/entities/database';
 
-export const Route = createFileRoute('/_authenticated/databases/$uuid/overview')({
+export const Route = createFileRoute('/_authenticated/databases/$uuid/')({
   component: RouteComponent,
 });
 
@@ -216,7 +216,6 @@ function RouteComponent() {
               disabled={copied}
               type="button"
             >
-              {/* <span>Copy to clipboard</span> */}
               <div
                 className={cx(
                   'transition-all',

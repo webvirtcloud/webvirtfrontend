@@ -29,7 +29,7 @@ export interface Database {
     name: string;
     version: string;
   };
-  status: 'active' | 'pending';
+  status: 'active' | 'pending' | 'inactive';
 }
 
 export interface DBM {
@@ -73,18 +73,6 @@ export type ActionType =
   | {
       uuid: string;
       action: 'power_off';
-    }
-  | {
-      uuid: string;
-      action: 'shutdown';
-    }
-  | {
-      uuid: string;
-      action: 'reset';
-    }
-  | {
-      uuid: string;
-      action: 'reset';
     }
   | {
       uuid: string;
