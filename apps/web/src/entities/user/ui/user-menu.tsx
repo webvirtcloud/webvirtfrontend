@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import {
   LucideChevronsUpDown,
   LucideCreditCard,
@@ -17,6 +17,7 @@ import {
 } from 'ui/components/dropdown-menu';
 
 import { UserMenuSub } from '@/entities/user/ui/user-menu-sub';
+import { queryClient } from '@/shared/query-client';
 
 import type { User } from '../types';
 
@@ -25,10 +26,14 @@ type Props = {
 };
 
 export function UserMenu({ user }: Props) {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     window.localStorage.removeItem('token');
 
-    window.location.href = '/sign-in';
+    queryClient.clear();
+
+    navigate({ to: '/login' });
   };
 
   return user ? (

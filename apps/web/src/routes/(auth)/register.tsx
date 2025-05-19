@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { SignUpForm } from '@/features/auth';
 
@@ -7,11 +7,14 @@ export const Route = createFileRoute('/(auth)/register')({
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   async function onSuccess(token: string) {
     window.localStorage.setItem('token', token);
 
-    window.location.href = '/';
+    navigate({ to: '/confirm-email' });
   }
+
   return (
     <>
       <h1 className="mb-8 text-center text-2xl font-medium">Create an account</h1>

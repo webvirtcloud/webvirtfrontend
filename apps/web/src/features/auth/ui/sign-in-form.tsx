@@ -21,7 +21,7 @@ export function SignInForm({ onSuccess }: Props) {
     register,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
   } = useForm<IFormInputs>();
 
   async function onSubmit(data) {

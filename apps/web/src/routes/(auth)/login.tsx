@@ -1,25 +1,18 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { SignInForm } from '@/features/auth';
 
 export const Route = createFileRoute('/(auth)/login')({
-  //   beforeLoad: async ({ context: { queryClient }, search }) => {
-  //     const session = await queryClient.ensureQueryData(sessionQueryOptions);
-
-  //     if (session.data?.session) {
-  //       throw redirect({
-  //         to: '/',
-  //       });
-  //     }
-  //   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   async function onSuccess(token: string) {
     window.localStorage.setItem('token', token);
 
-    window.location.href = '/';
+    navigate({ to: '/' });
   }
 
   return (
