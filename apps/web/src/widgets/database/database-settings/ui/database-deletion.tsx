@@ -1,7 +1,7 @@
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,17 +18,17 @@ import { Button } from 'ui/components/button';
 import { databaseQueries, deleteDatabase } from '@/entities/database';
 
 export function DatabaseDeletion() {
-  const { id } = useParams<{ id: string }>();
+  const { uuid } = useParams({ from: '/_authenticated/databases/$uuid' });
   const queryClient = useQueryClient();
   const [isDeleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   async function onDelete() {
     setDeleting(true);
-    await deleteDatabase(id);
-    navigate('/databases');
+    await deleteDatabase(uuid);
+    navigate({ to: '/databases' });
     setDeleting(false);
-    queryClient.removeQueries({ queryKey: databaseQueries.database(id) });
+    queryClient.removeQueries({ queryKey: databaseQueries.database(uuid) });
   }
 
   return (

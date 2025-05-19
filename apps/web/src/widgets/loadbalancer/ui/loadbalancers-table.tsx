@@ -1,8 +1,8 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { EllipsisIcon } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button, buttonVariants } from 'ui/components/button';
 import {
@@ -42,10 +42,14 @@ export function LoadbalancersTable() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link to={`${value.id}/virtances`}>Virtances</Link>
+                <Link to="/loadbalancers/$uuid/virtances" params={{ uuid: value.id }}>
+                  Virtances
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to={`${value.id}/settings`}>Settings</Link>
+                <Link to="/loadbalancers/$uuid/settings" params={{ uuid: value.id }}>
+                  Settings
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -62,7 +66,8 @@ export function LoadbalancersTable() {
         component: ({ value }) => (
           <Link
             className="hover:text-ring font-semibold"
-            to={`/loadbalancers/${value.id}`}
+            to="/loadbalancers/$uuid"
+            params={{ uuid: value.id }}
           >
             {value.name}
           </Link>

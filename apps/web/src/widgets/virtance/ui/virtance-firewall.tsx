@@ -1,5 +1,5 @@
 import ShieldCheckIcon from '@heroicons/react/20/solid/ShieldCheckIcon';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { buttonVariants } from 'ui/components/button';
 import { cx } from 'ui/lib';
 
@@ -19,7 +19,8 @@ export function VirtanceFirewall({ id }: { id: number }) {
       {firewall ? (
         <div className="space-y-8">
           <Link
-            to={`/firewalls/${firewall.uuid}`}
+            to="/firewalls/$uuid"
+            params={{ uuid: firewall.uuid }}
             className={cx(buttonVariants({ variant: 'outline' }), 'min-w-32')}
           >
             <ShieldCheckIcon className="mr-1 h-4 w-4" />

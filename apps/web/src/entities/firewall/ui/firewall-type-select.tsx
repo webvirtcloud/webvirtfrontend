@@ -1,4 +1,5 @@
 import { type ChangeEvent } from 'react';
+import { SelectNative } from 'ui/components/select-native';
 
 export const InboundTypeOptions = [
   'SSH',
@@ -26,17 +27,17 @@ export function FirewallTypeSelect({
   options,
 }: FirewallTypeSelectProps) {
   return (
-    <select
+    <SelectNative
       value={value}
       disabled={disabled}
       onChange={onTypeValueChange}
-      className="border-border/70 bg-muted/50 h-8 rounded-lg border py-1 text-sm"
+      className="min-w-28"
     >
       {options.map((option) => (
         <option key={option} value={option}>
           {option}
         </option>
       ))}
-    </select>
+    </SelectNative>
   );
 }

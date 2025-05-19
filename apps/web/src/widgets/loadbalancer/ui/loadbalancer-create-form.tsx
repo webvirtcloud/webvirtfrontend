@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
@@ -137,7 +137,7 @@ export function LoadbalancerCreateForm() {
     try {
       await createLoadbalancer({ ...data, sticky_sessions: data.sticky_sessions ?? {} });
 
-      navigate('/loadbalancers');
+      navigate({ to: '/loadbalancers' });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 

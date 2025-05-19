@@ -91,7 +91,6 @@ export function VirtancesList() {
             <li key={virtance.id}>
               {
                 <VirtanceCard
-                  to={`/virtances/${virtance.id}`}
                   virtance={virtance}
                   actions={
                     <>

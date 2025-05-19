@@ -1,6 +1,6 @@
 import XMarkIcon from '@heroicons/react/20/solid/XMarkIcon';
+import { Link, useLocation } from '@tanstack/react-router';
 import { HTMLAttributes, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Button, buttonVariants } from 'ui/components/button';
 import { cx } from 'ui/lib';
 
@@ -65,20 +65,13 @@ export function Sidebar({ className }: HTMLAttributes<HTMLDivElement>) {
 
               return (
                 <li key={link.name}>
-                  <NavLink
+                  <Link
                     to={link.to}
-                    className={({ isActive }) =>
-                      cx([
-                        'inline-flex w-full items-center space-x-2 rounded-md px-2 py-2 font-medium transition-opacity',
-                        isActive
-                          ? 'bg-primary/5 [&>svg]:text-foreground'
-                          : 'hover:bg-primary/10 [&>svg]:text-muted-foreground',
-                      ])
-                    }
+                    className="[&.active]:bg-primary/5 [&.active>svg]:text-foreground hover:bg-primary/10 [&>svg]:text-muted-foreground inline-flex w-full items-center space-x-2 rounded-md px-2 py-2 font-medium transition-opacity"
                   >
                     <Icon width={18} height={18} />
                     <span>{link.name}</span>
-                  </NavLink>
+                  </Link>
                 </li>
               );
             })}

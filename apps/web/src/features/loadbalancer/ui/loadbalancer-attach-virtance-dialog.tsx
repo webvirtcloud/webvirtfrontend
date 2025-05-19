@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Checkbox } from 'ui/components/checkbox';
@@ -37,13 +37,10 @@ export function LoadbalancerAttachVirtanceDialog({
   region?: string;
   attachedVirtancesIds?: number[];
 }) {
-  const { id } = useParams<{ id: string }>();
+  const { uuid } = useParams({ from: '/_authenticated/loadbalancers/$uuid' });
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
-  const { data: virtances, isFetching } = useVirtances(
-    { region },
-    { enabled: () => open },
-  );
+  const { data: virtances } = useVirtances({ region }, { enabled: () => open });
 
   const { setValue, getValues, reset, watch, handleSubmit } = useForm<Form>({
     resolver: zodResolver(schema),
@@ -56,13 +53,12 @@ export function LoadbalancerAttachVirtanceDialog({
 
   const submit = handleSubmit(async (values) => {
     try {
-      if (!id) return;
-      await attachVirtanceToLoadbalancer(id, values.ids);
+      await attachVirtanceToLoadbalancer(uuid, values.ids);
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.loadbalancer(id),
+        queryKey: loadbalancerQueries.loadbalancer(uuid),
       });
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.virtances(id),
+        queryKey: loadbalancerQueries.virtances(uuid),
       });
       setOpen(false);
       toast.success('Virtance(s) added to loadbalancer');
@@ -86,9 +82,9 @@ export function LoadbalancerAttachVirtanceDialog({
     }
   });
 
-  function onCheckedChange(checked: boolean, id: string) {
+  function onCheckedChange(checked: boolean | 'indeterminate', id: number) {
     const value = getValues();
-    if (checked) {
+    if (typeof checked === 'boolean' && checked) {
       setValue('ids', [...value.ids, id]);
     } else {
       setValue(

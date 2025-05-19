@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { Region } from '@/entities/region';
@@ -76,7 +76,7 @@ export default function VirtanceCreateForm({
           : {}),
         ...(data.userdata ? { userdata: data.userdata } : {}),
       });
-      navigate('/');
+      navigate({ to: '/' });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 

@@ -1,12 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
+import { SelectNative } from 'ui/components/select-native';
 import { z } from 'zod';
 
 import {
@@ -57,13 +58,14 @@ type Form = z.infer<typeof schema>;
 export function LoadbalancerHealthCheck() {
   const [expanded, setExpanded] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  const { id } = useParams<{ id: string }>();
-  const { data: loadbalancer } = useLoadbalancer(id);
+  const { uuid } = useParams({ from: '/_authenticated/loadbalancers/$uuid' });
+  const { data: loadbalancer } = useLoadbalancer(uuid);
   const {
     reset,
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<Form>({
     resolver: zodResolver(schema),
@@ -79,10 +81,9 @@ export function LoadbalancerHealthCheck() {
 
   const submit = handleSubmit(async (data) => {
     try {
-      if (!id) return;
-      await updateLoadbalancer(id, data);
+      await updateLoadbalancer(uuid, data);
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.loadbalancer(id),
+        queryKey: loadbalancerQueries.loadbalancer(uuid),
       });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
@@ -122,16 +123,22 @@ export function LoadbalancerHealthCheck() {
           <div className="mb-4 grid gap-4 md:max-w-prose md:grid-cols-4">
             <div className="space-y-1">
               <Label htmlFor="health-check-protocol">Protocol</Label>
-              <select
-                id="health-check-protocol"
-                {...register('health_check.protocol')}
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-              >
-                <option disabled>Protocol</option>
-                <option value="tcp">TCP</option>
-                <option value="http">HTTP</option>
-                <option value="https">HTTPS</option>
-              </select>
+              <Controller
+                control={control}
+                name="health_check.protocol"
+                render={({ field }) => (
+                  <SelectNative
+                    id="health-check-protocol"
+                    {...field}
+                    className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
+                  >
+                    <option disabled>Protocol</option>
+                    <option value="tcp">TCP</option>
+                    <option value="http">HTTP</option>
+                    <option value="https">HTTPS</option>
+                  </SelectNative>
+                )}
+              />
             </div>
             <div className="space-y-1">
               <Label htmlFor="health-check-port">Port</Label>

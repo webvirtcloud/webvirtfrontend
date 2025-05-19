@@ -1,6 +1,6 @@
+import { Link } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Table } from 'ui/components/table';
@@ -85,7 +85,11 @@ export const FirewallsTable = () => {
       name: 'Name',
       component: ({ value }) => {
         return (
-          <Link className="font-medium" to={`/firewalls/${value.uuid}`}>
+          <Link
+            className="font-medium"
+            to="/firewalls/$uuid"
+            params={{ uuid: value.uuid }}
+          >
             {value.name}
           </Link>
         );

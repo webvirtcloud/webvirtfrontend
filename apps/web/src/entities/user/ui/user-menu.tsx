@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import {
   LucideChevronsUpDown,
   LucideCreditCard,
@@ -5,7 +6,6 @@ import {
   LucideLogOut,
   LucideSettings,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import {
   DropdownMenu,

@@ -1,8 +1,8 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { EllipsisIcon } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button, buttonVariants } from 'ui/components/button';
 import {
@@ -88,10 +88,14 @@ export function DatabasesList() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link to={`/databases/${value.id}/backups`}>Backups</Link>
+                <Link to="/databases/$uuid/backups" params={{ uuid: value.id }}>
+                  Backups
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to={`/databases/${value.id}/settings`}>Settings</Link>
+                <Link to="/databases/$uuid/settings" params={{ uuid: value.id }}>
+                  Settings
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -126,7 +130,8 @@ export function DatabasesList() {
                 <div className="flex items-center gap-1.5">
                   <Link
                     className="text-highlight decoration-highlight/50 hover:decoration-highlight font-medium underline underline-offset-4"
-                    to={`/databases/${value.id}`}
+                    to="/databases/$uuid"
+                    params={{ uuid: value.id }}
                   >
                     {value.name}
                   </Link>

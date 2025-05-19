@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { SelectNative } from 'ui/components/select-native';
 import { cx } from 'ui/lib';
 
 import type { Distribution } from '@/entities/image';
@@ -37,6 +38,13 @@ export function DistributionCard({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onDistributionChange(distribution);
+        }
+      }}
       onClick={() => onDistributionChange(distribution)}
       className={cx([
         'flex w-full justify-between gap-4 rounded-md border p-4',
@@ -70,7 +78,7 @@ export function DistributionCard({
                   name="image"
                   control={control}
                   render={({ field }) => (
-                    <select
+                    <SelectNative
                       value={
                         distribution.images.some((i) => i.slug === field.value.id)
                           ? field.value.id
@@ -84,7 +92,7 @@ export function DistributionCard({
                         e.preventDefault();
                         handleImageChange(e);
                       }}
-                      className="bg-muted/50 border-border/70 h-8 min-w-[150px] rounded-md border py-1 text-sm"
+                      className="min-w-[150px]"
                     >
                       <option value={''} disabled>
                         Select version
@@ -98,7 +106,7 @@ export function DistributionCard({
                           {image.name}
                         </option>
                       ))}
-                    </select>
+                    </SelectNative>
                   )}
                 />
               </div>

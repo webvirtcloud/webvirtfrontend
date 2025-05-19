@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Input } from 'ui/components/input';
 import { Label } from 'ui/components/label';
+import { SelectNative } from 'ui/components/select-native';
 
 export function LoadbalancerHealthCheck() {
   const {
@@ -9,6 +10,7 @@ export function LoadbalancerHealthCheck() {
     unregister,
     watch,
     setValue,
+    control,
     formState: { errors },
   } = useFormContext<{
     healthcheck: {
@@ -45,16 +47,22 @@ export function LoadbalancerHealthCheck() {
       <div className="mb-4 grid gap-4 md:max-w-2xl md:grid-cols-4">
         <div className="space-y-1">
           <Label htmlFor="health-check-protocol">Protocol</Label>
-          <select
-            id="health-check-protocol"
-            {...register('healthcheck.protocol')}
-            className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-          >
-            <option disabled>Protocol</option>
-            <option value="tcp">TCP</option>
-            <option value="http">HTTP</option>
-            <option value="https">HTTPS</option>
-          </select>
+          <Controller
+            control={control}
+            name="healthcheck.protocol"
+            render={({ field }) => (
+              <SelectNative
+                id="health-check-protocol"
+                {...field}
+                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
+              >
+                <option disabled>Protocol</option>
+                <option value="tcp">TCP</option>
+                <option value="http">HTTP</option>
+                <option value="https">HTTPS</option>
+              </SelectNative>
+            )}
+          />
         </div>
         <div className="space-y-1">
           <Label htmlFor="health-check-port">Port</Label>

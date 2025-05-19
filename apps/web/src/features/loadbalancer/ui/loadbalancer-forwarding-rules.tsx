@@ -5,9 +5,10 @@ import {
   Trash2Icon,
 } from 'lucide-react';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 import { Input } from 'ui/components/input';
+import { SelectNative } from 'ui/components/select-native';
 
 function LoadbalancerForwardingRule({
   index,
@@ -22,6 +23,7 @@ function LoadbalancerForwardingRule({
     register,
     watch,
     setValue,
+    control,
     formState: { errors },
   } = useFormContext();
 
@@ -54,18 +56,20 @@ function LoadbalancerForwardingRule({
   return (
     <tr className="align-top">
       <td className="p-2 pl-3">
-        <select
-          id={`forwarding_rules.${index}.entry_protocol`}
-          {...register(`forwarding_rules.${index}.entry_protocol`)}
-          className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-        >
-          <option value="http3">HTTP3</option>
-          <option value="http2">HTTP2</option>
-          <option value="https">HTTPS</option>
-          <option value="http">HTTP</option>
-          <option value="tcp">TCP</option>
-          <option value="udp">UDP</option>
-        </select>
+        <Controller
+          control={control}
+          name={`forwarding_rules.${index}.entry_protocol`}
+          render={({ field }) => (
+            <SelectNative id={`forwarding_rules.${index}.entry_protocol`} {...field}>
+              <option value="http3">HTTP3</option>
+              <option value="http2">HTTP2</option>
+              <option value="https">HTTPS</option>
+              <option value="http">HTTP</option>
+              <option value="tcp">TCP</option>
+              <option value="udp">UDP</option>
+            </SelectNative>
+          )}
+        />
       </td>
       <td className="p-2">
         {/* <span className="text-sm font-medium leading-none">Certificate</span> */}
@@ -102,17 +106,23 @@ function LoadbalancerForwardingRule({
       </td>
       <td className="p-2">
         {/* <Label htmlFor={`forwarding_rules.${index}.target_protocol`}>Protocol</Label> */}
-        <select
-          {...register(`forwarding_rules.${index}.target_protocol`)}
-          className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-          disabled={targetProtocolOptions.length === 1}
-        >
-          {targetProtocolOptions.map((option) => (
-            <option key={option} value={option}>
-              {option.toUpperCase()}
-            </option>
-          ))}
-        </select>
+        <Controller
+          control={control}
+          name={`forwarding_rules.${index}.target_protocol`}
+          render={({ field }) => (
+            <SelectNative
+              {...field}
+              disabled={targetProtocolOptions.length === 1}
+              id={`forwarding_rules.${index}.target_protocol`}
+            >
+              {targetProtocolOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option.toUpperCase()}
+                </option>
+              ))}
+            </SelectNative>
+          )}
+        />
       </td>
       <td className="p-2">
         <div className="flex items-center">
@@ -166,7 +176,7 @@ export function LoadbalancerForwardingRules() {
   return (
     <div className="overflow-x-auto rounded-lg border text-sm">
       <table className="w-full table-fixed border-collapse rounded-lg border-hidden">
-        <thead className="">
+        <thead>
           <tr className="bg-muted border">
             <th className="p-2 pl-3 text-start" colSpan={3}>
               Load balancer
@@ -188,11 +198,7 @@ export function LoadbalancerForwardingRules() {
           ))}
           <tr>
             <td className="p-2 pl-3">
-              <select
-                className="border-border h-10 w-full rounded-md border bg-transparent shadow-sm"
-                value={createSelectValue}
-                onChange={addNewField}
-              >
+              <SelectNative value={createSelectValue} onChange={addNewField}>
                 <option disabled value="default">
                   New rule
                 </option>
@@ -202,7 +208,7 @@ export function LoadbalancerForwardingRules() {
                 <option value="http">HTTP</option>
                 <option value="tcp">TCP</option>
                 <option value="udp">UDP</option>
-              </select>
+              </SelectNative>
             </td>
             <td className="p-2"></td>
             <td className="p-2"></td>

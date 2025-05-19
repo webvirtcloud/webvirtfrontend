@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 
@@ -53,7 +53,7 @@ export function DatabaseCreateForm() {
         region: data.region,
         backups_enabled: data.backups_enabled ?? false,
       });
-      navigate('/databases');
+      navigate({ to: '/databases' });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();
 

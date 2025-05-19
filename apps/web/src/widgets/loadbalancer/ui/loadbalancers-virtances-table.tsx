@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { Link, useParams } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { EllipsisIcon } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import {
@@ -23,21 +23,20 @@ import { LoadbalancerAttachVirtanceDialog } from '@/features/loadbalancer';
 import { State } from '@/shared/ui/state';
 
 export function LoadbalancersVirtancesTable() {
-  const { id } = useParams();
+  const { uuid } = useParams({ from: '/_authenticated/loadbalancers/$uuid' });
   const queryClient = useQueryClient();
-  const { data: loadbalancer } = useLoadbalancer(id);
+  const { data: loadbalancer } = useLoadbalancer(uuid);
   const isLoadbalancerBusy = useIsLoadbalancerBusy(loadbalancer);
-  const { data: virtances, error } = useLoadbalancerVirtances(id);
+  const { data: virtances, error } = useLoadbalancerVirtances(uuid);
 
   async function onDetach(virtanceId: number) {
     try {
-      if (!id) return;
-      await detachVirtanceFromLoadbalancer(id, [virtanceId]);
+      await detachVirtanceFromLoadbalancer(uuid, [virtanceId]);
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.loadbalancer(id),
+        queryKey: loadbalancerQueries.loadbalancer(uuid),
       });
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.virtances(id),
+        queryKey: loadbalancerQueries.virtances(uuid),
       });
       toast.success('Virtance detached successfully.');
     } catch (e) {
@@ -71,7 +70,8 @@ export function LoadbalancersVirtancesTable() {
       component: ({ value }) => (
         <Link
           className="hover:text-ring inline-flex items-center gap-2 font-semibold"
-          to={`/virtances/${value.id}`}
+          to="/virtances/$id"
+          params={{ id: value.id }}
         >
           <img
             className="h-8 w-8"

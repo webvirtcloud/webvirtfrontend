@@ -16,12 +16,12 @@ import {
 import { State } from '@/shared/ui/state';
 
 export function DatabaseSnapshotsTable({
-  databaseId,
+  databaseUUID,
   snapshots,
   runAction,
   error,
 }: {
-  databaseId: string | undefined;
+  databaseUUID: string | undefined;
   snapshots: Snapshot[] | undefined;
   runAction: (type: ActionType) => Promise<void>;
   error: any;
@@ -32,9 +32,10 @@ export function DatabaseSnapshotsTable({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const onRestore = async (id: number) => {
-    databaseId && (await runAction({ action: 'restore', uuid: databaseId, image: id }));
+    databaseUUID &&
+      (await runAction({ action: 'restore', uuid: databaseUUID, image: id }));
     await queryClient.invalidateQueries({
-      queryKey: databaseQueries.database(databaseId || ''),
+      queryKey: databaseQueries.database(databaseUUID || ''),
     });
     toast.success('The task to restore a snapshot has been started.');
   };
@@ -42,7 +43,7 @@ export function DatabaseSnapshotsTable({
   const onDelete = async (id: number) => {
     await deleteImage(id);
     await queryClient.invalidateQueries({
-      queryKey: databaseQueries.database(databaseId || ''),
+      queryKey: databaseQueries.database(databaseUUID || ''),
     });
     toast.success('The task to delete a snapshot has been started.');
   };

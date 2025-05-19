@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
+import { SelectNative } from 'ui/components/select-native';
 
 import {
   type FirewallInboundRule,
@@ -161,24 +162,28 @@ export function FirewallRule({
       </td>
       <td className="px-4 py-2.5">
         {isEditor && type === 'Custom' ? (
-          <select
-            {...(register('protocol'),
-            {
-              onChange: (e) => {
-                if (e.target.value === 'icmp') {
-                  resetField('ports', { defaultValue: '' });
-                }
-                setValue('protocol', e.target.value);
-              },
-            })}
-            className="bg-muted h-8 rounded-lg border py-1 text-sm"
-          >
-            {['tcp', 'udp', 'icmp'].map((option) => (
-              <option key={option} value={option}>
-                {option.toUpperCase()}
-              </option>
-            ))}
-          </select>
+          <Controller
+            control={control}
+            name="protocol"
+            render={({ field }) => (
+              <SelectNative
+                {...field}
+                onChange={(e) => {
+                  if (e.target.value === 'icmp') {
+                    resetField('ports', { defaultValue: '' });
+                  }
+                  setValue('protocol', e.target.value);
+                }}
+                className="min-w-24"
+              >
+                {['tcp', 'udp', 'icmp'].map((option) => (
+                  <option key={option} value={option}>
+                    {option.toUpperCase()}
+                  </option>
+                ))}
+              </SelectNative>
+            )}
+          />
         ) : (
           protocol?.toUpperCase()
         )}
@@ -247,21 +252,21 @@ export function FirewallRule({
         <div className="flex justify-end gap-2">
           {isEditor ? (
             <>
-              <Button variant="default" onClick={handleSaveRule}>
+              <Button size={'sm'} variant="default" onClick={handleSaveRule}>
                 Save
               </Button>
               {!alwaysEditor && (
-                <Button variant="destructive" onClick={cancelEdit}>
+                <Button size={'sm'} variant="destructive" onClick={cancelEdit}>
                   Cancel
                 </Button>
               )}
             </>
           ) : (
             <>
-              <Button variant="outline" onClick={startEdit}>
+              <Button size={'sm'} variant="outline" onClick={startEdit}>
                 Edit
               </Button>
-              <Button onClick={handleDelete} variant="destructive">
+              <Button size={'sm'} onClick={handleDelete} variant="destructive">
                 Delete
               </Button>
             </>

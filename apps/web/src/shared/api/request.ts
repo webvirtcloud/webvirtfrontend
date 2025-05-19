@@ -24,11 +24,12 @@ const request = ky.create({
         if (response.status === 401) {
           window.localStorage.removeItem('token');
 
-          window.location.href = '/sign-in';
+          window.location.href = '/login';
         }
       },
     ],
   },
+  retry: 0,
 });
 
 export default request;

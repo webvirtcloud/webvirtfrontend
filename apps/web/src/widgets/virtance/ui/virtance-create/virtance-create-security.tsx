@@ -1,5 +1,5 @@
+import { Link } from '@tanstack/react-router';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { Button, buttonVariants } from 'ui/components/button';
 import { Input } from 'ui/components/input';
 import { cx } from 'ui/lib';

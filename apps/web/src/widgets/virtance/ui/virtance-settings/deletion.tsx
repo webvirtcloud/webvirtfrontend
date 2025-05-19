@@ -1,7 +1,7 @@
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,7 +25,7 @@ export function Deletion({ id }: { id: number }) {
   async function onDelete() {
     setDeleting(true);
     await deleteVirtance(Number(id));
-    navigate('/');
+    navigate({ to: '/' });
     setDeleting(false);
     queryClient.removeQueries({ queryKey: virtanceQueries.one(Number(id)) });
   }

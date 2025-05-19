@@ -1,6 +1,6 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
@@ -209,7 +209,8 @@ export function FloatingIpsTable() {
       component: ({ value }) => {
         return value.virtance ? (
           <Link
-            to={`/virtances/${value.virtance.id}`}
+            to="/virtances/$id"
+            params={{ id: value.virtance.id }}
             className="font-medium text-sky-500"
           >
             {value.virtance.name}

@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { useCopyToClipboard } from '@uidotdev/usehooks';
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
 import {
@@ -6,7 +7,6 @@ import {
   LucideMapPinHouse,
 } from 'lucide-react';
 import { type ReactNode, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { StatusDot } from 'ui/components/status-dot';
@@ -15,12 +15,11 @@ import { type Virtance } from '@/entities/virtance';
 import { formatMemorySize } from '@/shared/lib';
 
 type Props = {
-  to: string;
   virtance: Virtance;
   actions?: ReactNode;
 };
 
-export function VirtanceCard({ virtance, to, actions }: Props) {
+export function VirtanceCard({ virtance, actions }: Props) {
   const [_, copyToClipboard] = useCopyToClipboard();
 
   const getIpAddress = () =>
@@ -100,7 +99,11 @@ export function VirtanceCard({ virtance, to, actions }: Props) {
         </span>
       </div>
 
-      <Link to={to} className="absolute inset-0 z-[1]" />
+      <Link
+        to="/virtances/$id"
+        params={{ id: virtance.id }}
+        className="absolute inset-0 z-[1]"
+      />
     </div>
   );
 }

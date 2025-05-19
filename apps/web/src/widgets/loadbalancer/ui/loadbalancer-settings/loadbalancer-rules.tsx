@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { z } from 'zod';
@@ -59,8 +59,8 @@ type Form = z.infer<typeof schema>;
 export function LoadbalancerRules() {
   const [expanded, setExpanded] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  const { id } = useParams<{ id: string }>();
-  const { data: loadbalancer } = useLoadbalancer(id);
+  const { uuid } = useParams({ from: '/_authenticated/loadbalancers/$uuid' });
+  const { data: loadbalancer } = useLoadbalancer(uuid);
   const form = useForm<Form>({
     resolver: zodResolver(schema),
   });
@@ -73,10 +73,9 @@ export function LoadbalancerRules() {
 
   const submit = form.handleSubmit(async (data) => {
     try {
-      if (!id) return;
-      await updateLoadbalancerRules(id, data);
+      await updateLoadbalancerRules(uuid, data);
       await queryClient.invalidateQueries({
-        queryKey: loadbalancerQueries.loadbalancer(id),
+        queryKey: loadbalancerQueries.loadbalancer(uuid),
       });
     } catch (e) {
       const { errors, message, status_code } = await e.response.json();

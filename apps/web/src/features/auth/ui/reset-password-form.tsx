@@ -1,5 +1,5 @@
+import { Link } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
 import { Input } from 'ui/components/input';
@@ -18,9 +18,7 @@ export function ResetPasswordForm() {
   } = useForm<IFormInputs>();
 
   function onSubmit(data: IFormInputs) {
-    try {
-      resetPassword(data);
-    } catch (error) {}
+    resetPassword(data);
   }
 
   return (
@@ -48,7 +46,7 @@ export function ResetPasswordForm() {
       </form>
       <p className="text-muted-foreground mt-4 text-center">
         Or try to{' '}
-        <Link className="font-medium text-sky-500" to="/sign-in">
+        <Link className="text-highlight font-medium" to="/login">
           Sign in
         </Link>{' '}
         again

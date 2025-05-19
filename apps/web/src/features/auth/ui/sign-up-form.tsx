@@ -1,5 +1,5 @@
+import { Link } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Error } from 'ui/components/error';
@@ -77,7 +77,7 @@ export function SignUpForm({ onSuccess }: Props) {
       </form>
       <p className="text-muted-foreground mt-4 text-center">
         Already have an account?{' '}
-        <Link className="font-medium text-sky-500" to="/sign-in">
+        <Link className="text-highlight font-medium" to="/login">
           Sign In
         </Link>
       </p>

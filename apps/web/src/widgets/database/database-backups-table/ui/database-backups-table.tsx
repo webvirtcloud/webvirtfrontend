@@ -1,6 +1,6 @@
+import { useParams } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { type FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button } from 'ui/components/button';
 import { Spin } from 'ui/components/spin';
@@ -16,9 +16,8 @@ import {
 import { State } from '@/shared/ui/state';
 
 export function DatabaseBackupsTable() {
-  const params = useParams();
-  const { id } = params;
-  const { data: database } = useDatabase(id!);
+  const { uuid } = useParams({ from: '/_authenticated/databases/$uuid' });
+  const { data: database } = useDatabase(uuid);
   const { runAction } = useDatabaseAction();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isBackupsEnabled = database?.backups_enabled;
@@ -28,7 +27,7 @@ export function DatabaseBackupsTable() {
 
   const isBusy = database?.status === 'pending';
 
-  const { data, refetch, error } = useDatabaseBackups(id!, {
+  const { data, refetch, error } = useDatabaseBackups(uuid, {
     enabled: !!isBackupsEnabled,
   });
 
@@ -52,7 +51,7 @@ export function DatabaseBackupsTable() {
       setIsSubmitting(true);
       await runAction({
         action: isBackupsEnabled ? 'disable_backups' : 'enable_backups',
-        uuid: id!,
+        uuid,
       });
     } catch (e) {
       const { message } = await e.response.json();
