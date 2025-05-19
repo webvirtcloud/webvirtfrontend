@@ -16,7 +16,7 @@ interface Props {
   onSuccess: (token: string) => void;
 }
 
-export function SignInForm({ onSuccess }: Props) {
+export function LoginForm({ onSuccess }: Props) {
   const {
     register,
     handleSubmit,
@@ -31,6 +31,7 @@ export function SignInForm({ onSuccess }: Props) {
       onSuccess(token);
     } catch (e) {
       const { message } = await e.response.json();
+      console.log(message);
       setError('root', { message: 'Bad request' });
       toast.error('Bad request', { description: message });
     }

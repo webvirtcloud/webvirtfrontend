@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 
-import { SignUpForm } from '@/features/auth';
+import { RegisterForm } from '@/features/auth';
 
 export const Route = createFileRoute('/(auth)/register')({
   component: RouteComponent,
@@ -18,7 +18,7 @@ function RouteComponent() {
   return (
     <>
       <h1 className="mb-8 text-center text-2xl font-medium">Create an account</h1>
-      <SignUpForm onSuccess={onSuccess} />
+      <RegisterForm onSuccess={onSuccess} />
     </>
   );
 }

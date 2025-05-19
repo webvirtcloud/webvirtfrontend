@@ -16,7 +16,7 @@ interface Props {
   onSuccess: (token: string) => void;
 }
 
-export function SignUpForm({ onSuccess }: Props) {
+export function RegisterForm({ onSuccess }: Props) {
   const {
     register,
     handleSubmit,
